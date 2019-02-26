@@ -67,7 +67,7 @@ public class Usuarios {
 					
 			}
 			if(valido) {
-				JOptionPane.showMessageDialog(null, "Loooooogin realizado com sucesso, Empresa "+ this.nome, "Entrou", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Login realizado com sucesso, Empresa "+ this.nome, "Entrou", JOptionPane.INFORMATION_MESSAGE);
 				System.exit(0);
 			}else
 				JOptionPane.showMessageDialog(null, "Usuário ou senha inválido", "ERRO", JOptionPane.ERROR_MESSAGE);
