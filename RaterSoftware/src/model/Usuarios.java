@@ -70,7 +70,7 @@ public class Usuarios {
 				JOptionPane.showMessageDialog(null, "Login realizado com sucesso, Empresa "+ this.nome, "Entrou", JOptionPane.INFORMATION_MESSAGE);
 				System.exit(0);
 			}else
-				JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "ERRO", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Usuário ou senha inválido", "ERRO", JOptionPane.ERROR_MESSAGE);
 		}catch(SQLException e) {
 			System.out.println(e);
 		}catch(Exception e) {
