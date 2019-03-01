@@ -1,6 +1,7 @@
 package model;
 import java.sql.*;
-import javax.swing.JOptionPane;
+
+
 public class Usuarios {
 	//VARIÁVEIS
 	private String email;
@@ -22,7 +23,7 @@ public class Usuarios {
 			Class.forName("com.mysql.jdbc.Driver");  
 			//estabelecer conexão com banco
 			con=DriverManager.getConnection(  
-					"jdbc:mysql://localhost/empresa","root","");
+					"jdbc:mysql://localhost/RATER","root","");
 			
 			//informar conexao
 			if(con != null)
@@ -35,25 +36,25 @@ public class Usuarios {
 	/* =============================================================================
 	login	()
 	============================================================================= */ 
-	public void login (String emailTxt, char[] senhaTxt) {
-		String sql = "SELECT * FROM adm";
+	public int login (String emailTxt, String senhaTxt) {
+		String sql = "SELECT * FROM EMPRESA";
 		String nome = "", email = "", senha = "", cnpj="";
-		boolean valido = false;
+		int status=0;
+		int valido = 0;
 	//tentar conexão
 		try(Connection conn = this.connect();
 				Statement stmt  = conn.createStatement();
 				ResultSet rs    = stmt.executeQuery(sql)){
 		//buscar email e senha
 			while(rs.next()) {
-				email = rs.getString("emailEmpresa");
-				senha = rs.getString("senha");
-				nome = rs.getString("nomeEmpresa");
-				cnpj = rs.getString("CNPJ");
-			//converte password
-				String senhaC = new String(senhaTxt);
+				email = rs.getString("EMAIL");
+				senha = rs.getString("SENHA");
+				nome = rs.getString("NOME");
+				cnpj = rs.getString("FOTO");
+				status = rs.getInt("EMAIL_VALIDO");
 				// verificar email e senha
-					if(emailTxt.equals(email) && senhaC.equals(senha)) {
-						valido = true;
+					if(emailTxt.equals(email) && senhaTxt.equals(senha)) {
+						valido = 1;
 						this.email = email;
 						this.nome = nome;
 						this.senha = senha;
@@ -62,22 +63,29 @@ public class Usuarios {
 						emp.setCnpj(cnpj);
 						break;
 					}else {
-						valido = false;
+						valido = 0;
 					}
 					
 			}
-			if(valido) {
-
-				JOptionPane.showMessageDialog(null, "Login realizado com sucesso, Empresa "+ this.nome, "Entrou", JOptionPane.INFORMATION_MESSAGE);
-
-				System.exit(0);
-			}else
-				JOptionPane.showMessageDialog(null, "Usuário ou senha inválido", "ERRO", JOptionPane.ERROR_MESSAGE);
+			/* valido = 0 -> Usuario e senha invalidos
+			 * valido = 1 -> pode logar
+			 * valido = 2 -> deve confirmar email
+			 * */
+			if(valido == 1) {
+				if(status == 1) { 
+					valido = 1;
+				}else {
+					valido = 2;
+				}
+			}else {
+				valido = 0;
+			}
 		}catch(SQLException e) {
 			System.out.println(e);
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+		return valido;
 	}
 	
 	public void acessarEntrevista() {
