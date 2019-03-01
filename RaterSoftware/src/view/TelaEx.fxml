@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TelaExController">
+   <children>
+      <HBox prefHeight="423.0" prefWidth="550.0">
+         <children>
+            <Pane prefHeight="412.0" prefWidth="287.0" style="-fx-background-color: rgb(52,99,167);">
+               <children>
+                  <ImageView fitHeight="231.0" fitWidth="227.0" layoutX="29.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/Logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="408.0" prefWidth="267.0">
+               <children>
+                  <Button layoutX="18.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#clicar" prefHeight="50.0" prefWidth="100.0" text="Entrar" />
+                  <TextField fx:id="txtEmail" layoutX="99.0" layoutY="155.0" />
+                  <PasswordField fx:id="txtSenha" layoutX="99.0" layoutY="215.0" />
+                  <Label layoutX="18.0" layoutY="157.0" text="Email">
+                     <font>
+                        <Font name="Yu Gothic UI Semilight" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="16.0" layoutY="217.0" text="Senha">
+                     <font>
+                        <Font name="Yu Gothic UI Semilight" size="14.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink layoutX="9.0" layoutY="272.0" text="Esqueci minha senha" />
+                  <Label layoutX="18.0" layoutY="42.0" text="Seja bem vindo ao RATER" textAlignment="CENTER" textFill="#113f90">
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblErro" layoutX="96.0" layoutY="248.0" textFill="#f20000" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
