@@ -31,19 +31,28 @@ public class MenuController extends Application{
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
+		//Criar loader pegando o fxml como parametro
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Menu.fxml"));
+		//criar root para carregar o loader
         Parent root = loader.load();
+        //colocar titulo da janela
         stage.setTitle("RATER - Menu");
-        stage.initStyle(StageStyle.DECORATED);
+        //definir janela como não decorada (sem os botoes -, x)
+        stage.initStyle(StageStyle.UNDECORATED);
+        //definir como tamanho da janela
         stage.sizeToScene();
+        //não deixar maximizar a tela
         stage.setResizable(false);
+        //colocar a nova janela
         stage.setScene(new Scene(root));
-        stage.centerOnScreen();
+        //exibir a janela
         stage.show();
+        //colocar a janela no meio
         javafx.geometry.Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
 	}
+	
 
 	
 }

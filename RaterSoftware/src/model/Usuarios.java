@@ -55,10 +55,12 @@ public class Usuarios {
 				// verificar email e senha
 					if(emailTxt.equals(email) && senhaTxt.equals(senha)) {
 						valido = 1;
+						//passar valores para classe
 						this.email = email;
 						this.nome = nome;
 						this.senha = senha;
 						this.setEmpresa(true);
+						//instanciar classe empresa
 						Empresa emp = new Empresa();
 						emp.setCnpj(cnpj);
 						break;
