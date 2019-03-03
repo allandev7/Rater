@@ -1,0 +1,7 @@
+
+.opcoes{
+	-fx-background-color: rgb(52,54,71);
+}
+ .opcoes:hover{
+	-fx-background-color: rgba(0,0,0,0.2);
+}

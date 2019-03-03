@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="220.0" style="-fx-background-color: rgb(52,54,71);">
+         <children>
+            <ImageView fitHeight="120.0" fitWidth="159.0" layoutX="14.0" layoutY="79.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/user.png" />
+               </image></ImageView>
+            <Label fx:id="lblNewEntrevista" layoutY="286.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: rgb(52,54,71);" styleClass="opcoes" stylesheets="@MenuCSS.css" text="        Nova Entrevista        " textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblGerenciarEntrevistas" layoutY="342.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: rgb(52,54,71);" styleClass="opcoes" stylesheets="@MenuCSS.css" text="    Gerenciar Entrevistas" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCriteriosAvaliacao" layoutY="399.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: rgb(52,54,71);" styleClass="opcoes" stylesheets="@MenuCSS.css" text="    Critérios de Avaliação   " textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblProgresso" layoutY="455.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: rgb(52,54,71);" styleClass="opcoes" stylesheets="@MenuCSS.css" text="            Progresso             " textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblEmpresa" layoutX="14.0" layoutY="199.0" prefHeight="19.0" prefWidth="120.0" style="-fx-background-color: rgb(52,54,71);" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="15.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="67.0" prefWidth="220.0" style="-fx-background-color: RGB(52,99,167);">
+               <children>
+                  <Label layoutX="25.0" layoutY="14.0" prefHeight="40.0" prefWidth="171.0" style="-fx-background-color: RGB(52,99,167);" styleClass="opcoes" stylesheets="@MenuCSS.css" text="Painel Administrador" textFill="WHITE">
+                     <font>
+                        <Font name="Tahoma" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="220.0" prefHeight="67.0" prefWidth="680.0" style="-fx-background-color: rgb(52,54,71);" />
+   </children>
+</AnchorPane>

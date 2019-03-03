@@ -1,5 +1,7 @@
 package view;
 
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import javafx.application.Application;
@@ -49,11 +51,14 @@ public class TelaExController extends Application{
 	}
 	
 	@FXML
-	public void clicar(MouseEvent event) {
+	public void clicar(MouseEvent event) throws IOException {
 		int login = empresa.login(txtEmail.getText(), txtSenha.getText());
 		if(login == 1) {
-			JOptionPane.showMessageDialog(null, "Tela menu");
-			System.exit(0);
+			MenuController tela2 = new MenuController();
+			Stage stage = new  Stage();
+			tela2.start(stage);
+			Stage agr = (Stage) txtEmail.getScene().getWindow();
+			agr.close();
 		}else if(login ==0) {
 			lblErro.setText("Usuário e/ou senha incorreto(s)");
 		}else {
