@@ -128,9 +128,9 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <ImageView fitHeight="55.0" fitWidth="58.0" layoutX="599.0" layoutY="6.0" pickOnBounds="true">
+            <ImageView fx:id="FotoPerfil" fitHeight="55.0" fitWidth="58.0" layoutX="599.0" layoutY="6.0" pickOnBounds="true">
                <image>
-                  <Image url="@../imagens/teste.png" />
+                  <Image url="@../imagens/placeholder%20para%20imageview.png" />
                </image>
                <effect>
                   <DropShadow color="#0000003a" />
@@ -144,12 +144,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label layoutX="473.0" layoutY="19.0" opacity="0.84" text="NomeEmpresa" textFill="WHITE">
+            <Label fx:id="NomeUsuario" layoutX="473.0" layoutY="19.0" opacity="0.84" text="NomeEmpresa" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="495.0" layoutY="40.0" opacity="0.84" text="Administrador" textFill="WHITE">
+            <Label fx:id="Funcao" layoutX="495.0" layoutY="40.0" opacity="0.84" text="Administrador" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="15.0" />
                </font>

@@ -1,21 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NovaEntrevistaController">
    <children>
-      <ImageView fitHeight="206.0" fitWidth="240.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="217.0" fitWidth="222.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../imagens/teste.png" />
+            <Image url="@../imagens/placeholder%20para%20imageview.png" />
          </image>
       </ImageView>
-      <TextField layoutX="268.0" layoutY="14.0" promptText="Nome.." />
-      <TextField layoutX="268.0" layoutY="61.0" promptText="E-mail.." />
-      <TextField layoutX="268.0" layoutY="105.0" promptText="CPF.." />
-      <DatePicker layoutX="268.0" layoutY="148.0" prefHeight="25.0" prefWidth="149.0" promptText="Data de nascimento" />
+      <Label layoutX="14.0" layoutY="128.0" prefHeight="103.0" prefWidth="217.0" styleClass="lblPerfil" stylesheets="@MenuCSS.css" text="         Carregar Foto" textFill="WHITE">
+         <font>
+            <Font name="Tahoma" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <TextField fx:id="txtEndereco" layoutX="59.0" layoutY="296.0" promptText="Endereço.." />
+      <TextField fx:id="txtTelefone" layoutX="59.0" layoutY="352.0" promptText="Telefone.." />
+      <ComboBox fx:id="cbCargos" layoutX="59.0" layoutY="475.0" onMouseClicked="#carregarCargos" prefHeight="25.0" prefWidth="149.0" />
+      <VBox layoutX="274.0" layoutY="14.0" prefHeight="163.0" prefWidth="406.0">
+         <children>
+            <Label text="Insira as informações do candidato:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtNome" prefHeight="25.0" prefWidth="388.0" promptText="Nome..">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="txtEmail" promptText="E-mail..">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="txtCpf" promptText="CPF..">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <Spinner fx:id="spnIdade" editable="true" layoutX="351.0" layoutY="199.0" onMouseClicked="#carregarSpinner" prefHeight="25.0" prefWidth="340.0" />
+      <Label layoutX="274.0" layoutY="197.0" prefHeight="28.0" prefWidth="188.0" text="Idade:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbEtnias" layoutX="351.0" layoutY="254.0" onMouseClicked="#carregarEtnias" prefHeight="25.0" prefWidth="343.0" />
+      <Label layoutX="274.0" layoutY="252.0" prefHeight="28.0" prefWidth="188.0" text="Etnia:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <VBox layoutX="274.0" layoutY="309.0" prefHeight="67.0" prefWidth="86.0">
+         <children>
+            <Label text="Gênero:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="rbMasculino" mnemonicParsing="false" selected="true" text="Masculino">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupo" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbFeminino" mnemonicParsing="false" text="Feminino" toggleGroup="$grupo" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
