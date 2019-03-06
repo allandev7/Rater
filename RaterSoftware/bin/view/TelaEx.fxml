@@ -1,48 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TelaExController">
+<AnchorPane fx:id="anchorPane" prefHeight="420.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TelaExController">
    <children>
       <HBox prefHeight="423.0" prefWidth="550.0">
          <children>
-            <Pane prefHeight="412.0" prefWidth="287.0" style="-fx-background-color: rgb(52,99,167);">
+            <Pane prefHeight="412.0" prefWidth="287.0" style="-fx-background-color: rgb(50,78,124);">
                <children>
-                  <ImageView fitHeight="231.0" fitWidth="227.0" layoutX="29.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="231.0" fitWidth="227.0" layoutX="23.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/Logo.png" />
                      </image>
+                     <effect>
+                        <DropShadow blurType="TWO_PASS_BOX" color="#00000080" height="112.92" radius="41.135" width="53.62" />
+                     </effect>
                   </ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="408.0" prefWidth="267.0">
-               <children>
-                  <Button layoutX="18.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#clicar" prefHeight="50.0" prefWidth="100.0" text="Entrar" />
-                  <TextField fx:id="txtEmail" layoutX="99.0" layoutY="155.0" />
-                  <PasswordField fx:id="txtSenha" layoutX="99.0" layoutY="215.0" />
-                  <Label layoutX="18.0" layoutY="157.0" text="Email">
-                     <font>
-                        <Font name="Yu Gothic UI Semilight" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="16.0" layoutY="217.0" text="Senha">
-                     <font>
-                        <Font name="Yu Gothic UI Semilight" size="14.0" />
-                     </font>
-                  </Label>
-                  <Hyperlink layoutX="9.0" layoutY="272.0" text="Esqueci minha senha" />
-                  <Label layoutX="18.0" layoutY="42.0" text="Seja bem vindo ao RATER" textAlignment="CENTER" textFill="#113f90">
+                  <Label layoutX="28.0" layoutY="298.0" text="Seja bem vindo ao RATER" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Tahoma" size="20.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#00000097" height="47.69" radius="19.6375" width="32.86" />
+                     </effect>
                   </Label>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane prefHeight="408.0" prefWidth="267.0">
+               <children>
+                  <Button layoutX="24.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#clicar" prefHeight="50.0" prefWidth="217.0" style="-fx-cursor: hand;" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Entrar" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#00000082" />
+                     </effect></Button>
+                  <PasswordField fx:id="txtSenha" layoutX="24.0" layoutY="192.0" prefHeight="36.0" prefWidth="227.0" promptText="Senha...">
+                     <effect>
+                        <DropShadow color="#00000032" />
+                     </effect></PasswordField>
+                  <TextField fx:id="txtEmail" layoutX="24.0" layoutY="108.0" prefHeight="36.0" prefWidth="227.0" promptText="Nome...">
+                     <effect>
+                        <DropShadow color="#00000032" />
+                     </effect></TextField>
+                  <Hyperlink layoutX="23.0" layoutY="242.0" stylesheets="@MenuCSS.css" text="Esqueci minha senha">
+                     <effect>
+                        <DropShadow color="#00000032" />
+                     </effect></Hyperlink>
                   <Label fx:id="lblErro" layoutX="96.0" layoutY="248.0" textFill="#f20000" />
+                  <ImageView fitHeight="17.0" fitWidth="19.0" layoutX="243.0" layoutY="6.0" onMouseClicked="#Fechar" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@../imagens/close.png" />
+                     </image>
+                     <effect>
+                        <DropShadow color="#00000047" height="12.1" radius="2.525" width="0.0" />
+                     </effect>
+                  </ImageView>
+                  <ImageView accessibleRole="BUTTON" fitHeight="17.0" fitWidth="66.0" layoutX="210.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@../imagens/minimizar.png" />
+                     </image>
+                     <effect>
+                        <DropShadow color="#00000047" height="12.1" radius="2.525" width="0.0" />
+                     </effect>
+                  </ImageView>
+                  <Button layoutX="211.0" layoutY="2.0" mnemonicParsing="false" onAction="#Minimizar" opacity="0.0" prefHeight="0.0" prefWidth="0.0" rotate="90.0" style="-fx-cursor: hand;" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#00000082" />
+                     </effect>
+                  </Button>
                </children>
             </Pane>
          </children>

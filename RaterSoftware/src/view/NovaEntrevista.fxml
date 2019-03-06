@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="206.0" fitWidth="240.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/teste.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="268.0" layoutY="14.0" promptText="Nome.." />
+      <TextField layoutX="268.0" layoutY="61.0" promptText="E-mail.." />
+      <TextField layoutX="268.0" layoutY="105.0" promptText="CPF.." />
+      <DatePicker layoutX="268.0" layoutY="148.0" prefHeight="25.0" prefWidth="149.0" promptText="Data de nascimento" />
+   </children>
+</AnchorPane>

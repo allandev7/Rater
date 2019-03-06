@@ -4,14 +4,21 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import com.sun.javafx.application.LauncherImpl;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -23,6 +30,8 @@ public class TelaExController extends Application{
 	@FXML private Label lblErro;
 	@FXML private TextField txtEmail;
 	@FXML private TextField txtSenha;
+	@FXML private AnchorPane anchorPane;
+	
 	
 	Empresa empresa = new Empresa();
 	
@@ -50,14 +59,13 @@ public class TelaExController extends Application{
 	        javafx.geometry.Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 	        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
 	        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-		
 	}
 
 	// Event Listener on Button.onMouseClicked
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+		
 	@FXML
 	public void clicar(MouseEvent event) throws IOException {
 		//Pegar o valor do login
@@ -87,6 +95,18 @@ public class TelaExController extends Application{
 			}
 	}
 	
-
+	@FXML 
+	private void Minimizar(ActionEvent event) {
+		//Colocar cena do anchorpane na variável stage
+		Stage stage = (Stage)anchorPane.getScene().getWindow();
+		
+		//Fazer com que a janela possa ser minimizada (true | false)
+		stage.setIconified(true);
+	}
 	
+	@FXML
+	public void Fechar(MouseEvent event) {
+		//Fechar aplicação//
+		System.exit(0);
+	}
 }

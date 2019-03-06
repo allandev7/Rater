@@ -1,7 +1,33 @@
+/*CORES ÚTEIS:*/
+/*AZUL CLARO(LOGO): rgb(50,78,124)*/
+/*AZUL MÉDIO(LOGO): rgb(48,65,101)*/
+/*AZUL ESCURO(LOGO): rgb(41,51,77)*/
+/*CINZA(LOGO): rgb(54,52,72)*/
+
+.btnLogin{
+	-fx-background-color:rgb(50,78,124); 
+	-fx-text-fill:white ;
+}
+
+.btnLogin:hover{
+	-fx-background-color:rgb(48,65,101) ;
+}
 
 .opcoes{
-	-fx-background-color: rgb(52,54,71);
+	-fx-background-color: transparent;
+	-fx-cursor: hand;
 }
  .opcoes:hover{
-	-fx-background-color: rgba(0,0,0,0.2);
+	-fx-background-color: rgb(48,65,101);
+	-fx-font-size:15px;
 }
+
+.lblPerfil{
+	-fx-opacity:0;
+	-fx-background-color:rgb(50,78,124);
+}
+
+.lblPerfil:hover{
+	-fx-opacity:60%;
+}
+
