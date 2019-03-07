@@ -57,6 +57,9 @@ public class MenuController extends Application{
 	private ImageView FotoPerfil;
 	
 	@FXML
+	private Label lblPerfil;
+	
+	@FXML
 	public void start(Stage stage) throws IOException {
 		//Criar loader pegando o fxml como parametro
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Menu.fxml"));
@@ -138,7 +141,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void Perfil(MouseEvent event) throws IOException {
 	        //Pegando fxml como parâmetro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Perfil.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("PerfilEmpresa.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane

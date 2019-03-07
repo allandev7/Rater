@@ -47,14 +47,14 @@
                      <effect>
                         <DropShadow color="#00000082" />
                      </effect></Button>
-                  <PasswordField fx:id="txtSenha" layoutX="24.0" layoutY="192.0" prefHeight="36.0" prefWidth="227.0" promptText="Senha...">
-                     <effect>
-                        <DropShadow color="#00000032" />
-                     </effect></PasswordField>
                   <TextField fx:id="txtEmail" layoutX="24.0" layoutY="108.0" prefHeight="36.0" prefWidth="227.0" promptText="Nome...">
                      <effect>
                         <DropShadow color="#00000032" />
                      </effect></TextField>
+                  <PasswordField fx:id="txtSenha" layoutX="24.0" layoutY="192.0" prefHeight="36.0" prefWidth="227.0" promptText="Senha...">
+                     <effect>
+                        <DropShadow color="#00000032" />
+                     </effect></PasswordField>
                   <Hyperlink layoutX="23.0" layoutY="242.0" stylesheets="@MenuCSS.css" text="Esqueci minha senha">
                      <effect>
                         <DropShadow color="#00000032" />
