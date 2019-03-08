@@ -3,22 +3,16 @@ package view;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
-
-import com.sun.javafx.application.LauncherImpl;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -32,8 +26,7 @@ public class TelaExController extends Application{
 	@FXML private TextField txtSenha;
 	@FXML private AnchorPane anchorPane;
 	
-	
-	Empresa empresa = new Empresa();
+	public Empresa empresa = new Empresa();
 	
 	public TelaExController() {
 		// TODO Auto-generated constructor stub
@@ -74,7 +67,7 @@ public class TelaExController extends Application{
 		 * login = 1 -> pode logar
 		 * login = 2 -> deve confirmar email
 		 * */
-		//if(login == 1) {
+		if(login == 1) {
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
 			//criar nova janela que será passado como parametro
@@ -85,15 +78,16 @@ public class TelaExController extends Application{
 			Stage agr = (Stage) txtEmail.getScene().getWindow();
 			//fechar essa janela
 			agr.close();
-		/*}else if(login ==0) {
+		}else if(login ==0) {
 			//se os usuarios não forem corretos
 			lblErro.setText("Usuário e/ou senha incorreto(s)");
 		}else {
 			//se o email nao for confirmado
 			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 			lblErro.setText("");
-			}*/
+			}
 	}
+
 	
 	@FXML 
 	private void Minimizar(ActionEvent event) {
@@ -108,5 +102,8 @@ public class TelaExController extends Application{
 	public void Fechar(MouseEvent event) {
 		//Fechar aplicação//
 		System.exit(0);
+	}
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 }

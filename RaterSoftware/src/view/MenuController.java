@@ -25,9 +25,6 @@ public class MenuController extends Application{
 
 	@FXML
 	private Label lblProgresso;
-
-	@FXML
-	private Label lblEmpresa;
 	
 	@FXML
 	private Label lblCriteriosAvaliacao;
@@ -58,6 +55,7 @@ public class MenuController extends Application{
 	
 	@FXML
 	private Label lblPerfil;
+
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -83,10 +81,16 @@ public class MenuController extends Application{
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
 	}
 	
+	public void initialize() {
+		NomeUsuario.setText(Empresa.getNome());
+	}
+	
 	@FXML 
 	private void clicar(MouseEvent event) {
 		
 	}
+	
+
 	
 	@FXML
 	public void NovaEntrevista(MouseEvent event) throws IOException {
@@ -161,6 +165,7 @@ public class MenuController extends Application{
 	 public void Fechar(MouseEvent event) {
 		 //Fechar aplicação//
 		 System.exit(0);
-	 }	
+	 }
+
 }
 
