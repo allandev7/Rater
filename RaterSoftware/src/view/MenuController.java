@@ -39,19 +39,19 @@ public class MenuController extends Application{
 	private AnchorPane parent;
 	
 	@FXML
-	private Label Home;
+	private Label lblHome;
 	
 	@FXML
-	private Label Painel;
+	private Label lblPainel;
 	
 	@FXML
-	private Label NomeUsuario;
+	private Label lblNomeUsuario;
 	
 	@FXML
-	private Label Funcao;
+	private Label lblFuncao;
 	
 	@FXML
-	private ImageView FotoPerfil;
+	private ImageView imgFotoPerfil;
 	
 	@FXML
 	private Label lblPerfil;
@@ -82,7 +82,10 @@ public class MenuController extends Application{
 	}
 	
 	public void initialize() {
-		NomeUsuario.setText(Empresa.getNome());
+		lblNomeUsuario.setText(Empresa.getNome());
+		
+		//Colocar a largura da Label lblNomeUsuario como o tamanho do texto nela
+		lblNomeUsuario.setPrefWidth(lblNomeUsuario.getText().length() * 10);
 	}
 	
 	@FXML 

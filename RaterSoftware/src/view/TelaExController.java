@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +25,7 @@ public class TelaExController extends Application{
 	@FXML private Label lblErro;
 	@FXML private TextField txtEmail;
 	@FXML private TextField txtSenha;
+	@FXML private CheckBox chbLoginEmpresa;
 	@FXML private AnchorPane anchorPane;
 	
 	public Empresa empresa = new Empresa();
@@ -67,7 +69,7 @@ public class TelaExController extends Application{
 		 * login = 1 -> pode logar
 		 * login = 2 -> deve confirmar email
 		 * */
-		if(login == 1) {
+		//if(login == 1) {
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
 			//criar nova janela que será passado como parametro
@@ -78,14 +80,14 @@ public class TelaExController extends Application{
 			Stage agr = (Stage) txtEmail.getScene().getWindow();
 			//fechar essa janela
 			agr.close();
-		}else if(login ==0) {
+		/*}else if(login ==0) {
 			//se os usuarios não forem corretos
 			lblErro.setText("Usuário e/ou senha incorreto(s)");
 		}else {
 			//se o email nao for confirmado
 			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 			lblErro.setText("");
-			}
+		}*/
 	}
 
 	
@@ -103,6 +105,7 @@ public class TelaExController extends Application{
 		//Fechar aplicação//
 		System.exit(0);
 	}
+	
 	public Empresa getEmpresa() {
 		return empresa;
 	}

@@ -74,7 +74,7 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <Label fx:id="lblNewEntrevista1" accessibleRole="BUTTON" layoutX="2.0" layoutY="82.0" onMouseClicked="#Home" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Início        " textFill="WHITE">
+            <Label fx:id="lblHome" accessibleRole="BUTTON" layoutX="2.0" layoutY="82.0" onMouseClicked="#Home" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Início        " textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font>
@@ -128,7 +128,7 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <ImageView fx:id="FotoPerfil" fitHeight="55.0" fitWidth="58.0" layoutX="599.0" layoutY="6.0" pickOnBounds="true">
+            <ImageView fx:id="imgFotoPerfil" fitHeight="55.0" fitWidth="58.0" layoutX="465.0" layoutY="6.0" pickOnBounds="true">
                <image>
                   <Image url="@../imagens/placeholder%20para%20imageview.png" />
                </image>
@@ -136,7 +136,7 @@
                   <DropShadow color="#0000003a" />
                </effect>
             </ImageView>
-            <Label fx:id="lblPerfil" accessibleRole="BUTTON" layoutX="599.0" layoutY="29.0" onMouseClicked="#Perfil" prefHeight="32.0" prefWidth="58.0" styleClass="lblPerfil" stylesheets="@MenuCSS.css" text="    Perfil" textFill="WHITE">
+            <Label fx:id="lblPerfil" accessibleRole="BUTTON" layoutX="465.0" layoutY="29.0" onMouseClicked="#Perfil" prefHeight="32.0" prefWidth="58.0" styleClass="lblPerfil" stylesheets="@MenuCSS.css" text="    Perfil" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="10.0" />
                </font>
@@ -144,12 +144,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="NomeUsuario" layoutX="473.0" layoutY="19.0" opacity="0.84" text="NomeEmpresa" textFill="WHITE">
+            <Label fx:id="lblNomeUsuario" layoutX="529.0" layoutY="17.0" opacity="0.84" prefHeight="23.0" prefWidth="92.0" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="Funcao" layoutX="495.0" layoutY="40.0" opacity="0.84" text="Administrador" textFill="WHITE">
+            <Label fx:id="lblFuncao" layoutX="528.0" layoutY="37.0" opacity="0.84" text="Administrador" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="15.0" />
                </font>
@@ -176,7 +176,7 @@
       </Pane>
       <Pane layoutX="-1.0" prefHeight="67.0" prefWidth="178.0" style="-fx-background-color: rgb(50,78,124);">
          <children>
-            <Label fx:id="Painel" layoutX="17.0" layoutY="23.0" opacity="0.91" prefHeight="23.0" prefWidth="151.0" stylesheets="@MenuCSS.css" text="Painel Administrador" textFill="WHITE">
+            <Label fx:id="lblPainel" layoutX="17.0" layoutY="23.0" opacity="0.91" prefHeight="23.0" prefWidth="151.0" stylesheets="@MenuCSS.css" text="Painel Administrador" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="16.0" />
                </font>
