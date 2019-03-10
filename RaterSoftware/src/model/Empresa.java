@@ -6,8 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
+
 public class Empresa extends Usuarios {
 	private static String  cnpj;
+	private static int id;
 	
 	public Empresa() {
 		// TODO Auto-generated constructor stub
@@ -48,7 +52,7 @@ public class Empresa extends Usuarios {
 public int login(String emailTxt, String senhaTxt) {
 	String sql = "SELECT * FROM EMPRESA";
 	String nome = "", email = "", senha = "", cnpj="", foto= "";
-	int status=0;
+	int status=0, id=0;
 	int valido = 0;
 //tentar conexão
 	try(Connection conn = this.connect();
@@ -56,6 +60,7 @@ public int login(String emailTxt, String senhaTxt) {
 			ResultSet rs    = stmt.executeQuery(sql)){
 	//buscar email e senha
 		while(rs.next()) {
+			id = rs.getInt("ID");
 			email = rs.getString("EMAIL");
 			senha = rs.getString("SENHA");
 			nome = rs.getString("NOME");
@@ -66,6 +71,7 @@ public int login(String emailTxt, String senhaTxt) {
 				if(emailTxt.equals(email) && senhaTxt.equals(senha)) {
 					valido = 1;
 					//passar valores para classe
+					setId(id);
 					setEmail(email);
 					setNome(nome);
 					setSenha(senha); 
@@ -99,8 +105,18 @@ public int login(String emailTxt, String senhaTxt) {
 	}
 
 @Override
-public void alterarInfo(String email, String nome, String senha) {
-	// TODO Auto-generated method stub
+public void alterarInfo(String email, String nome, String identificacao) {
+	try(Connection conn = this.connect()){
+		Statement stmt = conn.createStatement();
+		stmt.executeUpdate("UPDATE `empresa` SET `EMAIL` = '"+email+"', `NOME` = '"+nome+"', `CNPJ` = '"+identificacao
+								+"' WHERE `empresa`.`ID` = "+getId()+";");
+		Usuarios.email = email;
+		Usuarios.nome = nome;
+		Empresa.cnpj = identificacao;
+		JOptionPane.showMessageDialog(null, "Deu certo");
+	}catch(SQLException ex) {
+		JOptionPane.showMessageDialog(null, "Erro ao enviar ao banco de dados, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+	}
 	
  }
 
@@ -112,6 +128,14 @@ public static String getCnpj() {
 
 public void setCnpj(String cnpj) {
 	Empresa.cnpj = cnpj;
+}
+
+public int getId() {
+	return id;
+}
+
+public void setId(int id) {
+	Empresa.id = id;
 }
 
 }

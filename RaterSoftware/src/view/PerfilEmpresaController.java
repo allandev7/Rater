@@ -1,11 +1,17 @@
 package view;
 import model.Empresa;
+
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -28,6 +34,12 @@ public class PerfilEmpresaController extends Application{
         txtEmailEmpresa.setText(EmailEmpresa);
         txtCnpj.setText(Cnpj);
         imgFoto.setImage(new Image("http://localhost/imgEmpresas/"+ Empresa.getFoto()));
+    }
+	
+	@FXML
+	public void alterarInfos(MouseEvent event)  {
+		Empresa emp = new Empresa();
+		emp.alterarInfo(txtEmailEmpresa.getText(), txtNomeEmpresa.getText(), txtCnpj.getText());
     }
 
 	@Override

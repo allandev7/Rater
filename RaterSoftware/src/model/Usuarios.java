@@ -9,7 +9,7 @@ public abstract class Usuarios {
 	//MÉTODOS
 	public abstract int login (String emailTxt, String senhaTxt);
 	
-	public abstract void alterarInfo(String email,String nome, String senha );
+	public abstract void alterarInfo(String email,String nome, String identificacao );
 	
 	
 	//GETTERS E SETTERS
