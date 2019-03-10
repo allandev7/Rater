@@ -83,9 +83,6 @@ public class MenuController extends Application{
 	
 	public void initialize() {
 		lblNomeUsuario.setText(Empresa.getNome());
-		
-		//Colocar a largura da Label lblNomeUsuario como o tamanho do texto nela
-		lblNomeUsuario.setPrefWidth(lblNomeUsuario.getText().length() * 10);
 	}
 	
 	@FXML 
@@ -155,13 +152,13 @@ public class MenuController extends Application{
 	        pane.getChildren().setAll(fxml);
 	    }
 	
-	 @FXML 
-		private void Minimizar(ActionEvent event) {
-		 //Colocar cena do anchorpane na variável stage
-		 Stage stage = (Stage)parent.getScene().getWindow();
+	@FXML 
+	private void Minimizar(ActionEvent event) {
+	//Colocar cena do anchorpane na variável stage
+	 Stage stage = (Stage)parent.getScene().getWindow();
 			
-		 //Fazer com que a janela possa ser minimizada (true | false)
-		 stage.setIconified(true);
+	//Fazer com que a janela possa ser minimizada (true | false)
+	stage.setIconified(true);
 		}
 	
 	 @FXML

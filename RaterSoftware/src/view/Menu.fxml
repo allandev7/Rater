@@ -144,7 +144,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="lblNomeUsuario" layoutX="529.0" layoutY="17.0" opacity="0.84" prefHeight="23.0" prefWidth="92.0" textFill="WHITE">
+            <Label fx:id="lblNomeUsuario" layoutX="529.0" layoutY="17.0" opacity="0.84" prefHeight="23.0" prefWidth="191.0" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
