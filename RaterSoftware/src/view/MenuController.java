@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -83,6 +84,12 @@ public class MenuController extends Application{
 	
 	public void initialize() {
 		lblNomeUsuario.setText(Empresa.getNome());
+<<<<<<< HEAD
+=======
+		imgFotoPerfil.setImage(new Image("http://localhost/imgEmpresas/"+ Empresa.getFoto()));
+		//Colocar a largura da Label lblNomeUsuario como o tamanho do texto nela
+		lblNomeUsuario.setPrefWidth(lblNomeUsuario.getText().length() * 10);
+>>>>>>> c990bb043b219e2928fe3b09d925a2f124950e3b
 	}
 	
 	@FXML 

@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
@@ -13,6 +15,7 @@ public class PerfilEmpresaController extends Application{
 	@FXML private TextField txtEmailEmpresa;
 	@FXML private TextField txtCnpj;
 	@FXML private Button btnAlterarInformacoes;
+	@FXML private ImageView imgFoto;
 	
 	/*Variáveis para pegar informações da empresa do banco de dados*/
 	private String NomeEmpresa = Empresa.getNome();
@@ -24,6 +27,7 @@ public class PerfilEmpresaController extends Application{
         txtNomeEmpresa.setText(NomeEmpresa);
         txtEmailEmpresa.setText(EmailEmpresa);
         txtCnpj.setText(Cnpj);
+        imgFoto.setImage(new Image("http://localhost/imgEmpresas/"+ Empresa.getFoto()));
     }
 
 	@Override

@@ -47,7 +47,7 @@ public class Empresa extends Usuarios {
 @Override
 public int login(String emailTxt, String senhaTxt) {
 	String sql = "SELECT * FROM EMPRESA";
-	String nome = "", email = "", senha = "", cnpj="";
+	String nome = "", email = "", senha = "", cnpj="", foto= "";
 	int status=0;
 	int valido = 0;
 //tentar conexão
@@ -59,7 +59,8 @@ public int login(String emailTxt, String senhaTxt) {
 			email = rs.getString("EMAIL");
 			senha = rs.getString("SENHA");
 			nome = rs.getString("NOME");
-			cnpj = rs.getString("FOTO");
+			foto = rs.getString("FOTO");
+			cnpj = rs.getString("CNPJ");
 			status = rs.getInt("EMAIL_VALIDO");
 			// verificar email e senha
 				if(emailTxt.equals(email) && senhaTxt.equals(senha)) {
@@ -68,6 +69,7 @@ public int login(String emailTxt, String senhaTxt) {
 					setEmail(email);
 					setNome(nome);
 					setSenha(senha); 
+					setFoto(foto);
 					setCnpj(cnpj);
 					break;
 				}else {
