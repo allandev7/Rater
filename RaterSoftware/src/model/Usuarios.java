@@ -4,6 +4,7 @@ public abstract class Usuarios {
 	protected static String email;
 	protected static String nome;
 	protected  String senha;
+	protected static String foto;
 	
 	//MÉTODOS
 	public abstract int login (String emailTxt, String senhaTxt);
@@ -30,6 +31,12 @@ public abstract class Usuarios {
 	}
 	public void setEmail(String email) {
 		Usuarios.email = email;
+	}
+	public static String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		Usuarios.foto = foto;
 	}
 }
 	
