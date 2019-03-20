@@ -2,9 +2,9 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
@@ -50,50 +50,42 @@ public class Empresa extends Usuarios {
 
 @Override
 public int login(String emailTxt, String senhaTxt) {
-	String sql = "SELECT * FROM EMPRESA";
-	String nome = "", email = "", senha = "", cnpj="", foto= "";
-	int status=0, id=0;
-	int valido = 0;
+	String sql = "SELECT * FROM EMPRESA WHERE EMAIL = ? AND SENHA = MD5(?)";
+	int status=0, valido = 0;
 //tentar conexão
 	try(Connection conn = this.connect();
-			Statement stmt  = conn.createStatement();
-			ResultSet rs    = stmt.executeQuery(sql)){
-	//buscar email e senha
-		while(rs.next()) {
-			id = rs.getInt("ID");
-			email = rs.getString("EMAIL");
-			senha = rs.getString("SENHA");
-			nome = rs.getString("NOME");
-			foto = rs.getString("FOTO");
-			cnpj = rs.getString("CNPJ");
+		PreparedStatement stmt  = conn.prepareStatement(sql)){
+		//definindo os parametros do statment para query
+		stmt.setString(1, emailTxt);
+		stmt.setString(2, senhaTxt);
+		//classe resultado da query
+		ResultSet rs    = stmt.executeQuery();
+	//buscar email e senha direto no select
+		if(rs.next()) {
+			//se encontrar
+			valido = 1;
 			status = rs.getInt("EMAIL_VALIDO");
-			// verificar email e senha
-				if(emailTxt.equals(email) && senhaTxt.equals(senha)) {
-					valido = 1;
-					//passar valores para classe
-					setId(id);
-					setEmail(email);
-					setNome(nome);
-					setSenha(senha); 
-					setFoto(foto);
-					setCnpj(cnpj);
-					break;
-				}else {
-					valido = 0;
-				}
-				
+			//passar valores da empresa para classe
+			setId( rs.getInt("ID"));
+			setEmail(rs.getString("EMAIL"));
+			setNome(rs.getString("NOME"));
+			setSenha(rs.getString("SENHA")); 
+			setFoto(rs.getString("FOTO"));
+			setCnpj(rs.getString("CNPJ"));
+		}else {
+				valido = 0;
 		}
 		/* valido = 0 -> Usuario e senha invalidos
 		 * valido = 1 -> pode logar
 		 * valido = 2 -> deve confirmar email
 		 * */
-		if(valido == 1) {
-			if(status == 1) { 
+		if(valido == 1) {//verificando login
+			if(status == 1) { //verificando email valido
 				valido = 1;
-			}else {
+			}else {//else email valido
 				valido = 2;
 			}
-		}else {
+		}else {//else login
 			valido = 0;
 		}
 	}catch(SQLException e) {
@@ -107,13 +99,20 @@ public int login(String emailTxt, String senhaTxt) {
 @Override
 public void alterarInfo(String email, String nome, String identificacao) {
 	try(Connection conn = this.connect()){
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate("UPDATE `empresa` SET `EMAIL` = '"+email+"', `NOME` = '"+nome+"', `CNPJ` = '"+identificacao
-								+"' WHERE `empresa`.`ID` = "+getId()+";");
+		String sql = "UPDATE EMPRESA SET EMAIL = ?, NOME = ?, CNPJ = ? WHERE empresa.ID = ?;";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		//definindo os parametros do statment para query
+		stmt.setString(1, email);
+		stmt.setString(2, nome);
+		stmt.setString(3, identificacao);
+		stmt.setInt(4, getId());
+		//passar para classe
 		Usuarios.email = email;
 		Usuarios.nome = nome;
 		Empresa.cnpj = identificacao;
-		JOptionPane.showMessageDialog(null, "Deu certo");
+		stmt.execute();
+		//mensagem
+		JOptionPane.showMessageDialog(null, "Alterado com sucesso");
 	}catch(SQLException ex) {
 		JOptionPane.showMessageDialog(null, "Erro ao enviar ao banco de dados, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
 	}
