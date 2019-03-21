@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GerenciarEntrevistasController">
    <children>
-      <ScrollPane fx:id="scrlFundo" hbarPolicy="NEVER" prefHeight="540.0" prefWidth="722.0" vbarPolicy="ALWAYS" />
+      <JFXListView fx:id="jfxlvListView" layoutY="54.0" prefHeight="479.0" prefWidth="722.0" verticalGap="10.0" />
+      <Label fx:id="lblNumEnt" layoutX="14.0" layoutY="14.0" text="Label">
+         <font>
+            <Font name="Tahoma" size="17.0" />
+         </font>
+      </Label>
+      <TextField layoutX="393.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevista..." />
    </children>
 </AnchorPane>
