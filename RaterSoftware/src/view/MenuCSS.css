@@ -45,4 +45,13 @@
 	-fx-opacity:60%;
 }
 
+.NewCriterio{
+	-fx-background-color: rgb(50,78,124);
+	-fx-cursor: hand;
+}
+
+.NewCriterio:hover{
+	-fx-background-color: rgb(48,65,101);
+}
+
 
