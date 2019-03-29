@@ -28,7 +28,7 @@ public class PerfilEmpresaController extends Application{
         txtNomeEmpresa.setText(NomeEmpresa);
         txtEmailEmpresa.setText(EmailEmpresa);
         txtCnpj.setText(Cnpj);
-        imgFoto.setImage(new Image("http://localhost/imgEmpresas/"+ Empresa.getFoto()));
+        imgFoto.setImage(new Image("imagesDown/"+ Empresa.getFoto()));
     }
 	
 	@FXML

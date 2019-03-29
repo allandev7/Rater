@@ -72,6 +72,8 @@ public int login(String emailTxt, String senhaTxt) {
 			setSenha(rs.getString("SENHA")); 
 			setFoto(rs.getString("FOTO"));
 			setCnpj(rs.getString("CNPJ"));
+			AzureConnection con = new AzureConnection();
+			con.down(getFoto());
 		}else {
 				valido = 0;
 		}
