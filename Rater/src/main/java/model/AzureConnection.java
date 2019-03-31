@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -39,7 +40,7 @@ public class AzureConnection {
 				CloudFile arquivo =  destino.getFileReference(nomeArquivo);
 				
 				//fazer download no local desejado
-				arquivo.downloadToFile("src/main/java/imagesDown/" + nomeArquivo);
+				arquivo.downloadToFile("C:\\Rater/imagens/" + nomeArquivo);
 				
 				
 			} catch (InvalidKeyException e) {
@@ -58,7 +59,7 @@ public class AzureConnection {
 
 	}
     
-    public void upload(String caminho) {
+    public void upload(String caminho, String nome) {
     	//definindo a conta 
     	try {
     		// definindo a conexão
@@ -77,7 +78,7 @@ public class AzureConnection {
 			CloudFileDirectory destino = root.getDirectoryReference("imagens");
 			
 			//definir onde o arquivo vai ficar e o nome do mesmo
-			CloudFile localArquivo = destino.getFileReference("testeUp.png");
+			CloudFile localArquivo = destino.getFileReference(nome);
 			
 			//fazer upload
 			localArquivo.uploadFromFile(caminho);

@@ -81,7 +81,7 @@
             <TextField fx:id="txtCnpj" prefHeight="27.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="244.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                         Alterar Foto" textFill="WHITE">
+      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="244.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" onMouseClicked="#uparFoto" text="                         Alterar Foto" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

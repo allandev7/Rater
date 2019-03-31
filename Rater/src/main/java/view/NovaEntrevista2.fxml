@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NovaEntrevista2Controller">
+   <children>
+      <JFXListView fx:id="jfxlvListView" editable="true" layoutY="51.0" prefHeight="426.0" prefWidth="722.0" verticalGap="10.0" />
+      <Label fx:id="lblEntrevista" layoutX="14.0" layoutY="14.0" text="Entrevista em Andamento">
+         <font>
+            <Font name="Tahoma" size="17.0" />
+         </font>
+      </Label>
+     <JFXButton fx:id="btnCancelar" layoutX="14.0" layoutY="485.0"  prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Cancelar" />
+     <JFXButton fx:id="btnContinuar" layoutX="547.0" layoutY="485.0" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Continuar" />
+   </children>
+</AnchorPane>

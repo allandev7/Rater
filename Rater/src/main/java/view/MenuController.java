@@ -1,5 +1,7 @@
 package view;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -82,9 +84,9 @@ public class MenuController extends Application{
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
 	}
 	
-	public void initialize() {
+	public void initialize() throws FileNotFoundException {
 		lblNomeUsuario.setText(Empresa.getNome());
-		imgFotoPerfil.setImage(new Image("imagesDown/"+ Empresa.getFoto()));
+		imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
 	}
 	
 	@FXML 
@@ -117,7 +119,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void Criterios(MouseEvent event) throws IOException {
 	        //Pegando fxml como parâmetro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Criterios.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("Cargos.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane

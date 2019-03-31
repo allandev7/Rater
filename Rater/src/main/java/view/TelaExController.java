@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
@@ -55,6 +56,11 @@ public class TelaExController extends Application{
 	        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
 	        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
 	}
+	
+	public void initialize() {
+		File file = new File("C:/Rater/imagens");
+		file.mkdirs();
+	}
 
 	// Event Listener on Button.onMouseClicked
 	public static void main(String[] args) {
@@ -70,6 +76,8 @@ public class TelaExController extends Application{
 		 * login = 2 -> deve confirmar email
 		 * */
 		if(login == 1) {
+			lblErro.setStyle("-fx-color:Green;");
+			lblErro.setText("Seja bem vindo");
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
 			//criar nova janela que será passado como parametro
