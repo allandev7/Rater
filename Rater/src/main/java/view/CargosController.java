@@ -1,20 +1,9 @@
 package view;
-
-import java.awt.Event;
 import java.awt.HeadlessException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
-
-import javax.print.DocFlavor.URL;
 import javax.swing.JOptionPane;
-
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPopup;
-import com.sun.glass.events.MouseEvent;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,17 +12,12 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Padroes;
-import javafx.scene.input.MouseEvent.*;
 
 public class CargosController extends Application{
 	
@@ -47,8 +31,7 @@ public class CargosController extends Application{
 	@FXML private Button btnGerenciarCriterios;
 	
 	private Padroes p = new Padroes();
-	
-	private int quantCrit = 10;
+	private static int idSelecionado = 0;
 	
 		
 	@FXML
@@ -58,17 +41,17 @@ public class CargosController extends Application{
 	
 	private void carregarCargos() throws SQLException {
 		jfxlvListView.getItems().clear();
-		int numCargos = p.carregarCriterios().size();
+		int numCargos = p.carregarCargos().size();
 		//Definindo texto da label que apresenta o número de cargos salvos
 		lblNumCargos.setText("Número de cargos salvos: " + numCargos);
 		
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < numCargos; i++) {
 			//Variável com nome do cargo, colsulta ao banco de dados
-			String nomeCargo = p.carregarCriterios().get(i);
+			String nomeCargo = p.carregarCargos().get(i);
 			
 			//Variável com a quantidade de critérios do cargo, deverá ser substituída por colsulta ao banco de dados
-			int critCargo = quantCrit;
+			int critCargo = p.carregarCriterios(p.getIdCargo(i)).size();
 			
 			//Inserindo nome do cargo e sua quantidade de critérios em uma Label
 			Label lbl1 = new Label("Nome do cargo: " + nomeCargo + "\n\nNúmero de critérios: " + critCargo + "                                      "
@@ -131,7 +114,8 @@ public class CargosController extends Application{
 			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
 			//convertendo para inteiro
 			int id = Integer.parseInt(idC[1]);
-			
+			//Passando o valor para a classe
+			setIdSelecionado(id);
 			//Pegando fxml como parâmetro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Criterioss.fxml"));
 			//Limpando o coteúdo do Pane "pane"
@@ -139,6 +123,14 @@ public class CargosController extends Application{
 			//Colocando o documento fxml como conteúdo do pane
 			pane.getChildren().setAll(fxml);
 		}
+	}
+
+	public int getIdSelecionado() {
+		return idSelecionado;
+	}
+
+	public void setIdSelecionado(int idSelecionado) {
+		CargosController.idSelecionado = idSelecionado;
 	}
 		
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -72,8 +73,13 @@ public int login(String emailTxt, String senhaTxt) {
 			setSenha(rs.getString("SENHA")); 
 			setFoto(rs.getString("FOTO"));
 			setCnpj(rs.getString("CNPJ"));
-			AzureConnection con = new AzureConnection();
-			con.down(getFoto());
+			//verificando se existe a imagem
+			File file = new File("C:\\Rater/imagens/"+getFoto());
+			if(!file.exists()) {
+				// se nao existe, baixar
+				AzureConnection con = new AzureConnection();
+				con.down(getFoto());
+			}
 		}else {
 				valido = 0;
 		}
