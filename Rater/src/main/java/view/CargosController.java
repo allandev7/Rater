@@ -1,8 +1,10 @@
 package view;
 
 import java.awt.Event;
+import java.awt.HeadlessException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
@@ -30,6 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.Padroes;
 import javafx.scene.input.MouseEvent.*;
 
 public class CargosController extends Application{
@@ -42,8 +45,8 @@ public class CargosController extends Application{
 	@FXML private Button btnDeletarCargo;
 	@FXML private Button btnAlterarNome;
 	@FXML private Button btnGerenciarCriterios;
-
-	private int NumCargos = 10;
+	
+	private Padroes p = new Padroes();
 	
 	private int quantCrit = 10;
 	
@@ -53,24 +56,23 @@ public class CargosController extends Application{
 	
 	}
 	
-	public void initialize() throws Exception {
-		
-		
-		
+	private void carregarCargos() throws SQLException {
+		jfxlvListView.getItems().clear();
+		int numCargos = p.carregarCriterios().size();
 		//Definindo texto da label que apresenta o número de cargos salvos
-		lblNumCargos.setText("Número de cargos salvos: " + NumCargos);
+		lblNumCargos.setText("Número de cargos salvos: " + numCargos);
 		
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < NumCargos; i++) {
-			
-			//Variável com nome do cargo, deverá ser substituída por colsulta ao banco de dados
-			String nomeCargo = "Cargo" + (i + 1);
+		for (int i = 0; i < numCargos; i++) {
+			//Variável com nome do cargo, colsulta ao banco de dados
+			String nomeCargo = p.carregarCriterios().get(i);
 			
 			//Variável com a quantidade de critérios do cargo, deverá ser substituída por colsulta ao banco de dados
 			int critCargo = quantCrit;
 			
 			//Inserindo nome do cargo e sua quantidade de critérios em uma Label
-			Label lbl1 = new Label("Nome do cargo: " + nomeCargo + "\n\nNúmero de critérios: " + critCargo);
+			Label lbl1 = new Label("Nome do cargo: " + nomeCargo + "\n\nNúmero de critérios: " + critCargo + "                                      "
+					+ "                                                                  -"+p.getIdCargo(i)+"-");
 			
 			//Definindo o tamanho da Label lbl pra não dar bug na listview
 			lbl1.setMaxSize(500, 80);
@@ -81,76 +83,55 @@ public class CargosController extends Application{
 			jfxlvListView.getItems().add(lbl1);
 		}
 	}
+	
+	public void initialize() throws Exception {
+		carregarCargos();
+	}
 
 	
 	public void deteteCargo(ActionEvent event) throws Exception {
-		
 		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
-			
-			//Removendo o item selecionado da ListView
-			jfxlvListView.getItems().remove((jfxlvListView.getSelectionModel().getSelectedItem()));
-			
-			//Removendo a seleção da ListView
-			jfxlvListView.getSelectionModel().clearSelection();
-			
-			//Atualizando número de cargos
-			NumCargos--;
-			
-			//Atualizando label com o número de cargos
-			lblNumCargos.setText("Número de cargos salvos: " + NumCargos);
-		
+			//pegando o id no fim da label
+			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+			//convertendo para inteiro
+			int id = Integer.parseInt(idC[1]);
+			//executando o deletar
+			p.deletarCargo(id);
+			carregarCargos();
 		}
 		
 	}
 	
-	public void addCargo(ActionEvent event) {
-		
-		//Definindo o nome do novo cargo
-		String newCargo = JOptionPane.showInputDialog("Insira o nome do novo cargo:");
-		
-		//Adicionando a quantidade de critérios do cargo, o valor será substituído por consulta ao banco de dados
-		int critCargo = quantCrit;
-		newCargo += "\n\nNúmero de critérios: " + critCargo;
-		
-		//Inserindo nome do cargo em uma Label
-		Label lbl1 = new Label("Nome do cargo: " + newCargo);
-		
-		//Definindo o tamanho da Label lbl pra não dar bug na listview
-		lbl1.setMaxSize(500, 80);
-		lbl1.setMinSize(500, 80);
-		
-		//Adicionando a Label lbl1 na JFXListView
-		jfxlvListView.getItems().add(lbl1);
-		
-		//Atualizando número de cargos
-		NumCargos++;
-		
-		//Atualizando a label com o número de cargos
-		lblNumCargos.setText("Número de cargos salvos: " + NumCargos);
+	public void addCargo(ActionEvent event) throws SQLException {
+		//executando o metodo adicionar
+		p.novoCargo(JOptionPane.showInputDialog("Digite o novo Cargo"));
+		carregarCargos();
 	}
 	
 
-	public void alterarNomeCargo(ActionEvent event) {
+	public void alterarNomeCargo(ActionEvent event) throws HeadlessException, SQLException {
 		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
-		
-			//Pegando novo nome do cargo
-			String changeCargo = "Nome do cargo: " + JOptionPane.showInputDialog("Insira o novo nome do cargo:");
-			
-			//Adicionando a quantidade de critérios do cargo, o valor será substituído por consulta ao banco de dados
-			int critCargo = quantCrit;
-			changeCargo += "\n\nNúmero de critérios: " + critCargo;
-			
-			//Definindo o texto da label do cargo como a String changeCargo
-			jfxlvListView.getSelectionModel().getSelectedItem().setText(changeCargo);
-			
+			//pegando o id no fim da label
+			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+			//convertendo para inteiro
+			int id = Integer.parseInt(idC[1]);
+			//executando o alterar
+			p.alterarCargo(JOptionPane.showInputDialog("Digite o novo nome"), id);
+			carregarCargos();
 		}
 		
 	}
 	
 	public void gerenciarCriterios(ActionEvent event) throws Exception{
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
+			
+			//pegando o id no fim da label
+			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+			//convertendo para inteiro
+			int id = Integer.parseInt(idC[1]);
+			
 			//Pegando fxml como parâmetro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Criterioss.fxml"));
 			//Limpando o coteúdo do Pane "pane"

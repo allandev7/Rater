@@ -131,7 +131,7 @@ public void setCnpj(String cnpj) {
 	Empresa.cnpj = cnpj;
 }
 
-public int getId() {
+public static int getId() {
 	return id;
 }
 

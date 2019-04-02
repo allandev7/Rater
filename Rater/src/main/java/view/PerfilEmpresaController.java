@@ -54,35 +54,54 @@ public class PerfilEmpresaController extends Application{
     }
 	@FXML
 	public void uparFoto(MouseEvent event)  {
+		//declarando o filechooser
 		JFileChooser abrirArquivo = new JFileChooser();
+		//defininfo os filtros
 		abrirArquivo.setFileFilter(new FileNameExtensionFilter("PNG images", "png"));
 		abrirArquivo.setFileFilter(new FileNameExtensionFilter("JPEG images", "jpg"));
+		//abrir a janela
 		abrirArquivo.showOpenDialog(null);
+		//pegando caminho da pasta
 		String caminho = abrirArquivo.getSelectedFile().getPath();
+		//pegando nome do arquivo
 		String nome = abrirArquivo.getSelectedFile().getName();
+		//pegando extensao do arquivo
 		String extensao = nome.substring(nome.length()-4);
+		//instanciando objeto da classe do Azure
 		AzureConnection con = new AzureConnection();
+		//Abrindo conexao com o banco
 		Connection conBD =  (Connection) new Empresa().connect();
+		//query de update
 		String sql = "UPDATE empresa SET foto=?";
-		try {
-			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);
-			if (Empresa.getFoto()=="") {
+		try {//tentar
+			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
+			if (Empresa.getFoto()=="") {// se nao haver foto no banco
+				
+				//cria objeto MessageDigest nulo para criptografia
 				MessageDigest m = null;
-				try {
+				try {//tente
+					//pegar instancia de MD5
 					m = MessageDigest.getInstance("MD5");
-				} catch (NoSuchAlgorithmException e) {
-					e.printStackTrace();
+				} catch (NoSuchAlgorithmException e) {//erro
+					e.printStackTrace();//erro
 				}
+				//// atualizar objeto com bytes e tamanho
 			    m.update(nome.getBytes(),0,nome.length());
+			    // String para nome criptografado
 			    String nomeCripto = m.digest().toString()+new Date().getTime()+extensao;
+			    //definindo parametros da query
 				pstmt.setString(1, nomeCripto);
+				//upload da foto no azure
 				con.upload(caminho, nomeCripto);
 			}
-			else {
+			else {//senao
+				//pega nome da propria foto e faz upload e update
 				pstmt.setString(1, Empresa.getFoto());
 				con.upload(caminho, Empresa.getFoto());
 			}
+			//executar query
 			pstmt.execute();
+			//mensagem de sucesso
 			JOptionPane.showMessageDialog(null, "Foto alterada com sucesso, reinicie o software para executar as alterações", 
 												"Sucesso", JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {
