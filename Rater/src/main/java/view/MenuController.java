@@ -84,9 +84,14 @@ public class MenuController extends Application{
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
 	}
 	
-	public void initialize() throws FileNotFoundException {
+	public void initialize() {
 		lblNomeUsuario.setText(Empresa.getNome());
-		imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+		try {
+			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
+		}
 	}
 	
 	@FXML 

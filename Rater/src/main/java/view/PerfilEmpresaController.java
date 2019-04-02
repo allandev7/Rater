@@ -40,11 +40,16 @@ public class PerfilEmpresaController extends Application{
 	private String Cnpj = Empresa.getCnpj();
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
-	public void initialize() throws FileNotFoundException{
+	public void initialize(){
         txtNomeEmpresa.setText(NomeEmpresa);
         txtEmailEmpresa.setText(EmailEmpresa);
         txtCnpj.setText(Cnpj);
-        imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+        try {
+			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			imgFoto.setImage(new Image("imagens/Logo.png"));
+		}
     }
 	
 	@FXML
