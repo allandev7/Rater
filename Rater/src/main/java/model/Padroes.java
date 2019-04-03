@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.PreparedStatement;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import view.CargosController;
 
 public class Padroes {
@@ -147,6 +149,62 @@ public class Padroes {
 		//executando a query
 		pstmt.execute();
 	}
+	
+	
+	
+	//lista de cargos para colocae no listbox
+		public ObservableList<String> listaCargos = FXCollections.observableArrayList( );
+
+			//metodo para pegar os cargos do banco de dados e adicionar ao ObservableList
+		public void carregarCargosNE() throws SQLException{
+				
+				// query sql para selecionar todos os dados da tebla cargo
+				String sql = "SELECT * FROM cargo  ; ";
+				
+				//criando um statment
+				PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+				
+				//executando o query para obter o resultado
+
+				ResultSet rs = pstmt.executeQuery();
+
+				// pegando todos os dados da coluna NOME
+				while(rs.next()) {		
+					//adicionando os valores no observableLiist
+					listaCargos.add(rs.getString("NOME"));	
+				}
+
+			}
+	
+		private ArrayList<String> nomeCriterio = new ArrayList<>();
+		
+		public ArrayList<String> listarCriteriosNE2() throws SQLException {
+			//limpar os arrays
+			nomeCriterio.clear();
+			//selecionar na tabela
+			String sql = "SELECT * FROM criterio";
+			// criando statment
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			//definindo o id na query
+			//pstmt.setInt(1, Empresa.getId());
+			//executando o query para obter o resultado
+			ResultSet rs = pstmt.executeQuery();
+			//enquanto houver linhas
+			while (rs.next()){
+				//adicionar cargos e ids aos arrays
+				nomeCriterio.add(rs.getString("NOME"));
+				//idCargo.add(rs.getInt("ID"));
+			}
+			return nomeCargo;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
 	//getters CARGOS
 
 	public Integer getIdCargo(int i) {

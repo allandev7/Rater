@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -20,9 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import model.Padroes;
 public class NovaEntrevistaController extends Application{
 	
+	Padroes p = new Padroes();
 	
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
@@ -42,7 +44,7 @@ public class NovaEntrevistaController extends Application{
 	
 	/*Criando lista do tipo ObservableList com os cargos da empresa, os valores desta lista
 	 deverão ser substituídos pelos valores no banco de dados*/
-	private ObservableList<String> listaCargos = FXCollections.observableArrayList("Cargo1", "Cargo2", "Cargo3", "Cargo4", "Cargo5" );
+	//private ObservableList<String> listaCargos = FXCollections.observableArrayList("Cargo1", "Cargo2", "Cargo3", "Cargo4", "Cargo5" );
 	
 	//Criando lista do tipo ObservableList com as etnias
 	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indígena");
@@ -57,12 +59,14 @@ public class NovaEntrevistaController extends Application{
 	}
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
-	public void initialize() {
+	public void initialize() throws SQLException {
+		//metodo que pega os cargos do banco
+		p.carregarCargosNE();
 		//Colocando a ObservableList de etnias como conteúdo da ComboBox
 		cbEtnias.setItems(listaEtnias);
 		
 		//Colocando a ObservableList de cargos como conteúdo da ComboBox
-				cbCargos.setItems(listaCargos);
+		cbCargos.setItems(p.listaCargos);
 				
 		//Colocando a SpinnerValueFactory como "regra" para o spinner
 		spnIdade.setValueFactory(spinnerNumeros);

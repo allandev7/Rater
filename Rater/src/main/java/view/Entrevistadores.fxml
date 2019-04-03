@@ -2,9 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EntrevistadoresController">
@@ -16,7 +18,20 @@
          </font>
       </Label>
       <TextField fx:id="txtPesquisarEntrevistadores" layoutX="393.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevistador..." />
-      <JFXButton fx:id="btnDeletarEntrevistador" layoutX="14.0" layoutY="485.0" onAction="#deletarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" />
-      <JFXButton fx:id="btnAdicionarEntrevistador" layoutX="547.0" layoutY="485.0" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Adicionar Entrevistador" />
+      <HBox layoutX="24.0" layoutY="472.0" prefHeight="42.0" prefWidth="689.0">
+         <children>
+            <JFXButton fx:id="btnDeletarEntrevistador" onAction="#deletarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar">
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btnVisualizarPerfil" onAction="#visualizarPerfilEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Visualizar perfil">
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btnAdicionarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo entrevistador" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

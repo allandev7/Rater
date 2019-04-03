@@ -96,6 +96,17 @@ public class EntrevistadoresController extends Application{
 					
 					lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);
 				}
-				
+					
+	}
+	
+	@FXML 
+	public void novoEntrevistador(ActionEvent event) throws Exception {
+		
+		//Pegando fxml como parâmetro
+		Parent fxml = FXMLLoader.load(getClass().getResource("EntrevistadoresAdicionar.fxml"));
+		//Limpando o coteúdo do AnchorPane "pane"
+    	pane.getChildren().removeAll();
+    	//Colocando o documento fxml como conteúdo do pane
+    	pane.getChildren().setAll(fxml);
 	}
 }
