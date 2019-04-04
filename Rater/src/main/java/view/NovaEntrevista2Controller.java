@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Checkbox;
+
 import java.awt.Event;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -39,7 +40,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import model.Padroes;
 
 
 public class NovaEntrevista2Controller extends Application{
@@ -53,15 +54,17 @@ public class NovaEntrevista2Controller extends Application{
 		
 	private int NumCriterios = 10;
 	
+	Padroes p = new Padroes();
+	
 	@FXML
 	public void start(Stage stage) throws IOException {
 	
 	}
 	
 	public void initialize() throws Exception {
-		
+		int numCriteriosNE2 = p.listarCriteriosNE2().size();
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < NumCriterios; i++) {
+		for (int i = 0; i < numCriteriosNE2; i++) {
 			
 			//Criando HBox para colocar componentes um ao lado do outro
 			HBox hbox = new HBox();
@@ -94,7 +97,6 @@ public class NovaEntrevista2Controller extends Application{
 			VBox vbox = new VBox();
 			
 			//Variável com o nome do critério, deverá ser substituída por consulta ao banco de dados
-			String nomeCriterio = new String("Critério" + i);
 			Label lbl1 = new Label(nomeCriterio);
 			
 			//Adicionando a label e a hbox na vbox
