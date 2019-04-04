@@ -97,7 +97,7 @@ public class NovaEntrevista2Controller extends Application{
 			VBox vbox = new VBox();
 			
 			//Variável com o nome do critério, deverá ser substituída por consulta ao banco de dados
-			Label lbl1 = new Label(nomeCriterio);
+			Label lbl1 = new Label("");
 			
 			//Adicionando a label e a hbox na vbox
 			vbox.getChildren().addAll(lbl1, hbox);
