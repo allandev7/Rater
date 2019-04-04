@@ -101,8 +101,13 @@ public class PerfilEmpresaController extends Application{
 			}
 			else {//senao
 				//pega nome da propria foto e faz upload e update
-				pstmt.setString(1, Empresa.getFoto());
-				con.upload(caminho, Empresa.getFoto());
+				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
+					pstmt.setString(1, Empresa.getFoto());
+					con.upload(caminho, Empresa.getFoto());
+				}else {
+					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
+					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
+				}
 			}
 			//executar query
 			pstmt.execute();
