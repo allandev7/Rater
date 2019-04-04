@@ -191,7 +191,7 @@
                   <DropShadow color="TRANSPARENT" />
                </effect>
             </Label>
-            <Label prefHeight="28.0" prefWidth="64.0" text="CPF:" textFill="#32447c" GridPane.rowIndex="2">
+            <Label prefHeight="28.0" prefWidth="64.0" text="RG:" textFill="#32447c" GridPane.rowIndex="2">
                <font>
                   <Font size="19.0" />
                </font>
@@ -227,7 +227,7 @@
                <effect>
                   <DropShadow color="TRANSPARENT" />
                </effect></ComboBox>
-            <TextField fx:id="txtCpf" prefHeight="25.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="txtRG" prefHeight="25.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <effect>
                   <DropShadow color="TRANSPARENT" />
                </effect></TextField>

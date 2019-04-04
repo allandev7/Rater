@@ -11,6 +11,7 @@
 .btnLogin{
 	-fx-background-color:rgb(50,78,124); 
 	-fx-text-fill:white ;
+	-fx-cursor: hand;
 }
 
 .btnLogin:hover{

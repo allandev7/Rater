@@ -2,6 +2,7 @@ package view;
 import model.AzureConnection;
 import model.Empresa;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.security.MessageDigest;
@@ -23,6 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 
@@ -60,16 +63,16 @@ public class PerfilEmpresaController extends Application{
 	@FXML
 	public void uparFoto(MouseEvent event)  {
 		//declarando o filechooser
-		JFileChooser abrirArquivo = new JFileChooser();
+		FileChooser abrirArquivo = new FileChooser();
 		//defininfo os filtros
-		abrirArquivo.setFileFilter(new FileNameExtensionFilter("PNG images", "png"));
-		abrirArquivo.setFileFilter(new FileNameExtensionFilter("JPEG images", "jpg"));
-		//abrir a janela
-		abrirArquivo.showOpenDialog(null);
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpeg"));
+		//abrir a janela e pegar o arquivo selecionado
+		File arquivo = abrirArquivo.showOpenDialog(null);
 		//pegando caminho da pasta
-		String caminho = abrirArquivo.getSelectedFile().getPath();
+		String caminho = arquivo.getAbsolutePath();
 		//pegando nome do arquivo
-		String nome = abrirArquivo.getSelectedFile().getName();
+		String nome = arquivo.getName();
 		//pegando extensao do arquivo
 		String extensao = nome.substring(nome.length()-4);
 		//instanciando objeto da classe do Azure
@@ -112,6 +115,7 @@ public class PerfilEmpresaController extends Application{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
     }
 

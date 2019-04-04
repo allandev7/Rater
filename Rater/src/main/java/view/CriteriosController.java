@@ -27,6 +27,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -39,7 +40,7 @@ public class CriteriosController extends Application{
 	//Criando uma JFXListView para armazenar os critérios
 	@FXML private JFXListView<Label> jfxlvListView;
 	@FXML private Label lblNumCrit;
-	@FXML private Pane pane;
+	@FXML private AnchorPane pane;
 	@FXML private Button btnNovoCriterio;
 	@FXML private Button btnDeletarCriterio;
 	@FXML private Button btnAlterarCriterio;
@@ -122,6 +123,14 @@ public class CriteriosController extends Application{
 					id);
 			carregarCriterios();
 		}
-		
+	}
+	
+	public void voltarParaCargos(MouseEvent event) throws Exception {
+		//Pegando fxml como parâmetro
+		Parent fxml = FXMLLoader.load(getClass().getResource("Cargos.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+		pane.getChildren().removeAll();
+		//Colocando o documento fxml como conteúdo do pane
+		pane.getChildren().setAll(fxml);
 	}
 }

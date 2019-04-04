@@ -28,7 +28,7 @@ public class NovaEntrevistaController extends Application{
 	
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
-	@FXML private TextField txtCpf;
+	@FXML private TextField txtRG;
 	@FXML private TextField txtEndereco;
 	@FXML private TextField txtTelefone;
 	@FXML private Spinner<Integer> spnIdade;

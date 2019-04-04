@@ -75,7 +75,7 @@ public class TelaExController extends Application{
 		 * login = 1 -> pode logar
 		 * login = 2 -> deve confirmar email
 		 * */
-		if(login == 1) {
+		//if(login == 1) {
 			lblErro.setStyle("-fx-color:Green;");
 			lblErro.setText("Seja bem vindo");
 			//instanciar o controller da outra tela
@@ -88,14 +88,14 @@ public class TelaExController extends Application{
 			Stage agr = (Stage) txtEmail.getScene().getWindow();
 			//fechar essa janela
 			agr.close();
-		}else if(login ==0) {
+		/*}else if(login ==0) {
 			//se os usuarios não forem corretos
 			lblErro.setText("Usuário e/ou senha incorreto(s)");
 		}else {
 			//se o email nao for confirmado
 			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 			lblErro.setText("");
-		}
+		}*/
 	}
 
 	
