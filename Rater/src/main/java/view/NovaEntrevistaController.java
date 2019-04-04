@@ -1,12 +1,19 @@
 package view;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
-import java.sql.SQLException;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,13 +29,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Padroes;
+import model.Empresa;
+import java.awt.*;
+import javafx.scene.control.ComboBox;
+
+
 public class NovaEntrevistaController extends Application{
 	
 	Padroes p = new Padroes();
-	
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
-	@FXML private TextField txtRG;
+	@FXML private TextField txtCpf;
 	@FXML private TextField txtEndereco;
 	@FXML private TextField txtTelefone;
 	@FXML private Spinner<Integer> spnIdade;
@@ -42,45 +53,65 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Button btnConfirmar;
 	@FXML private AnchorPane pane;
 	
+	private String cargoSelecionado ;
+
 	/*Criando lista do tipo ObservableList com os cargos da empresa, os valores desta lista
-	 deverão ser substituídos pelos valores no banco de dados*/
+	 deverï¿½o ser substituï¿½dos pelos valores no banco de dados*/
 	//private ObservableList<String> listaCargos = FXCollections.observableArrayList("Cargo1", "Cargo2", "Cargo3", "Cargo4", "Cargo5" );
 	
+
+	public String getCargoSelecionado() {
+		return cargoSelecionado;
+	}
+
+	public void setCargoSelecionado(String cargoSelecionado) {
+		this.cargoSelecionado = cargoSelecionado;
+	}
+
 	//Criando lista do tipo ObservableList com as etnias
-	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indígena");
+	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indï¿½gena");
 	
-	//Criando SpinnerValueFactory que ditará as "regras" de funcionamento para o spinner spnIdade
+	//Criando SpinnerValueFactory que ditarï¿½ as "regras" de funcionamento para o spinner spnIdade
 	private SpinnerValueFactory<Integer> spinnerNumeros = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
-		
+	
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
 		
 	}
 	
-	//O método initialize é chamado automáticamente com o carregamento do FXML
+	//O mï¿½todo initialize ï¿½ chamado automï¿½ticamente com o carregamento do FXML
 	public void initialize() throws SQLException {
-		//metodo que pega os cargos do banco
-		p.carregarCargosNE();
-		//Colocando a ObservableList de etnias como conteúdo da ComboBox
-		cbEtnias.setItems(listaEtnias);
 		
-		//Colocando a ObservableList de cargos como conteúdo da ComboBox
+		
+		//metodo que pega os cargos do banco
+		p.carregarCargos();
+		//Colocando a ObservableList de etnias como conteï¿½do da ComboBox
+		cbEtnias.setItems(listaEtnias);
+	
+		//Colocando a ObservableList de cargos como conteï¿½do da ComboBox
 		cbCargos.setItems(p.listaCargos);
-				
+		
 		//Colocando a SpinnerValueFactory como "regra" para o spinner
 		spnIdade.setValueFactory(spinnerNumeros);
+	
+		
+		
 	}
 	
+
 	/*
-	 * PARTE NÃO PRESENTE NO PROJETO ATUAL
+	 * PARTE Nï¿½O PRESENTE NO PROJETO ATUAL
 	 */
+
 	public void iniciarEntrevista(ActionEvent event) throws Exception {
-		 //Pegando fxml como parâmetro
+		setCargoSelecionado(cbCargos.getValue().toString());
+		System.out.print(getCargoSelecionado());
+		 //Pegando fxml como parï¿½metro
 		Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista2.fxml"));
-		//Limpando o coteúdo do Pane "pane"
+		//Limpando o coteï¿½do do Pane "pane"
         pane.getChildren().removeAll();
-        //Colocando o documento fxml como conteúdo do pane
+        //Colocando o documento fxml como conteï¿½do do pane
         pane.getChildren().setAll(fxml);
 	}
 	//------------------------------------

@@ -3,19 +3,24 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EntrevistadoresAdicionarController">
+<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NovaEntrevistaController">
    <children>
       <Separator layoutX="10.0" layoutY="437.0" prefHeight="56.0" prefWidth="705.0">
          <effect>
@@ -25,7 +30,7 @@
          <effect>
             <DropShadow color="#0000002f" />
          </effect></Separator>
-      <Label layoutX="15.0" layoutY="7.0" prefHeight="32.0" prefWidth="346.0" text="Insira as informações do entrevistador:" textFill="#32447c">
+      <Label layoutX="15.0" layoutY="7.0" prefHeight="32.0" prefWidth="346.0" text="Insira as informações do candidato:" textFill="#32447c">
          <font>
             <Font size="19.0" />
          </font>
@@ -33,7 +38,11 @@
             <DropShadow color="TRANSPARENT" />
          </effect>
       </Label>
-      <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" layoutX="14.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="txtNome" layoutX="369.0" layoutY="58.0" prefHeight="25.0" prefWidth="346.0">
+         <effect>
+            <DropShadow color="TRANSPARENT" />
+         </effect></TextField>
+      <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" layoutX="14.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagens/placeholder%20para%20imageview.png" />
          </image>
@@ -41,7 +50,7 @@
             <DropShadow color="TRANSPARENT" />
          </effect>
       </ImageView>
-      <Button fx:id="btnConfirmar" layoutX="578.0" layoutY="481.0" mnemonicParsing="false" onAction="#cadastrarEntrevistador" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Confirmar">
+      <Button fx:id="btnConfirmar" layoutX="578.0" layoutY="481.0" mnemonicParsing="false" onAction="#iniciarEntrevista" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Confirmar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -49,7 +58,85 @@
             <DropShadow color="#0000004f" />
          </effect>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="13.0" layoutY="481.0" mnemonicParsing="false" onAction="#cancelarCadastro" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Cancelar">
+      <Label layoutX="300.0" layoutY="57.0" text="Nome:" textFill="#32447c">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <effect>
+            <DropShadow color="TRANSPARENT" />
+         </effect>
+      </Label>
+      <GridPane layoutX="23.0" layoutY="324.0" prefHeight="140.0" prefWidth="693.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.0" minWidth="10.0" prefWidth="151.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="8.0" prefWidth="483.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="28.0" prefWidth="162.0" text="Telefone:" textFill="#32447c">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <Label prefHeight="28.0" prefWidth="162.0" text="Endereço:" textFill="#32447c" GridPane.rowIndex="1">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <Label prefHeight="24.0" prefWidth="181.0" text="Cargo de interesse:" textFill="#32447c" GridPane.rowIndex="2">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <TextField fx:id="txtTelefone" prefHeight="25.0" prefWidth="309.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </TextField>
+            <TextField fx:id="txtEndereco" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </TextField>
+            <ComboBox fx:id="cbCargos" prefHeight="25.0" prefWidth="521.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </ComboBox>
+         </children>
+      </GridPane>
+      <Button fx:id="btnCancelar" layoutX="13.0" layoutY="481.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Cancelar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -57,10 +144,37 @@
             <DropShadow color="#0000004f" />
          </effect>
       </Button>
-      <GridPane layoutX="292.0" layoutY="138.0" prefHeight="189.0" prefWidth="416.0">
+      <Label layoutX="301.0" layoutY="98.0" text="Sexo:" textFill="#32447c">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <effect>
+            <DropShadow color="TRANSPARENT" />
+         </effect>
+      </Label>
+      <HBox layoutX="376.0" layoutY="104.0" prefHeight="25.0" prefWidth="337.0">
+         <children>
+            <RadioButton fx:id="rbMasculino" mnemonicParsing="false" selected="true" text="Masculino" textFill="#32447c">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupo" />
+               </toggleGroup>
+               <HBox.margin>
+                  <Insets left="10.0" right="180.0" />
+               </HBox.margin>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </RadioButton>
+            <RadioButton fx:id="rbFeminino" mnemonicParsing="false" text="Feminino" textFill="#32447c" toggleGroup="$grupo">
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect></RadioButton>
+         </children>
+      </HBox>
+      <GridPane layoutX="299.0" layoutY="131.0" prefHeight="189.0" prefWidth="416.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.0" minWidth="10.0" prefWidth="64.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="8.0" prefWidth="352.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.0" minWidth="10.0" prefWidth="63.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="8.0" prefWidth="339.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="44.0" minHeight="33.0" prefHeight="44.0" />
@@ -69,7 +183,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="28.0" prefWidth="64.0" text="E-mail:" textFill="#32447c" GridPane.rowIndex="1">
+            <Label prefHeight="28.0" prefWidth="64.0" text="E-mail:" textFill="#32447c" GridPane.rowIndex="3">
                <font>
                   <Font size="19.0" />
                </font>
@@ -77,7 +191,7 @@
                   <DropShadow color="TRANSPARENT" />
                </effect>
             </Label>
-            <Label prefHeight="28.0" prefWidth="64.0" text="RG:" textFill="#32447c" GridPane.rowIndex="2">
+            <Label prefHeight="28.0" prefWidth="64.0" text="CPF:" textFill="#32447c" GridPane.rowIndex="2">
                <font>
                   <Font size="19.0" />
                </font>
@@ -85,49 +199,45 @@
                   <DropShadow color="TRANSPARENT" />
                </effect>
             </Label>
-            <TextField fx:id="txtRG" prefHeight="25.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Etnia:" textFill="#32447c" GridPane.rowIndex="1">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <Label text="Idade:" textFill="#32447c">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <Spinner fx:id="spnIdade" editable="true" prefHeight="25.0" prefWidth="505.0" GridPane.columnIndex="1">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Spinner>
+            <ComboBox fx:id="cbEtnias" prefHeight="25.0" prefWidth="495.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect></ComboBox>
+            <TextField fx:id="txtCpf" prefHeight="25.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <effect>
                   <DropShadow color="TRANSPARENT" />
                </effect></TextField>
-            <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <effect>
                   <DropShadow color="TRANSPARENT" />
                </effect></TextField>
-            <Label text="Nome:" textFill="#32447c">
-               <font>
-                  <Font size="19.0" />
-               </font>
-               <effect>
-                  <DropShadow color="TRANSPARENT" />
-               </effect>
-            </Label>
-            <TextField fx:id="txtNome" prefHeight="25.0" prefWidth="346.0" GridPane.columnIndex="1">
-               <effect>
-                  <DropShadow color="TRANSPARENT" />
-               </effect>
-            </TextField>
-            <Label prefHeight="24.0" prefWidth="83.0" text="Senha:" textFill="#32447c" GridPane.rowIndex="3">
-               <font>
-                  <Font size="19.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="50.0" />
-               </GridPane.margin>
-               <effect>
-                  <DropShadow color="TRANSPARENT" />
-               </effect>
-            </Label>
-            <TextField fx:id="txtSenha" prefHeight="23.0" prefWidth="304.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="50.0" />
-               </GridPane.margin>
-               <effect>
-                  <DropShadow color="TRANSPARENT" />
-               </effect>
-            </TextField>
          </children>
       </GridPane>
-      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="241.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
+      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="193.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -2,7 +2,6 @@ package view;
 import model.AzureConnection;
 import model.Empresa;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.security.MessageDigest;
@@ -24,8 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 
@@ -63,16 +60,16 @@ public class PerfilEmpresaController extends Application{
 	@FXML
 	public void uparFoto(MouseEvent event)  {
 		//declarando o filechooser
-		FileChooser abrirArquivo = new FileChooser();
+		JFileChooser abrirArquivo = new JFileChooser();
 		//defininfo os filtros
-		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
-		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpeg"));
-		//abrir a janela e pegar o arquivo selecionado
-		File arquivo = abrirArquivo.showOpenDialog(null);
+		abrirArquivo.setFileFilter(new FileNameExtensionFilter("PNG images", "png"));
+		abrirArquivo.setFileFilter(new FileNameExtensionFilter("JPEG images", "jpg"));
+		//abrir a janela
+		abrirArquivo.showOpenDialog(null);
 		//pegando caminho da pasta
-		String caminho = arquivo.getAbsolutePath();
+		String caminho = abrirArquivo.getSelectedFile().getPath();
 		//pegando nome do arquivo
-		String nome = arquivo.getName();
+		String nome = abrirArquivo.getSelectedFile().getName();
 		//pegando extensao do arquivo
 		String extensao = nome.substring(nome.length()-4);
 		//instanciando objeto da classe do Azure
@@ -104,13 +101,8 @@ public class PerfilEmpresaController extends Application{
 			}
 			else {//senao
 				//pega nome da propria foto e faz upload e update
-				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
-					pstmt.setString(1, Empresa.getFoto());
-					con.upload(caminho, Empresa.getFoto());
-				}else {
-					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
-					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
-				}
+				pstmt.setString(1, Empresa.getFoto());
+				con.upload(caminho, Empresa.getFoto());
 			}
 			//executar query
 			pstmt.execute();
@@ -120,7 +112,6 @@ public class PerfilEmpresaController extends Application{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
 		}
     }
 

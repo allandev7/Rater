@@ -5,15 +5,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.mysql.jdbc.PreparedStatement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import view.CargosController;
+import view.NovaEntrevistaController;
 
 public class Padroes {
 	//abrindo conexao com o banco
 	Connection con = new Empresa().connect();
+	
 	
 	
 	
@@ -23,7 +27,8 @@ public class Padroes {
 	private ArrayList<String> nomeCargo = new ArrayList<>();
 	//cria array para armazenar o id dos cargos
 	private ArrayList<Integer> idCargo = new ArrayList<>();
-	
+	public ObservableList<String> listaCargos = FXCollections.observableArrayList( );
+
 	//Metodo de carregar criterios
 	public ArrayList<String> carregarCargos() throws SQLException {
 		//limpar os arrays
@@ -42,6 +47,8 @@ public class Padroes {
 			//adicionar cargos e ids aos arrays
 			nomeCargo.add(rs.getString("NOME"));
 			idCargo.add(rs.getInt("ID"));
+			listaCargos.add(rs.getString("NOME"));	
+
 		}
 		return nomeCargo;
 	}
@@ -82,17 +89,17 @@ public class Padroes {
 	}
 	
 	
-	//PARTE CRITÉRIOS
+	//PARTE CRITï¿½RIOS
 	
-	//cria array para armazenar os nomes dos critérios
+	//cria array para armazenar os nomes dos critï¿½rios
 	private ArrayList<String> nomeCriterios = new ArrayList<>();
-	//cria array para armazenar os definição dos critérios
+	//cria array para armazenar os definiï¿½ï¿½o dos critï¿½rios
 	private ArrayList<String> definicaoCriterio = new ArrayList<>();
-	//cria array para armazenar o id dos critérios
+	//cria array para armazenar o id dos critï¿½rios
 	private ArrayList<Integer> idCriterios = new ArrayList<>();
 	
 	
-	//método carregar critérios
+	//mï¿½todo carregar critï¿½rios
 	public ArrayList<String> carregarCriterios (int id) throws SQLException {
 		//limpar os arrays
 		nomeCriterios.clear();
@@ -116,14 +123,14 @@ public class Padroes {
 		return nomeCriterios;
 	}
 	
-	//método deletar
+	//mï¿½todo deletar
 	public void deletarCriterios(int id) throws SQLException {
 		String sql = "DELETE FROM criterio WHERE ID=?";
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		pstmt.setInt(1, id);
 		pstmt.execute();
 	}
-	//metodo alterar critérios
+	//metodo alterar critï¿½rios
 	public void alterarCriterios(String criterio,String definicao, int id) throws SQLException{
 		//query de alterar os cargos
 		String sql = "UPDATE criterio SET NOME=?, DEFINICAO=? WHERE ID=?";
@@ -136,7 +143,7 @@ public class Padroes {
 		//executando a query
 		pstmt.execute();
 	}
-	//método novoCritério
+	//mï¿½todo novoCritï¿½rio
 	public void novoCriterio(String criterio,String definicao, int idCargo) throws SQLException{
 		//query de inserir os criterios
 		String sql = "INSERT INTO criterio (ID, NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?)";
@@ -152,51 +159,34 @@ public class Padroes {
 	
 	
 	
-	//lista de cargos para colocae no listbox
-		public ObservableList<String> listaCargos = FXCollections.observableArrayList( );
 
-			//metodo para pegar os cargos do banco de dados e adicionar ao ObservableList
-		public void carregarCargosNE() throws SQLException{
-				
-				// query sql para selecionar todos os dados da tebla cargo
-				String sql = "SELECT * FROM cargo  ; ";
-				
-				//criando um statment
-				PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
-				
-				//executando o query para obter o resultado
 
-				ResultSet rs = pstmt.executeQuery();
+	//CARREGAR CRITERIOS DE ACORDO COM O CARGO
+	public ArrayList<String> nomesCriterioNE2 = new ArrayList<>();
 
-				// pegando todos os dados da coluna NOME
-				while(rs.next()) {		
-					//adicionando os valores no observableLiist
-					listaCargos.add(rs.getString("NOME"));	
-				}
-
-			}
-	
-		private ArrayList<String> nomeCriterio = new ArrayList<>();
+	public ArrayList<String>  listarCriteriosNE2(String cargo) throws SQLException {
+		//NovaEntrevistaController nec = new NovaEntrevistaController();
+		//ne2c.setCargoSelecionado(ne2c.cbCargos.getValue().toString());
+		//limpar os arrays
+		nomesCriterioNE2.clear();
 		
-		public ArrayList<String> listarCriteriosNE2() throws SQLException {
-			//limpar os arrays
-			nomeCriterio.clear();
-			//selecionar na tabela
-			String sql = "SELECT * FROM criterio";
-			// criando statment
-			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
-			//definindo o id na query
-			//pstmt.setInt(1, Empresa.getId());
-			//executando o query para obter o resultado
-			ResultSet rs = pstmt.executeQuery();
-			//enquanto houver linhas
-			while (rs.next()){
-				//adicionar cargos e ids aos arrays
-				nomeCriterio.add(rs.getString("NOME"));
-				//idCargo.add(rs.getInt("ID"));
-			}
-			return nomeCargo;
+		//selecionar na tabela
+		String sql = "SELECT * FROM criterio WHERE ID_CARGO = (SELECT id FROM cargo WHERE NOME ='"+cargo+"' AND ID_EMPRESA=?);";
+		
+		// criando statment
+		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+		pstmt.setInt(1, Empresa.getId());	
+		//executando o query para obter o resultado
+		ResultSet rs = pstmt.executeQuery();
+		//enquanto houver linhas
+
+		while (rs.next()){			
+			//adicionar cargos e ids aos arrays
+			nomesCriterioNE2.add(rs.getString("NOME"));
 		}
+			
+		return nomesCriterioNE2;
+	}
 	
 	
 	
@@ -206,6 +196,7 @@ public class Padroes {
 	
 	
 	//getters CARGOS
+
 
 	public Integer getIdCargo(int i) {
 		return this.idCargo.get(i);

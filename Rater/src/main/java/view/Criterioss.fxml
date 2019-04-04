@@ -16,7 +16,7 @@
       <Pane prefHeight="540.0" prefWidth="722.0">
          <children>
             <JFXListView fx:id="jfxlvListView" editable="true" layoutY="49.0" prefHeight="419.0" prefWidth="722.0" verticalGap="10.0" />
-            <Label fx:id="lblNumCrit" layoutX="430.0" layoutY="12.0" text="Label">
+            <Label fx:id="lblNumCrit" layoutX="14.0" layoutY="14.0" text="Label">
                <font>
                   <Font name="Tahoma" size="17.0" />
                </font>
@@ -58,14 +58,6 @@
                   </JFXButton>
                </children>
             </HBox>
-            <JFXButton fx:id="btnDeletarCriterio1" layoutX="7.0" layoutY="7.0" onAction="#deteteCriterio" prefHeight="31.0" prefWidth="115.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <DropShadow color="#0000006e" />
-               </effect>
-            </JFXButton>
          </children>
       </Pane>
    </children>

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
+import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -45,26 +46,31 @@ import model.Padroes;
 
 public class NovaEntrevista2Controller extends Application{
 	
-	//Criando uma JFXListView para armazenar os critérios
+	//Criando uma JFXListView para armazenar os critï¿½rios
 	@FXML public JFXListView jfxlvListView;
 	@FXML private Label lblEntrevista;
 	@FXML private AnchorPane pane;
 	@FXML private Button btnContinuar;
 	@FXML private Button btnCancelar;
-		
-	private int NumCriterios = 10;
-	
+
+
+	NovaEntrevistaController nec = new NovaEntrevistaController();
 	Padroes p = new Padroes();
-	
+
+
+
 	@FXML
 	public void start(Stage stage) throws IOException {
 	
 	}
 	
 	public void initialize() throws Exception {
-		int numCriteriosNE2 = p.listarCriteriosNE2().size();
+		p.listarCriteriosNE2(nec.getCargoSelecionado());
+		int numCri = p.listarCriteriosNE2(nec.getCargoSelecionado()).size();
+		System.out.print(numCri);
+		System.out.print(nec.getCargoSelecionado());
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < numCriteriosNE2; i++) {
+		for (int i = 0; i < numCri; i++) {
 			
 			//Criando HBox para colocar componentes um ao lado do outro
 			HBox hbox = new HBox();
@@ -75,17 +81,17 @@ public class NovaEntrevista2Controller extends Application{
 			//Criando textarea
 			TextArea textarea = new TextArea();
 			
-			//Definindo tamanho da textarea para não dar bug
+			//Definindo tamanho da textarea para nï¿½o dar bug
 			textarea.setMaxSize(500, 80);
 			textarea.setMinSize(500, 80);
 			
 			//Definindo o prompt text da textarea
-			textarea.setPromptText("Observações..");
+			textarea.setPromptText("Observaï¿½ï¿½es..");
 			
 			//Criando pane
 			Pane panel = new Pane();
 			
-			//Definindo tamanho do pane para não dar bug
+			//Definindo tamanho do pane para nï¿½o dar bug
 			panel.setMaxSize(50, 80);
 			panel.setMinSize(50, 80);
 			
@@ -95,13 +101,9 @@ public class NovaEntrevista2Controller extends Application{
 			
 			//Criando vbox para colocar componentes um em cima do outro
 			VBox vbox = new VBox();
-			
-			//Variável com o nome do critério, deverá ser substituída por consulta ao banco de dados
-<<<<<<< HEAD
-			Label lbl1 = new Label("nomeCriterio");
-=======
-			Label lbl1 = new Label("");
->>>>>>> 4127cf503f7ae6d5e13fc14e0eedc1adc12f4956
+			String criterio = p.listarCriteriosNE2(nec.getCargoSelecionado()).get(i);
+			//Variï¿½vel com o nome do critï¿½rio, deverï¿½ ser substituï¿½da por consulta ao banco de dados
+			Label lbl1 = new Label(criterio);
 			
 			//Adicionando a label e a hbox na vbox
 			vbox.getChildren().addAll(lbl1, hbox);
@@ -117,17 +119,17 @@ public class NovaEntrevista2Controller extends Application{
 		//Criando textarea
 		TextArea textarea = new TextArea();
 		
-		//Definindo tamanho da textarea para não dar bug
+		//Definindo tamanho da textarea para nï¿½o dar bug
 		textarea.setMaxSize(500, 80);
 		textarea.setMinSize(500, 80);
 		
 		//Definindo o prompt text da textarea
-		textarea.setPromptText("Observações..");
+		textarea.setPromptText("Observaï¿½ï¿½es..");
 		
 		//Criando pane
 		Pane panel = new Pane();
 		
-		//Definindo tamanho do pane para não dar bug
+		//Definindo tamanho do pane para nï¿½o dar bug
 		panel.setMaxSize(5, 80);
 		panel.setMinSize(5, 80);
 		
@@ -156,29 +158,30 @@ public class NovaEntrevista2Controller extends Application{
 		
 		//Criando vbox para agrupar hboxes dos radio buttons
 		VBox empilhador = new VBox(hAprovado, hReprovado, hEspera);
-		//Definindo espaçamento entre os itens da vbox
+		//Definindo espaï¿½amento entre os itens da vbox
 		empilhador.setSpacing(10);
 		
 		//Adicionando componentes na hbox
 		hbox1.getChildren().addAll(panel, empilhador, textarea);
 		hbox1.setHgrow(panel, Priority.ALWAYS);
-		//Definindo espaçamento entre os itens da hbox
+		//Definindo espaï¿½amento entre os itens da hbox
 		hbox1.setSpacing(10);
 		
 		//Criando vbox para colocar componentes um em cima do outro
 		VBox vbox = new VBox();
 		
-		//Criando label para o último critério
-		Label lblConclusao = new Label("Conclusão");
+		//Criando label para o ï¿½ltimo critï¿½rio
+		Label lblConclusao = new Label("Conclusï¿½o");
 		
 		//Adicionando a label e a hbox na vbox
 		vbox.getChildren().addAll(lblConclusao, hbox1);
-		//Definindo espaçamento entre os itens da vbox
+		//Definindo espaï¿½amento entre os itens da vbox
 		vbox.setSpacing(10);
 
 		//Adicionando a Label vbox na JFXListView
 		jfxlvListView.getItems().add(vbox);
 		
 	}
-		
+
+
 }

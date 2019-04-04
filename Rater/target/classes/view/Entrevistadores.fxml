@@ -18,7 +18,7 @@
          </font>
       </Label>
       <TextField fx:id="txtPesquisarEntrevistadores" layoutX="393.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevistador..." />
-      <HBox layoutX="24.0" layoutY="474.0" prefHeight="42.0" prefWidth="689.0">
+      <HBox layoutX="24.0" layoutY="472.0" prefHeight="42.0" prefWidth="689.0">
          <children>
             <JFXButton fx:id="btnDeletarEntrevistador" onAction="#deletarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar">
                <HBox.margin>
@@ -30,7 +30,7 @@
                   <Insets right="100.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton fx:id="btnAdicionarEntrevistador" onAction="#novoEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo entrevistador" />
+            <JFXButton fx:id="btnAdicionarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo entrevistador" />
          </children>
       </HBox>
    </children>

@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
@@ -38,7 +37,6 @@ public class TelaExController extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-			stage.getIcons().add(new Image("imagens/icon.png"));
 			//Criar loader pegando o fxml como parametro
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("TelaEx.fxml"));
 			//criar root para carregar o loader
@@ -77,7 +75,7 @@ public class TelaExController extends Application{
 		 * login = 1 -> pode logar
 		 * login = 2 -> deve confirmar email
 		 * */
-		//if(login == 1) {
+		if(login == 1) {
 			lblErro.setStyle("-fx-color:Green;");
 			lblErro.setText("Seja bem vindo");
 			//instanciar o controller da outra tela
@@ -90,14 +88,14 @@ public class TelaExController extends Application{
 			Stage agr = (Stage) txtEmail.getScene().getWindow();
 			//fechar essa janela
 			agr.close();
-		/*}else if(login ==0) {
+		}else if(login ==0) {
 			//se os usuarios não forem corretos
 			lblErro.setText("Usuário e/ou senha incorreto(s)");
 		}else {
 			//se o email nao for confirmado
 			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 			lblErro.setText("");
-		}*/
+		}
 	}
 
 	

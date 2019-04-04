@@ -62,7 +62,6 @@ public class MenuController extends Application{
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
-		stage.getIcons().add(new Image("imagens/icon.png"));
 		//Criar loader pegando o fxml como parametro
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Menu.fxml"));
 		//criar root para carregar o loader
