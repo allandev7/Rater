@@ -75,11 +75,11 @@ public int login(String emailTxt, String senhaTxt) {
 			setCnpj(rs.getString("CNPJ"));
 			//verificando se existe a imagem
 			File file = new File("C:\\Rater/imagens/"+getFoto());
-			if(!file.exists()) {
+			//if(!file.exists()) {
 				// se nao existe, baixar
 				AzureConnection con = new AzureConnection();
 				con.down(getFoto());
-			}
+			//}
 		}else {
 				valido = 0;
 		}

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
@@ -37,6 +38,7 @@ public class TelaExController extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+			stage.getIcons().add(new Image("imagens/icon.png"));
 			//Criar loader pegando o fxml como parametro
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("TelaEx.fxml"));
 			//criar root para carregar o loader
