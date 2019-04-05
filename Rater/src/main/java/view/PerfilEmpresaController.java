@@ -83,7 +83,7 @@ public class PerfilEmpresaController extends Application{
 		String sql = "UPDATE empresa SET foto=?";
 		try {//tentar
 			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
-			if (Empresa.getFoto()=="") {// se nao haver foto no banco
+			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
 				
 				//cria objeto MessageDigest nulo para criptografia
 				MessageDigest m = null;

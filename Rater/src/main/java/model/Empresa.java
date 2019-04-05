@@ -73,8 +73,11 @@ public int login(String emailTxt, String senhaTxt) {
 			setSenha(rs.getString("SENHA")); 
 			setFoto(rs.getString("FOTO"));
 			setCnpj(rs.getString("CNPJ"));
+			if(status == 0) { //verificando email valido
+				valido = 2;
+			}
 			//verificando se existe a imagem
-			File file = new File("C:\\Rater/imagens/"+getFoto());
+			//File file = new File("C:\\Rater/imagens/"+getFoto());
 			//if(!file.exists()) {
 				// se nao existe, baixar
 				AzureConnection con = new AzureConnection();
@@ -87,15 +90,7 @@ public int login(String emailTxt, String senhaTxt) {
 		 * valido = 1 -> pode logar
 		 * valido = 2 -> deve confirmar email
 		 * */
-		if(valido == 1) {//verificando login
-			if(status == 1) { //verificando email valido
-				valido = 1;
-			}else {//else email valido
-				valido = 2;
-			}
-		}else {//else login
-			valido = 0;
-		}
+		
 	}catch(SQLException e) {
 		System.out.println(e);
 	}catch(Exception e) {

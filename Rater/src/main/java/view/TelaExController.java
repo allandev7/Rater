@@ -78,7 +78,6 @@ public class TelaExController extends Application{
 		 * login = 2 -> deve confirmar email
 		 * */
 		if(login == 1) {
-			lblErro.setStyle("-fx-color:Green;");
 			lblErro.setText("Seja bem vindo");
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
