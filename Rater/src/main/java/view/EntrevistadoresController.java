@@ -48,12 +48,12 @@ public class EntrevistadoresController extends Application{
 
 	public void initialize() throws Exception {
 		
-		lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);
+		lblNumEnt.setText("Nï¿½mero de entrevistadores: " + NumEntrevistadores);
 		
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < NumEntrevistadores; i++) {
 			
-			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
+			//Variï¿½veis que pegam os dados do entrevistador, deverï¿½o ser substituï¿½das por colsulta ao banco de dados
 			String nomeEntrevistador = "jeej" + (i + 1);
 			
 			//Inserindo dados do entrevistador em uma Label
@@ -69,13 +69,13 @@ public class EntrevistadoresController extends Application{
 	
 	@FXML
 	public void visualizarPerfilEntrevistador(ActionEvent event) throws IOException {
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+		//Checando se existe algum item selecionado, caso nï¿½o exista nï¿½o acontecerï¿½ nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {	
-			//Pegando fxml como parâmetro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores2.fxml"));
-			//Limpando o coteúdo do AnchorPane "pane"
+			//Pegando fxml como parï¿½metro
+			Parent fxml = FXMLLoader.load(getClass().getResource("EntrevistadoresPerfil.fxml"));
+			//Limpando o coteï¿½do do AnchorPane "pane"
         	pane.getChildren().removeAll();
-        	//Colocando o documento fxml como conteúdo do pane
+        	//Colocando o documento fxml como conteï¿½do do pane
         	pane.getChildren().setAll(fxml);
 		}
 	}
@@ -83,18 +83,18 @@ public class EntrevistadoresController extends Application{
 	@FXML
 	public void deletarEntrevistador(ActionEvent event) {
 		
-				//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+				//Checando se existe algum item selecionado, caso nï¿½o exista nï¿½o acontecerï¿½ nada
 				if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 					
 					//Removendo o item selecionado da ListView
 					jfxlvListView.getItems().remove((jfxlvListView.getSelectionModel().getSelectedItem()));
 					
-					//Removendo a seleção da ListView
+					//Removendo a seleï¿½ï¿½o da ListView
 					jfxlvListView.getSelectionModel().clearSelection();
 					
 					NumEntrevistadores--;
 					
-					lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);
+					lblNumEnt.setText("Nï¿½mero de entrevistadores: " + NumEntrevistadores);
 				}
 					
 	}
@@ -102,11 +102,11 @@ public class EntrevistadoresController extends Application{
 	@FXML 
 	public void novoEntrevistador(ActionEvent event) throws Exception {
 		
-		//Pegando fxml como parâmetro
+		//Pegando fxml como parï¿½metro
 		Parent fxml = FXMLLoader.load(getClass().getResource("EntrevistadoresAdicionar.fxml"));
-		//Limpando o coteúdo do AnchorPane "pane"
+		//Limpando o coteï¿½do do AnchorPane "pane"
     	pane.getChildren().removeAll();
-    	//Colocando o documento fxml como conteúdo do pane
+    	//Colocando o documento fxml como conteï¿½do do pane
     	pane.getChildren().setAll(fxml);
 	}
 }

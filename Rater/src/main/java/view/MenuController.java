@@ -62,17 +62,18 @@ public class MenuController extends Application{
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
+		stage.getIcons().add(new Image("imagens/icon.png"));
 		//Criar loader pegando o fxml como parametro
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Menu.fxml"));
 		//criar root para carregar o loader
         Parent root = loader.load();
         //colocar titulo da janela
         stage.setTitle("RATER - Menu");
-        //definir janela como não decorada (sem os botoes -, x)
+        //definir janela como nï¿½o decorada (sem os botoes -, x)
         stage.initStyle(StageStyle.UNDECORATED);
         //definir como tamanho da janela
         stage.sizeToScene();
-        //não deixar maximizar a tela
+        //nï¿½o deixar maximizar a tela
         stage.setResizable(false);
         //colocar a nova janela
         stage.setScene(new Scene(root));
@@ -103,67 +104,67 @@ public class MenuController extends Application{
 	
 	@FXML
 	public void NovaEntrevista(MouseEvent event) throws IOException {
-		//Pegando fxml como parâmetro
+		//Pegando fxml como parï¿½metro
 			Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteï¿½do do Pane "pane"
 			pane.getChildren().removeAll();
-        	//Colocando o documento fxml como conteúdo do pane
+        	//Colocando o documento fxml como conteï¿½do do pane
         	pane.getChildren().setAll(fxml);
     	}
 	
 	 @FXML
 	 public void GerenciarEntrevistas(MouseEvent event) throws IOException {
-	        //Pegando fxml como parâmetro
+	        //Pegando fxml como parï¿½metro
 			Parent fxml = FXMLLoader.load(getClass().getResource("GerenciarEntrevistas.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteï¿½do do Pane "pane"
 	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
+	        //Colocando o documento fxml como conteï¿½do do pane
 	        pane.getChildren().setAll(fxml);
 	    }
 	 
 	 @FXML
 	 public void Criterios(MouseEvent event) throws IOException {
-	        //Pegando fxml como parâmetro
+	        //Pegando fxml como parï¿½metro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Cargos.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteï¿½do do Pane "pane"
 	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
+	        //Colocando o documento fxml como conteï¿½do do pane
 	        pane.getChildren().setAll(fxml);
 	    }
 	 
 	 @FXML
 	 public void Entrevistadores(MouseEvent event) throws IOException {
-	        //Pegando fxml como parâmetro
+	        //Pegando fxml como parï¿½metro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteï¿½do do Pane "pane"
 	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
+	        //Colocando o documento fxml como conteï¿½do do pane
 	        pane.getChildren().setAll(fxml);
 	    }
 	 
 	 @FXML
 	 public void Home(MouseEvent event) throws IOException {
-	        //Pegando fxml como parâmetro
+	        //Pegando fxml como parï¿½metro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Home.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteï¿½do do Pane "pane"
 	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
+	        //Colocando o documento fxml como conteï¿½do do pane
 	        pane.getChildren().setAll(fxml);
 	    }
 	 
 	 @FXML
 	 public void Perfil(MouseEvent event) throws IOException {
-	        //Pegando fxml como parâmetro
+	        //Pegando fxml como parï¿½metro
 			Parent fxml = FXMLLoader.load(getClass().getResource("PerfilEmpresa.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteï¿½do do Pane "pane"
 	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
+	        //Colocando o documento fxml como conteï¿½do do pane
 	        pane.getChildren().setAll(fxml);
 	    }
 	
 	@FXML 
 	private void Minimizar(ActionEvent event) {
-	//Colocar cena do anchorpane na variável stage
+	//Colocar cena do anchorpane na variï¿½vel stage
 	 Stage stage = (Stage)parent.getScene().getWindow();
 			
 	//Fazer com que a janela possa ser minimizada (true | false)
@@ -172,7 +173,7 @@ public class MenuController extends Application{
 	
 	 @FXML
 	 public void Fechar(MouseEvent event) {
-		 //Fechar aplicação//
+		 //Fechar aplicaï¿½ï¿½o//
 		 System.exit(0);
 	 }
 

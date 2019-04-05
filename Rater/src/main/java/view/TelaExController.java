@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
@@ -37,15 +38,16 @@ public class TelaExController extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+			stage.getIcons().add(new Image("imagens/icon.png"));
 			//Criar loader pegando o fxml como parametro
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("TelaEx.fxml"));
 			//criar root para carregar o loader
 	        Parent root = loader.load();
 	        //colocar titulo da janela
 	        stage.setTitle("RATER - login");
-	     	//definir janela como não decorada (sem os botoes -, x)
+	     	//definir janela como nï¿½o decorada (sem os botoes -, x)
 	        stage.initStyle(StageStyle.UNDECORATED);
-	        //não deixar maximizar a tela
+	        //nï¿½o deixar maximizar a tela
 	        stage.setResizable(false);
 	        //colocar a nova janela
 	        stage.setScene(new Scene(root));
@@ -80,7 +82,7 @@ public class TelaExController extends Application{
 			lblErro.setText("Seja bem vindo");
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
-			//criar nova janela que será passado como parametro
+			//criar nova janela que serï¿½ passado como parametro
 			Stage stage = new  Stage();
 			//executar metodo start da tela 2
 			tela2.start(stage);
@@ -89,11 +91,11 @@ public class TelaExController extends Application{
 			//fechar essa janela
 			agr.close();
 		}else if(login ==0) {
-			//se os usuarios não forem corretos
-			lblErro.setText("Usuário e/ou senha incorreto(s)");
+			//se os usuarios nï¿½o forem corretos
+			lblErro.setText("Usuï¿½rio e/ou senha incorreto(s)");
 		}else {
 			//se o email nao for confirmado
-			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Vocï¿½ deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 			lblErro.setText("");
 		}
 	}
@@ -101,7 +103,7 @@ public class TelaExController extends Application{
 	
 	@FXML 
 	private void Minimizar(ActionEvent event) {
-		//Colocar cena do anchorpane na variável stage
+		//Colocar cena do anchorpane na variï¿½vel stage
 		Stage stage = (Stage)anchorPane.getScene().getWindow();
 		
 		//Fazer com que a janela possa ser minimizada (true | false)
@@ -110,7 +112,7 @@ public class TelaExController extends Application{
 	
 	@FXML
 	public void Fechar(MouseEvent event) {
-		//Fechar aplicação//
+		//Fechar aplicaï¿½ï¿½o//
 		System.exit(0);
 	}
 	

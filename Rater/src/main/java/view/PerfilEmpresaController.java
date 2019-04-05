@@ -1,7 +1,9 @@
 package view;
 import model.AzureConnection;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.Empresa;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.security.MessageDigest;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -34,12 +37,12 @@ public class PerfilEmpresaController extends Application{
 	@FXML private Button btnAlterarInformacoes;
 	@FXML private ImageView imgFoto;
 	
-	/*Variáveis para pegar informações da empresa do banco de dados*/
+	/*Variï¿½veis para pegar informaï¿½ï¿½es da empresa do banco de dados*/
 	private String NomeEmpresa = Empresa.getNome();
 	private String EmailEmpresa = Empresa.getEmail();
 	private String Cnpj = Empresa.getCnpj();
 	
-	//O método initialize é chamado automáticamente com o carregamento do FXML
+	//O mï¿½todo initialize ï¿½ chamado automï¿½ticamente com o carregamento do FXML
 	public void initialize(){
         txtNomeEmpresa.setText(NomeEmpresa);
         txtEmailEmpresa.setText(EmailEmpresa);
@@ -60,16 +63,16 @@ public class PerfilEmpresaController extends Application{
 	@FXML
 	public void uparFoto(MouseEvent event)  {
 		//declarando o filechooser
-		JFileChooser abrirArquivo = new JFileChooser();
+		FileChooser abrirArquivo = new FileChooser();
 		//defininfo os filtros
-		abrirArquivo.setFileFilter(new FileNameExtensionFilter("PNG images", "png"));
-		abrirArquivo.setFileFilter(new FileNameExtensionFilter("JPEG images", "jpg"));
-		//abrir a janela
-		abrirArquivo.showOpenDialog(null);
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpeg"));
+		//abrir a janela e pegar o arquivo selecionado
+		File arquivo = abrirArquivo.showOpenDialog(null);
 		//pegando caminho da pasta
-		String caminho = abrirArquivo.getSelectedFile().getPath();
+		String caminho = arquivo.getAbsolutePath();
 		//pegando nome do arquivo
-		String nome = abrirArquivo.getSelectedFile().getName();
+		String nome = arquivo.getName();
 		//pegando extensao do arquivo
 		String extensao = nome.substring(nome.length()-4);
 		//instanciando objeto da classe do Azure
@@ -103,11 +106,18 @@ public class PerfilEmpresaController extends Application{
 				//pega nome da propria foto e faz upload e update
 				pstmt.setString(1, Empresa.getFoto());
 				con.upload(caminho, Empresa.getFoto());
+				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
+					pstmt.setString(1, Empresa.getFoto());
+					con.upload(caminho, Empresa.getFoto());
+				}else {
+					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
+					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
+				}
 			}
 			//executar query
 			pstmt.execute();
 			//mensagem de sucesso
-			JOptionPane.showMessageDialog(null, "Foto alterada com sucesso, reinicie o software para executar as alterações", 
+			JOptionPane.showMessageDialog(null, "Foto alterada com sucesso, reinicie o software para executar as alteraï¿½ï¿½es", 
 												"Sucesso", JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

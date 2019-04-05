@@ -86,7 +86,7 @@ public class NovaEntrevista2Controller extends Application{
 			textarea.setMinSize(500, 80);
 			
 			//Definindo o prompt text da textarea
-			textarea.setPromptText("Observa��es..");
+			textarea.setPromptText("Observações..");
 			
 			//Criando pane
 			Pane panel = new Pane();
@@ -124,7 +124,7 @@ public class NovaEntrevista2Controller extends Application{
 		textarea.setMinSize(500, 80);
 		
 		//Definindo o prompt text da textarea
-		textarea.setPromptText("Observa��es..");
+		textarea.setPromptText("Observações..");
 		
 		//Criando pane
 		Pane panel = new Pane();

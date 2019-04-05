@@ -32,7 +32,7 @@ public class Empresa extends Usuarios {
 		try{  
 			//buscar Driver
 			Class.forName("com.mysql.jdbc.Driver");  
-			//estabelecer conexão com banco
+			//estabelecer conexï¿½o com banco
 			con=DriverManager.getConnection(  
 					"jdbc:mysql://localhost/RATER","root","");
 			
@@ -53,7 +53,7 @@ public class Empresa extends Usuarios {
 public int login(String emailTxt, String senhaTxt) {
 	String sql = "SELECT * FROM EMPRESA WHERE EMAIL = ? AND SENHA = MD5(?)";
 	int status=0, valido = 0;
-//tentar conexão
+//tentar conexï¿½o
 	try(Connection conn = this.connect();
 		PreparedStatement stmt  = conn.prepareStatement(sql)){
 		//definindo os parametros do statment para query
@@ -75,11 +75,11 @@ public int login(String emailTxt, String senhaTxt) {
 			setCnpj(rs.getString("CNPJ"));
 			//verificando se existe a imagem
 			File file = new File("C:\\Rater/imagens/"+getFoto());
-			if(!file.exists()) {
+			//if(!file.exists()) {
 				// se nao existe, baixar
 				AzureConnection con = new AzureConnection();
 				con.down(getFoto());
-			}
+			//}
 		}else {
 				valido = 0;
 		}

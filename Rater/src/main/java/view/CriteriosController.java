@@ -36,7 +36,7 @@ import javafx.scene.input.MouseEvent.*;
 
 public class CriteriosController extends Application{
 	
-	//Criando uma JFXListView para armazenar os critérios
+	//Criando uma JFXListView para armazenar os critï¿½rios
 	@FXML private JFXListView<Label> jfxlvListView;
 	@FXML private Label lblNumCrit;
 	@FXML private Pane pane;
@@ -55,22 +55,22 @@ public class CriteriosController extends Application{
 	public void carregarCriterios() throws SQLException {
 		jfxlvListView.getItems().clear();
 		int numCriterios = p.carregarCriterios(c.getIdSelecionado()).size();
-		//Definindo texto da label que apresenta o número de cargos salvos
-		lblNumCrit.setText("Número de critérios salvos: " + numCriterios);
+		//Definindo texto da label que apresenta o nï¿½mero de cargos salvos
+		lblNumCrit.setText("Nï¿½mero de critï¿½rios salvos: " + numCriterios);
 		
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < numCriterios; i++) {
-			//Variável com nome do cargo, colsulta ao banco de dados
+			//Variï¿½vel com nome do cargo, colsulta ao banco de dados
 			String nomeCriterio = p.carregarCriterios(c.getIdSelecionado()).get(i);
 			
-			//Variável com a quantidade de critérios do cargo, deverá ser substituída por colsulta ao banco de dados
+			//Variï¿½vel com a quantidade de critï¿½rios do cargo, deverï¿½ ser substituï¿½da por colsulta ao banco de dados
 			String definicao = p.getDefinicao(i);
 			
-			//Inserindo nome do cargo e sua quantidade de critérios em uma Label
-			Label lbl1 = new Label("Nome do criterio: " + nomeCriterio + "\n\nDefinição: " + definicao + "                                      "
+			//Inserindo nome do cargo e sua quantidade de critï¿½rios em uma Label
+			Label lbl1 = new Label("Nome do criterio: " + nomeCriterio + "\n\nDefiniï¿½ï¿½o: " + definicao + "                                      "
 					+ "                                                                                                -"+p.getIdCriterios(i)+"-");
 			
-			//Definindo o tamanho da Label lbl pra não dar bug na listview
+			//Definindo o tamanho da Label lbl pra nï¿½o dar bug na listview
 			lbl1.setMaxSize(500, 80);
 			lbl1.setMinSize(500, 80);
 			
@@ -85,7 +85,7 @@ public class CriteriosController extends Application{
 	
 	public void deteteCriterio(ActionEvent event) throws Exception {
 		
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+		//Checando se existe algum item selecionado, caso nï¿½o exista nï¿½o acontecerï¿½ nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			
 			//pegando o id no fim da label
@@ -104,24 +104,32 @@ public class CriteriosController extends Application{
 	public void addCriterio(ActionEvent event) throws HeadlessException, SQLException {
 		
 		//executando o metodo adicionar
-				p.novoCriterio(JOptionPane.showInputDialog("Digite o novo Critério"), JOptionPane.showInputDialog("Digite sua Definição"),
+				p.novoCriterio(JOptionPane.showInputDialog("Digite o novo Critï¿½rio"), JOptionPane.showInputDialog("Digite sua Definiï¿½ï¿½o"),
 						c.getIdSelecionado());
 				carregarCriterios();
 	}
 	
 	//metodo alterar criterio
 	public void alterarCriterio(ActionEvent event) throws HeadlessException, SQLException {
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+		//Checando se existe algum item selecionado, caso nï¿½o exista nï¿½o acontecerï¿½ nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//pegando o id no fim da label
 			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
 			//convertendo para inteiro
 			int id = Integer.parseInt(idC[1]);
 			//executando o alterar
-			p.alterarCriterios(JOptionPane.showInputDialog("Digite o novo nome do Critério"), JOptionPane.showInputDialog("Digite a nova definição"),
+			p.alterarCriterios(JOptionPane.showInputDialog("Digite o novo nome do Critï¿½rio"), JOptionPane.showInputDialog("Digite a nova definiï¿½ï¿½o"),
 					id);
 			carregarCriterios();
 		}
-		
+	}
+
+	public void voltarParaCargos(ActionEvent event) throws Exception {
+		//Pegando fxml como parÃ¢metro
+		Parent fxml = FXMLLoader.load(getClass().getResource("Cargos.fxml"));
+		//Limpando o coteÃºdo do Pane "pane"
+		pane.getChildren().removeAll();
+		//Colocando o documento fxml como conteÃºdo do pane
+		pane.getChildren().setAll(fxml);
 	}
 }

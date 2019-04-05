@@ -39,7 +39,7 @@ public class NovaEntrevistaController extends Application{
 	Padroes p = new Padroes();
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
-	@FXML private TextField txtCpf;
+	@FXML private TextField txtRG;
 	@FXML private TextField txtEndereco;
 	@FXML private TextField txtTelefone;
 	@FXML private Spinner<Integer> spnIdade;
@@ -53,7 +53,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Button btnConfirmar;
 	@FXML private AnchorPane pane;
 	
-	private String cargoSelecionado ;
+	private static String cargoSelecionado ;
 
 	/*Criando lista do tipo ObservableList com os cargos da empresa, os valores desta lista
 	 dever�o ser substitu�dos pelos valores no banco de dados*/
@@ -65,7 +65,7 @@ public class NovaEntrevistaController extends Application{
 	}
 
 	public void setCargoSelecionado(String cargoSelecionado) {
-		this.cargoSelecionado = cargoSelecionado;
+		NovaEntrevistaController.cargoSelecionado = cargoSelecionado;
 	}
 
 	//Criando lista do tipo ObservableList com as etnias

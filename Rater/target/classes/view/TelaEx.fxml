@@ -48,7 +48,7 @@
                      <effect>
                         <DropShadow color="#00000082" />
                      </effect></Button>
-                  <TextField fx:id="txtEmail" layoutX="24.0" layoutY="108.0" prefHeight="36.0" prefWidth="227.0" promptText="Nome...">
+                  <TextField fx:id="txtEmail" layoutX="24.0" layoutY="108.0" prefHeight="36.0" prefWidth="227.0" promptText="E-mail...">
                      <effect>
                         <DropShadow color="#00000032" />
                      </effect></TextField>
