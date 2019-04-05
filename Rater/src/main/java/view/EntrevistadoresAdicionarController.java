@@ -47,11 +47,11 @@ public class EntrevistadoresAdicionarController extends Application{
 	}
 	
 	public void cancelarCadastro(ActionEvent event) throws Exception {
-		//Pegando fxml como parâmetro
+		//Pegando fxml como parÃ¢metro
 		Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
-		//Limpando o coteúdo do Pane "pane"
+		//Limpando o coteÃºdo do Pane "pane"
 		pane.getChildren().removeAll();
-		//Colocando o documento fxml como conteúdo do pane
+		//Colocando o documento fxml como conteÃºdo do pane
 		pane.getChildren().setAll(fxml);
 	}
 }

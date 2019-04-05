@@ -56,7 +56,7 @@ public class NovaEntrevistaController extends Application{
 	private static String cargoSelecionado ;
 
 	/*Criando lista do tipo ObservableList com os cargos da empresa, os valores desta lista
-	 dever�o ser substitu�dos pelos valores no banco de dados*/
+	 deverão ser substituídos pelos valores no banco de dados*/
 	//private ObservableList<String> listaCargos = FXCollections.observableArrayList("Cargo1", "Cargo2", "Cargo3", "Cargo4", "Cargo5" );
 	
 
@@ -69,9 +69,9 @@ public class NovaEntrevistaController extends Application{
 	}
 
 	//Criando lista do tipo ObservableList com as etnias
-	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Ind�gena");
+	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indígena");
 	
-	//Criando SpinnerValueFactory que ditar� as "regras" de funcionamento para o spinner spnIdade
+	//Criando SpinnerValueFactory que ditará as "regras" de funcionamento para o spinner spnIdade
 	private SpinnerValueFactory<Integer> spinnerNumeros = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
 	
 	
@@ -80,16 +80,16 @@ public class NovaEntrevistaController extends Application{
 		
 	}
 	
-	//O m�todo initialize � chamado autom�ticamente com o carregamento do FXML
+	//O método initialize e chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException {
 		
 		
 		//metodo que pega os cargos do banco
 		p.carregarCargos();
-		//Colocando a ObservableList de etnias como conte�do da ComboBox
+		//Colocando a ObservableList de etnias como conteúdo da ComboBox
 		cbEtnias.setItems(listaEtnias);
 	
-		//Colocando a ObservableList de cargos como conte�do da ComboBox
+		//Colocando a ObservableList de cargos como conteúdo da ComboBox
 		cbCargos.setItems(p.listaCargos);
 		
 		//Colocando a SpinnerValueFactory como "regra" para o spinner
@@ -101,17 +101,17 @@ public class NovaEntrevistaController extends Application{
 	
 
 	/*
-	 * PARTE N�O PRESENTE NO PROJETO ATUAL
+	 * PARTE não PRESENTE NO PROJETO ATUAL
 	 */
 
 	public void iniciarEntrevista(ActionEvent event) throws Exception {
 		setCargoSelecionado(cbCargos.getValue().toString());
 		System.out.print(getCargoSelecionado());
-		 //Pegando fxml como par�metro
+		 //Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista2.fxml"));
-		//Limpando o cote�do do Pane "pane"
+		//Limpando o coteúdo do Pane "pane"
         pane.getChildren().removeAll();
-        //Colocando o documento fxml como conte�do do pane
+        //Colocando o documento fxml como conteúdo do pane
         pane.getChildren().setAll(fxml);
 	}
 	//------------------------------------

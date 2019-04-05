@@ -89,17 +89,17 @@ public class Padroes {
 	}
 	
 	
-	//PARTE CRIT�RIOS
+	//PARTE CRITÉRIOS
 	
-	//cria array para armazenar os nomes dos crit�rios
+	//cria array para armazenar os nomes dos critérios
 	private ArrayList<String> nomeCriterios = new ArrayList<>();
-	//cria array para armazenar os defini��o dos crit�rios
+	//cria array para armazenar os definição dos critérios
 	private ArrayList<String> definicaoCriterio = new ArrayList<>();
-	//cria array para armazenar o id dos crit�rios
+	//cria array para armazenar o id dos critérios
 	private ArrayList<Integer> idCriterios = new ArrayList<>();
 	
 	
-	//m�todo carregar crit�rios
+	//método carregar critérios
 	public ArrayList<String> carregarCriterios (int id) throws SQLException {
 		//limpar os arrays
 		nomeCriterios.clear();
@@ -123,14 +123,14 @@ public class Padroes {
 		return nomeCriterios;
 	}
 	
-	//m�todo deletar
+	//método deletar
 	public void deletarCriterios(int id) throws SQLException {
 		String sql = "DELETE FROM criterio WHERE ID=?";
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		pstmt.setInt(1, id);
 		pstmt.execute();
 	}
-	//metodo alterar crit�rios
+	//metodo alterar critérios
 	public void alterarCriterios(String criterio,String definicao, int id) throws SQLException{
 		//query de alterar os cargos
 		String sql = "UPDATE criterio SET NOME=?, DEFINICAO=? WHERE ID=?";
@@ -143,7 +143,7 @@ public class Padroes {
 		//executando a query
 		pstmt.execute();
 	}
-	//m�todo novoCrit�rio
+	//método novoCritério
 	public void novoCriterio(String criterio,String definicao, int idCargo) throws SQLException{
 		//query de inserir os criterios
 		String sql = "INSERT INTO criterio (ID, NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?)";

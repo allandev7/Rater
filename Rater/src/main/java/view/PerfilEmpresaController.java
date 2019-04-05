@@ -37,12 +37,12 @@ public class PerfilEmpresaController extends Application{
 	@FXML private Button btnAlterarInformacoes;
 	@FXML private ImageView imgFoto;
 	
-	/*Vari�veis para pegar informa��es da empresa do banco de dados*/
+	/*Variáveis para pegar informações da empresa do banco de dados*/
 	private String NomeEmpresa = Empresa.getNome();
 	private String EmailEmpresa = Empresa.getEmail();
 	private String Cnpj = Empresa.getCnpj();
 	
-	//O m�todo initialize � chamado autom�ticamente com o carregamento do FXML
+	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){
         txtNomeEmpresa.setText(NomeEmpresa);
         txtEmailEmpresa.setText(EmailEmpresa);
@@ -117,7 +117,7 @@ public class PerfilEmpresaController extends Application{
 			//executar query
 			pstmt.execute();
 			//mensagem de sucesso
-			JOptionPane.showMessageDialog(null, "Foto alterada com sucesso, reinicie o software para executar as altera��es", 
+			JOptionPane.showMessageDialog(null, "Foto alterada com sucesso, reinicie o software para executar as alterações", 
 												"Sucesso", JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

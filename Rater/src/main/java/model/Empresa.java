@@ -32,7 +32,7 @@ public class Empresa extends Usuarios {
 		try{  
 			//buscar Driver
 			Class.forName("com.mysql.jdbc.Driver");  
-			//estabelecer conex�o com banco
+			//estabelecer conexão com banco
 			con=DriverManager.getConnection(  
 					"jdbc:mysql://localhost/RATER","root","");
 			
@@ -53,7 +53,7 @@ public class Empresa extends Usuarios {
 public int login(String emailTxt, String senhaTxt) {
 	String sql = "SELECT * FROM EMPRESA WHERE EMAIL = ? AND SENHA = MD5(?)";
 	int status=0, valido = 0;
-//tentar conex�o
+//tentar conexão
 	try(Connection conn = this.connect();
 		PreparedStatement stmt  = conn.prepareStatement(sql)){
 		//definindo os parametros do statment para query

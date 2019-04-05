@@ -27,12 +27,12 @@ public class GerenciarEntrevistasController extends Application{
 	
 	public void initialize() throws Exception {
 		
-		lblNumEnt.setText("Número de entrevistas salvas: " + NumEntrevistas);
+		lblNumEnt.setText("NÃºmero de entrevistas salvas: " + NumEntrevistas);
 		
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < NumEntrevistas; i++) {
 			
-			//Variáveis que pegam os dados da entrevista, deverão ser substituídas por colsulta ao banco de dados
+			//VariÃ¡veis que pegam os dados da entrevista, deverÃ£o ser substituÃ­das por colsulta ao banco de dados
 			String nomeEntrevistado = "jooj" + (i + 1);
 			String dataEntrevista = "22/02/2002";
 			String nomeEntrevistador = "jeej";

@@ -45,9 +45,9 @@ public class TelaExController extends Application{
 	        Parent root = loader.load();
 	        //colocar titulo da janela
 	        stage.setTitle("RATER - login");
-	     	//definir janela como n�o decorada (sem os botoes -, x)
+	     	//definir janela como não decorada (sem os botoes -, x)
 	        stage.initStyle(StageStyle.UNDECORATED);
-	        //n�o deixar maximizar a tela
+	        //não deixar maximizar a tela
 	        stage.setResizable(false);
 	        //colocar a nova janela
 	        stage.setScene(new Scene(root));
@@ -82,7 +82,7 @@ public class TelaExController extends Application{
 			lblErro.setText("Seja bem vindo");
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
-			//criar nova janela que ser� passado como parametro
+			//criar nova janela que será passado como parametro
 			Stage stage = new  Stage();
 			//executar metodo start da tela 2
 			tela2.start(stage);
@@ -91,11 +91,11 @@ public class TelaExController extends Application{
 			//fechar essa janela
 			agr.close();
 		}else if(login ==0) {
-			//se os usuarios n�o forem corretos
-			lblErro.setText("Usu�rio e/ou senha incorreto(s)");
+			//se os usuarios não forem corretos
+			lblErro.setText("Usuário e/ou senha incorreto(s)");
 		}else {
 			//se o email nao for confirmado
-			JOptionPane.showMessageDialog(null, "Voc� deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 			lblErro.setText("");
 		}
 	}
@@ -103,7 +103,7 @@ public class TelaExController extends Application{
 	
 	@FXML 
 	private void Minimizar(ActionEvent event) {
-		//Colocar cena do anchorpane na vari�vel stage
+		//Colocar cena do anchorpane na variável stage
 		Stage stage = (Stage)anchorPane.getScene().getWindow();
 		
 		//Fazer com que a janela possa ser minimizada (true | false)
@@ -112,7 +112,7 @@ public class TelaExController extends Application{
 	
 	@FXML
 	public void Fechar(MouseEvent event) {
-		//Fechar aplica��o//
+		//Fechar aplicação//
 		System.exit(0);
 	}
 	

@@ -46,7 +46,7 @@ import model.Padroes;
 
 public class NovaEntrevista2Controller extends Application{
 	
-	//Criando uma JFXListView para armazenar os crit�rios
+	//Criando uma JFXListView para armazenar os critérios
 	@FXML public JFXListView jfxlvListView;
 	@FXML private Label lblEntrevista;
 	@FXML private AnchorPane pane;
@@ -81,7 +81,7 @@ public class NovaEntrevista2Controller extends Application{
 			//Criando textarea
 			TextArea textarea = new TextArea();
 			
-			//Definindo tamanho da textarea para n�o dar bug
+			//Definindo tamanho da textarea para não dar bug
 			textarea.setMaxSize(500, 80);
 			textarea.setMinSize(500, 80);
 			
@@ -91,7 +91,7 @@ public class NovaEntrevista2Controller extends Application{
 			//Criando pane
 			Pane panel = new Pane();
 			
-			//Definindo tamanho do pane para n�o dar bug
+			//Definindo tamanho do pane para não dar bug
 			panel.setMaxSize(50, 80);
 			panel.setMinSize(50, 80);
 			
@@ -102,7 +102,7 @@ public class NovaEntrevista2Controller extends Application{
 			//Criando vbox para colocar componentes um em cima do outro
 			VBox vbox = new VBox();
 			String criterio = p.listarCriteriosNE2(nec.getCargoSelecionado()).get(i);
-			//Vari�vel com o nome do crit�rio, dever� ser substitu�da por consulta ao banco de dados
+			//Variável com o nome do critério, deverá ser substituída por consulta ao banco de dados
 			Label lbl1 = new Label(criterio);
 			
 			//Adicionando a label e a hbox na vbox
@@ -119,7 +119,7 @@ public class NovaEntrevista2Controller extends Application{
 		//Criando textarea
 		TextArea textarea = new TextArea();
 		
-		//Definindo tamanho da textarea para n�o dar bug
+		//Definindo tamanho da textarea para não dar bug
 		textarea.setMaxSize(500, 80);
 		textarea.setMinSize(500, 80);
 		
@@ -129,7 +129,7 @@ public class NovaEntrevista2Controller extends Application{
 		//Criando pane
 		Pane panel = new Pane();
 		
-		//Definindo tamanho do pane para n�o dar bug
+		//Definindo tamanho do pane para não dar bug
 		panel.setMaxSize(5, 80);
 		panel.setMinSize(5, 80);
 		
@@ -158,24 +158,24 @@ public class NovaEntrevista2Controller extends Application{
 		
 		//Criando vbox para agrupar hboxes dos radio buttons
 		VBox empilhador = new VBox(hAprovado, hReprovado, hEspera);
-		//Definindo espa�amento entre os itens da vbox
+		//Definindo espaçamento entre os itens da vbox
 		empilhador.setSpacing(10);
 		
 		//Adicionando componentes na hbox
 		hbox1.getChildren().addAll(panel, empilhador, textarea);
 		hbox1.setHgrow(panel, Priority.ALWAYS);
-		//Definindo espa�amento entre os itens da hbox
+		//Definindo espaçamento entre os itens da hbox
 		hbox1.setSpacing(10);
 		
 		//Criando vbox para colocar componentes um em cima do outro
 		VBox vbox = new VBox();
 		
-		//Criando label para o �ltimo crit�rio
-		Label lblConclusao = new Label("Conclus�o");
+		//Criando label para o último critério
+		Label lblConclusao = new Label("Conclusão");
 		
 		//Adicionando a label e a hbox na vbox
 		vbox.getChildren().addAll(lblConclusao, hbox1);
-		//Definindo espa�amento entre os itens da vbox
+		//Definindo espaçamento entre os itens da vbox
 		vbox.setSpacing(10);
 
 		//Adicionando a Label vbox na JFXListView

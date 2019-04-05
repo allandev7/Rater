@@ -13,7 +13,7 @@ import com.microsoft.azure.storage.file.CloudFileDirectory;
 import com.microsoft.azure.storage.file.CloudFileShare;
 
 public class AzureConnection {
-	//String para conex„o
+	//String para conex√£o
 	public static final String storageConnectionString =
 		    "DefaultEndpointsProtocol=https;" +
 		    "AccountName=rater;" +
@@ -21,7 +21,7 @@ public class AzureConnection {
     
     public void down(String nomeArquivo) {
     		try {
-    			// definindo a conex„o
+    			// definindo a conex√£o
 				CloudStorageAccount conta = CloudStorageAccount.parse(storageConnectionString);
 				
 				//criar cliente de arquivo para obter acesso ao compartilhamento
@@ -62,7 +62,7 @@ public class AzureConnection {
     public void upload(String caminho, String nome) {
     	//definindo a conta 
     	try {
-    		// definindo a conex„o
+    		// definindo a conex√£o
 			CloudStorageAccount conta = CloudStorageAccount.parse(storageConnectionString);
 			
 			//criar cliente de arquivo para obter acesso ao compartilhamento

@@ -21,7 +21,7 @@ import model.Padroes;
 
 public class CargosController extends Application{
 	
-	//Criando uma JFXListView para armazenar os critérios
+	//Criando uma JFXListView para armazenar os critÃ©rios
 	@FXML private JFXListView<Label> jfxlvListView;
 	@FXML private Label lblNumCargos;
 	@FXML private AnchorPane pane;
@@ -42,22 +42,22 @@ public class CargosController extends Application{
 	private void carregarCargos() throws SQLException {
 		jfxlvListView.getItems().clear();
 		int numCargos = p.carregarCargos().size();
-		//Definindo texto da label que apresenta o número de cargos salvos
-		lblNumCargos.setText("Número de cargos salvos: " + numCargos);
+		//Definindo texto da label que apresenta o nÃºmero de cargos salvos
+		lblNumCargos.setText("NÃºmero de cargos salvos: " + numCargos);
 		
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < numCargos; i++) {
-			//Variável com nome do cargo, colsulta ao banco de dados
+			//VariÃ¡vel com nome do cargo, colsulta ao banco de dados
 			String nomeCargo = p.carregarCargos().get(i);
 			
-			//Variável com a quantidade de critérios do cargo, deverá ser substituída por colsulta ao banco de dados
+			//VariÃ¡vel com a quantidade de critÃ©rios do cargo, deverÃ¡ ser substituÃ­da por colsulta ao banco de dados
 			int critCargo = p.carregarCriterios(p.getIdCargo(i)).size();
 			
-			//Inserindo nome do cargo e sua quantidade de critérios em uma Label
-			Label lbl1 = new Label("Nome do cargo: " + nomeCargo + "\n\nNúmero de critérios: " + critCargo + "                                      "
+			//Inserindo nome do cargo e sua quantidade de critÃ©rios em uma Label
+			Label lbl1 = new Label("Nome do cargo: " + nomeCargo + "\n\nNÃºmero de critÃ©rios: " + critCargo + "                                      "
 					+ "                                                                  -"+p.getIdCargo(i)+"-");
 			
-			//Definindo o tamanho da Label lbl pra não dar bug na listview
+			//Definindo o tamanho da Label lbl pra nÃ£o dar bug na listview
 			lbl1.setMaxSize(500, 80);
 			lbl1.setMinSize(500, 80);
 			
@@ -73,7 +73,7 @@ public class CargosController extends Application{
 
 	
 	public void deteteCargo(ActionEvent event) throws Exception {
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+		//Checando se existe algum item selecionado, caso nÃ£o exista nÃ£o acontecerÃ¡ nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//pegando o id no fim da label
 			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
@@ -94,7 +94,7 @@ public class CargosController extends Application{
 	
 
 	public void alterarNomeCargo(ActionEvent event) throws HeadlessException, SQLException {
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+		//Checando se existe algum item selecionado, caso nÃ£o exista nÃ£o acontecerÃ¡ nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//pegando o id no fim da label
 			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
@@ -116,11 +116,11 @@ public class CargosController extends Application{
 			int id = Integer.parseInt(idC[1]);
 			//Passando o valor para a classe
 			setIdSelecionado(id);
-			//Pegando fxml como parâmetro
+			//Pegando fxml como parametro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Criterioss.fxml"));
-			//Limpando o coteúdo do Pane "pane"
+			//Limpando o coteÃºdo do Pane "pane"
 			pane.getChildren().removeAll();
-			//Colocando o documento fxml como conteúdo do pane
+			//Colocando o documento fxml como conteÃºdo do pane
 			pane.getChildren().setAll(fxml);
 		}
 	}

@@ -1,12 +1,12 @@
 package model;
 public abstract class Usuarios {
-	//VARI¡VEIS
+	//VARI√ÅVEIS
 	protected static String email;
 	protected static String nome;
 	protected  String senha;
 	protected static String foto;
 	
-	//M…TODOS
+	//M√âTODOS
 	public abstract int login (String emailTxt, String senhaTxt);
 	
 	public abstract void alterarInfo(String email,String nome, String identificacao );
