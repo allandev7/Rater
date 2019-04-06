@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
+import view.PopUp;
+
 
 
 public class Empresa extends Usuarios {
@@ -114,12 +115,14 @@ public void alterarInfo(String email, String nome, String identificacao) {
 		Usuarios.nome = nome;
 		Empresa.cnpj = identificacao;
 		stmt.execute();
-		//mensagem
-		JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+		//mensagem Alterado com sucesso
+		PopUp pop = new PopUp();
+		pop.popUpMensagem("Alterado com sucesso","As informações foram alteradas com sucesso");
 	}catch(SQLException ex) {
-		JOptionPane.showMessageDialog(null, "Erro ao enviar ao banco de dados, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+		PopUp pop = new PopUp();
+		pop.popUpErro("Erro no banco de dados", "erro ao enviar ao banco de dados, tente novamente mais tarde");
+		
 	}
-	
  }
 
 //GETTERS E SETTERS

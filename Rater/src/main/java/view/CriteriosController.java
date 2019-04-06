@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
-import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -104,8 +103,11 @@ public class CriteriosController extends Application{
 	public void addCriterio(ActionEvent event) throws HeadlessException, SQLException {
 		
 		//executando o metodo adicionar
-				p.novoCriterio(JOptionPane.showInputDialog("Digite o novo Critério"), JOptionPane.showInputDialog("Digite sua Definição"),
-				c.getIdSelecionado());
+		PopUp pop = new PopUp();
+		String criterio = pop.popUpPergunta("Digite o novo critério","novo critério");
+		String definicao = pop.popUpPergunta("Digite sua definição", "definição");
+		if(!criterio.equals(null)&&!definicao.equals(null)) 
+			p.novoCriterio(criterio,definicao,c.getIdSelecionado());
 				carregarCriterios();
 	}
 	
@@ -118,9 +120,12 @@ public class CriteriosController extends Application{
 			//convertendo para inteiro
 			int id = Integer.parseInt(idC[1]);
 			//executando o alterar
-			p.alterarCriterios(JOptionPane.showInputDialog("Digite o novo nome do Critério"), JOptionPane.showInputDialog("Digite a nova definição"),
-					id);
-			carregarCriterios();
+			PopUp pop = new PopUp();
+			String criterio = pop.popUpPergunta("Digite o novo nome do critério","novo nome");
+			String definicao = pop.popUpPergunta("Digite sua nova definição", "nova definição");
+			if(!criterio.equals(null)&&!definicao.equals(null)) 
+				p.alterarCriterios(criterio,definicao,id);
+					carregarCriterios();
 		}
 	}
 

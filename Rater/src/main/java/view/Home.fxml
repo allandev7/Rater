@@ -16,7 +16,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <PieChart layoutX="1.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Candidatos Aprovados/Reprovados" />
-      <PieChart layoutX="379.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Piechart" />
+      <PieChart layoutX="1.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada entrevistador" />
+      <PieChart layoutX="379.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada cargo" />
    </children>
 </AnchorPane>

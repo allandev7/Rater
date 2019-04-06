@@ -2,7 +2,6 @@ package view;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -88,7 +87,10 @@ public class CargosController extends Application{
 	
 	public void addCargo(ActionEvent event) throws SQLException {
 		//executando o metodo adicionar
-		p.novoCargo(JOptionPane.showInputDialog("Digite o novo Cargo"));
+		PopUp pop = new PopUp();
+		String cargo = pop.popUpPergunta("Digite o novo cargo","novo cargo");
+		if(!cargo.equals(null)) 
+			p.novoCargo(cargo);
 		carregarCargos();
 	}
 	
@@ -101,8 +103,11 @@ public class CargosController extends Application{
 			//convertendo para inteiro
 			int id = Integer.parseInt(idC[1]);
 			//executando o alterar
-			p.alterarCargo(JOptionPane.showInputDialog("Digite o novo nome"), id);
-			carregarCargos();
+			PopUp pop = new PopUp();
+			String cargo = pop.popUpPergunta("Digite o novo nome","novo nome");
+			if(!cargo.equals(null))
+				p.alterarCargo(cargo,id);
+					carregarCargos();
 		}
 		
 	}

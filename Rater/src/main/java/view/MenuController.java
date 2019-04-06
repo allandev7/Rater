@@ -85,7 +85,7 @@ public class MenuController extends Application{
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
 	}
 	
-	public void initialize() {
+	public void initialize() throws IOException {
 		lblNomeUsuario.setText(Empresa.getNome());
 		try {
 			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
@@ -93,6 +93,10 @@ public class MenuController extends Application{
 			// TODO Auto-generated catch block
 			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
 		}
+		 //Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        //Colocando o documento fxml como conteúdo do pane
+        pane.getChildren().setAll(fxml);
 	}
 	
 	@FXML 

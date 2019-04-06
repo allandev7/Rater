@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
-import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.mysql.jdbc.Connection;
@@ -26,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -117,8 +117,9 @@ public class PerfilEmpresaController extends Application{
 			//executar query
 			pstmt.execute();
 			//mensagem de sucesso
-			JOptionPane.showMessageDialog(null, "Foto alterada com sucesso, reinicie o software para executar as alterações", 
-												"Sucesso", JOptionPane.WARNING_MESSAGE);
+			PopUp pop = new PopUp();
+			pop.popUpMensagem("Foto alterada com sucesso, reinicie o software para executar as alterações", 
+												"Sucesso");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
