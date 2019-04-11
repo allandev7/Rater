@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.Event;
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
@@ -25,7 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-
+import model.AzureConnection;
+import model.Empresa;
 import javafx.stage.Stage;
 
 
@@ -38,33 +42,54 @@ public class EntrevistadoresController extends Application{
 	@FXML private AnchorPane pane;
 	@FXML private Button btnVisualizarPerfil;
 	@FXML private Button btnDeletarEntrevistador;
-		
-	private int NumEntrevistadores = 6;
+
+	Empresa e = new Empresa();
+	
 
 	@FXML
 	public void start(Stage stage) throws IOException {
 	
 	}
-
-	public void initialize() throws Exception {
+	
+	private void carregarEntrevistadores()  {
 		
-		lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);
+		jfxlvListView.getItems().clear();
+		int numEntrevistadores = e.carregarEntrevistadores().size();		
+		lblNumEnt.setText("Número de entrevistadores: " + numEntrevistadores);
+	
+	
 		
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < NumEntrevistadores; i++) {
+		for (int i = 0; i < numEntrevistadores; i++) {
 			
 			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistador = "jeej" + (i + 1);
+			String nomeEntrevistador = e.carregarEntrevistadores().get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
-			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador);
+			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+" ");
 			
+			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
 			//Inserindo imagem na label lbl1
-			lbl1.setGraphic(new ImageView(new Image("imagens/user.png")));
-			
+			if(nomeImagem != null) {
+				try {
+					lbl1.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem))));
+				} catch (FileNotFoundException e) {
+					lbl1.setGraphic(new ImageView(new Image("imagens/user.png")));
+				}
+			}
 			//Adicionando a Label lbl1 na JFXListView
 			jfxlvListView.getItems().add(lbl1);
 		}
+		for (int i = 0; i < numEntrevistadores; i++) {
+		
+		}
+	}
+	
+	
+	public void initialize() throws Exception {
+
+		
+		carregarEntrevistadores();
 	}
 	
 	@FXML
@@ -92,10 +117,17 @@ public class EntrevistadoresController extends Application{
 					//Removendo a seleção da ListView
 					jfxlvListView.getSelectionModel().clearSelection();
 					
-					NumEntrevistadores--;
+					/*String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
 					
-					lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);
-				}
+					int ide = Integer.parseInt(idE[1]);
+					
+					e.deletarEntrevistador(ide);
+					carregarCargos();
+					
+					/*NumEntrevistadores--;
+					
+					lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);*/
+					}
 					
 	}
 	

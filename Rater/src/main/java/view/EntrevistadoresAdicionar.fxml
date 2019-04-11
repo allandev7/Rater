@@ -33,7 +33,7 @@
             <DropShadow color="TRANSPARENT" />
          </effect>
       </Label>
-      <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" layoutX="14.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+       <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" layoutX="14.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagens/placeholder%20para%20imageview.png" />
          </image>
@@ -127,7 +127,7 @@
             </TextField>
          </children>
       </GridPane>
-      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="241.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
+      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="241.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil"  onMouseClicked="#uparFoto" text="                         Adicionar Foto" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
