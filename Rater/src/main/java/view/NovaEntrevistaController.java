@@ -2,10 +2,16 @@ package view;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.io.IOException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
+import com.github.sarxos.webcam.Webcam;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -93,9 +99,6 @@ public class NovaEntrevistaController extends Application{
 		
 		//Colocando a SpinnerValueFactory como "regra" para o spinner
 		spnIdade.setValueFactory(spinnerNumeros);
-	
-		
-		
 	}
 	
 
