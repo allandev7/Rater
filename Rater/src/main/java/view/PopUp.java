@@ -8,6 +8,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.ButtonBar;
 
 public class PopUp{
 	//PopUp de Input
@@ -53,4 +54,41 @@ public class PopUp{
         //Mostra ele
     	alert.show();
     }
+    public Integer popUpEscolha(String Texto,String btn1,String btn2) {    
+		//Cria o Popup
+    	Alert dialog = new Alert(AlertType.CONFIRMATION);
+    	int i = 0;
+        //Muda o texto
+        dialog.setHeaderText(Texto);
+        //cria os botões:
+        ButtonType Botao1 = new ButtonType(btn1);
+        ButtonType Botao2 = new ButtonType(btn2);
+        ButtonType BotaoCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        //Insere o logo 
+        ImageView imv = new ImageView();
+        Image image = new Image("imagens/logoPop.png");
+        imv.setImage(image);
+        dialog.setGraphic(imv);
+        //insere os botões novos e tira os botões padrões
+        dialog.getButtonTypes().clear();
+        dialog.getButtonTypes().addAll(Botao1, Botao2,BotaoCancelar);
+        //Não deixa mudar o tamanho
+        dialog.setResizable(false);
+        //Diz que é para esperar a resposta
+        Optional<ButtonType> option = dialog.showAndWait();
+        //Capta a respostas
+        if (option.get() == null) {
+        	//mano nem sei como q chega nessa parte do if   
+            i = 0;
+        } else if (option.get() == Botao1) {
+            i = 1;
+        } else if (option.get() == Botao2) {
+            i = 2;
+        } else if (option.get() == BotaoCancelar){
+            dialog.close();
+            i = 0;
+        }
+        return i;
+			
+        } 
 }
