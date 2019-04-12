@@ -95,12 +95,19 @@ public class EntrevistadoresAdicionarController extends Application{
     }
 
 	public void cadastrarEntrevistador(ActionEvent event) throws Exception {
+		System.out.print(getNomeFotoCripto());
 		String nome = txtNome.getText();
 		String email = txtEmail.getText();
 		String senha = txtSenha.getText();
 		String Rg = txtRG.getText();
+		String fotoVazia = "null";
 		
-		e.cadastrarEntrevistador(nome, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+		if(getNomeFotoCripto() == null) {
+			e.cadastrarEntrevistador(nome, email, senha, Rg, fotoVazia, getCaminho());
+		}else {
+			e.cadastrarEntrevistador(nome, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+		}
+		
 		Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
 		pane.getChildren().removeAll();
 		pane.getChildren().setAll(fxml);

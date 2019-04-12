@@ -268,21 +268,24 @@ public void alterarInfo(String email, String nome, String identificacao) {
 			pstmt.setString(5, RG);
 			
 			
-			AzureConnection con = new AzureConnection();
 			
-			MessageDigest m = null;
-			try {//tente//pegar instancia de MD5
-				m = MessageDigest.getInstance("MD5");
-			} catch (NoSuchAlgorithmException e) {//erro
-				e.printStackTrace();//erro
-			}
-			// atualizar objeto com bytes e tamanho
-			m.update(nome.getBytes(),0,nome.length());
 			// String para nome criptografado
 			//definindo parametros da query
 			pstmt.setString(6, FotoCripto);
 			//upload da foto no azure
-			con.upload(caminho, FotoCripto);
+			if(!FotoCripto.equals("null")) {
+				AzureConnection con = new AzureConnection();
+				
+				MessageDigest m = null;
+				try {//tente//pegar instancia de MD5
+					m = MessageDigest.getInstance("MD5");
+				} catch (NoSuchAlgorithmException e) {//erro
+					e.printStackTrace();//erro
+				}
+				// atualizar objeto com bytes e tamanho
+				m.update(nome.getBytes(),0,nome.length());
+				con.upload(caminho, FotoCripto);
+			}
 			//executando a query
 			pstmt.execute();
 		
