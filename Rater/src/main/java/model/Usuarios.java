@@ -3,14 +3,13 @@ public abstract class Usuarios {
 	//VARIÃ�VEIS
 	protected static String email;
 	protected static String nome;
-	protected  String RG;
 	protected  String senha;
 	protected static String foto;
 	
 	//MÃ‰TODOS
 	public abstract int login (String emailTxt, String senhaTxt);
 	
-	public abstract void alterarInfo(String email,String nome, String RG, String senha);
+	public abstract void alterarInfo(String email,String nome, String identificacao);
 	
 	
 	//GETTERS E SETTERS
@@ -38,12 +37,6 @@ public abstract class Usuarios {
 	}
 	public void setFoto(String foto) {
 		Usuarios.foto = foto;
-	}
-	public static String getRG() {
-		return RG;
-	}
-	public void setRG(String RG) {
-		Usuarios.RG = RG;
 	}
 }
 	

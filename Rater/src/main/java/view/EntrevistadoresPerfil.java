@@ -1,11 +1,13 @@
 package view;
 import model.AzureConnection;
-import javafx.stage.FileChooser.ExtensionFilter;
+import model.Empresa;
 import model.Usuarios;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -19,17 +21,20 @@ import com.mysql.jdbc.PreparedStatement;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
-public class PerfilEmpresaController extends Application{
+public class EntrevistadoresPerfil extends Application{
 	
 	@FXML private TextField txtNomeEntrevistador;
 	@FXML private TextField txtEmailEntrevistador;
@@ -42,7 +47,7 @@ public class PerfilEmpresaController extends Application{
 	
 	/*Variáveis para pegar informações do entrevistador do banco de dados*/
 	private String NomeEntrevistador = "Joje";
-	private String EmailEntrevistador = Joje@Joje;
+	private String EmailEntrevistador = "Joje@Joje";
 	private String RG = "131311313123";
 	private String Senha = "Joojeehjooje";
 	
@@ -62,9 +67,9 @@ public class PerfilEmpresaController extends Application{
 	
 	@FXML
 	public void alterarInfos(MouseEvent event)  {
-		Usuarios user = new Usuarios();
-		user.alterarInfo(txtEmailUsuario.getText(), txtNomeUsuario.getText(), txtRG.getText(), txtSenha.getText());
+		
     }
+	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
 		//declarando o filechooser
