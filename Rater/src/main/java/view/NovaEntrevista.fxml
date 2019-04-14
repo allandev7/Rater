@@ -237,7 +237,7 @@
             <DropShadow color="TRANSPARENT" />
          </effect>
       </Label>
-      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="193.0" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
+      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="193.0" prefHeight="118.0" onMouseClicked="#uparFoto" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

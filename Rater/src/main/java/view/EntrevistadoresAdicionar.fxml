@@ -105,7 +105,7 @@
       </Label>
        <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" layoutX="14.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../imagens/placeholder%20para%20imageview.png" />
+            <Image url="@../imagens/placeholderImgView.png" />
          </image>
          <effect>
             <DropShadow color="TRANSPARENT" />

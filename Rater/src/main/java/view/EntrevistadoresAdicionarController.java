@@ -59,20 +59,29 @@ public class EntrevistadoresAdicionarController extends Application{
 	}
 	//metodo para pegar o nome da imagem criptografada
 	public void uparFoto(MouseEvent event)  {
-		FileChooser abrirArquivo = new FileChooser();
-		//defininfo os filtros
-		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
-		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpeg"));
-		//abrir a janela e pegar o arquivo selecionado
-		File arquivo = abrirArquivo.showOpenDialog(null);
-		//pegando caminho da pasta
-		String caminho = arquivo.getAbsolutePath();
-		//pegando nome do arquivo
-		String nome = arquivo.getName();
-		//pegando extensao do arquivo
-		String extensao = nome.substring(nome.length()-4);
-		
-
+		String nome="", extensao="", caminho = "";
+		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
+		if(escolha == 1) {
+			new WebcamTela();
+			File arquivo = new File("C:\\Rater/imagens/fotoTEMP.png");
+			if(arquivo.exists()) arquivo.delete();
+			caminho = "C:\\Rater/imagens/fotoTEMP.png";
+			nome = "fotoTEMP";
+			extensao = ".png";
+		}else if(escolha==2){
+			FileChooser abrirArquivo = new FileChooser();
+			//defininfo os filtros
+			abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
+			abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpeg"));
+			//abrir a janela e pegar o arquivo selecionado
+			File arquivo = abrirArquivo.showOpenDialog(null);
+			//pegando caminho da pasta
+			caminho = arquivo.getAbsolutePath();
+			//pegando nome do arquivo
+			nome = arquivo.getName();
+			//pegando extensao do arquivo
+			extensao = nome.substring(nome.length()-4);
+		}
 		//cria objeto MessageDigest nulo para criptografia
 		MessageDigest m = null;
 		try {//tente
@@ -81,15 +90,17 @@ public class EntrevistadoresAdicionarController extends Application{
 		} catch (NoSuchAlgorithmException e) {//erro
 			e.printStackTrace();//erro
 		}
-		// atualizar objeto com bytes e tamanho
-		m.update(nome.getBytes(),0,nome.length());
-		// String para nome criptografado
-		String nomeCripto = m.digest().toString()+new Date().getTime()+extensao;
+		if(!nome.equals("")) {
+			// atualizar objeto com bytes e tamanho
+			m.update(nome.getBytes(),0,nome.length());
+			// String para nome criptografado
+			String nomeCripto = m.digest().toString()+new Date().getTime()+Empresa.getId()+extensao;
 		
-		JOptionPane.showMessageDialog(null, caminho);
+			JOptionPane.showMessageDialog(null, caminho);
 
-		setCaminho(caminho);
-		setNomeFotoCripto(nomeCripto);
+			setCaminho(caminho);
+			setNomeFotoCripto(nomeCripto);
+		}
 	
 		
     }
