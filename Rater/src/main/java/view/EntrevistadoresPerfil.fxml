@@ -100,7 +100,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnVoltar" layoutX="15.0" layoutY="471.0" mnemonicParsing="false" onMouseClicked="#alterarInfos" prefHeight="56.0" prefWidth="172.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar">
+      <Button fx:id="btnVoltar" layoutX="15.0" layoutY="471.0" mnemonicParsing="false" onAction="#voltar" onMouseClicked="#alterarInfos" prefHeight="56.0" prefWidth="172.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
