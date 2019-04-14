@@ -95,12 +95,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Button fx:id="btnAlterarInformacoes" layoutX="531.0" layoutY="471.0" mnemonicParsing="false" onMouseClicked="#alterarInfos" prefHeight="56.0" prefWidth="172.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Alterar Informações">
+      <Button fx:id="btnAlterarInformacoes" layoutX="531.0" layoutY="471.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="172.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Alterar Informações">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnVoltar" layoutX="15.0" layoutY="471.0" mnemonicParsing="false" onMouseClicked="#alterarInfos" prefHeight="56.0" prefWidth="172.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar">
+      <Button fx:id="btnVoltar" layoutX="15.0" layoutY="471.0" mnemonicParsing="false" onAction="#voltar" prefHeight="56.0" prefWidth="172.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
