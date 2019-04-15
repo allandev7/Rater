@@ -72,7 +72,9 @@ public class EntrevistadoresController extends Application{
 			//Inserindo imagem na label lbl1
 			if(nomeImagem != null) {
 				try {
-					lbl1.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem))));
+					ImageView img = new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+					img.setPreserveRatio(true);
+					lbl1.setGraphic(img);
 				} catch (FileNotFoundException e) {
 					lbl1.setGraphic(new ImageView(new Image("imagens/user.png")));
 				}
