@@ -66,8 +66,7 @@ public class EntrevistadoresController extends Application{
 			String nomeEntrevistador = e.carregarEntrevistadores().get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
-			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+" ");
-			
+			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+" ");			
 			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
 			//Inserindo imagem na label lbl1
 			if(nomeImagem != null) {

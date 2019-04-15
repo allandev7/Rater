@@ -3,7 +3,6 @@ import model.AzureConnection;
 import model.Empresa;
 import model.Usuarios;
 import javafx.stage.FileChooser.ExtensionFilter;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +19,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -137,7 +137,7 @@ public class EntrevistadoresPerfil extends Application{
     }
 
 	@FXML
-	 public void voltar(MouseEvent event) throws IOException {
+	 public void voltar(ActionEvent event) throws IOException {
 	        //Pegando fxml como parametro
 			Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
 			//Limpando o coteúdo do Pane "pane"
