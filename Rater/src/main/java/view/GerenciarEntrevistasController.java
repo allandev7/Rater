@@ -43,7 +43,11 @@ public class GerenciarEntrevistasController extends Application{
 									dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador);
 			
 			//Inserindo imagem na label lbl1
-			lbl1.setGraphic(new ImageView(new Image("imagens/user.png")));
+			ImageView img = new ImageView(new Image("imagens/user.png"));
+			img.setPreserveRatio(true);
+			img.setFitHeight(150);
+			img.setFitWidth(85);
+			lbl1.setGraphic(img);
 			
 			//Adicionando a Label lbl1 na JFXListView
 			jfxlvListView.getItems().add(lbl1);

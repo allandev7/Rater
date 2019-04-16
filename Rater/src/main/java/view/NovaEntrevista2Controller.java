@@ -181,6 +181,15 @@ public class NovaEntrevista2Controller extends Application{
 		jfxlvListView.getItems().add(vbox);
 		
 	}
+	
+	public void cancelar() throws IOException {
+		//Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+		pane.getChildren().removeAll();
+		//Colocando o documento fxml como conteúdo do pane
+		pane.getChildren().setAll(fxml);
+	}
 
 
 }

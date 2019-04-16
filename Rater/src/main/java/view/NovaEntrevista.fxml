@@ -197,11 +197,11 @@
             <DropShadow color="#0000004f" />
          </effect>
       </Button>
-      <Separator layoutX="10.0" layoutY="437.0" prefHeight="56.0" prefWidth="705.0">
+      <Separator layoutX="9.0" layoutY="456.0" prefHeight="16.0" prefWidth="705.0">
          <effect>
             <DropShadow color="#00000026" />
          </effect></Separator>
-      <Separator layoutX="10.0" layoutY="15.0" prefHeight="56.0" prefWidth="705.0">
+      <Separator layoutX="9.0" layoutY="31.0" prefHeight="16.0" prefWidth="705.0">
          <effect>
             <DropShadow color="#0000002f" />
          </effect></Separator>
@@ -237,7 +237,7 @@
             <DropShadow color="TRANSPARENT" />
          </effect>
       </Label>
-      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="193.0" prefHeight="118.0" onMouseClicked="#uparFoto" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
+      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="193.0" onMouseClicked="#uparFoto" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

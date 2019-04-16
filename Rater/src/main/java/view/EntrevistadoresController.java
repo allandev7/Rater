@@ -67,7 +67,7 @@ public class EntrevistadoresController extends Application{
 			
 			//Inserindo dados do entrevistador em uma Label
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+" ");	
-			lbl1.setMaxHeight(100);
+			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(100);
 			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
 			//Inserindo imagem na label lbl1
@@ -75,9 +75,12 @@ public class EntrevistadoresController extends Application{
 				try {
 					ImageView img = new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 					img.setPreserveRatio(true);
+					img.setFitHeight(150);
+					img.setFitWidth(85);
 					lbl1.setGraphic(img);
 				} catch (FileNotFoundException e) {
-					lbl1.setGraphic(new ImageView(new Image("imagens/user.png")));
+					ImageView img = new ImageView(new Image(("imagens/user.png")));
+					lbl1.setGraphic(img);
 				}
 			}
 			//Adicionando a Label lbl1 na JFXListView

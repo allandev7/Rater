@@ -14,7 +14,7 @@
             <Font name="Tahoma" size="17.0" />
          </font>
       </Label>
-     <JFXButton fx:id="btnCancelar" layoutX="14.0" layoutY="485.0"  prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Cancelar" />
+     <JFXButton fx:id="btnCancelar" layoutX="14.0" layoutY="485.0" onAction="#cancelar" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Cancelar" />
      <JFXButton fx:id="btnContinuar" layoutX="547.0" layoutY="485.0" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Continuar" />
    </children>
 </AnchorPane>

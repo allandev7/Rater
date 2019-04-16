@@ -1,6 +1,6 @@
-/*CORES ÚTEIS:*/
+/*CORES ï¿½TEIS:*/
 /*AZUL CLARO(LOGO): rgb(50,78,124)*/
-/*AZUL MÉDIO(LOGO): rgb(48,65,101)*/
+/*AZUL Mï¿½DIO(LOGO): rgb(48,65,101)*/
 /*AZUL ESCURO(LOGO): rgb(41,51,77)*/
 /*CINZA(LOGO): rgb(54,52,72)*/
 
@@ -11,6 +11,7 @@
 .btnLogin{
 	-fx-background-color:rgb(50,78,124); 
 	-fx-text-fill:white ;
+	-fx-cursor: hand;
 }
 
 .btnLogin:hover{

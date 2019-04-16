@@ -3,10 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -77,7 +73,7 @@
                   <Font name="Tahoma" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="lblCriteriosAvaliacao" layoutX="2.0" layoutY="251.0" onMouseClicked="#Criterios" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Critérios de Avaliação   " textFill="WHITE">
+            <Label fx:id="lblCriteriosAvaliacao" layoutX="2.0" layoutY="251.0" onMouseClicked="#Criterios" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Cargos|Critérios" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font>

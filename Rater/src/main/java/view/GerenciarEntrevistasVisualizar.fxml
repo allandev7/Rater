@@ -42,7 +42,8 @@
             <RadioButton fx:id="rbFeminino" mnemonicParsing="false" text="Feminino" textFill="#32447c" toggleGroup="$grupo">
                <effect>
                   <DropShadow color="TRANSPARENT" />
-               </effect></RadioButton>
+               </effect>
+            </RadioButton>
          </children>
       </HBox>
       <GridPane layoutX="299.0" layoutY="131.0" prefHeight="189.0" prefWidth="416.0">
@@ -181,7 +182,7 @@
             </ComboBox>
          </children>
       </GridPane>
-      <Button fx:id="btnConfirmar" layoutX="578.0" layoutY="481.0" mnemonicParsing="false" onAction="#iniciarEntrevista" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Confirmar">
+      <Button fx:id="btnConfirmar" layoutX="578.0" layoutY="481.0" mnemonicParsing="false" onAction="#iniciarEntrevista" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Visualizar em PDF">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -189,7 +190,7 @@
             <DropShadow color="#0000004f" />
          </effect>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="13.0" layoutY="481.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Cancelar">
+      <Button fx:id="btnCancelar" layoutX="13.0" layoutY="481.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -201,11 +202,11 @@
          <effect>
             <DropShadow color="#00000026" />
          </effect></Separator>
-      <Separator layoutX="9.0" layoutY="31.0" prefHeight="16.0" prefWidth="705.0">
+      <Separator layoutX="10.0" layoutY="15.0" prefHeight="56.0" prefWidth="705.0">
          <effect>
             <DropShadow color="#0000002f" />
          </effect></Separator>
-      <Label layoutX="15.0" layoutY="7.0" prefHeight="32.0" prefWidth="346.0" text="Insira as informações do candidato:" textFill="#32447c">
+      <Label layoutX="15.0" layoutY="7.0" prefHeight="32.0" prefWidth="346.0" text="Visualizar entrevista do candidato:" textFill="#32447c">
          <font>
             <Font size="19.0" />
          </font>
@@ -236,11 +237,6 @@
          <effect>
             <DropShadow color="TRANSPARENT" />
          </effect>
-      </Label>
-      <Label fx:id="lblCarregarFoto" layoutX="14.0" layoutY="193.0" onMouseClicked="#uparFoto" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                       Adicionar Foto" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </Label>
    </children>
 </AnchorPane>
