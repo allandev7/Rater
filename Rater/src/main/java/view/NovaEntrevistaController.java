@@ -1,7 +1,9 @@
 package view;
 
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -9,17 +11,21 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import com.github.sarxos.webcam.Webcam;
+import com.sun.javafx.scene.CameraHelper.CameraAccessor;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,6 +38,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -111,10 +118,26 @@ public class NovaEntrevistaController extends Application{
 		String nome="", extensao="", caminho = "";
 		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
 		if(escolha == 1) {
-			new WebcamTela();
 			caminho = "C:\\Rater/imagens/fotoTEMP.png";
+			final File arquivo = new File(caminho);
+			//if(arquivo.exists()) arquivo.delete();
+			final WebcamTela camera = new WebcamTela();
 			nome = "fotoTEMP";
 			extensao = ".png";
+			camera.capturar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+						//armazenar imagem na memoriaRAM
+						BufferedImage armazenarMEMO =  camera.camera.getImage();
+						//converter para imagem comum
+						Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+						//colocar ela no imgview
+						imgFoto.setImage(img);
+					}
+				}
+			);
+					
 		}else if (escolha==2) {
 			FileChooser abrirArquivo = new FileChooser();
 			//defininfo os filtros
@@ -128,6 +151,17 @@ public class NovaEntrevistaController extends Application{
 			nome = arquivo.getName();
 			//pegando extensao do arquivo
 			extensao = nome.substring(nome.length()-4);
+			
+			try {
+				//armazenar imagem na memoriaRAM
+				BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
+				//converter para imagem comum
+				Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+				//colocar ela no imgview
+				imgFoto.setImage(img);
+			}catch(IOException ex){
+				Logger.getLogger(NovaEntrevistaController.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
 		//cria objeto MessageDigest nulo para criptografia
 		MessageDigest m = null;

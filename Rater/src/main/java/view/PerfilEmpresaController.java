@@ -3,14 +3,19 @@ import model.AzureConnection;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Empresa;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -18,6 +23,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -81,6 +87,16 @@ public class PerfilEmpresaController extends Application{
 		Connection conBD =  (Connection) new Empresa().connect();
 		//query de update
 		String sql = "UPDATE empresa SET foto=?";
+		try {
+			//armazenar imagem na memoriaRAM
+			BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
+			//converter para imagem comum
+			Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+			//colocar ela no imgview
+			imgFoto.setImage(img);
+		}catch(IOException ex){
+			Logger.getLogger(NovaEntrevistaController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		try {//tentar
 			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
 			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco

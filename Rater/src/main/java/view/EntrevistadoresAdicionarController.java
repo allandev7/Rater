@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,12 +10,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,13 +68,27 @@ public class EntrevistadoresAdicionarController extends Application{
 		String nome="", extensao="", caminho = "";
 		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
 		if(escolha == 1) {
-			new WebcamTela();
-			File arquivo = new File("C:\\Rater/imagens/fotoTEMP.png");
-			if(arquivo.exists()) arquivo.delete();
 			caminho = "C:\\Rater/imagens/fotoTEMP.png";
+			final File arquivo = new File(caminho);
+			//if(arquivo.exists()) arquivo.delete();
+			final WebcamTela camera = new WebcamTela();
 			nome = "fotoTEMP";
 			extensao = ".png";
-		}else if(escolha==2){
+			camera.capturar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+						//armazenar imagem na memoriaRAM
+						BufferedImage armazenarMEMO =  camera.camera.getImage();
+						//converter para imagem comum
+						Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+						//colocar ela no imgview
+						imgFoto.setImage(img);
+					}
+				}
+			);
+					
+		}else if (escolha==2) {
 			FileChooser abrirArquivo = new FileChooser();
 			//defininfo os filtros
 			abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
@@ -81,6 +101,17 @@ public class EntrevistadoresAdicionarController extends Application{
 			nome = arquivo.getName();
 			//pegando extensao do arquivo
 			extensao = nome.substring(nome.length()-4);
+			
+			try {
+				//armazenar imagem na memoriaRAM
+				BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
+				//converter para imagem comum
+				Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+				//colocar ela no imgview
+				imgFoto.setImage(img);
+			}catch(IOException ex){
+				Logger.getLogger(NovaEntrevistaController.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
 		//cria objeto MessageDigest nulo para criptografia
 		MessageDigest m = null;
@@ -95,15 +126,11 @@ public class EntrevistadoresAdicionarController extends Application{
 			m.update(nome.getBytes(),0,nome.length());
 			// String para nome criptografado
 			String nomeCripto = m.digest().toString()+new Date().getTime()+Empresa.getId()+extensao;
-		
-			JOptionPane.showMessageDialog(null, caminho);
-
 			setCaminho(caminho);
 			setNomeFotoCripto(nomeCripto);
 		}
-	
-		
     }
+	
 
 	public void cadastrarEntrevistador(ActionEvent event) throws Exception {
 		System.out.print(getNomeFotoCripto());

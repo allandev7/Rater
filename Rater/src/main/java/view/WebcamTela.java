@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,16 +20,15 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 
 public class WebcamTela extends JFrame{
+	public BufferedImage imagemTEMP ;
 	Webcam camera = Webcam.getDefault();
 	private static boolean capturado;
 	JButton capturar = new JButton("Capturar");
 	public WebcamTela() {
-		setCapturado(false);
 		//executar ao fechar
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				camera.close();
-				setCapturado(false);
 				dispose();
 			}
 		});
@@ -53,18 +53,12 @@ public class WebcamTela extends JFrame{
 					JOptionPane.showMessageDialog(null, "Foto capturada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					//fechar
 					dispose();
-					setCapturado(true);
 					camera.close();
+					imagemTEMP = camera.getImage();
 				} catch (IOException e1) {
 					System.out.println(e1);
 				}
 			}
 		});
-	}
-	public static boolean isCapturado() {
-		return capturado;
-	}
-	public static void setCapturado(boolean capturado) {
-		WebcamTela.capturado = capturado;
 	}
 }
