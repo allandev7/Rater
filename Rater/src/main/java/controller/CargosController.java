@@ -1,4 +1,4 @@
-package view;
+package controller;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Padroes;
+import view.PopUp;
 
 public class CargosController extends Application{
 	
@@ -122,7 +123,7 @@ public class CargosController extends Application{
 			//Passando o valor para a classe
 			setIdSelecionado(id);
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Criterioss.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Criterioss.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteúdo do pane

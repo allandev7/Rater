@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.awt.Checkbox;
 
@@ -184,7 +184,7 @@ public class NovaEntrevista2Controller extends Application{
 	
 	public void cancelar() throws IOException {
 		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane

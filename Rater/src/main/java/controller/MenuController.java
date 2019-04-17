@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -64,7 +64,7 @@ public class MenuController extends Application{
 	public void start(Stage stage) throws IOException {
 		stage.getIcons().add(new Image("imagens/icon.png"));
 		//Criar loader pegando o fxml como parametro
-		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Menu.fxml"));
+		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/Menu.fxml"));
 		//criar root para carregar o loader
         Parent root = loader.load();
         //colocar titulo da janela
@@ -94,7 +94,7 @@ public class MenuController extends Application{
 			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
 		}
 		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("Home.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
         //Colocando o documento fxml como conteúdo do pane
         pane.getChildren().setAll(fxml);
 	}
@@ -109,7 +109,7 @@ public class MenuController extends Application{
 	@FXML
 	public void NovaEntrevista(MouseEvent event) throws IOException {
 		//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteudo do pane
@@ -119,7 +119,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void GerenciarEntrevistas(MouseEvent event) throws IOException {
 	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("GerenciarEntrevistas.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
@@ -129,7 +129,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void Criterios(MouseEvent event) throws IOException {
 	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Cargos.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
@@ -139,7 +139,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void Entrevistadores(MouseEvent event) throws IOException {
 	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
@@ -149,7 +149,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void Home(MouseEvent event) throws IOException {
 	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("Home.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
@@ -159,7 +159,7 @@ public class MenuController extends Application{
 	 @FXML
 	 public void Perfil(MouseEvent event) throws IOException {
 	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("PerfilEmpresa.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/PerfilEmpresa.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane

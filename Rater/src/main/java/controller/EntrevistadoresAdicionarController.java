@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.AzureConnection;
 import model.Empresa;
+import view.PopUp;
 public class EntrevistadoresAdicionarController extends Application{
 	
 	Empresa e = new Empresa();
@@ -146,7 +147,7 @@ public class EntrevistadoresAdicionarController extends Application{
 			e.cadastrarEntrevistador(nome, email, senha, Rg, getNomeFotoCripto(), getCaminho());
 		}
 		
-		Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 		pane.getChildren().removeAll();
 		pane.getChildren().setAll(fxml);
 
@@ -154,7 +155,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	
 	public void cancelarCadastro(ActionEvent event) throws Exception {
 		//Pegando fxml como parâmetro
-		Parent fxml = FXMLLoader.load(getClass().getResource("Entrevistadores.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane

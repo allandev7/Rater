@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -46,6 +46,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Padroes;
+import view.PopUp;
 import model.Empresa;
 import java.awt.*;
 import javafx.scene.control.ComboBox;
@@ -190,7 +191,7 @@ public class NovaEntrevistaController extends Application{
 		setCargoSelecionado(cbCargos.getValue().toString());
 		System.out.print(getCargoSelecionado());
 		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("NovaEntrevista2.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
 		//Limpando o coteúdo do Pane "pane"
         pane.getChildren().removeAll();
         //Colocando o documento fxml como conteúdo do pane

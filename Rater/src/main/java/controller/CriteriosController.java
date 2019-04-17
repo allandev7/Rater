@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.awt.Event;
 import java.awt.HeadlessException;
@@ -31,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Padroes;
+import view.PopUp;
 import javafx.scene.input.MouseEvent.*;
 
 public class CriteriosController extends Application{
@@ -131,7 +132,7 @@ public class CriteriosController extends Application{
 
 	public void voltarParaCargos(ActionEvent event) throws Exception {
 		//Pegando fxml como parâmetro
-		Parent fxml = FXMLLoader.load(getClass().getResource("Cargos.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane

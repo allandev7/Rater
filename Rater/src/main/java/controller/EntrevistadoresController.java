@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.awt.Event;
 
@@ -103,7 +103,7 @@ public class EntrevistadoresController extends Application{
 		//Checando se existe algum item selecionado, caso não exista  não acontecerá nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {	
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("EntrevistadoresPerfil.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
@@ -141,7 +141,7 @@ public class EntrevistadoresController extends Application{
 	public void novoEntrevistador(ActionEvent event) throws Exception {
 		
 		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("EntrevistadoresAdicionar.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresAdicionar.fxml"));
 		//Limpando o coteúdo do AnchorPane "pane"
     	pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteúdo do pane

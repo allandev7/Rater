@@ -1,4 +1,4 @@
-﻿package view;
+﻿package controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class TelaExController extends Application{
 	public void start(Stage stage) throws Exception {
 			stage.getIcons().add(new Image("imagens/icon.png"));
 			//Criar loader pegando o fxml como parametro
-			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("TelaEx.fxml"));
+			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/TelaEx.fxml"));
 			//criar root para carregar o loader
 	        Parent root = loader.load();
 	        //colocar titulo da janela
@@ -63,8 +63,8 @@ public class TelaExController extends Application{
 		File file = new File("C:/Rater/imagens");
 		file.mkdirs();
 		
-		/*txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("rater123");*/
+		txtEmail.setText("raterptcc@gmail.com");
+		txtSenha.setText("rater123");
 	}
 
 	// Event Listener on Button.onMouseClicked

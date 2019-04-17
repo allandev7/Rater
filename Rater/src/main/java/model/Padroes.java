@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.PreparedStatement;
 
+import controller.CargosController;
+import controller.NovaEntrevistaController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import view.CargosController;
-import view.NovaEntrevistaController;
 
 public class Padroes {
 	//abrindo conexao com o banco

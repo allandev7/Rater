@@ -1,9 +1,9 @@
-package view;
+package controller;
 import model.AzureConnection;
-import javafx.stage.FileChooser.ExtensionFilter;
 import model.Empresa;
-
-import java.awt.image.BufferedImage;
+import model.Usuarios;
+import view.PopUp;
+import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,10 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -23,38 +20,46 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
-public class PerfilEmpresaController extends Application{
+public class EntrevistadoresPerfil extends Application{
 	
-	@FXML private TextField txtNomeEmpresa;
-	@FXML private TextField txtEmailEmpresa;
-	@FXML private TextField txtCnpj;
+	@FXML private TextField txtNomeEntrevistador;
+	@FXML private TextField txtEmailEntrevistador;
+	@FXML private TextField txtRG;
+	@FXML private TextField txtSenha;
 	@FXML private Button btnAlterarInformacoes;
+	@FXML private Button btnVoltar;
 	@FXML private ImageView imgFoto;
+	@FXML private AnchorPane pane;
 	
-	/*Variáveis para pegar informações da empresa do banco de dados*/
-	private String NomeEmpresa = Empresa.getNome();
-	private String EmailEmpresa = Empresa.getEmail();
-	private String Cnpj = Empresa.getCnpj();
+	/*Variáveis para pegar informações do entrevistador do banco de dados*/
+	private String NomeEntrevistador = "Joje";
+	private String EmailEntrevistador = "Joje@Joje";
+	private String RG = "131311313123";
+	private String Senha = "Joojeehjooje";
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){
-        txtNomeEmpresa.setText(NomeEmpresa);
-        txtEmailEmpresa.setText(EmailEmpresa);
-        txtCnpj.setText(Cnpj);
+        txtNomeEntrevistador.setText(NomeEntrevistador);
+        txtEmailEntrevistador.setText(EmailEntrevistador);
+        txtRG.setText(RG);
+        txtSenha.setText(Senha);
         try {
-			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/user.png")));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			imgFoto.setImage(new Image("imagens/Logo.png"));
@@ -63,9 +68,9 @@ public class PerfilEmpresaController extends Application{
 	
 	@FXML
 	public void alterarInfos(MouseEvent event)  {
-		Empresa emp = new Empresa();
-		emp.alterarInfo(txtEmailEmpresa.getText(), txtNomeEmpresa.getText(), txtCnpj.getText());
+		
     }
+	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
 		//declarando o filechooser
@@ -87,16 +92,6 @@ public class PerfilEmpresaController extends Application{
 		Connection conBD =  (Connection) new Empresa().connect();
 		//query de update
 		String sql = "UPDATE empresa SET foto=?";
-		try {
-			//armazenar imagem na memoriaRAM
-			BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
-			//converter para imagem comum
-			Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
-			//colocar ela no imgview
-			imgFoto.setImage(img);
-		}catch(IOException ex){
-			Logger.getLogger(NovaEntrevistaController.class.getName()).log(Level.SEVERE, null, ex);
-		}
 		try {//tentar
 			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
 			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
@@ -141,6 +136,16 @@ public class PerfilEmpresaController extends Application{
 			e.printStackTrace();
 		}
     }
+
+	@FXML
+	 public void voltar(ActionEvent event) throws IOException {
+	        //Pegando fxml como parametro
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+			//Limpando o coteúdo do Pane "pane"
+	        pane.getChildren().removeAll();
+	        //Colocando o documento fxml como conteúdo do pane
+	        pane.getChildren().setAll(fxml);
+	    }
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
