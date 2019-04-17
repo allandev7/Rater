@@ -42,19 +42,23 @@ public class EntrevistadoresController extends Application{
 	@FXML private AnchorPane pane;
 	@FXML private Button btnVisualizarPerfil;
 	@FXML private Button btnDeletarEntrevistador;
+	private static int idEntrevistadorSel;
+	
+	
+
 
 	Empresa e = new Empresa();
-	
+	Entrevistador En = new Entrevistador();
 
 	@FXML
 	public void start(Stage stage) throws IOException {
 	
 	}
 	
-	private void carregarEntrevistadores()  {
+	private void carregarEntrevistadores() throws SQLException  {
 		
 		jfxlvListView.getItems().clear();
-		int numEntrevistadores = e.carregarEntrevistadores().size();		
+		int numEntrevistadores = En.carregarEntrevistadores().size();		
 		lblNumEnt.setText("Número de entrevistadores: " + numEntrevistadores);
 	
 	
@@ -63,10 +67,11 @@ public class EntrevistadoresController extends Application{
 		for (int i = 0; i < numEntrevistadores; i++) {
 			
 			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistador = e.carregarEntrevistadores().get(i);
+			String nomeEntrevistador = En.carregarEntrevistadores().get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
-			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+" ");	
+			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
+					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(100);
 			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
@@ -86,9 +91,7 @@ public class EntrevistadoresController extends Application{
 			//Adicionando a Label lbl1 na JFXListView
 			jfxlvListView.getItems().add(lbl1);
 		}
-		for (int i = 0; i < numEntrevistadores; i++) {
 		
-		}
 	}
 	
 	
@@ -102,6 +105,13 @@ public class EntrevistadoresController extends Application{
 	public void visualizarPerfilEntrevistador(ActionEvent event) throws IOException {
 		//Checando se existe algum item selecionado, caso não exista  não acontecerá nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {	
+			
+			//pegando o id do entrevistador ""escondido"" na label
+			String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+			
+			//colocando o Id do entrevistador no atributo ID Selecionado 
+			setIdEntrevistadorSel(Integer.parseInt(idE[1]));
+			
 			//Pegando fxml como parametro
 			Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
@@ -112,27 +122,20 @@ public class EntrevistadoresController extends Application{
 	}
 	
 	@FXML
-	public void deletarEntrevistador(ActionEvent event) {
+	public void deletarEntrevistador(ActionEvent event) throws SQLException {
 		
 				//Checando se existe algum item selecionado, caso não exista não acontecerá nada
 				if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 					
-					//Removendo o item selecionado da ListView
-					jfxlvListView.getItems().remove((jfxlvListView.getSelectionModel().getSelectedItem()));
+					//pegando o id do entrevistador ""escondido"" na label
+					String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
 					
-					//Removendo a seleção da ListView
-					jfxlvListView.getSelectionModel().clearSelection();
-					
-					/*String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
-					
+					//colocando o Id do entrevistador em uma variavel ID Selecionado 
 					int ide = Integer.parseInt(idE[1]);
 					
+					//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
 					e.deletarEntrevistador(ide);
-					carregarCargos();
-					
-					/*NumEntrevistadores--;
-					
-					lblNumEnt.setText("Número de entrevistadores: " + NumEntrevistadores);*/
+					carregarEntrevistadores();
 					}
 					
 	}
@@ -147,4 +150,27 @@ public class EntrevistadoresController extends Application{
     	//Colocando o documento fxml como conteúdo do pane
     	pane.getChildren().setAll(fxml);
 	}
+	
+	
+	
+	
+	
+	
+	
+	public static int getIdEntrevistadorSel() {
+		return idEntrevistadorSel;
+	}
+
+	public static void setIdEntrevistadorSel(int idEntrevistadorSel) {
+		EntrevistadoresController.idEntrevistadorSel = idEntrevistadorSel;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

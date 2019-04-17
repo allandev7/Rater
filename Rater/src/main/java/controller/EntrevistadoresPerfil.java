@@ -46,15 +46,29 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML private ImageView imgFoto;
 	@FXML private AnchorPane pane;
 	
-	/*Variáveis para pegar informações do entrevistador do banco de dados*/
-	private String NomeEntrevistador = "Joje";
-	private String EmailEntrevistador = "Joje@Joje";
-	private String RG = "131311313123";
-	private String Senha = "Joojeehjooje";
+/*Variáveis para pegar informações do entrevistador do banco de dados*/
+	private String NomeEntrevistador = "";
+	private String EmailEntrevistador = "";
+	private String RG = "";
+	private String Senha = "";
+	
+	Entrevistador En = new Entrevistador();
+	EntrevistadoresController EnC = new EntrevistadoresController();
+	
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
-	public void initialize(){
-        txtNomeEntrevistador.setText(NomeEntrevistador);
+	public void initialize() throws SQLException{
+		
+		//executando o metodo que carrega os dados de um perfil individual do banco
+		En.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
+		
+		//passando os valores dos resultados da query do banco da classe Entrevistador para os atributos desta propria classe 
+		NomeEntrevistador = En.getNomeEntrevistador();
+		EmailEntrevistador = En.getEmailEntrevistador();
+		RG = En.getRgEntrevistador();
+		Senha = En.getSenhaEntrevistador();
+		
+		txtNomeEntrevistador.setText(NomeEntrevistador);
         txtEmailEntrevistador.setText(EmailEntrevistador);
         txtRG.setText(RG);
         txtSenha.setText(Senha);
@@ -65,6 +79,7 @@ public class EntrevistadoresPerfil extends Application{
 			imgFoto.setImage(new Image("imagens/Logo.png"));
 		}
     }
+	
 	
 	@FXML
 	public void alterarInfos(MouseEvent event)  {
