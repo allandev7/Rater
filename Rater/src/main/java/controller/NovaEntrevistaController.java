@@ -47,7 +47,10 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Padroes;
 import view.PopUp;
+import model.AzureConnection;
 import model.Empresa;
+import model.Entrevistado;
+
 import java.awt.*;
 import javafx.scene.control.ComboBox;
 
@@ -120,8 +123,6 @@ public class NovaEntrevistaController extends Application{
 		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
 		if(escolha == 1) {
 			caminho = "C:\\Rater/imagens/fotoTEMP.png";
-			final File arquivo = new File(caminho);
-			//if(arquivo.exists()) arquivo.delete();
 			final WebcamTela camera = new WebcamTela();
 			nome = "fotoTEMP";
 			extensao = ".png";
@@ -182,22 +183,44 @@ public class NovaEntrevistaController extends Application{
 		}
     }
 	
-
-	/*
-	 * PARTE não PRESENTE NO PROJETO ATUAL
-	 */
+	
+	//CLIQUE 
 
 	public void iniciarEntrevista(ActionEvent event) throws Exception {
-		setCargoSelecionado(cbCargos.getValue().toString());
-		System.out.print(getCargoSelecionado());
-		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
-		//Limpando o coteúdo do Pane "pane"
-        pane.getChildren().removeAll();
-        //Colocando o documento fxml como conteúdo do pane
-        pane.getChildren().setAll(fxml);
+		//SALVANDO CANDIDATO NO BANCO
+		String email = txtEmail.getText();
+		String nome = txtNome.getText();
+		String telefone = txtTelefone.getText();
+		String sexo =  rbFeminino.isSelected() ? "feminino":"masculino";
+		String cpf = txtRG.getText();
+		String foto = getNomeFotoCripto();
+		String etnia = cbEtnias.getValue();
+		int idade = spnIdade.getValue();
+		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
+		
+		
+		if (!nome.equals("") && !email.equals("") && getCargoSelecionado()!=null) {
+			new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade);
+			
+			//INICIAR OUTRA TELA
+			
+			 //Pegando fxml como parametro
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
+			//Limpando o coteúdo do Pane "pane"
+	        pane.getChildren().removeAll();
+	        //Colocando o documento fxml como conteúdo do pane
+	        pane.getChildren().setAll(fxml);
+		}else {
+			new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email,nome e cargo devem ser preenchidos");
+		}
+		if(getNomeFotoCripto()!=null) {
+			new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
+		}
+		
 	}
-	//------------------------------------
+	
+	
+	//GETTERS E SETTERS
 
 	public String getCaminho() {
 		return caminho;

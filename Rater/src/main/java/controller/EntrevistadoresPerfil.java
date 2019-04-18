@@ -1,6 +1,8 @@
 package controller;
 import model.AzureConnection;
+import model.Conexao;
 import model.Empresa;
+import model.Entrevistador;
 import model.Usuarios;
 import view.PopUp;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -104,7 +106,7 @@ public class EntrevistadoresPerfil extends Application{
 		//instanciando objeto da classe do Azure
 		AzureConnection con = new AzureConnection();
 		//Abrindo conexao com o banco
-		Connection conBD =  (Connection) new Empresa().connect();
+		Connection conBD =  (Connection) new Conexao().connect();
 		//query de update
 		String sql = "UPDATE empresa SET foto=?";
 		try {//tentar

@@ -30,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.AzureConnection;
 import model.Empresa;
+import model.Entrevistador;
 import javafx.stage.Stage;
 
 

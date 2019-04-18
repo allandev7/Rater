@@ -35,29 +35,8 @@ public class Empresa extends Usuarios {
 	public void consultarProgresso () {
 		
 	}
+	private Conexao con = new Conexao();
 	
-	
-/* =============================================================================
-	connect	()
-============================================================================= */  
-	
-	public Connection connect(){  
-		Connection con = null;
-		try{  
-			//buscar Driver
-			Class.forName("com.mysql.jdbc.Driver");  
-			//estabelecer conexão com banco
-			con=DriverManager.getConnection(  
-					"jdbc:mysql://localhost/RATER","root","");
-			
-			//informar conexao
-			if(con != null)
-			{}
-			}catch(Exception e){
-				System.out.println(e);
-				}  
-		return con;
-		}  
 	
 /* =============================================================================
 	login	()
@@ -68,7 +47,7 @@ public class Empresa extends Usuarios {
 		String sql = "SELECT * FROM EMPRESA WHERE EMAIL = ? AND SENHA = MD5(?)";
 		int status=0, valido = 0;
 	//tentar conexão
-		try(Connection conn = this.connect();
+		try(Connection conn = con.connect();
 			PreparedStatement stmt  = conn.prepareStatement(sql)){
 			//definindo os parametros do statment para query
 			stmt.setString(1, emailTxt);
@@ -125,7 +104,7 @@ public class Empresa extends Usuarios {
 	
 	@Override
 	public void alterarInfo(String email, String nome, String identificacao) {
-		try(Connection conn = this.connect()){
+		try(Connection conn = con.connect()){
 			String sql = "UPDATE EMPRESA SET EMAIL = ?, NOME = ?, CNPJ = ? WHERE empresa.ID = ?;";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			//definindo os parametros do statment para query
@@ -150,7 +129,7 @@ public class Empresa extends Usuarios {
 
 
 	public void deletarEntrevistador(int id) {
-		try(Connection conn = this.connect()){
+		try(Connection conn = con.connect()){
 			//query para deletar entrevistador
 			String sql = "DELETE FROM entrevistador WHERE ID = ? AND ID_EMPRESA=?";
 			
@@ -173,7 +152,7 @@ public class Empresa extends Usuarios {
 	}
 	
 	public void cadastrarEntrevistador(String Nome, String Email, String Senha, String RG, String FotoCripto, String caminho) {
-		try(Connection conn = this.connect()){
+		try(Connection conn = con.connect()){
 			
 			String sql = "INSERT INTO entrevistador VALUES(NULL,?,?,?,?,?,0,0,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -216,7 +195,7 @@ public class Empresa extends Usuarios {
 	
 	
 	public ArrayList<String> carregarImgEntrevistadores() {
-		try(Connection conn = this.connect()){
+		try(Connection conn = con.connect()){
 			
 			imgNomesEn.clear();
 			//selecionar na tabela

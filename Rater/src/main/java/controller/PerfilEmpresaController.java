@@ -1,5 +1,6 @@
 package controller;
 import model.AzureConnection;
+import model.Conexao;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Empresa;
 import view.PopUp;
@@ -85,7 +86,7 @@ public class PerfilEmpresaController extends Application{
 		//instanciando objeto da classe do Azure
 		AzureConnection con = new AzureConnection();
 		//Abrindo conexao com o banco
-		Connection conBD =  (Connection) new Empresa().connect();
+		Connection conBD =  (Connection) new Conexao().connect();
 		//query de update
 		String sql = "UPDATE empresa SET foto=?";
 		try {

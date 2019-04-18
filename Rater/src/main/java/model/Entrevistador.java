@@ -13,7 +13,7 @@ public class Entrevistador {
 	private static String RgEntrevistador;
 	private static String SenhaEntrevistador;
 
-	Connection con = new Empresa().connect();
+	Connection con = new Conexao().connect();
 	
 	//cria array para armazenar os nomes dos cargos
 	private ArrayList<String> nomeEntrevistador = new ArrayList<>();

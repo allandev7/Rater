@@ -16,7 +16,7 @@ import controller.NovaEntrevistaController;
 
 public class Padroes {
 	//abrindo conexao com o banco
-	Connection con = new Empresa().connect();
+	Connection con = new Conexao().connect();
 	
 	
 	
