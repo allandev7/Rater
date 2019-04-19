@@ -195,6 +195,8 @@ public class NovaEntrevistaController extends Application{
 		String cpf = txtRG.getText();
 		String foto = getNomeFotoCripto();
 		String etnia = cbEtnias.getValue();
+		
+		//DEVE SER ALTERADO APÓS COMMIT PARA .GETTEXT
 		int idade = spnIdade.getValue();
 		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
 		

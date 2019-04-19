@@ -25,6 +25,7 @@ import model.Entrevistador;
 public class Empresa extends Usuarios {
 	private static String  cnpj;
 	private static int id;
+	private static int idEntrevistadorPadrao;
 	private static String imgEntrevistadores;
 
 
@@ -101,7 +102,17 @@ public class Empresa extends Usuarios {
 		}
 		return valido;
 		}
-	
+	public void buscarIdPadrao() {
+		try {
+			PreparedStatement pstmt = con.connect().prepareStatement("SELECT * FROM entrevistador WHERE ID_EMPRESA = ?");
+			pstmt.setInt(1, getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())setIdEntrevistadorPadrao(rs.getInt("ID"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void alterarInfo(String email, String nome, String identificacao) {
 		try(Connection conn = con.connect()){
@@ -248,6 +259,14 @@ public static int getId() {
 
 public void setId(int id) {
 	Empresa.id = id;
+}
+
+public static int getIdEntrevistadorPadrao() {
+	return idEntrevistadorPadrao;
+}
+
+public static void setIdEntrevistadorPadrao(int idEntrevistadorPadrao) {
+	Empresa.idEntrevistadorPadrao = idEntrevistadorPadrao;
 }
 
 }
