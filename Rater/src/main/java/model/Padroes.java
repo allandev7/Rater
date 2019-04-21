@@ -148,13 +148,14 @@ public class Padroes {
 	//método novoCritério
 	public void novoCriterio(String criterio,String definicao, int idCargo) throws SQLException{
 		//query de inserir os criterios
-		String sql = "INSERT INTO criterio (ID, NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?)";
+		String sql = "INSERT INTO criterio (ID, ID_ENTREVISTADOR , NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?,?)";
 		// criando statment
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		// definindo os parametros da query
-		pstmt.setString(1, criterio);
-		pstmt.setString(2, definicao);
-		pstmt.setInt(3, idCargo);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
+		pstmt.setString(2, criterio);
+		pstmt.setString(3, definicao);
+		pstmt.setInt(4, idCargo);
 		//executando a query
 		pstmt.execute();
 	}
