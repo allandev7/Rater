@@ -13,6 +13,11 @@ public class Entrevistador {
 	private static String EmailEntrevistador;
 	private static String RgEntrevistador;
 	private static String SenhaEntrevistador;
+	private static int Admissoes;
+	private static int EntrevistasRealizadas;
+
+
+
 	private static String imgEntrevistadores;
 	
 	//criar um array pra pegar os nomes criptografados das imagens no banco de dados
@@ -57,7 +62,7 @@ public class Entrevistador {
 
 
 
-	//Metodo de carregar entrevistadores
+	//Metodo de carregar Perfil do entrevistador
 	public void carregarPerfilEntrevistador(int idSelecionado) throws SQLException{
 			//selecionar na tabela
 			String sql = "SELECT * FROM entrevistador WHERE ID = ? AND ID_EMPRESA=?";
@@ -81,6 +86,8 @@ public class Entrevistador {
 				setEmailEntrevistador(rs.getString("EMAIL"));
 				setRgEntrevistador(rs.getString("RG"));
 				setSenhaEntrevistador(rs.getString("SENHA"));
+				setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
+				setAdmissoes(rs.getInt("ADMISSÕES"));
 			}
 	
 	}
@@ -90,15 +97,17 @@ public class Entrevistador {
 	
 	
 	public void baixarImgsEntrevistadores(String nomeImg) throws SQLException {
-		//conexao com o azure para baixar as imagens
-		AzureConnection conAzr = new AzureConnection();
-
-		File file = new File("C:\\Rater/imagens/"+nomeImg);
 		
+		File file = new File("C:\\Rater/imagens/"+nomeImg);
+
 		//verificando se existe a imagem
 		if(!file.exists()) {
+			
+			//conexao com o azure para baixar as imagens
+			AzureConnection conAzr = new AzureConnection();
 			// se nao existe, baixar
-			conAzr.down(nomeImg);				
+			conAzr.down(nomeImg);	
+
 		}
 			
 	}
@@ -174,7 +183,21 @@ public class Entrevistador {
 	
 	public String getImgNomesEn(int i) {
 		return this.imgNomesEn.get(i);
-}
+	}
+	
+	public static int getAdmissoes() {
+		return Admissoes;
+	}
+	public static void setAdmissoes(int admissoes) {
+		Admissoes = admissoes;
+	}
+
+	public static int getEntrevistasRealizadas() {
+		return EntrevistasRealizadas;
+	}
+	public static void setEntrevistasRealizadas(int entrevistasRealizadas) {
+		EntrevistasRealizadas = entrevistasRealizadas;
+	}
 	
 	
 }

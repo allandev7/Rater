@@ -1,4 +1,4 @@
-package controller;
+package controllerEntrevistador;
 
 import java.awt.Event;
 import java.awt.HeadlessException;
@@ -34,7 +34,7 @@ import model.Padroes;
 import view.PopUp;
 import javafx.scene.input.MouseEvent.*;
 
-public class CriteriosController extends Application{
+public class ENCriteriosController extends Application{
 	
 	//Criando uma JFXListView para armazenar os critérios
 	@FXML private JFXListView<Label> jfxlvListView;
@@ -44,7 +44,7 @@ public class CriteriosController extends Application{
 	@FXML private Button btnDeletarCriterio;
 	@FXML private Button btnAlterarCriterio;
 	
-	private CargosController c = new CargosController();
+	private ENCargosController c = new ENCargosController();
 	private Padroes p = new Padroes();
 	private int NumCriterios = 8;
 		
@@ -131,9 +131,8 @@ public class CriteriosController extends Application{
 	}
 
 	public void voltarParaCargos(ActionEvent event) throws Exception {
-		
 		//Pegando fxml como parâmetro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENCargos.fxml"));
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane

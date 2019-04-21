@@ -75,10 +75,14 @@ public class EntrevistadoresController extends Application{
 					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(100);
+
 			String nomeImagem =  En.carregarNomesImgEntrevistadores().get(i);
-			System.out.print(nomeImagem);
-			//Inserindo imagem na label lbl1
-			if(nomeImagem != null) {
+
+			
+
+			//Verificar se há alguma imagem salva no banco e no azure
+			if(!nomeImagem.equals("null")) {
+				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
 				try {
 					En.baixarImgsEntrevistadores(nomeImagem);
 					ImageView img = new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
@@ -87,9 +91,12 @@ public class EntrevistadoresController extends Application{
 					img.setFitWidth(85);
 					lbl1.setGraphic(img);
 				} catch (FileNotFoundException e) {
-					ImageView img = new ImageView(new Image(("imagens/user.png")));
-					lbl1.setGraphic(img);
+					System.out.print(e);
 				}
+			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+			}else {
+				ImageView img = new ImageView(new Image(("imagens/user.png")));
+				lbl1.setGraphic(img);
 			}
 			
 			//Adicionando a Label lbl1 na JFXListView
@@ -100,8 +107,6 @@ public class EntrevistadoresController extends Application{
 	
 	
 	public void initialize() throws Exception {
-
-		
 		carregarEntrevistadores();
 	}
 	

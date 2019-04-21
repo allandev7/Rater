@@ -35,8 +35,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -64,7 +62,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private TextField txtRG;
 	@FXML private TextField txtEndereco;
 	@FXML private TextField txtTelefone;
-	@FXML private Spinner<Integer> spnIdade;
+	@FXML private TextField txtIdade;
 	@FXML private ComboBox<String> cbEtnias;
 	@FXML private RadioButton rbMasculino;
 	@FXML private RadioButton rbFeminino;
@@ -91,11 +89,7 @@ public class NovaEntrevistaController extends Application{
 	}
 
 	//Criando lista do tipo ObservableList com as etnias
-	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indígena");
-	
-	//Criando SpinnerValueFactory que ditará as "regras" de funcionamento para o spinner spnIdade
-	private SpinnerValueFactory<Integer> spinnerNumeros = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
-	
+	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indígena");	
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -113,9 +107,6 @@ public class NovaEntrevistaController extends Application{
 	
 		//Colocando a ObservableList de cargos como conteúdo da ComboBox
 		cbCargos.setItems(p.listaCargos);
-		
-		//Colocando a SpinnerValueFactory como "regra" para o spinner
-		spnIdade.setValueFactory(spinnerNumeros);
 	}
 	
 	public void uparFoto(MouseEvent event)  {
@@ -195,9 +186,13 @@ public class NovaEntrevistaController extends Application{
 		String cpf = txtRG.getText();
 		String foto = getNomeFotoCripto();
 		String etnia = cbEtnias.getValue();
+
+		int idade = Integer.parseInt(txtIdade.getText());
+
 		
 		//DEVE SER ALTERADO APÓS COMMIT PARA .GETTEXT
-		int idade = spnIdade.getValue();
+		//int idade = spnIdade.getText();
+
 		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
 		
 		

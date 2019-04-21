@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" stylesheets="@../view/MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerEntrevistador.ENCargosController">
+   <children>
+      <Pane prefHeight="540.0" prefWidth="722.0">
+         <children>
+            <JFXListView fx:id="jfxlvListView" fixedCellSize="80.0" layoutY="46.0" prefHeight="422.0" prefWidth="722.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding></JFXListView>
+            <Label fx:id="lblNumCargos" layoutX="14.0" layoutY="14.0" text="Label">
+               <font>
+                  <Font name="Tahoma" size="17.0" />
+               </font>
+            </Label>
+            <HBox layoutX="559.0" layoutY="481.0" prefHeight="45.0" prefWidth="149.0">
+               <children>
+                  <JFXButton fx:id="btnGerenciarCriterios" onAction="#gerenciarCriterios" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Critérios" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow color="#0000006e" />
+                     </effect>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

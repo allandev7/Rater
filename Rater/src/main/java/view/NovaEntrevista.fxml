@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
@@ -89,14 +88,7 @@
                   <DropShadow color="TRANSPARENT" />
                </effect>
             </Label>
-            <Spinner fx:id="spnIdade" editable="true" prefHeight="25.0" prefWidth="505.0" GridPane.columnIndex="1">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <effect>
-                  <DropShadow color="TRANSPARENT" />
-               </effect>
-            </Spinner>
+            <TextField fx:id="txtIdade" GridPane.columnIndex="1" />
             <ComboBox fx:id="cbEtnias" prefHeight="25.0" prefWidth="495.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <effect>
                   <DropShadow color="TRANSPARENT" />
