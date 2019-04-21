@@ -75,10 +75,12 @@ public class EntrevistadoresController extends Application{
 					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(100);
-			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
+			String nomeImagem =  En.carregarNomesImgEntrevistadores().get(i);
+			System.out.print(nomeImagem);
 			//Inserindo imagem na label lbl1
 			if(nomeImagem != null) {
 				try {
+					En.baixarImgsEntrevistadores(nomeImagem);
 					ImageView img = new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 					img.setPreserveRatio(true);
 					img.setFitHeight(150);
@@ -89,6 +91,7 @@ public class EntrevistadoresController extends Application{
 					lbl1.setGraphic(img);
 				}
 			}
+			
 			//Adicionando a Label lbl1 na JFXListView
 			jfxlvListView.getItems().add(lbl1);
 		}

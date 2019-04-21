@@ -141,16 +141,25 @@ public class EntrevistadoresAdicionarController extends Application{
 		String Rg = txtRG.getText();
 		String fotoVazia = "null";
 		
-		if(getNomeFotoCripto() == null) {
-			e.cadastrarEntrevistador(nome, email, senha, Rg, fotoVazia, getCaminho());
-		}else {
-			e.cadastrarEntrevistador(nome, email, senha, Rg, getNomeFotoCripto(), getCaminho());
-		}
+		//verifica se há algum campo obrigatorio em branco	
+		if(nome.equals("") || email.equals("") || senha.equals("")|| Rg.equals("") ) {
+			
+			JOptionPane.showMessageDialog(null, "Preencha os campos obrigatorios");
 		
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-		pane.getChildren().removeAll();
-		pane.getChildren().setAll(fxml);
-
+		}else {
+			//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
+			if(getNomeFotoCripto() == null) {
+				e.cadastrarEntrevistador(nome, email, senha, Rg, fotoVazia, getCaminho());
+			}else {
+				//cadastra entrevistador com imagem
+				e.cadastrarEntrevistador(nome, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+			}
+			//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+			pane.getChildren().removeAll();
+			pane.getChildren().setAll(fxml);
+		}
+	
 	}
 	
 	public void cancelarCadastro(ActionEvent event) throws Exception {

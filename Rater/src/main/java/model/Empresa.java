@@ -26,7 +26,6 @@ public class Empresa extends Usuarios {
 	private static String  cnpj;
 	private static int id;
 	private static int idEntrevistadorPadrao;
-	private static String imgEntrevistadores;
 
 
 	public Empresa() {
@@ -77,15 +76,7 @@ public class Empresa extends Usuarios {
 					AzureConnection con = new AzureConnection();
 					con.down(getFoto());
 					
-					int numEntrevistadores = carregarImgEntrevistadores().size();		
-	
-					//for para baixar todas as fotos dos entrevistadores na nuvem
-					for (int i = 0; i < numEntrevistadores; i++) {
-						setImgEntrevistadores(carregarImgEntrevistadores().get(i));
-						con.down(getImgEntrevistadores());
-					}
-					System.out.print(numEntrevistadores+"\n"+ getImgEntrevistadores());
-	
+				
 					//}
 			}else {
 					valido = 0;
@@ -201,50 +192,15 @@ public class Empresa extends Usuarios {
 		}
 	}
 	
-	//criar um array pra pegar os nomes criptografados das imagens no banco de dados
-	private ArrayList<String> imgNomesEn = new ArrayList<>();
-	
-	
-	public ArrayList<String> carregarImgEntrevistadores() {
-		try(Connection conn = con.connect()){
-			
-			imgNomesEn.clear();
-			//selecionar na tabela
-			String sql = "SELECT foto FROM entrevistador WHERE ID_EMPRESA=?";
-			// criando statment
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			//definindo o id na query
-			pstmt.setInt(1, this.getId());
-			//executando o query para obter o resultado
-			ResultSet rs = pstmt.executeQuery();
-			//enquanto houver linhas
-			while (rs.next()){
-				//adicionar cargos e ids aos arrays
-				imgNomesEn.add(rs.getString("foto"));
-			}
-		}catch(SQLException ex) {
-			System.out.print("erro " + ex);
-			
-		}
-		return imgNomesEn;
 
-	}
 
 
 
 
 
 //GETTERS E SETTERS
-public static String getImgEntrevistadores() {
-	return imgEntrevistadores;
-}
 
-public static void setImgEntrevistadores(String imgEntrevistadores) {
-	Empresa.imgEntrevistadores = imgEntrevistadores;
-}
-public String getImgNomesEn(int i) {
-		return this.imgNomesEn.get(i);
-}
+
 public static String getCnpj() {
 	return cnpj;
 }
