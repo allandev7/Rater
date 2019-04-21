@@ -84,6 +84,7 @@ public class TelaExController extends Application{
 		 * */
 		if(login == 1) {
 			lblErro.setText("Seja bem vindo");
+			empresa.buscarIdPadrao();
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
 			

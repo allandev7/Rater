@@ -28,6 +28,8 @@ public class Padroes {
 	//cria array para armazenar o id dos cargos
 	private ArrayList<Integer> idCargo = new ArrayList<>();
 	public ObservableList<String> listaCargos = FXCollections.observableArrayList( );
+	
+	private int idCargoSelecionado;
 
 	//Metodo de carregar criterios
 	public ArrayList<String> carregarCargos() throws SQLException {
@@ -183,6 +185,7 @@ public class Padroes {
 		while (rs.next()){			
 			//adicionar cargos e ids aos arrays
 			nomesCriterioNE2.add(rs.getString("NOME"));
+			setIdCargoSelecionado(rs.getInt("ID_CARGO"));
 		}
 			
 		return nomesCriterioNE2;
@@ -210,5 +213,13 @@ public class Padroes {
 	//getters DEFINICAO
 	public String getDefinicao(int i) {
 		return definicaoCriterio.get(i);
+	}
+
+	public int getIdCargoSelecionado() {
+		return idCargoSelecionado;
+	}
+
+	public void setIdCargoSelecionado(int idCargoSelecionado) {
+		this.idCargoSelecionado = idCargoSelecionado;
 	}
 }
