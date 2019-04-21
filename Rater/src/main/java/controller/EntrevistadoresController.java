@@ -76,6 +76,7 @@ public class EntrevistadoresController extends Application{
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(100);
 			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
+			
 			//Inserindo imagem na label lbl1
 			if(nomeImagem != null) {
 				try {
@@ -97,8 +98,6 @@ public class EntrevistadoresController extends Application{
 	
 	
 	public void initialize() throws Exception {
-
-		
 		carregarEntrevistadores();
 	}
 	

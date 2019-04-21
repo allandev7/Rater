@@ -1,4 +1,4 @@
-package controller;
+package controllerEntrevistador;
 import java.io.FileInputStream;
 import java.io.IOException;
 import com.jfoenix.controls.JFXListView;
@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
-public class GerenciarEntrevistasController extends Application{
+public class ENGerenciarEntrevistasController extends Application{
 	
 	//Criando uma JFXListView para armazenar as entrevistas
 	@FXML private JFXListView<Label> jfxlvListView;
@@ -40,13 +40,12 @@ public class GerenciarEntrevistasController extends Application{
 			//Variáveis que pegam os dados da entrevista, deverão ser substituídas por colsulta ao banco de dados
 			String nomeEntrevistado = "jooj" + (i + 1);
 			String dataEntrevista = "22/02/2002";
-			String nomeEntrevistador = "jeej";
 			String resultado = "Aprovado|Reprovado|Em espera";
 			
 			
 			//Inserindo dados da entrevista em uma Label
 			Label lbl1 = new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
-									dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador + "\n\nResultado: " + resultado);
+									dataEntrevista  + "\n\nResultado: " + resultado);
 			lbl1.setMaxHeight(100);
 			lbl1.setMinHeight(100);
 			
@@ -68,7 +67,7 @@ public class GerenciarEntrevistasController extends Application{
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENGerenciarEntrevistasVisualizar.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane

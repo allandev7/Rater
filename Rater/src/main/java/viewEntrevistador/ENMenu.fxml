@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="parent" prefHeight="600.0" prefWidth="900.0" stylesheets="@../view/MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerEntrevistador.ENMenuController">
+   <children>
+      <Pane fx:id="pane" layoutX="178.0" layoutY="66.0" prefHeight="540.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
+      </Pane>
+      <Pane prefHeight="600.0" prefWidth="178.0" style="-fx-background-color: #333645;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="86.0" opacity="0.89" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/início.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="142.0" opacity="0.79" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/nova%20entrevista.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="5.0" layoutY="197.0" opacity="0.84" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/gerenciar%20entrevistas.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="7.0" layoutY="255.0" opacity="0.89" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/critérios%20de%20avaliação.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <Label fx:id="lblHome" accessibleRole="BUTTON" layoutX="2.0" layoutY="82.0" onMouseClicked="#Home" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Início        " textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblNewEntrevista" accessibleRole="BUTTON" layoutX="2.0" layoutY="138.0" onMouseClicked="#NovaEntrevista" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Nova Entrevista        " textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblGerenciarEntrevistas" layoutX="2.0" layoutY="194.0" onMouseClicked="#GerenciarEntrevistas" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Gerenciar Entrevistas" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCriteriosAvaliacao" layoutX="2.0" layoutY="251.0" onMouseClicked="#Criterios" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@MenuCSS.css" text="          Cargos|Critérios" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+            </Label>
+            <Pane layoutY="310.0" prefHeight="1.0" prefWidth="178.0" style="-fx-background-color: rgb(50,78,124);">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <opaqueInsets>
+                  <Insets right="6.0" />
+               </opaqueInsets>
+            </Pane>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="178.0" prefHeight="67.0" prefWidth="722.0" style="-fx-background-color: rgb(48,65,101);" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="706.0" layoutY="6.0" onMouseClicked="#Fechar" opacity="0.89" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/close2.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="imgFotoPerfil" fitHeight="55.0" fitWidth="58.0" layoutX="465.0" layoutY="6.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/placeholder%20para%20imageview.png" />
+               </image>
+               <effect>
+                  <DropShadow color="#0000003a" />
+               </effect>
+            </ImageView>
+            <Label fx:id="lblPerfil" accessibleRole="BUTTON" layoutX="465.0" layoutY="29.0" onMouseClicked="#Perfil" prefHeight="32.0" prefWidth="58.0" styleClass="lblPerfil" stylesheets="@MenuCSS.css" text="    Perfil" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="10.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <Label fx:id="lblNomeUsuario" layoutX="529.0" layoutY="17.0" opacity="0.84" prefHeight="23.0" prefWidth="191.0" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblFuncao" layoutX="528.0" layoutY="37.0" opacity="0.84" prefHeight="19.0" prefWidth="93.0" text="Entrevistador" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="15.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="678.0" layoutY="6.0" onMouseClicked="#Fechar" opacity="0.89" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/minimizar2.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <Button layoutX="665.0" layoutY="-12.0" mnemonicParsing="false" onAction="#Minimizar" opacity="0.0" prefHeight="0.0" prefWidth="0.0" text="Button">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="-1.0" prefHeight="67.0" prefWidth="178.0" style="-fx-background-color: rgb(50,78,124);">
+         <children>
+            <Label fx:id="lblPainel" layoutX="17.0" layoutY="23.0" opacity="0.91" prefHeight="23.0" prefWidth="151.0" stylesheets="@MenuCSS.css" text="Painel Entrevistador" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+   </children>
+</AnchorPane>

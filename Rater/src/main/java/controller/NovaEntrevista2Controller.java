@@ -140,6 +140,9 @@ public class NovaEntrevista2Controller extends Application{
 		JFXRadioButton reprovado = new JFXRadioButton();
 		JFXRadioButton espera = new JFXRadioButton();
 		
+		//Deixar radio button de espera selecionado
+		espera.setSelected(true);
+		
 		//Adicionando radio buttons no toggle group
 		aprovado.setToggleGroup(group);
 		reprovado.setToggleGroup(group);

@@ -27,6 +27,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,12 +49,18 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML private Button btnVoltar;
 	@FXML private ImageView imgFoto;
 	@FXML private AnchorPane pane;
+	@FXML private Hyperlink hplVisualizar;
+	@FXML private Label lblNumEnt;
 	
 /*Variáveis para pegar informações do entrevistador do banco de dados*/
 	private String NomeEntrevistador = "";
 	private String EmailEntrevistador = "";
 	private String RG = "";
 	private String Senha = "";
+	private int NumEntrevistas = 0;
+	private int Aprovados = 0;
+	private int Reprovados = 0;
+	private int EmEspera = 0;
 	
 	Entrevistador En = new Entrevistador();
 	EntrevistadoresController EnC = new EntrevistadoresController();
@@ -69,11 +77,16 @@ public class EntrevistadoresPerfil extends Application{
 		EmailEntrevistador = En.getEmailEntrevistador();
 		RG = En.getRgEntrevistador();
 		Senha = En.getSenhaEntrevistador();
+		NumEntrevistas = 10;
+		Aprovados = 4;
+		Reprovados = 5;
+		EmEspera = 1;
 		
 		txtNomeEntrevistador.setText(NomeEntrevistador);
         txtEmailEntrevistador.setText(EmailEntrevistador);
         txtRG.setText(RG);
         txtSenha.setText(Senha);
+        lblNumEnt.setText("Entrevistas Realizadas: " + NumEntrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
         try {
 			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/user.png")));
 		} catch (FileNotFoundException e) {
@@ -163,6 +176,16 @@ public class EntrevistadoresPerfil extends Application{
 	        //Colocando o documento fxml como conteúdo do pane
 	        pane.getChildren().setAll(fxml);
 	    }
+	
+	@FXML
+	public void visualizarEntrevistas(ActionEvent event) throws IOException{
+		//Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+		pane.getChildren().removeAll();
+    	//Colocando o documento fxml como conteudo do pane
+    	pane.getChildren().setAll(fxml);
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

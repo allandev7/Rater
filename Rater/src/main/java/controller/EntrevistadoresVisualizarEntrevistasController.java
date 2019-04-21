@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
-public class GerenciarEntrevistasController extends Application{
+public class EntrevistadoresVisualizarEntrevistasController extends Application{
 	
 	//Criando uma JFXListView para armazenar as entrevistas
 	@FXML private JFXListView<Label> jfxlvListView;
@@ -53,7 +53,7 @@ public class GerenciarEntrevistasController extends Application{
 			//Inserindo imagem na label lbl1
 			ImageView img = new ImageView(new Image("imagens/user.png"));
 			img.setPreserveRatio(true);
-			img.setFitHeight(200);
+			img.setFitHeight(150);
 			img.setFitWidth(85);
 			lbl1.setGraphic(img);
 			
@@ -64,16 +64,27 @@ public class GerenciarEntrevistasController extends Application{
 	}
 	
 	@FXML
+	public void voltar(ActionEvent event) throws IOException {
+		//Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+		pane.getChildren().removeAll();
+		//Colocando o documento fxml como conteudo do pane
+		pane.getChildren().setAll(fxml);
+	}
+	
+	@FXML
 	public void visualizarEntrevista(ActionEvent event) throws IOException {
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevista.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
         	pane.getChildren().setAll(fxml);
 		}
 	}
+	
 	
 }
