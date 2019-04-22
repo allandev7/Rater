@@ -44,21 +44,25 @@ public class PerfilEntrevistadorController extends Application{
 	@FXML private Label lblNome;
 	@FXML private Label lblEmail;
 	@FXML private Label lblRG;
-	@FXML private Label lblSenha;
+	@FXML private Label lblEntrevistas;
 	@FXML private ImageView imgFoto;
 	
 	/*Variáveis para pegar informações do entrevistador do banco de dados*/
 	private String Nome = Empresa.getNome();
 	private String Email = Empresa.getEmail();
 	private String RG = Empresa.getCnpj();
-	private String Senha = "1234";
+	private int Entrevistas = 10;
+	private int Aprovados = 4;
+	private int Reprovados = 4;
+	private int EmEspera = 4;
+	
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){		
         lblNome.setText("Nome do entrevistador: " + Nome);
         lblEmail.setText("E-Mail do entrevistador: " + Email);
         lblRG.setText("RG do entrevistador: " + RG);
-        lblRG.setText("Senha do entrevistador: " + Senha);
+        lblEntrevistas.setText("Número de entrevistas: " + Entrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
         try {
 			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
 

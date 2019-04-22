@@ -12,13 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 public class GerenciarEntrevistasController extends Application{
 	
 	//Criando uma JFXListView para armazenar as entrevistas
-	@FXML private JFXListView<Label> jfxlvListView;
+	@FXML private JFXListView jfxlvListView;
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private AnchorPane pane;
@@ -46,9 +47,9 @@ public class GerenciarEntrevistasController extends Application{
 			
 			//Inserindo dados da entrevista em uma Label
 			Label lbl1 = new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
-									dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador + "\n\nResultado: " + resultado);
-			lbl1.setMaxHeight(100);
-			lbl1.setMinHeight(100);
+									dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador + "\n\nResultado: " + resultado + "\n");
+			lbl1.setMaxHeight(110);
+			lbl1.setMinHeight(110);
 			
 			//Inserindo imagem na label lbl1
 			ImageView img = new ImageView(new Image("imagens/user.png"));
@@ -57,8 +58,14 @@ public class GerenciarEntrevistasController extends Application{
 			img.setFitWidth(85);
 			lbl1.setGraphic(img);
 			
+			//Label desnecessária
+			Label lbl2 = new Label();
+			
+			//VBox desnecessária
+			VBox vbox = new VBox(lbl1, lbl2);
+			
 			//Adicionando a Label lbl1 na JFXListView
-			jfxlvListView.getItems().add(lbl1);
+			jfxlvListView.getItems().add(vbox);
 		}
 			
 	}

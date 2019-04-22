@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import model.AzureConnection;
 import model.Empresa;
 import model.Entrevistador;
@@ -74,29 +75,29 @@ public class EntrevistadoresController extends Application{
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
 					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
-			lbl1.setMinHeight(100);
+			lbl1.setMinHeight(110);
 
 			String nomeImagem =  En.carregarNomesImgEntrevistadores().get(i);
-
 			
-
+			//Criando imageview para colocar a foto do entrevistador e definindo seu tamanho
+			ImageView img = new ImageView();
+			img.setFitWidth(80);
+			img.setFitHeight(80);
+			
 			//Verificar se há alguma imagem salva no banco e no azure
 			if(!nomeImagem.equals("null")) {
 				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
 				try {
 					En.baixarImgsEntrevistadores(nomeImagem);
-					ImageView img = new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-					img.setPreserveRatio(true);
-					img.setFitHeight(150);
-					img.setFitWidth(85);
+					img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 					lbl1.setGraphic(img);
 				} catch (FileNotFoundException e) {
 					System.out.print(e);
 				}
 			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 			}else {
-				ImageView img = new ImageView(new Image(("imagens/user.png")));
-				lbl1.setGraphic(img);
+					img.setImage(new Image(("imagens/user.png")));
+					lbl1.setGraphic(img);
 			}
 			
 			//Adicionando a Label lbl1 na JFXListView
