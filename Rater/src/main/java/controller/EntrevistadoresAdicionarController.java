@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -63,6 +65,34 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML
 	public void start(Stage stage) throws IOException {
 		
+	}
+	public void initialize() {
+		txtRG.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            txtRG.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		//Método que limita o tamanho dos textsFields
+		txtRG.setOnKeyTyped(event ->{
+	        int maxCharacters = 8;
+	        if(txtRG.getText().length() > maxCharacters) event.consume();
+	    });
+		txtNome.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtNome.getText().length() > maxCharacters) event.consume();
+	    });
+		txtEmail.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtEmail.getText().length() > maxCharacters) event.consume();
+	    });
+		txtSenha.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtSenha.getText().length() > maxCharacters) event.consume();
+	    });
 	}
 	//metodo para pegar o nome da imagem criptografada
 	public void uparFoto(MouseEvent event)  {

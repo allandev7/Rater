@@ -25,6 +25,8 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,6 +54,30 @@ public class PerfilEmpresaController extends Application{
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){
+		txtCnpj.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            txtCnpj.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		//Método que limita o tamanho dos textsFields
+		txtCnpj.setOnKeyTyped(event ->{
+	        int maxCharacters = 17;
+	        if(txtCnpj.getText().length() > maxCharacters) event.consume();
+	    });
+		txtNomeEmpresa.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtNomeEmpresa.getText().length() > maxCharacters) event.consume();
+	    });
+		txtEmailEmpresa.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtEmailEmpresa.getText().length() > maxCharacters) event.consume();
+	    });
+		
+		
         txtNomeEmpresa.setText(NomeEmpresa);
         txtEmailEmpresa.setText(EmailEmpresa);
         txtCnpj.setText(Cnpj);

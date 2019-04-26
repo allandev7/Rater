@@ -15,16 +15,16 @@ public class Entrevistado {
 	private String foto;
 	private String etnia;
 	private int idade;
-	
+	private String endereco;
 	Connection con = new Conexao().connect();
 	
 	//MÉTODO INSERIR
 	public void inserirInfo(String email,String nome, String telefone, String sexo, String cpf, String foto, 
-			String etnia, int idade) {
+			String etnia, int idade, String endereco) {
 		try {
 			//preparar a query
 			PreparedStatement pstmt = (PreparedStatement)
-					con.prepareStatement("INSERT INTO candidato VALUES (null,?,?,?,?,?,?,?,?,?);");
+					con.prepareStatement("INSERT INTO candidato VALUES (null,?,?,?,?,?,?,?,?,?,?);");
 			//definir os parametros
 			pstmt.setString(1, email);
 			pstmt.setString(2, nome);
@@ -34,7 +34,8 @@ public class Entrevistado {
 			pstmt.setString(6, foto);
 			pstmt.setString(7, etnia);
 			pstmt.setInt(8, idade);
-			pstmt.setInt(9, Empresa.getId());
+			pstmt.setString(9, endereco);
+			pstmt.setInt(10, Empresa.getId());
 			
 			pstmt.execute();
 			
@@ -93,6 +94,14 @@ public class Entrevistado {
 	}
 	public void setIdade(int idade) {
 		this.idade = idade;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 	
 	

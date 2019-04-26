@@ -74,7 +74,7 @@ public class Empresa extends Usuarios {
 				//if(!file.exists()) {
 					// se nao existe, baixar
 					AzureConnection con = new AzureConnection();
-					con.down(getFoto());
+					/*con.down(getFoto());
 					
 					int numEntrevistadores = carregarImgEntrevistadores().size();		
 	
@@ -84,7 +84,7 @@ public class Empresa extends Usuarios {
 						con.down(getImgEntrevistadores());
 					}
 					System.out.print(numEntrevistadores+"\n"+ getImgEntrevistadores());
-	
+						*/
 					//}
 			}else {
 					valido = 0;

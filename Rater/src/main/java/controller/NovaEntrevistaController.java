@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.text.ParseException;
+import javax.swing.text.MaskFormatter;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
@@ -40,6 +41,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -104,7 +106,48 @@ public class NovaEntrevistaController extends Application{
 	
 	//O método initialize e chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException {
+		//Método para deixar só numeros no TextField
+		txtTelefone.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            txtTelefone.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		txtRG.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            txtRG.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		//Método para limitar o TextField
+		txtTelefone.setOnKeyTyped(event ->{
+			int maxCharacters = 24;
+			if(txtTelefone.getText().length() > maxCharacters) event.consume();
+		});
 		
+	       txtNome.setOnKeyTyped(event ->{
+		        int maxCharacters = 99;
+		        if(txtNome.getText().length() > maxCharacters) event.consume();
+		    });
+	       txtEmail.setOnKeyTyped(event ->{
+		        int maxCharacters = 49;
+		        if(txtEmail.getText().length() > maxCharacters) event.consume();
+		    });
+	       txtRG.setOnKeyTyped(event ->{
+		        int maxCharacters = 15;
+		        if(txtRG.getText().length() > maxCharacters) event.consume();
+		    });
+	       txtEndereco.setOnKeyTyped(event ->{
+		        int maxCharacters = 100;
+		        if(txtEndereco.getText().length() > maxCharacters) event.consume();
+		    });
+	    
 		
 		//metodo que pega os cargos do banco
 		p.carregarCargos();
@@ -183,11 +226,14 @@ public class NovaEntrevistaController extends Application{
 		}
     }
 	
+	//Mascara no Telefone:
 	
 	//CLIQUE 
-
+	
 	public void iniciarEntrevista(ActionEvent event) throws Exception {
 		//SALVANDO CANDIDATO NO BANCO
+
+ 
 		String email = txtEmail.getText();
 		String nome = txtNome.getText();
 		String telefone = txtTelefone.getText();
@@ -196,11 +242,12 @@ public class NovaEntrevistaController extends Application{
 		String foto = getNomeFotoCripto();
 		String etnia = cbEtnias.getValue();
 		int idade = spnIdade.getValue();
+		String endereco = txtEndereco.getText();
 		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
 		
 		
 		if (!nome.equals("") && !email.equals("") && getCargoSelecionado()!=null) {
-			new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade);
+			new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade,endereco);
 			
 			//INICIAR OUTRA TELA
 			

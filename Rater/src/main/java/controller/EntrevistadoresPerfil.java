@@ -22,6 +22,8 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +62,33 @@ public class EntrevistadoresPerfil extends Application{
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
-		
+		//Método só para números no txt
+		txtRG.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            txtRG.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		//Método que limita o tamanho dos textsFields
+		txtRG.setOnKeyTyped(event ->{
+	        int maxCharacters = 8;
+	        if(txtRG.getText().length() > maxCharacters) event.consume();
+	    });
+		txtNomeEntrevistador.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtNomeEntrevistador.getText().length() > maxCharacters) event.consume();
+	    });
+		txtEmailEntrevistador.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtEmailEntrevistador.getText().length() > maxCharacters) event.consume();
+	    });
+		txtSenha.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtSenha.getText().length() > maxCharacters) event.consume();
+	    });
 		//executando o metodo que carrega os dados de um perfil individual do banco
 		En.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
 		
