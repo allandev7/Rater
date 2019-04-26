@@ -28,6 +28,8 @@ public class Padroes {
 	//cria array para armazenar o id dos cargos
 	private ArrayList<Integer> idCargo = new ArrayList<>();
 	public ObservableList<String> listaCargos = FXCollections.observableArrayList( );
+	
+	private int idCargoSelecionado;
 
 	//Metodo de carregar criterios
 	public ArrayList<String> carregarCargos() throws SQLException {
@@ -146,13 +148,14 @@ public class Padroes {
 	//método novoCritério
 	public void novoCriterio(String criterio,String definicao, int idCargo) throws SQLException{
 		//query de inserir os criterios
-		String sql = "INSERT INTO criterio (ID, NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?)";
+		String sql = "INSERT INTO criterio (ID, ID_ENTREVISTADOR , NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?,?)";
 		// criando statment
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		// definindo os parametros da query
-		pstmt.setString(1, criterio);
-		pstmt.setString(2, definicao);
-		pstmt.setInt(3, idCargo);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
+		pstmt.setString(2, criterio);
+		pstmt.setString(3, definicao);
+		pstmt.setInt(4, idCargo);
 		//executando a query
 		pstmt.execute();
 	}
@@ -183,6 +186,7 @@ public class Padroes {
 		while (rs.next()){			
 			//adicionar cargos e ids aos arrays
 			nomesCriterioNE2.add(rs.getString("NOME"));
+			setIdCargoSelecionado(rs.getInt("ID_CARGO"));
 		}
 			
 		return nomesCriterioNE2;
@@ -210,5 +214,13 @@ public class Padroes {
 	//getters DEFINICAO
 	public String getDefinicao(int i) {
 		return definicaoCriterio.get(i);
+	}
+
+	public int getIdCargoSelecionado() {
+		return idCargoSelecionado;
+	}
+
+	public void setIdCargoSelecionado(int idCargoSelecionado) {
+		this.idCargoSelecionado = idCargoSelecionado;
 	}
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="722.0" stylesheets="@../view/MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerEntrevistador.PerfilEntrevistadorController">
+   <children>
+      <Separator layoutX="10.0" layoutY="26.0" prefHeight="56.0" prefWidth="705.0">
+         <effect>
+            <DropShadow color="#0000002f" />
+         </effect></Separator>
+      <Label layoutX="15.0" layoutY="7.0" prefHeight="32.0" prefWidth="346.0" text="Informações do Entrevistador:" textFill="#32447c">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <effect>
+            <DropShadow color="TRANSPARENT" />
+         </effect>
+      </Label>
+      <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" layoutX="14.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/placeholder%20para%20imageview.png" />
+         </image>
+         <effect>
+            <DropShadow color="TRANSPARENT" />
+         </effect>
+      </ImageView>
+      <GridPane layoutX="280.0" layoutY="134.0" prefHeight="211.0" prefWidth="435.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="460.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="0.0" prefWidth="0.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="74.0" minHeight="33.0" prefHeight="66.0" />
+            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="107.0" minHeight="0.0" prefHeight="62.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="lblNome" prefHeight="24.0" prefWidth="475.0" text="Nome do entrevistador:" textFill="#32447c">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <Label fx:id="lblEmail" prefHeight="24.0" prefWidth="467.0" text="E-mail do entrevistador:" textFill="#32447c" GridPane.rowIndex="1">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+            <Label fx:id="lblRG" prefHeight="24.0" prefWidth="477.0" text="RG do entrevistador: " textFill="#32447c" GridPane.rowIndex="2">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="TRANSPARENT" />
+               </effect>
+            </Label>
+         </children>
+      </GridPane>
+      <Label fx:id="lblEntrevistas" layoutX="24.0" layoutY="380.0" prefHeight="125.0" prefWidth="275.0" text="Entrevistas:" textFill="#32447c">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <effect>
+            <DropShadow color="TRANSPARENT" />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>

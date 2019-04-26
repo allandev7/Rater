@@ -7,6 +7,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class Entrevistado {
 	//VARIAVEIS
+	private static int id;
 	private String email;
 	private String nome;
 	private String telefone;
@@ -38,6 +39,8 @@ public class Entrevistado {
 			pstmt.setInt(10, Empresa.getId());
 			
 			pstmt.execute();
+			
+			setId((int) pstmt.getLastInsertID());
 			
 			
 		} catch (SQLException e) {
@@ -96,12 +99,20 @@ public class Entrevistado {
 		this.idade = idade;
 	}
 
+
 	public String getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+	public static int getId() {
+		return id;
+	}
+
+	public static void setId(int id) {
+		Entrevistado.id = id;
 	}
 	
 	

@@ -1,9 +1,12 @@
 ﻿package controller;
 
 import java.io.File;
+
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
+
+import controllerEntrevistador.ENMenuController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,8 +85,13 @@ public class TelaExController extends Application{
 		 * */
 		if(login == 1) {
 			lblErro.setText("Seja bem vindo");
+			empresa.buscarIdPadrao();
 			//instanciar o controller da outra tela
 			MenuController tela2 = new MenuController();
+			
+			
+			//ENMenuController tela2 = new ENMenuController();
+			
 			//criar nova janela que será passado como parametro
 			Stage stage = new  Stage();
 			//executar metodo start da tela 2

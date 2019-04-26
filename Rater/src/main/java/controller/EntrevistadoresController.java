@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import model.AzureConnection;
 import model.Empresa;
 import model.Entrevistador;
@@ -74,21 +75,31 @@ public class EntrevistadoresController extends Application{
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
 					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
-			lbl1.setMinHeight(100);
-			String nomeImagem =  e.carregarImgEntrevistadores().get(i);
-			//Inserindo imagem na label lbl1
-			if(nomeImagem != null) {
+			lbl1.setMinHeight(110);
+
+			String nomeImagem =  En.carregarNomesImgEntrevistadores().get(i);
+			
+			//Criando imageview para colocar a foto do entrevistador e definindo seu tamanho
+			ImageView img = new ImageView();
+			img.setFitWidth(80);
+			img.setFitHeight(80);
+			
+			//Verificar se há alguma imagem salva no banco e no azure
+			if(!nomeImagem.equals("null")) {
+				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
 				try {
-					ImageView img = new ImageView(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-					img.setPreserveRatio(true);
-					img.setFitHeight(150);
-					img.setFitWidth(85);
+					En.baixarImgsEntrevistadores(nomeImagem);
+					img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 					lbl1.setGraphic(img);
 				} catch (FileNotFoundException e) {
-					ImageView img = new ImageView(new Image(("imagens/user.png")));
-					lbl1.setGraphic(img);
+					System.out.print(e);
 				}
+			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+			}else {
+					img.setImage(new Image(("imagens/user.png")));
+					lbl1.setGraphic(img);
 			}
+			
 			//Adicionando a Label lbl1 na JFXListView
 			jfxlvListView.getItems().add(lbl1);
 		}
@@ -97,8 +108,6 @@ public class EntrevistadoresController extends Application{
 	
 	
 	public void initialize() throws Exception {
-
-		
 		carregarEntrevistadores();
 	}
 	

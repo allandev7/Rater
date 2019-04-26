@@ -5,6 +5,8 @@ import java.awt.Checkbox;
 import java.awt.Event;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
@@ -40,7 +42,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Empresa;
+import model.Entrevista;
+import model.Entrevistado;
 import model.Padroes;
+import view.PopUp;
 
 
 public class NovaEntrevista2Controller extends Application{
@@ -51,11 +57,14 @@ public class NovaEntrevista2Controller extends Application{
 	@FXML private AnchorPane pane;
 	@FXML private Button btnContinuar;
 	@FXML private Button btnCancelar;
-
-
+	JFXRadioButton aprovado;
+	JFXRadioButton reprovado;
+	JFXRadioButton espera;
+	TextArea txtConclusao;
 	NovaEntrevistaController nec = new NovaEntrevistaController();
 	Padroes p = new Padroes();
-
+	ArrayList<TextArea> txt = new ArrayList<>();
+	ArrayList<JFXCheckBox> cbx = new ArrayList<>();
 
 
 	@FXML
@@ -75,17 +84,17 @@ public class NovaEntrevista2Controller extends Application{
 			HBox hbox = new HBox();
 			
 			//Criando checkbox
-			JFXCheckBox checkbox = new JFXCheckBox();
+			cbx.add(new JFXCheckBox());
 			
 			//Criando textarea
-			TextArea textarea = new TextArea();
+			txt.add(new TextArea());
 			
 			//Definindo tamanho da textarea para não dar bug
-			textarea.setMaxSize(500, 80);
-			textarea.setMinSize(500, 80);
+			txt.get(i).setMaxSize(500, 80);
+			txt.get(i).setMinSize(500, 80);
 			
 			//Definindo o prompt text da textarea
-			textarea.setPromptText("Observações..");
+			txt.get(i).setPromptText("Observações..");
 			
 			//Criando pane
 			Pane panel = new Pane();
@@ -95,7 +104,7 @@ public class NovaEntrevista2Controller extends Application{
 			panel.setMinSize(50, 80);
 			
 			//Adicionando componentes na hbox
-			hbox.getChildren().addAll(panel, checkbox, textarea);
+			hbox.getChildren().addAll(panel, cbx.get(i), txt.get(i));
 			hbox.setHgrow(panel, Priority.ALWAYS);
 			
 			//Criando vbox para colocar componentes um em cima do outro
@@ -116,14 +125,14 @@ public class NovaEntrevista2Controller extends Application{
 		HBox hbox1 = new HBox();
 
 		//Criando textarea
-		TextArea textarea = new TextArea();
+		txtConclusao = new TextArea();
 		
 		//Definindo tamanho da textarea para não dar bug
-		textarea.setMaxSize(500, 80);
-		textarea.setMinSize(500, 80);
+		txtConclusao.setMaxSize(500, 80);
+		txtConclusao.setMinSize(500, 80);
 		
 		//Definindo o prompt text da textarea
-		textarea.setPromptText("Observações..");
+		txtConclusao.setPromptText("Observações..");
 		
 		//Criando pane
 		Pane panel = new Pane();
@@ -136,9 +145,12 @@ public class NovaEntrevista2Controller extends Application{
 		ToggleGroup group = new ToggleGroup();
 		
 		//Criando radio buttons
-		JFXRadioButton aprovado = new JFXRadioButton();
-		JFXRadioButton reprovado = new JFXRadioButton();
-		JFXRadioButton espera = new JFXRadioButton();
+		aprovado = new JFXRadioButton();
+		reprovado = new JFXRadioButton();
+		espera = new JFXRadioButton();
+		
+		//Deixar radio button de espera selecionado
+		espera.setSelected(true);
 		
 		//Adicionando radio buttons no toggle group
 		aprovado.setToggleGroup(group);
@@ -161,7 +173,7 @@ public class NovaEntrevista2Controller extends Application{
 		empilhador.setSpacing(10);
 		
 		//Adicionando componentes na hbox
-		hbox1.getChildren().addAll(panel, empilhador, textarea);
+		hbox1.getChildren().addAll(panel, empilhador, txtConclusao);
 		hbox1.setHgrow(panel, Priority.ALWAYS);
 		//Definindo espaçamento entre os itens da hbox
 		hbox1.setSpacing(10);
@@ -183,6 +195,34 @@ public class NovaEntrevista2Controller extends Application{
 	}
 	
 	public void cancelar() throws IOException {
+		//Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+		pane.getChildren().removeAll();
+		//Colocando o documento fxml como conteúdo do pane
+		pane.getChildren().setAll(fxml);
+	}
+	public void concluir() throws IOException {
+		//Inserir entrevista
+		Entrevista entrevista = new Entrevista();
+		entrevista.setAprovado(aprovado.isSelected() ? true:false);
+		entrevista.setFeedback(txtConclusao.getText());
+		//ESQUELETO PARA QUANDO HOUVER RELATORIO
+		entrevista.setRelatorio("relatorio.docx");
+		int idEntrevista = entrevista.inserirEntrevista(Empresa.getIdEntrevistadorPadrao(), 
+															Entrevistado.getId(),p.getIdCargoSelecionado());
+		
+		//buscar id dos criterios
+		ArrayList<Integer> criterios = entrevista.buscarIDcriterios(p.getIdCargoSelecionado(),
+																		Empresa.getIdEntrevistadorPadrao());
+		//inserir cada criterios
+		for(int i=0; i<criterios.size();i++){
+			entrevista.inserirCriterios(idEntrevista, criterios.get(i), cbx.get(i).isSelected()
+											, txt.get(i).getText());
+		}
+		
+		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso");
+		
 		//Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
 		//Limpando o coteúdo do Pane "pane"
