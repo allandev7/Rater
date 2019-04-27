@@ -66,7 +66,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private TextField txtRG;
 	@FXML private TextField txtEndereco;
 	@FXML private TextField txtTelefone;
-	@FXML private Spinner<Integer> spnIdade;
+	@FXML private TextField txtIdade;
 	@FXML private ComboBox<String> cbEtnias;
 	@FXML private RadioButton rbMasculino;
 	@FXML private RadioButton rbFeminino;
@@ -94,9 +94,6 @@ public class NovaEntrevistaController extends Application{
 
 	//Criando lista do tipo ObservableList com as etnias
 	private ObservableList<String> listaEtnias = FXCollections.observableArrayList("Branco", "Pardo", "Negro", "Amarelo", "Indígena");
-	
-	//Criando SpinnerValueFactory que ditará as "regras" de funcionamento para o spinner spnIdade
-	private SpinnerValueFactory<Integer> spinnerNumeros = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
 	
 	
 	@FXML
@@ -157,8 +154,6 @@ public class NovaEntrevistaController extends Application{
 		//Colocando a ObservableList de cargos como conteúdo da ComboBox
 		cbCargos.setItems(p.listaCargos);
 		
-		//Colocando a SpinnerValueFactory como "regra" para o spinner
-		spnIdade.setValueFactory(spinnerNumeros);
 	}
 	
 	public void uparFoto(MouseEvent event)  {
@@ -241,8 +236,8 @@ public class NovaEntrevistaController extends Application{
 		String cpf = txtRG.getText();
 		String foto = getNomeFotoCripto();
 		String etnia = cbEtnias.getValue();
-		int idade = spnIdade.getValue();
 		String endereco = txtEndereco.getText();
+		int idade = Integer.parseInt(txtIdade.getText());
 		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
 		
 		
