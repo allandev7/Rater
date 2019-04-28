@@ -113,7 +113,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="drag" onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="67.0" prefWidth="640.0" />
+      <Pane fx:id="drag" onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="67.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Pane prefHeight="67.0" prefWidth="301.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="281.0" layoutY="8.0" onMouseClicked="#Fechar" opacity="0.89" pickOnBounds="true">
