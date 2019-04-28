@@ -96,64 +96,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane layoutX="178.0" prefHeight="67.0" prefWidth="722.0" style="-fx-background-color: rgb(48,65,101);" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="706.0" layoutY="6.0" onMouseClicked="#Fechar" opacity="0.89" pickOnBounds="true">
-               <image>
-                  <Image url="@../imagens/close2.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </ImageView>
-            <ImageView fx:id="imgFotoPerfil" fitHeight="55.0" fitWidth="58.0" layoutX="465.0" layoutY="6.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../imagens/placeholder%20para%20imageview.png" />
-               </image>
-               <effect>
-                  <DropShadow color="#0000003a" />
-               </effect>
-            </ImageView>
-            <Label fx:id="lblPerfil" accessibleRole="BUTTON" layoutX="465.0" layoutY="29.0" onMouseClicked="#Perfil" prefHeight="32.0" prefWidth="58.0" styleClass="lblPerfil" stylesheets="@MenuCSS.css" text="    Perfil" textFill="WHITE">
-               <font>
-                  <Font name="Tahoma" size="10.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
-            <Label fx:id="lblNomeUsuario" layoutX="529.0" layoutY="17.0" opacity="0.84" prefHeight="23.0" prefWidth="191.0" textFill="WHITE">
-               <font>
-                  <Font name="Tahoma" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblFuncao" layoutX="528.0" layoutY="37.0" opacity="0.84" text="Administrador" textFill="WHITE">
-               <font>
-                  <Font name="Tahoma" size="15.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="678.0" layoutY="6.0" onMouseClicked="#Fechar" opacity="0.89" pickOnBounds="true">
-               <image>
-                  <Image url="@../imagens/minimizar2.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </ImageView>
-            <Button layoutX="665.0" layoutY="-12.0" mnemonicParsing="false" onAction="#Minimizar" opacity="0.0" prefHeight="0.0" prefWidth="0.0" text="Button">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-         </children>
+      <Pane layoutX="178.0" prefHeight="67.0" prefWidth="503.0" style="-fx-background-color: rgb(48,65,101);" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
          <effect>
             <DropShadow />
          </effect>
@@ -169,6 +112,82 @@
          <effect>
             <DropShadow />
          </effect>
+      </Pane>
+      <Pane fx:id="drag" onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="67.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Pane prefHeight="67.0" prefWidth="301.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="281.0" layoutY="8.0" onMouseClicked="#Fechar" opacity="0.89" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/close2.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="imgFotoPerfil" fitHeight="55.0" fitWidth="58.0" layoutX="7.0" layoutY="6.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/placeholder%20para%20imageview.png" />
+               </image>
+               <effect>
+                  <DropShadow color="#0000003a" />
+               </effect>
+            </ImageView>
+            <Label fx:id="lblPerfil" accessibleRole="BUTTON" layoutX="7.0" layoutY="29.0" onMouseClicked="#Perfil" prefHeight="32.0" prefWidth="58.0" styleClass="lblPerfil" stylesheets="@MenuCSS.css" text="    Perfil" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="10.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <Label fx:id="lblNomeUsuario" layoutX="73.0" layoutY="18.0" opacity="0.84" prefHeight="23.0" prefWidth="227.0" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblFuncao" layoutX="73.0" layoutY="36.0" opacity="0.84" text="Administrador" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="15.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="234.0" layoutY="8.0" onMouseClicked="#Fechar" pickOnBounds="true">
+               <image>
+                  <Image url="@../imagens/minimizar.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="imgMaximizar" fitHeight="12.0" fitWidth="13.0" layoutX="256.0" layoutY="8.0" onMouseClicked="#Fechar" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <image>
+                  <Image url="@../imagens/maximizar2.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="223.0" layoutY="3.0" mnemonicParsing="false" onAction="#Minimizar" opacity="0.0" prefHeight="0.0" prefWidth="21.0" text="Button">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnMaximizar" layoutX="250.0" mnemonicParsing="false" onAction="#Maximizar" opacity="0.0" prefHeight="23.0" prefWidth="17.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Button" />
+         </children>
       </Pane>
    </children>
 </AnchorPane>

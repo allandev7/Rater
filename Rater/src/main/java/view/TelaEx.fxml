@@ -71,18 +71,18 @@
                         <DropShadow color="#00000047" height="12.1" radius="2.525" width="0.0" />
                      </effect>
                   </ImageView>
-                  <ImageView accessibleRole="BUTTON" fitHeight="17.0" fitWidth="66.0" layoutX="210.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView accessibleRole="BUTTON" fitHeight="17.0" fitWidth="17.0" layoutX="210.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <image>
-                        <Image url="@../imagens/minimizar.png" />
+                        <Image url="@../imagens/minimizar2.png" />
                      </image>
                      <effect>
                         <DropShadow color="#00000047" height="12.1" radius="2.525" width="0.0" />
                      </effect>
                   </ImageView>
-                  <Button layoutX="211.0" layoutY="2.0" mnemonicParsing="false" onAction="#Minimizar" opacity="0.0" prefHeight="0.0" prefWidth="0.0" rotate="90.0" style="-fx-cursor: hand;" textFill="WHITE">
+                  <Button layoutX="211.0" mnemonicParsing="false" onAction="#Minimizar" opacity="0.0" prefHeight="0.0" prefWidth="0.0" rotate="90.0" style="-fx-cursor: hand;" textFill="WHITE">
                      <effect>
                         <DropShadow color="#00000082" />
                      </effect>
@@ -105,5 +105,6 @@
             </Pane>
          </children>
       </HBox>
+      <Pane fx:id="drag" onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="36.0" prefWidth="489.0" />
    </children>
 </AnchorPane>

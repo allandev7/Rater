@@ -9,8 +9,10 @@ import javax.swing.JOptionPane;
 import controllerEntrevistador.ENMenuController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
@@ -32,6 +34,9 @@ public class TelaExController extends Application{
 	@FXML private TextField txtSenha;
 	@FXML private CheckBox chbLoginEmpresa;
 	@FXML private AnchorPane anchorPane;
+				
+	double X = 0;
+	double Y = 0;
 	
 	public Empresa empresa = new Empresa();
 	
@@ -116,6 +121,33 @@ public class TelaExController extends Application{
 		}
 	}
 
+	@FXML
+	public void pressionar(MouseEvent event) {
+		//Selecionando a tela atual ao clicar no Pane drag
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		//Definindo a opacidade da janela como 80%
+		stage.setOpacity(0.8);
+		//Pegando a posição do mouse enquanto ele ainda está pressionado
+		X = event.getSceneX();
+		Y = event.getSceneY();
+	}
+	
+	@FXML
+	public void arrastar(MouseEvent event) {
+		//Selecionando a tela atual ao arrastar o cursor enquanto o mouse continua pressionado
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		//Definindo a posição atual da tela como sendo a do mouse
+		stage.setX(event.getScreenX() - X);
+        stage.setY(event.getScreenY() - Y);
+	}
+	
+	@FXML
+	public void soltar(MouseEvent event) {
+		//Selecionando a tela atual quando o botão do mouse é soltado
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		//Definindo a opacidade da tela como 100% novamente
+		stage.setOpacity(1);
+	}
 	
 	@FXML 
 	private void Minimizar(ActionEvent event) {

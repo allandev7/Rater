@@ -47,6 +47,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	
 	Empresa e = new Empresa();
 	
+	@FXML private TextField txtNomeUsuario;
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
 	@FXML private TextField txtRG;
@@ -165,6 +166,7 @@ public class EntrevistadoresAdicionarController extends Application{
 
 	public void cadastrarEntrevistador(ActionEvent event) throws Exception {
 		System.out.print(getNomeFotoCripto());
+		String nomeUsuario = txtNomeUsuario.getText();
 		String nome = txtNome.getText();
 		String email = txtEmail.getText();
 		String senha = txtSenha.getText();

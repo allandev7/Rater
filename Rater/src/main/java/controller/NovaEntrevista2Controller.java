@@ -6,6 +6,7 @@ import java.awt.Event;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,7 +66,7 @@ public class NovaEntrevista2Controller extends Application{
 	Padroes p = new Padroes();
 	ArrayList<TextArea> txt = new ArrayList<>();
 	ArrayList<JFXCheckBox> cbx = new ArrayList<>();
-
+	ArrayList<Label> lbl = new ArrayList<>();
 
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -111,10 +112,10 @@ public class NovaEntrevista2Controller extends Application{
 			VBox vbox = new VBox();
 			String criterio = p.listarCriteriosNE2(nec.getCargoSelecionado()).get(i);
 			//Variável com o nome do critério, deverá ser substituída por consulta ao banco de dados
-			Label lbl1 = new Label(criterio);
+			lbl.add(new Label(criterio));
 			
 			//Adicionando a label e a hbox na vbox
-			vbox.getChildren().addAll(lbl1, hbox);
+			vbox.getChildren().addAll(lbl.get(i), hbox);
 
 			//Adicionando a Label vbox na JFXListView
 			jfxlvListView.getItems().add(vbox);
@@ -203,6 +204,7 @@ public class NovaEntrevista2Controller extends Application{
 		pane.getChildren().setAll(fxml);
 	}
 	public void concluir() throws IOException {
+		Entrevistado candidato = new Entrevistado();
 		//Inserir entrevista
 		Entrevista entrevista = new Entrevista();
 		entrevista.setAprovado(aprovado.isSelected() ? true:false);
@@ -220,7 +222,12 @@ public class NovaEntrevista2Controller extends Application{
 			entrevista.inserirCriterios(idEntrevista, criterios.get(i), cbx.get(i).isSelected()
 											, txt.get(i).getText());
 		}
-		
+		String conclusaoADD = aprovado.isSelected()? "Aprovado: ":"Reprovado: ";
+		String nomeDoc= Empresa.getId()+candidato.getNome()+candidato.getId()+new Date().getTime()+".pdf";
+		entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
+				candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
+				candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
+				conclusaoADD+txtConclusao.getText());
 		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso");
 		
 		//Pegando fxml como parametro

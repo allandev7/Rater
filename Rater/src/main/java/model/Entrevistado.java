@@ -8,15 +8,15 @@ import com.mysql.jdbc.PreparedStatement;
 public class Entrevistado {
 	//VARIAVEIS
 	private static int id;
-	private String email;
-	private String nome;
-	private String telefone;
-	private String sexo;
-	private String cpf;
-	private String foto;
-	private String etnia;
-	private int idade;
-	private String endereco;
+	private static String email;
+	private static String nome;
+	private static String telefone;
+	private static String sexo;
+	private static String cpf;
+	private static String foto;
+	private static String etnia;
+	private static int idade;
+	private static String endereco;
 	Connection con = new Conexao().connect();
 	
 	//MÉTODO INSERIR
@@ -37,8 +37,19 @@ public class Entrevistado {
 			pstmt.setInt(8, idade);
 			pstmt.setString(9, endereco);
 			pstmt.setInt(10, Empresa.getId());
-			
 			pstmt.execute();
+			
+			setEmail(email);
+			setNome(nome);
+			setTelefone(telefone);
+			setSexo(sexo);
+			setCpf(cpf);
+			setFoto(foto);
+			setEtnia(etnia);
+			setIdade(idade);
+			setEndereco(endereco);
+			
+			
 			
 			setId((int) pstmt.getLastInsertID());
 			
@@ -54,49 +65,49 @@ public class Entrevistado {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		Entrevistado.email = email;
 	}
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		Entrevistado.nome = nome;
 	}
 	public String getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		Entrevistado.telefone = telefone;
 	}
 	public String getSexo() {
 		return sexo;
 	}
 	public void setSexo(String sexo) {
-		this.sexo = sexo;
+		Entrevistado.sexo = sexo;
 	}
 	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		Entrevistado.cpf = cpf;
 	}
 	public String getFoto() {
 		return foto;
 	}
 	public void setFoto(String foto) {
-		this.foto = foto;
+		Entrevistado.foto = foto;
 	}
 	public String getEtnia() {
 		return etnia;
 	}
 	public void setEtnia(String etnia) {
-		this.etnia = etnia;
+		Entrevistado.etnia = etnia;
 	}
 	public int getIdade() {
 		return idade;
 	}
 	public void setIdade(int idade) {
-		this.idade = idade;
+		Entrevistado.idade = idade;
 	}
 
 
@@ -105,7 +116,7 @@ public class Entrevistado {
 	}
 
 	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		Entrevistado.endereco = endereco;
 	}
 	public static int getId() {
 		return id;

@@ -160,6 +160,21 @@ public class Padroes {
 		pstmt.execute();
 	}
 	
+	public String getNomeCargo(int idCargo) {
+		String sql = "SELECT * FROM cargo WHERE ID=?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, idCargo);
+			
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next() ? rs.getString("NOME"):null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	
 	
 

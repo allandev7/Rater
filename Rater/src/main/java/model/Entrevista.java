@@ -1,14 +1,25 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.jfoenix.controls.JFXCheckBox;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Popup;
 import view.PopUp;
 
@@ -72,6 +83,47 @@ public class Entrevista {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	public void gerarRelatorio(String nomeDoc,String nomeCandidato, String sexo,int idade, String etnia, String rg, String email, 
+			String telefone, String endereco, String nomeCargo, ArrayList<Integer> criterios, ArrayList<TextArea> txt,
+			ArrayList<JFXCheckBox> cbx,ArrayList<Label> lbl, String conclusao) {
+		Document doc = new Document();
+		try {
+			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Rater\\"+nomeDoc));
+			doc.open();
+			doc.add(new Paragraph(nomeCandidato, FontFactory.getFont(FontFactory.TIMES_BOLD, 30)));
+			doc.add(new Paragraph("---------------------------------------------------------------------------------"
+					+ "-------------------------------------------------"));
+			doc.add(new Paragraph("Sexo:"+sexo+"   "+"Idade:"+idade+"    "+"Etnia:"+etnia+"   "+"RG:"+rg+"    "+
+					"Email:"+email+"    "+ "Telefone:"+telefone+"    "+"Endereço:"+endereco+"    "+ 
+					"Cargo de interesse:"+nomeCargo));
+			doc.add(new Paragraph("---------------------------------------------------------------------------------"
+					+ "-------------------------------------------------"));
+			
+			doc.add(new Paragraph(""));
+			doc.add(new Paragraph("Desempenho: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 20)));
+			
+			for(int i =0; i<criterios.size(); i++) {
+				String conc = cbx.get(i).isSelected()?"Aprovado":"Reprovado";
+				doc.add(new Paragraph(lbl.get(i).getText()+ " ("+ conc+ ")"
+						, FontFactory.getFont(FontFactory.TIMES_BOLD, 15)));
+				doc.add(new Paragraph(txt.get(i).getText()));
+				doc.add(new Paragraph("---------------------------------------------------------------------------------"
+						+ "-------------------------------------------------"));
+				
+			}
+			doc.add(new Paragraph(""));
+			doc.add(new Paragraph("Conclusão: ", FontFactory.getFont(FontFactory.TIMES_BOLD, 20)));
+			doc.add(new Paragraph(conclusao));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (DocumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}finally {
+			doc.close();
 		}
 	}
 	
