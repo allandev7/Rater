@@ -43,6 +43,7 @@ import javafx.stage.Stage;
 
 public class EntrevistadoresPerfil extends Application{
 	
+	@FXML private TextField txtNomeUsuario;
 	@FXML private TextField txtNomeEntrevistador;
 	@FXML private TextField txtEmailEntrevistador;
 	@FXML private TextField txtRG;
@@ -55,6 +56,7 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML private Label lblNumEnt;
 	
 /*Variáveis para pegar informações do entrevistador do banco de dados*/
+	private String NomeUsuario = "";
 	private String NomeEntrevistador = "";
 	private String EmailEntrevistador = "";
 	private String RG = "";
@@ -101,6 +103,7 @@ public class EntrevistadoresPerfil extends Application{
 		En.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
 		
 		//passando os valores dos resultados da query do banco da classe Entrevistador para os atributos desta propria classe 
+		NomeUsuario = "joojelson1265";
 		NomeEntrevistador = En.getNomeEntrevistador();
 		EmailEntrevistador = En.getEmailEntrevistador();
 		RG = En.getRgEntrevistador();
@@ -110,6 +113,7 @@ public class EntrevistadoresPerfil extends Application{
 		Reprovados = 5;
 		EmEspera = 1;
 		
+		txtNomeUsuario.setText(NomeUsuario);
 		txtNomeEntrevistador.setText(NomeEntrevistador);
         txtEmailEntrevistador.setText(EmailEntrevistador);
         txtRG.setText(RG);

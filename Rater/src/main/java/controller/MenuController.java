@@ -7,8 +7,10 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,6 +60,19 @@ public class MenuController extends Application{
 	
 	@FXML
 	private Label lblPerfil;
+	
+	@FXML
+	private Pane drag;
+	
+	@FXML
+	private Button btnMaximizar;
+	
+	@FXML
+	private ImageView imgMaximizar;
+	
+	double X = 0;
+	double Y = 0;
+	boolean maximizado = false;
 
 	
 	@FXML
@@ -97,6 +112,7 @@ public class MenuController extends Application{
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
         //Colocando o documento fxml como conteúdo do pane
         pane.getChildren().setAll(fxml);
+        
 	}
 	
 	@FXML 
@@ -165,6 +181,34 @@ public class MenuController extends Application{
 	        //Colocando o documento fxml como conteúdo do pane
 	        pane.getChildren().setAll(fxml);
 	    }
+	 
+	@FXML
+	public void pressionar(MouseEvent event) {
+		//Selecionando a tela atual ao clicar no Pane drag
+		Stage stage = (Stage)parent.getScene().getWindow(); 
+		//Definindo a opacidade da janela como 80%
+		stage.setOpacity(0.8);
+		//Pegando a posição do mouse enquanto ele ainda está pressionado
+		X = event.getSceneX();
+		Y = event.getSceneY();
+	}
+		
+	@FXML
+	public void arrastar(MouseEvent event) {
+		//Selecionando a tela atual ao arrastar o cursor enquanto o mouse continua pressionado
+		Stage stage = (Stage)parent.getScene().getWindow(); 
+		//Definindo a posição atual da tela como sendo a do mouse
+		stage.setX(event.getScreenX() - X);
+	    stage.setY(event.getScreenY() - Y);
+	}
+		
+	@FXML
+		public void soltar(MouseEvent event) {
+		//Selecionando a tela atual quando o botão do mouse é soltado
+		Stage stage = (Stage)parent.getScene().getWindow(); 
+		//Definindo a opacidade da tela como 100% novamente
+		stage.setOpacity(1);
+	}
 	
 	@FXML 
 	private void Minimizar(ActionEvent event) {
@@ -173,7 +217,36 @@ public class MenuController extends Application{
 			
 	//Fazer com que a janela possa ser minimizada (true | false)
 	stage.setIconified(true);
+	
+	}
+	
+	public void Maximizar(ActionEvent event) throws FileNotFoundException {
+		//Colocar cena do anchorpane na variável stage
+		Stage stage = (Stage)parent.getScene().getWindow();
+		//Pegar o tamanho do monitor
+		javafx.geometry.Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+		//O if testa se a janela está maximizada
+		if(maximizado == false) {
+			//Se a janela não estiver maximizada a tela ficará do tamanho do monitor
+			stage.setWidth(primScreenBounds.getWidth());
+			stage.setHeight(primScreenBounds.getHeight());
+			//Pocisionando a tela
+			stage.setX((primScreenBounds.getWidth() - stage.getWidth()));
+			stage.setY((primScreenBounds.getHeight() - stage.getHeight()));
+			//Marcar a tela como maximizada
+			maximizado = true;
+		}else {
+			//Se a janela já estiver maximizada ela irá voltar ao tamanho normal
+			stage.setWidth(900);
+			stage.setHeight(600);
+			//Posicionando a tela
+			stage.setX((primScreenBounds.getWidth() - stage.getWidth())/2);
+			stage.setY((primScreenBounds.getHeight() - stage.getHeight())/2);
+			//Marcando a tela como minimizada
+			maximizado = false;
 		}
+        
+	}
 	
 	 @FXML
 	 public void Fechar(MouseEvent event) {

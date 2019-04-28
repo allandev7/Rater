@@ -41,6 +41,7 @@ import javafx.stage.Stage;
 
 public class PerfilEntrevistadorController extends Application{
 	
+	@FXML private Label lblNomeUsuario;
 	@FXML private Label lblNome;
 	@FXML private Label lblEmail;
 	@FXML private Label lblRG;
@@ -48,6 +49,7 @@ public class PerfilEntrevistadorController extends Application{
 	@FXML private ImageView imgFoto;
 	
 	/*Variáveis para pegar informações do entrevistador do banco de dados*/
+	private String NomeUsuario = "Rogerinho";
 	private String Nome = Empresa.getNome();
 	private String Email = Empresa.getEmail();
 	private String RG = Empresa.getCnpj();
@@ -59,7 +61,8 @@ public class PerfilEntrevistadorController extends Application{
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){		
-        lblNome.setText("Nome do entrevistador: " + Nome);
+		lblNomeUsuario.setText("Nome de usuario: " + NomeUsuario);
+		lblNome.setText("Nome do entrevistador: " + Nome);
         lblEmail.setText("E-Mail do entrevistador: " + Email);
         lblRG.setText("RG do entrevistador: " + RG);
         lblEntrevistas.setText("Número de entrevistas: " + Entrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
