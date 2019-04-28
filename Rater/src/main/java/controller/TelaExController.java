@@ -67,7 +67,7 @@ public class TelaExController extends Application{
 		file.mkdirs();
 		
 		txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("rater123");
+		txtSenha.setText("123456789");
 	}
 
 	// Event Listener on Button.onMouseClicked
@@ -82,31 +82,37 @@ public class TelaExController extends Application{
 		/* login = 0 -> Usuario e senha invalidos
 		 * login = 1 -> pode logar
 		 * login = 2 -> deve confirmar email
-		 * */
-		if(login == 1) {
-			lblErro.setText("Seja bem vindo");
-			empresa.buscarIdPadrao();
-			//instanciar o controller da outra tela
-			MenuController tela2 = new MenuController();
+		 * */			
+		if(chbLoginEmpresa.isSelected()) {
+			if(login == 1) {
+					lblErro.setText("Seja bem vindo");
+					empresa.buscarIdPadrao();
+					//instanciar o controller da outra tela
+					MenuController tela2 = new MenuController();
+					
+					
+					//ENMenuController tela2 = new ENMenuController();
+					
+					//criar nova janela que será passado como parametro
+					Stage stage = new  Stage();
+					//executar metodo start da tela 2
+					tela2.start(stage);
+					//pegar a janela desse controller
+					Stage agr = (Stage) txtEmail.getScene().getWindow();
+					//fechar essa janela
+					agr.close();
+				
+			}else if(login ==0) {
+				//se os usuarios não forem corretos
+				lblErro.setText("Usuário e/ou senha incorreto(s)");
+			}else {
+				//se o email nao for confirmado
+				JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
+				lblErro.setText("");
+			}
+		}else if(login == 1){
 			
 			
-			//ENMenuController tela2 = new ENMenuController();
-			
-			//criar nova janela que será passado como parametro
-			Stage stage = new  Stage();
-			//executar metodo start da tela 2
-			tela2.start(stage);
-			//pegar a janela desse controller
-			Stage agr = (Stage) txtEmail.getScene().getWindow();
-			//fechar essa janela
-			agr.close();
-		}else if(login ==0) {
-			//se os usuarios não forem corretos
-			lblErro.setText("Usuário e/ou senha incorreto(s)");
-		}else {
-			//se o email nao for confirmado
-			JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
-			lblErro.setText("");
 		}
 	}
 

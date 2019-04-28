@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.JOptionPane;
 
 import javafx.collections.FXCollections;
@@ -103,6 +104,35 @@ public class Empresa extends Usuarios {
 		}
 		return valido;
 		}
+	
+	
+	public void loginEntrevistador(String nomeUsuario, String senhaTxt) {
+		String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA = ? AND EMAIL = ? AND SENHA = ?";
+		
+		try(Connection conn = con.connect();
+			PreparedStatement pstmt  = conn.prepareStatement(sql)){
+			
+			pstmt.setInt(1, getId());
+			pstmt.setString(2, nomeUsuario);
+			pstmt.setString(3, senhaTxt);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				setEmail(rs.getString("EMAIL"));
+				setSenha(rs.getString("SENHA")); 
+				setNome(rs.getString("NOME"));
+				setFoto(rs.getString("FOTO"));
+				setId( rs.getInt("ID"));
+			}
+			
+			
+		}catch(SQLException e) {
+			
+		}
+		
+	}
+	
 	public void buscarIdPadrao() {
 		try {
 			PreparedStatement pstmt = con.connect().prepareStatement("SELECT * FROM entrevistador WHERE ID_EMPRESA = ?");

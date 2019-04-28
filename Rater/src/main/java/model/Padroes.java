@@ -31,7 +31,7 @@ public class Padroes {
 	
 	private int idCargoSelecionado;
 
-	//Metodo de carregar criterios
+	//Metodo de carregar cargos
 	public ArrayList<String> carregarCargos() throws SQLException {
 		//limpar os arrays
 		nomeCargo.clear();
