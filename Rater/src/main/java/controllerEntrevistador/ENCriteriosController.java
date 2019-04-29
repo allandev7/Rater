@@ -1,6 +1,7 @@
 package controllerEntrevistador;
 
 import java.awt.Event;
+
 import java.awt.HeadlessException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,7 +34,6 @@ import javafx.stage.Window;
 import model.Padroes;
 import view.PopUp;
 import javafx.scene.input.MouseEvent.*;
-
 public class ENCriteriosController extends Application{
 	
 	//Criando uma JFXListView para armazenar os critérios
@@ -46,7 +46,7 @@ public class ENCriteriosController extends Application{
 	
 	private ENCargosController c = new ENCargosController();
 	private Padroes p = new Padroes();
-	private int NumCriterios = 8;
+	private int NumCriterios = 0;
 		
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -109,7 +109,7 @@ public class ENCriteriosController extends Application{
 		String definicao = pop.popUpPergunta("Digite sua definição", "definição");
 		if(!criterio.equals(null)&&!definicao.equals(null)) 
 			p.novoCriterio(criterio,definicao,c.getIdSelecionado());
-				carregarCriterios();
+			carregarCriterios();
 	}
 	
 	//metodo alterar criterio

@@ -1,6 +1,7 @@
 package model;
 public abstract class Usuarios {
 	//VARIÃ�VEIS
+	protected static String nomeUsuario;
 	protected static String email;
 	protected static String nome;
 	protected  String senha;
@@ -14,6 +15,13 @@ public abstract class Usuarios {
 	
 	//GETTERS E SETTERS
 	
+	
+	public static String getNomeUsuario() {
+		return nomeUsuario;
+	}
+	public static void setNomeUsuario(String nomeUsuario) {
+		Usuarios.nomeUsuario = nomeUsuario;
+	}
 	public String getSenha() {
 		return senha;
 	}

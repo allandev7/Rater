@@ -181,10 +181,10 @@ public class EntrevistadoresAdicionarController extends Application{
 		}else {
 			//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
 			if(getNomeFotoCripto() == null) {
-				e.cadastrarEntrevistador(nome, email, senha, Rg, fotoVazia, getCaminho());
+				e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, fotoVazia, getCaminho());
 			}else {
 				//cadastra entrevistador com imagem
-				e.cadastrarEntrevistador(nome, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+				e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
 			}
 			//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
 			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));

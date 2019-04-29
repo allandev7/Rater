@@ -49,7 +49,7 @@ public class PerfilEntrevistadorController extends Application{
 	@FXML private ImageView imgFoto;
 	
 	/*Variáveis para pegar informações do entrevistador do banco de dados*/
-	private String NomeUsuario = "Rogerinho";
+	private String NomeUsuario = Empresa.getNomeUsuario();
 	private String Nome = Empresa.getNome();
 	private String Email = Empresa.getEmail();
 	private String RG = Empresa.getCnpj();

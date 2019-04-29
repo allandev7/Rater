@@ -1,5 +1,6 @@
 package controllerEntrevistador;
 import java.awt.HeadlessException;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import com.jfoenix.controls.JFXListView;
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Padroes;
 import view.PopUp;
-
 public class ENCargosController extends Application{
 	
 	//Criando uma JFXListView para armazenar os critérios

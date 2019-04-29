@@ -25,7 +25,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Empresa;
-
+import model.Entrevistador;
 
 public class TelaExController extends Application{
 	
@@ -39,6 +39,7 @@ public class TelaExController extends Application{
 	double Y = 0;
 	
 	public Empresa empresa = new Empresa();
+	public Entrevistador EN = new Entrevistador();
 	
 	public TelaExController() {
 		// TODO Auto-generated constructor stub
@@ -87,7 +88,8 @@ public class TelaExController extends Application{
 		/* login = 0 -> Usuario e senha invalidos
 		 * login = 1 -> pode logar
 		 * login = 2 -> deve confirmar email
-		 * */			
+		 * */	
+		int loginEntrevistador = EN.login(txtEmail.getText(), txtSenha.getText());
 		if(chbLoginEmpresa.isSelected()) {
 			if(login == 1) {
 					lblErro.setText("Seja bem vindo");
@@ -96,7 +98,7 @@ public class TelaExController extends Application{
 					MenuController tela2 = new MenuController();
 					
 					
-					//ENMenuController tela2 = new ENMenuController();
+					
 					
 					//criar nova janela que será passado como parametro
 					Stage stage = new  Stage();
@@ -115,9 +117,18 @@ public class TelaExController extends Application{
 				JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
 				lblErro.setText("");
 			}
-		}else if(login == 1){
-			
-			
+		}else if(loginEntrevistador == 1){
+			lblErro.setText("Seja bem vindo");
+			ENMenuController tela2 = new ENMenuController();
+			//criar nova janela que será passado como parametro
+			Stage stage = new  Stage();
+			//executar metodo start da tela 2
+			tela2.start(stage);
+			//pegar a janela desse controller
+			Stage agr = (Stage) txtEmail.getScene().getWindow();
+			//fechar essa janela
+			agr.close();
+		
 		}
 	}
 

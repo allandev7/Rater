@@ -28,7 +28,6 @@ public class Empresa extends Usuarios {
 	private static int id;
 	private static int idEntrevistadorPadrao;
 
-
 	public Empresa() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,6 +66,7 @@ public class Empresa extends Usuarios {
 				setSenha(rs.getString("SENHA")); 
 				setFoto(rs.getString("FOTO"));
 				setCnpj(rs.getString("CNPJ"));
+				
 				if(status == 0) { //verificando email valido
 					valido = 2;
 				}
@@ -106,32 +106,9 @@ public class Empresa extends Usuarios {
 		}
 	
 	
-	public void loginEntrevistador(String nomeUsuario, String senhaTxt) {
-		String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA = ? AND EMAIL = ? AND SENHA = ?";
-		
-		try(Connection conn = con.connect();
-			PreparedStatement pstmt  = conn.prepareStatement(sql)){
-			
-			pstmt.setInt(1, getId());
-			pstmt.setString(2, nomeUsuario);
-			pstmt.setString(3, senhaTxt);
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				setEmail(rs.getString("EMAIL"));
-				setSenha(rs.getString("SENHA")); 
-				setNome(rs.getString("NOME"));
-				setFoto(rs.getString("FOTO"));
-				setId( rs.getInt("ID"));
-			}
-			
-			
-		}catch(SQLException e) {
-			
-		}
-		
-	}
+
+
+
 	
 	public void buscarIdPadrao() {
 		try {
@@ -193,19 +170,22 @@ public class Empresa extends Usuarios {
 
 	}
 	
-	public void cadastrarEntrevistador(String Nome, String Email, String Senha, String RG, String FotoCripto, String caminho) {
+	public void cadastrarEntrevistador(String Nome, String nomeUsuario, String Email, String Senha, String RG, String FotoCripto, String caminho) {
 		try(Connection conn = con.connect()){
 			
-			String sql = "INSERT INTO entrevistador VALUES(NULL,?,?,?,?,?,0,0,?)";
+			String sql = "INSERT INTO entrevistador VALUES(NULL,?,?,?,?,?,?,0,0,?)";
+			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setInt(1, this.getId());
-			pstmt.setString(2, Email);
-			pstmt.setString(3, Senha);
-			pstmt.setString(4, Nome);
-			pstmt.setString(5, RG);
+			pstmt.setString(2, nomeUsuario);
+			pstmt.setString(3, Email);
+			pstmt.setString(4, Senha);
+			pstmt.setString(5, Nome);
+			pstmt.setString(6, RG);
 						
 			//definindo parametros da query
-			pstmt.setString(6, FotoCripto);
+			pstmt.setString(7, FotoCripto);
 			//upload da foto no azure
 			if(!FotoCripto.equals("null")) {
 				AzureConnection con = new AzureConnection();
@@ -233,13 +213,16 @@ public class Empresa extends Usuarios {
 	}
 	
 
+	/*-----------------------------------------------------------*/
+	/*---------------GERENCIAR ENTREVISTADORES--------------------*/
+	/*---------------------------------------------------------------*/
+	
 
 
 
 
 
 //GETTERS E SETTERS
-
 
 public static String getCnpj() {
 	return cnpj;

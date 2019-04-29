@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-public class Entrevistador {
+import model.Empresa;
+public class Entrevistador extends Usuarios{
 
 	private static String NomeEntrevistador;
 	private static String EmailEntrevistador;
@@ -15,6 +15,7 @@ public class Entrevistador {
 	private static String SenhaEntrevistador;
 	private static int Admissoes;
 	private static int EntrevistasRealizadas;
+	private static int idEmpresa;
 
 
 
@@ -31,6 +32,53 @@ public class Entrevistador {
 
 	
 	Connection con = new Conexao().connect();
+	private Conexao connn = new Conexao();
+
+	Empresa e = new Empresa();
+	
+	
+	
+	@Override
+	public int login(String emailTxt, String senhaTxt) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM entrevistador WHERE nomeDeUsuario = ? AND SENHA = ?";
+		int valido = 0;
+		try(Connection conn = connn.connect();
+			PreparedStatement pstmt  = conn.prepareStatement(sql)){
+			
+			pstmt.setString(1, emailTxt);
+			pstmt.setString(2, senhaTxt);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			
+			if(rs.next()) {
+				setNomeUsuario(rs.getString("nomeDeUsuario"));
+				setEmail(rs.getString("EMAIL"));
+				setSenha(rs.getString("SENHA")); 
+				setNome(rs.getString("NOME"));
+				setFoto(rs.getString("FOTO"));
+				e.setIdEntrevistadorPadrao(rs.getInt("ID"));
+				e.setId(rs.getInt("ID_EMPRESA"));
+				valido = 1;
+			}
+			
+			
+		}catch(SQLException e) {
+			System.out.println(e);
+
+		}
+
+		return valido;
+	}
+
+	
+	
+	
+	
+	
 	
 	
 	
@@ -140,6 +188,12 @@ public class Entrevistador {
 	
 	
 //GETTERS E SETTERS
+	public static int getIdEmpresa() {
+		return idEmpresa;
+	}
+	public static void setIdEmpresa(int idEmpresa) {
+		Entrevistador.idEmpresa = idEmpresa;
+	}
 	public static String getNomeEntrevistador() {
 		return NomeEntrevistador;
 	}
@@ -197,6 +251,20 @@ public class Entrevistador {
 	}
 	public static void setEntrevistasRealizadas(int entrevistasRealizadas) {
 		EntrevistasRealizadas = entrevistasRealizadas;
+	}
+
+
+
+
+
+
+
+
+
+	@Override
+	public void alterarInfo(String email, String nome, String identificacao) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

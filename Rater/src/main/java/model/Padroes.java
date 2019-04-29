@@ -91,7 +91,11 @@ public class Padroes {
 	}
 	
 	
-	//PARTE CRITÉRIOS
+	
+	
+	/*----------------------------------------------------------------------*/
+	/*------------------------PARTE CRITÉRIOS-------------------------------*/
+	/*----------------------------------------------------------------------*/
 	
 	//cria array para armazenar os nomes dos critérios
 	private ArrayList<String> nomeCriterios = new ArrayList<>();
@@ -108,11 +112,12 @@ public class Padroes {
 		idCriterios.clear();
 		definicaoCriterio.clear();
 		//selecionar na tabela
-		String sql = "SELECT * FROM criterio WHERE ID_CARGO=?";
+		String sql = "SELECT * FROM criterio WHERE ID_CARGO=? AND ID_ENTREVISTADOR =?";
 		// criando statment
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		//definindo o id na query
 		pstmt.setInt(1, id);
+		pstmt.setInt(2, Empresa.getIdEntrevistadorPadrao());
 		//executando o query para obter o resultado
 		ResultSet rs = pstmt.executeQuery();
 		//enquanto houver linhas
@@ -127,21 +132,24 @@ public class Padroes {
 	
 	//método deletar
 	public void deletarCriterios(int id) throws SQLException {
-		String sql = "DELETE FROM criterio WHERE ID=?";
+		String sql = "DELETE FROM criterio WHERE ID=? AND ID_ENTREVISTADOR =?";
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		pstmt.setInt(1, id);
+		pstmt.setInt(2, Empresa.getIdEntrevistadorPadrao());
 		pstmt.execute();
 	}
 	//metodo alterar critérios
 	public void alterarCriterios(String criterio,String definicao, int id) throws SQLException{
 		//query de alterar os cargos
-		String sql = "UPDATE criterio SET NOME=?, DEFINICAO=? WHERE ID=?";
+		String sql = "UPDATE criterio SET NOME=?, DEFINICAO=? WHERE ID=? AND ID_ENTREVISTADOR =?";
 		// criando statment
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		//definindo os parametros da query
 		pstmt.setString(1, criterio);
 		pstmt.setString(2, definicao);
 		pstmt.setInt(3, id);
+		pstmt.setInt(4, Empresa.getIdEntrevistadorPadrao());
+
 		//executando a query
 		pstmt.execute();
 	}
