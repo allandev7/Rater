@@ -73,7 +73,7 @@ public class TelaExController extends Application{
 		file.mkdirs();
 		
 		txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("123456789");
+		txtSenha.setText("rater123");
 	}
 
 	// Event Listener on Button.onMouseClicked
