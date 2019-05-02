@@ -237,7 +237,7 @@ public class NovaEntrevistaController extends Application{
 		String foto = getNomeFotoCripto();
 		String etnia = cbEtnias.getValue();
 		String endereco = txtEndereco.getText();
-		int idade = txtIdade.getText().equals("")?0:Integer.parseInt(txtIdade.getText());
+		int idade = Integer.parseInt(txtIdade.getText());
 		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
 		
 		

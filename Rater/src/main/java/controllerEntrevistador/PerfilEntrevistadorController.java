@@ -3,6 +3,7 @@ import model.AzureConnection;
 import model.Conexao;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Empresa;
+import model.Entrevistador;
 import view.PopUp;
 
 import java.awt.image.BufferedImage;
@@ -48,13 +49,16 @@ public class PerfilEntrevistadorController extends Application{
 	@FXML private Label lblEntrevistas;
 	@FXML private ImageView imgFoto;
 	
+	Entrevistador EN = new Entrevistador();
+	
+	
 	/*Variáveis para pegar informações do entrevistador do banco de dados*/
-	private String NomeUsuario = Empresa.getNomeUsuario();
-	private String Nome = Empresa.getNome();
-	private String Email = Empresa.getEmail();
-	private String RG = Empresa.getCnpj();
-	private int Entrevistas = 10;
-	private int Aprovados = 4;
+	private String NomeUsuario = Entrevistador.getNomeUsuario();
+	private String Nome = Entrevistador.getNome();
+	private String Email = Entrevistador.getEmail();
+	private String RG = Entrevistador.getRgEntrevistador();
+	private int Entrevistas = Entrevistador.getEntrevistasRealizadas();
+	private int Aprovados = Entrevistador.getAdmissoes();
 	private int Reprovados = 4;
 	private int EmEspera = 4;
 	

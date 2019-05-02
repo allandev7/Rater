@@ -41,7 +41,7 @@ public class Entrevistador extends Usuarios{
 	@Override
 	public int login(String emailTxt, String senhaTxt) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM entrevistador WHERE nomeDeUsuario = ? AND SENHA = ?";
+		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ? AND SENHA = ?";
 		int valido = 0;
 		try(Connection conn = connn.connect();
 			PreparedStatement pstmt  = conn.prepareStatement(sql)){
@@ -55,13 +55,16 @@ public class Entrevistador extends Usuarios{
 			
 			
 			if(rs.next()) {
-				setNomeUsuario(rs.getString("nomeDeUsuario"));
+				setNomeUsuario(rs.getString("NOMEDEUSUARIO"));
 				setEmail(rs.getString("EMAIL"));
 				setSenha(rs.getString("SENHA")); 
 				setNome(rs.getString("NOME"));
 				setFoto(rs.getString("FOTO"));
+				setRgEntrevistador(rs.getString("RG"));
 				e.setIdEntrevistadorPadrao(rs.getInt("ID"));
 				e.setId(rs.getInt("ID_EMPRESA"));
+				setAdmissoes(rs.getInt("ADMISSÕES"));
+				setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
 				valido = 1;
 			}
 			

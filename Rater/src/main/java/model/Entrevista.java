@@ -60,7 +60,7 @@ public class Entrevista {
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("SELECT * FROM criterio WHERE ID_CARGO = ? AND ID_ENTREVISTADOR = ?");
 			pstmt.setInt(1, idCargo);
-			pstmt.setInt(2, idEntrevistador);
+			pstmt.setInt(2, Empresa.getIdEntrevistadorPadrao());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				idCriterios.add(rs.getInt("ID"));
