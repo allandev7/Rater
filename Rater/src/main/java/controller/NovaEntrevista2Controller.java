@@ -88,11 +88,15 @@ public class NovaEntrevista2Controller extends Application{
 			cbx.add(new JFXCheckBox());
 			
 			//Criando textarea
-			txt.add(new TextArea());
+			TextArea txt2 = new TextArea();
+			txt2.setWrapText(true);
+			txt.add(txt2);
 			
 			//Definindo tamanho da textarea para não dar bug
-			txt.get(i).setMaxSize(500, 80);
+			txt.get(i).setMaxSize(700, 80);
 			txt.get(i).setMinSize(500, 80);
+			
+			
 			
 			//Definindo o prompt text da textarea
 			txt.get(i).setPromptText("Observações..");
@@ -104,8 +108,12 @@ public class NovaEntrevista2Controller extends Application{
 			panel.setMaxSize(50, 80);
 			panel.setMinSize(50, 80);
 			
+			//lbl
+			Label lbl3 = new Label();
+			lbl3.setPrefSize(37, 10);
+			
 			//Adicionando componentes na hbox
-			hbox.getChildren().addAll(panel, cbx.get(i), txt.get(i));
+			hbox.getChildren().addAll(panel, cbx.get(i), lbl3,  txt.get(i));
 			hbox.setHgrow(panel, Priority.ALWAYS);
 			
 			//Criando vbox para colocar componentes um em cima do outro
@@ -113,11 +121,13 @@ public class NovaEntrevista2Controller extends Application{
 			String criterio = p.listarCriteriosNE2(nec.getCargoSelecionado()).get(i);
 			//Variável com o nome do critério, deverá ser substituída por consulta ao banco de dados
 			lbl.add(new Label(criterio));
+			//Label
+			Label lbl2 = new Label();
 			
 			//Adicionando a label e a hbox na vbox
-			vbox.getChildren().addAll(lbl.get(i), hbox);
+			vbox.getChildren().addAll(lbl.get(i), lbl2, hbox);
 
-			//Adicionando a Label vbox na JFXListView
+			//Adicionando vbox na JFXListView
 			jfxlvListView.getItems().add(vbox);
 			
 		}
@@ -127,6 +137,8 @@ public class NovaEntrevista2Controller extends Application{
 
 		//Criando textarea
 		txtConclusao = new TextArea();
+		//Fazendo com que o texto pule para a próxima linha
+		txtConclusao.setWrapText(true);
 		
 		//Definindo tamanho da textarea para não dar bug
 		txtConclusao.setMaxSize(500, 80);

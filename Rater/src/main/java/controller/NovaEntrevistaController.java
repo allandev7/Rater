@@ -78,6 +78,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private AnchorPane pane;
 	
 	private static String cargoSelecionado ;
+	Parent fxml;
 
 	/*Criando lista do tipo ObservableList com os cargos da empresa, os valores desta lista
 	 deverão ser substituídos pelos valores no banco de dados*/
@@ -246,12 +247,18 @@ public class NovaEntrevistaController extends Application{
 			
 			//INICIAR OUTRA TELA
 			
-			 //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
+			//Pegando fxml como parametro
+			if(MenuController.maximizado == false) {
+				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
+			} else {
+				fxml = FXMLLoader.load(getClass().getResource("/view/maxNovaEntrevista2.fxml"));
+			}
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
 	        pane.getChildren().setAll(fxml);
+	        
+	        MenuController.telaAtual = 12;
 		}else {
 			new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email,nome e cargo devem ser preenchidos");
 		}

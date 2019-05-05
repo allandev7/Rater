@@ -24,6 +24,7 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 	@FXML private AnchorPane pane;
 		
 	private int NumEntrevistas = 10;
+	Parent fxml;
 		
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -78,11 +79,17 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevista.fxml"));
+			if(MenuController.maximizado == false) {
+				 fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
+			} else {
+				 fxml = FXMLLoader.load(getClass().getResource("/view/maxGerenciarEntrevistasVisualizar.fxml"));
+			}
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
         	pane.getChildren().setAll(fxml);
+        	
+        	MenuController.telaAtual = 11;
 		}
 	}
 	

@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <LineChart fx:id="lineChart" layoutY="2.0" prefHeight="235.0" prefWidth="723.0" title="          Entrevistas ao longo do ano">
+      <LineChart fx:id="lineChart" layoutY="2.0" prefHeight="235.0" prefWidth="723.0" title="          Entrevistas ao longo do ano" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -19,7 +16,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <PieChart fx:id="pieChartLeft" layoutX="1.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada entrevistador" />
-      <PieChart fx:id="pieChartRight" layoutX="379.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada cargo" />
+      <PieChart fx:id="pieChartLeft" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada entrevistador" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <PieChart fx:id="pieChartRight" layoutX="379.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada cargo" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

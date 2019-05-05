@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.AnchorPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -11,7 +12,7 @@ public class HomeController {
 	@FXML LineChart<String , Number> lineChart;
 	@FXML PieChart pieChartLeft;
 	@FXML PieChart pieChartRight;
-	
+	@FXML AnchorPane pane;
 	
 	public void initialize() {
 		lineChart.getData().clear();
@@ -53,5 +54,9 @@ public class HomeController {
 				//pieChartRight.setMinSize(292.0, 343.0);
 
 				pieChartRight.setMinSize(392.0, 300.0);
+				
+				
+				
+				
 	}
 }

@@ -46,6 +46,8 @@ public class EntrevistadoresController extends Application{
 	@FXML private Button btnDeletarEntrevistador;
 	private static int idEntrevistadorSel;
 	
+	Parent fxml;
+	
 	
 
 
@@ -123,11 +125,18 @@ public class EntrevistadoresController extends Application{
 			setIdEntrevistadorSel(Integer.parseInt(idE[1]));
 			
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
+			if(MenuController.maximizado == false) {
+				fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
+			}else {
+				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresPerfil.fxml"));
+			}
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
         	pane.getChildren().setAll(fxml);
+        	
+        	MenuController.telaAtual = 9;
+        
 		}
 	}
 	
@@ -152,13 +161,18 @@ public class EntrevistadoresController extends Application{
 	
 	@FXML 
 	public void novoEntrevistador(ActionEvent event) throws Exception {
-		
 		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresAdicionar.fxml"));
+		if(MenuController.maximizado == false) {
+			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresAdicionar.fxml"));
+		}else {
+			fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresAdicionar.fxml"));
+		}
 		//Limpando o coteúdo do AnchorPane "pane"
     	pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteúdo do pane
     	pane.getChildren().setAll(fxml);
+    	
+    	MenuController.telaAtual = 8;
 	}
 	
 	

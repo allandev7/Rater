@@ -33,6 +33,8 @@ public class CargosController extends Application{
 	private Padroes p = new Padroes();
 	private static int idSelecionado = 0;
 	
+	Parent fxml;
+	
 		
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -122,12 +124,19 @@ public class CargosController extends Application{
 			int id = Integer.parseInt(idC[1]);
 			//Passando o valor para a classe
 			setIdSelecionado(id);
+			
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Criterioss.fxml"));
+			if(MenuController.maximizado == false) {
+				fxml = FXMLLoader.load(getClass().getResource("/view/Criterioss.fxml"));
+			}else {
+				fxml = FXMLLoader.load(getClass().getResource("/view/maxCriterioss.fxml"));
+			}
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteúdo do pane
 			pane.getChildren().setAll(fxml);
+			
+			MenuController.telaAtual = 7;
 		}
 	}
 

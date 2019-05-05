@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   <children>
+      <LineChart fx:id="lineChart" layoutY="2.0" prefHeight="310.0" prefWidth="1024.0" title="          Entrevistas ao longo do ano" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <PieChart fx:id="pieChartLeft" layoutY="248.0" prefHeight="404.0" prefWidth="444.0" title="Entrevistas feitas por cada entrevistador" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <PieChart fx:id="pieChartRight" layoutX="379.0" layoutY="248.0" prefHeight="404.0" prefWidth="444.0" title="Entrevistas feitas por cada cargo" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   </children>
+</AnchorPane>

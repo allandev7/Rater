@@ -69,6 +69,8 @@ public class EntrevistadoresPerfil extends Application{
 	Entrevistador En = new Entrevistador();
 	EntrevistadoresController EnC = new EntrevistadoresController();
 	
+	Parent fxml;
+	
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
@@ -202,7 +204,7 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML
 	 public void voltar(ActionEvent event) throws IOException {
 	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+			fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
@@ -212,11 +214,17 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML
 	public void visualizarEntrevistas(ActionEvent event) throws IOException{
 		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
+		if(MenuController.maximizado == false) {
+			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
+		}else {
+			fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresVisualizarEntrevistas.fxml"));
+		}
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteudo do pane
     	pane.getChildren().setAll(fxml);
+    	
+    	MenuController.telaAtual = 10;
 	}
 
 	@Override

@@ -15,7 +15,7 @@
    <children>
       <Pane prefHeight="540.0" prefWidth="722.0">
          <children>
-            <JFXListView fx:id="jfxlvListView" fixedCellSize="80.0" layoutY="46.0" prefHeight="422.0" prefWidth="722.0">
+            <JFXListView fx:id="jfxlvListView" fixedCellSize="80.0" layoutX="12.0" layoutY="46.0" prefHeight="422.0" prefWidth="699.0">
                <padding>
                   <Insets top="10.0" />
                </padding></JFXListView>

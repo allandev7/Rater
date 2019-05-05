@@ -119,7 +119,7 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 		
 		/*O pane2 é um anchorpane presente dentro do scrollpane que possui seu conteúdo
 		Colocando o tamanho do pane 2 como o tamanho de todos os itens da listview + 550pixels*/
-		pane2.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 550);
+		pane2.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 600);
 		/*Fazendo com que a listview aumente de tamanho baseado no tamanho de seus itens ao invés de
 		aparecer uma scrollbar*/
 		jfxlvListView.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 2);

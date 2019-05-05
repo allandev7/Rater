@@ -33,6 +33,7 @@ import javafx.stage.Window;
 import model.Padroes;
 import view.PopUp;
 import javafx.scene.input.MouseEvent.*;
+import controller.MenuController;
 
 public class CriteriosController extends Application{
 	
@@ -96,7 +97,6 @@ public class CriteriosController extends Application{
 			p.deletarCriterios(id);
 			//atualizar lista
 			carregarCriterios();
-		
 		}
 		
 	}

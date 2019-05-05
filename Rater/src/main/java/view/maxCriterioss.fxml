@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CriteriosController">
+   <children>
+       <JFXButton fx:id="btnVoltar" layoutX="9.0" layoutY="10.0" onAction="#voltarParaCargos" prefHeight="53.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" textFill="WHITE" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow color="#0000006e" />
+         </effect>
+      </JFXButton>
+      <JFXListView fx:id="jfxlvListView" editable="true" layoutX="9.0" layoutY="73.0" prefHeight="622.0" prefWidth="1015.0" verticalGap="10.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="73.0" />
+      <Label fx:id="lblNumCrit" layoutX="723.0" layoutY="24.0" prefHeight="25.0" prefWidth="378.0" text="Label" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font name="Tahoma" size="20.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnDeletarCriterio" layoutX="14.0" layoutY="707.0" onAction="#deteteCriterio" prefHeight="53.0" prefWidth="176.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow color="#0000006e" />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="btnAlterarCriterio" layoutX="432.0" layoutY="707.0" onAction="#alterarCriterio" prefHeight="53.0" prefWidth="176.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Alterar" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow color="#0000006e" />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="btnNovoCriterio" layoutX="834.0" layoutY="707.0" onAction="#addCriterio" prefHeight="53.0" prefWidth="176.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo Critério" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow color="#0000006e" />
+         </effect>
+      </JFXButton>
+   </children>
+</AnchorPane>
