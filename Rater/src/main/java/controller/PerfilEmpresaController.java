@@ -100,7 +100,7 @@ public class PerfilEmpresaController extends Application{
 		FileChooser abrirArquivo = new FileChooser();
 		//defininfo os filtros
 		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
-		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpeg"));
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpg"));
 		//abrir a janela e pegar o arquivo selecionado
 		File arquivo = abrirArquivo.showOpenDialog(null);
 		//pegando caminho da pasta

@@ -79,7 +79,6 @@ public class Empresa extends Usuarios {
 					con.down(getFoto());
 				}
 
-					//}
 			}else {
 					valido = 0;
 			}

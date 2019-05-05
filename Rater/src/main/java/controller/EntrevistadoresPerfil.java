@@ -171,7 +171,7 @@ public class EntrevistadoresPerfil extends Application{
 		//Abrindo conexao com o banco
 		Connection conBD =  (Connection) new Conexao().connect();
 		//query de update
-		String sql = "UPDATE empresa SET foto=?";
+		String sql = "UPDATE entrevistador SET foto=?";
 		try {//tentar
 			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
 			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
@@ -200,6 +200,7 @@ public class EntrevistadoresPerfil extends Application{
 				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
 					pstmt.setString(1, Empresa.getFoto());
 					con.upload(caminho, Empresa.getFoto());
+					
 				}else {
 					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
 					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));

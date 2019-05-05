@@ -60,6 +60,15 @@ public class Entrevistador extends Usuarios{
 				setNomeUsuario(rs.getString("NOMEDEUSUARIO"));
 
 				valido = 1;
+				
+				//verificando se existe a imagem
+				File file = new File("C:\\Rater/imagens/"+getFoto());
+				if(!file.exists()) {
+					// se nao existe, baixar
+					AzureConnection con = new AzureConnection();
+					con.down(getFoto());
+				}
+				
 			}
 			
 			
