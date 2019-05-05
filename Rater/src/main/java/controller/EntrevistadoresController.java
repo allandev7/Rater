@@ -62,7 +62,7 @@ public class EntrevistadoresController extends Application{
 	private void carregarEntrevistadores() throws SQLException  {
 		
 		jfxlvListView.getItems().clear();
-		int numEntrevistadores = En.carregarEntrevistadores().size();		
+		int numEntrevistadores = e.carregarEntrevistadores().size();		
 		lblNumEnt.setText("Número de entrevistadores: " + numEntrevistadores);
 	
 	
@@ -71,15 +71,15 @@ public class EntrevistadoresController extends Application{
 		for (int i = 0; i < numEntrevistadores; i++) {
 			
 			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistador = En.carregarEntrevistadores().get(i);
+			String nomeEntrevistador = e.carregarEntrevistadores().get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
-					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
+					+ "                                                                                                -"+e.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(110);
 
-			String nomeImagem =  En.carregarNomesImgEntrevistadores().get(i);
+			String nomeImagem =  e.carregarNomesImgEntrevistadores().get(i);
 			
 			//Criando imageview para colocar a foto do entrevistador e definindo seu tamanho
 			ImageView img = new ImageView();
@@ -90,7 +90,7 @@ public class EntrevistadoresController extends Application{
 			if(!nomeImagem.equals("null")) {
 				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
 				try {
-					En.baixarImgsEntrevistadores(nomeImagem);
+					e.baixarImgsEntrevistadores(nomeImagem);
 					img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 					lbl1.setGraphic(img);
 				} catch (FileNotFoundException e) {

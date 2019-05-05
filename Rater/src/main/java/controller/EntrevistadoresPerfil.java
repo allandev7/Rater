@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.mysql.jdbc.Connection;
@@ -61,6 +62,7 @@ public class EntrevistadoresPerfil extends Application{
 	private String EmailEntrevistador = "";
 	private String RG = "";
 	private String Senha = "";
+	private static int idSel;
 	private int NumEntrevistas = 0;
 	private int Aprovados = 0;
 	private int Reprovados = 0;
@@ -68,12 +70,17 @@ public class EntrevistadoresPerfil extends Application{
 	
 	Entrevistador En = new Entrevistador();
 	EntrevistadoresController EnC = new EntrevistadoresController();
+<<<<<<< HEAD
 	
 	Parent fxml;
 	
+=======
+	Empresa e = new Empresa();
+>>>>>>> 368b1add779d02f9e1a3c672604719213a7ace22
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
+		
 		//Método só para números no txt
 		txtRG.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
@@ -102,10 +109,10 @@ public class EntrevistadoresPerfil extends Application{
 	        if(txtSenha.getText().length() > maxCharacters) event.consume();
 	    });
 		//executando o metodo que carrega os dados de um perfil individual do banco
-		En.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
+		e.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
 		
 		//passando os valores dos resultados da query do banco da classe Entrevistador para os atributos desta propria classe 
-		NomeUsuario = "joojelson1265";
+		NomeUsuario = En.getNomeUsuario();
 		NomeEntrevistador = En.getNomeEntrevistador();
 		EmailEntrevistador = En.getEmailEntrevistador();
 		RG = En.getRgEntrevistador();
@@ -114,6 +121,10 @@ public class EntrevistadoresPerfil extends Application{
 		Aprovados = En.getAdmissoes();
 		Reprovados = 5;
 		EmEspera = 1;
+		setIdSel(EnC.getIdEntrevistadorSel());
+		
+		e.carregarPerfilEntrevistador(getIdSel());
+
 		
 		txtNomeUsuario.setText(NomeUsuario);
 		txtNomeEntrevistador.setText(NomeEntrevistador);
@@ -122,7 +133,7 @@ public class EntrevistadoresPerfil extends Application{
         txtSenha.setText(Senha);
         lblNumEnt.setText("Entrevistas Realizadas: " + NumEntrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
         try {
-			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/user.png")));
+			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+En.getNomeImagem())));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			imgFoto.setImage(new Image("imagens/Logo.png"));
@@ -130,10 +141,17 @@ public class EntrevistadoresPerfil extends Application{
     }
 	
 	
+	
 	@FXML
-	public void alterarInfos(MouseEvent event)  {
-		
-    }
+	public void alterarInfos(ActionEvent event)  throws IOException {
+		e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+        //Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+        pane.getChildren().removeAll();
+        //Colocando o documento fxml como conteúdo do pane
+        pane.getChildren().setAll(fxml);
+	}
 	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
@@ -231,7 +249,36 @@ public class EntrevistadoresPerfil extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	
+	
+	
+
+	public static int getIdSel() {
+		return idSel;
+	}
+
+
+	public static void setIdSel(int idSel) {
+		EntrevistadoresPerfil.idSel = idSel;
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 

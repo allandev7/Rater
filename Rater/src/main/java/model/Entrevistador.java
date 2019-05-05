@@ -9,26 +9,19 @@ import java.util.ArrayList;
 import model.Empresa;
 public class Entrevistador extends Usuarios{
 
+	private static String nomeUsuario;
 	private static String NomeEntrevistador;
 	private static String EmailEntrevistador;
 	private static String RgEntrevistador;
 	private static String SenhaEntrevistador;
+	private static String nomeImagem;
 	private static int Admissoes;
 	private static int EntrevistasRealizadas;
 	private static int idEmpresa;
 
 
 
-	private static String imgEntrevistadores;
 	
-	//criar um array pra pegar os nomes criptografados das imagens no banco de dados
-	private ArrayList<String> imgNomesEn = new ArrayList<>();
-	
-	//cria array para armazenar os nomes dos cargos
-	private ArrayList<String> nomeEntrevistador = new ArrayList<>();
-	
-	//cria array para armazenar o id dos entrevistadores
-	private ArrayList<Integer> idEntrevistador = new ArrayList<>();
 
 	
 	Connection con = new Conexao().connect();
@@ -55,7 +48,6 @@ public class Entrevistador extends Usuarios{
 			
 			
 			if(rs.next()) {
-				setNomeUsuario(rs.getString("NOMEDEUSUARIO"));
 				setEmail(rs.getString("EMAIL"));
 				setSenha(rs.getString("SENHA")); 
 				setNome(rs.getString("NOME"));
@@ -65,6 +57,8 @@ public class Entrevistador extends Usuarios{
 				e.setId(rs.getInt("ID_EMPRESA"));
 				setAdmissoes(rs.getInt("ADMISSÕES"));
 				setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
+				setNomeUsuario(rs.getString("NOMEDEUSUARIO"));
+
 				valido = 1;
 			}
 			
@@ -85,112 +79,26 @@ public class Entrevistador extends Usuarios{
 	
 	
 	
-	//Metodo de carregar entrevistadores
-	public ArrayList<String> carregarEntrevistadores() throws SQLException{
-		//limpar os arrays
-
-			nomeEntrevistador.clear();
-			idEntrevistador.clear();
-			//selecionar na tabela
-			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=?";
-			// criando statment
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			//definindo o id na query
-			pstmt.setInt(1, Empresa.getId());
-			//executando o query para obter o resultado
-			ResultSet rs = pstmt.executeQuery();
-			//enquanto houver linhas
-			while (rs.next()){
-				//adicionar cargos e ids aos arrays
-				nomeEntrevistador.add(rs.getString("NOME"));
-				idEntrevistador.add(rs.getInt("ID"));
-				
-			}
-	
-		return nomeEntrevistador;
-	}
 
 
 
 
-	//Metodo de carregar Perfil do entrevistador
-	public void carregarPerfilEntrevistador(int idSelecionado) throws SQLException{
-			//selecionar na tabela
-			String sql = "SELECT * FROM entrevistador WHERE ID = ? AND ID_EMPRESA=?";
-			
-			// criando statment
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			
-			//definindo o id selecionado do entrevistador
-			pstmt.setInt(1, idSelecionado);
-			
-			//definindo o id da empresa
-			pstmt.setInt(2, Empresa.getId());
-			
-			//executando o query para obter o resultado
-			ResultSet rs = pstmt.executeQuery();
-			
-			//enquanto houver linhas
-			while (rs.next()){
-				//adicionar dados nos atributos
-				setNomeEntrevistador(rs.getString("NOME"));
-				setEmailEntrevistador(rs.getString("EMAIL"));
-				setRgEntrevistador(rs.getString("RG"));
-				setSenhaEntrevistador(rs.getString("SENHA"));
-				setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
-				setAdmissoes(rs.getInt("ADMISSÕES"));
-			}
-	
-	}
-	
-	
-	
-	
-	
-	public void baixarImgsEntrevistadores(String nomeImg) throws SQLException {
-		
-		File file = new File("C:\\Rater/imagens/"+nomeImg);
-
-		//verificando se existe a imagem
-		if(!file.exists()) {
-			
-			//conexao com o azure para baixar as imagens
-			AzureConnection conAzr = new AzureConnection();
-			// se nao existe, baixar
-			conAzr.down(nomeImg);	
-
-		}
-			
-	}
-
-	
-	
-	
-	
-	public ArrayList<String> carregarNomesImgEntrevistadores() throws SQLException {
-			
-			imgNomesEn.clear();
-			//selecionar na tabela
-			String sql = "SELECT foto FROM entrevistador WHERE ID_EMPRESA=?";
-			// criando statment
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			//definindo o id na query
-			pstmt.setInt(1, Empresa.getId());
-			//executando o query para obter o resultado
-			ResultSet rs = pstmt.executeQuery();
-			//enquanto houver linhas
-			while (rs.next()){
-				//adicionar cargos e ids aos arrays
-				imgNomesEn.add(rs.getString("foto"));
-			}
-	
-		return imgNomesEn;
-
-	}
 	
 	
 	
 //GETTERS E SETTERS
+	public static String getNomeImagem() {
+		return nomeImagem;
+	}
+	public static void setNomeImagem(String nomeImagem) {
+		Entrevistador.nomeImagem = nomeImagem;
+	}
+	public static String getNomeUsuario() {
+		return nomeUsuario;
+	}
+	public static void setNomeUsuario(String nomeUsuario) {
+		Entrevistador.nomeUsuario = nomeUsuario;
+	}
 	public static int getIdEmpresa() {
 		return idEmpresa;
 	}
@@ -224,24 +132,6 @@ public class Entrevistador extends Usuarios{
 	public static void setSenhaEntrevistador(String senhaEntrevistador) {
 		SenhaEntrevistador = senhaEntrevistador;
 	}
-	
-	public Integer getIdEntrevistador(int i) {
-			return this.idEntrevistador.get(i);
-	}
-	
-	public static String getImgEntrevistadores() {
-		return imgEntrevistadores;
-	}
-
-	public static void setImgEntrevistadores(String imgEntrevistadores) {
-		Entrevistador.imgEntrevistadores = imgEntrevistadores;
-	}
-
-	
-	public String getImgNomesEn(int i) {
-		return this.imgNomesEn.get(i);
-	}
-	
 	public static int getAdmissoes() {
 		return Admissoes;
 	}
