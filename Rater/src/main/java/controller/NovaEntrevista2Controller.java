@@ -3,6 +3,7 @@ package controller;
 import java.awt.Checkbox;
 
 import java.awt.Event;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -240,7 +241,9 @@ public class NovaEntrevista2Controller extends Application{
 				candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
 				candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
 				conclusaoADD+txtConclusao.getText());
-		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso");
+		entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
+		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
+				+ " e salvo o relatorio em C:/Rater");
 		
 		//Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));

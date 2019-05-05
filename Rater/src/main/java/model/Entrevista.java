@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
@@ -7,6 +8,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -26,7 +44,7 @@ import view.PopUp;
 public class Entrevista {
 	private Date data;
 	private boolean aprovado;
-	private String relatorio;
+	private static String relatorio;
 	private String feedback;
 	
 	Connection con = new Conexao().connect();
@@ -90,6 +108,7 @@ public class Entrevista {
 			ArrayList<JFXCheckBox> cbx,ArrayList<Label> lbl, String conclusao) {
 		Document doc = new Document();
 		try {
+			setRelatorio(nomeDoc);
 			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Rater\\"+nomeDoc));
 			doc.open();
 			doc.add(new Paragraph(nomeCandidato, FontFactory.getFont(FontFactory.TIMES_BOLD, 30)));
@@ -126,6 +145,56 @@ public class Entrevista {
 			doc.close();
 		}
 	}
+	public void enviarFeedback(String destinatario, File relatorio) {
+		Properties props = new Properties();
+        // Parâmetros de conexão com servidor Gmail 
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("raterptcc@gmail.com", "etec_TCC");
+                         }
+                    });
+        session.setDebug(true);
+        
+        try {
+        	MimeBodyPart mbp = new MimeBodyPart();
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("raterptcc@gmail.com")); //Remetente
+
+            Address[] toUser = InternetAddress //Destinatário(s)
+                       .parse(destinatario);  
+
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject("Sobre a entrevista realizada");//Assunto
+            message.setText("Segue o anexo com o seu desempenho na entrevista");
+            
+          //enviando anexo
+			DataSource fds = new FileDataSource(relatorio);
+			mbp.setText("Segue o anexo com o seu desempenho na entrevista");
+			mbp.setDisposition(Part.ATTACHMENT);
+			mbp.setDataHandler(new DataHandler(fds));
+			mbp.setFileName(fds.getName());
+			Multipart mp = new MimeMultipart();
+			mp.addBodyPart(mbp);
+			message.setContent(mp);
+			
+			
+            //Método para enviar a mensagem criada
+            Transport.send(message);
+
+            System.out.println("Feito!!!");
+
+       } catch (MessagingException e) {
+            throw new RuntimeException(e);
+      }
+	}
 	
 	//GETTERS E SETTERS
 	public Date getData() {
@@ -149,7 +218,7 @@ public class Entrevista {
 	}
 
 	public void setRelatorio(String relatorio) {
-		this.relatorio = relatorio;
+		Entrevista.relatorio = relatorio;
 	}
 
 	public String getFeedback() {
