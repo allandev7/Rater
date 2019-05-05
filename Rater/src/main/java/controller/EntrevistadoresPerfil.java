@@ -68,15 +68,13 @@ public class EntrevistadoresPerfil extends Application{
 	private int Reprovados = 0;
 	private int EmEspera = 0;
 	
-	Entrevistador En = new Entrevistador();
-	EntrevistadoresController EnC = new EntrevistadoresController();
-<<<<<<< HEAD
-	
 	Parent fxml;
 	
-=======
+	Entrevistador En = new Entrevistador();
+	EntrevistadoresController EnC = new EntrevistadoresController();
+
 	Empresa e = new Empresa();
->>>>>>> 368b1add779d02f9e1a3c672604719213a7ace22
+
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
@@ -250,10 +248,6 @@ public class EntrevistadoresPerfil extends Application{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-	
-	
 
 	public static int getIdSel() {
 		return idSel;
