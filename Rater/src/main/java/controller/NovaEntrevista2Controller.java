@@ -217,10 +217,20 @@ public class NovaEntrevista2Controller extends Application{
 		pane.getChildren().setAll(fxml);
 	}
 	public void concluir() throws IOException {
+		String conclusaoADD = null;
 		Entrevistado candidato = new Entrevistado();
 		//Inserir entrevista
 		Entrevista entrevista = new Entrevista();
-		entrevista.setAprovado(aprovado.isSelected() ? true:false);
+		if(aprovado.isSelected()) {
+			entrevista.setAprovado(1);
+			conclusaoADD = "Aprovado, ";
+		}else if(reprovado.isSelected()) {
+			entrevista.setAprovado(0);
+			conclusaoADD = "Reprovado, ";
+		}else if(espera.isSelected()) {
+			entrevista.setAprovado(2);
+			conclusaoADD = "Em espera, ";
+		}
 		entrevista.setFeedback(txtConclusao.getText());
 		//ESQUELETO PARA QUANDO HOUVER RELATORIO
 		entrevista.setRelatorio("relatorio.docx");
@@ -235,12 +245,14 @@ public class NovaEntrevista2Controller extends Application{
 			entrevista.inserirCriterios(idEntrevista, criterios.get(i), cbx.get(i).isSelected()
 											, txt.get(i).getText());
 		}
-		String conclusaoADD = aprovado.isSelected()? "Aprovado: ":"Reprovado: ";
+
+		
 		String nomeDoc= Empresa.getId()+candidato.getNome()+candidato.getId()+new Date().getTime()+".pdf";
 		entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
 				candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
 				candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
 				conclusaoADD+txtConclusao.getText());
+		
 		entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
 		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
 				+ " e salvo o relatorio em C:/Rater");

@@ -29,6 +29,7 @@ import javax.mail.internet.MimeMultipart;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Header;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXCheckBox;
@@ -43,7 +44,7 @@ import view.PopUp;
 
 public class Entrevista {
 	private Date data;
-	private boolean aprovado;
+	private int aprovado;
 	private static String relatorio;
 	private String feedback;
 	
@@ -59,7 +60,7 @@ public class Entrevista {
 			pstmt.setInt(2, idCandidato);
 			pstmt.setInt(3, idCargo);
 			pstmt.setDate(4, dateConvert);
-			pstmt.setBoolean(5, isAprovado());
+			pstmt.setInt(5, isAprovado());
 			pstmt.setString(6, getFeedback());
 			pstmt.setString(7, getRelatorio());
 			pstmt.execute();
@@ -111,6 +112,7 @@ public class Entrevista {
 			setRelatorio(nomeDoc);
 			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Rater\\"+nomeDoc));
 			doc.open();
+			doc.add(new Paragraph("Data: "+new Date(), FontFactory.getFont(FontFactory.TIMES, 10)));
 			doc.add(new Paragraph(nomeCandidato, FontFactory.getFont(FontFactory.TIMES_BOLD, 30)));
 			doc.add(new Paragraph("---------------------------------------------------------------------------------"
 					+ "-------------------------------------------------"));
@@ -205,11 +207,11 @@ public class Entrevista {
 		this.data = data;
 	}
 
-	public boolean isAprovado() {
+	public int isAprovado() {
 		return aprovado;
 	}
 
-	public void setAprovado(boolean aprovado) {
+	public void setAprovado(int aprovado) {
 		this.aprovado = aprovado;
 	}
 
