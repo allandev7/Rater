@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -55,7 +56,7 @@ public class Entrevista {
 		setData(new Date(new Date().getTime()));
 		java.sql.Date dateConvert = new java.sql.Date(getData().getTime());
 		try {
-			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO entrevista VALUES (NULL,?,?,?,?,?,?,?)", java.sql.Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO entrevista VALUES (NULL,?,?,?,?,?,?,?,?)", java.sql.Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, idEntrevistador);
 			pstmt.setInt(2, idCandidato);
 			pstmt.setInt(3, idCargo);
@@ -63,6 +64,7 @@ public class Entrevista {
 			pstmt.setInt(5, isAprovado());
 			pstmt.setString(6, getFeedback());
 			pstmt.setString(7, getRelatorio());
+			pstmt.setInt(8, Empresa.getId());
 			pstmt.execute();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			return  rs.next() ? rs.getInt(1): 0;
@@ -112,7 +114,8 @@ public class Entrevista {
 			setRelatorio(nomeDoc);
 			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Rater\\"+nomeDoc));
 			doc.open();
-			doc.add(new Paragraph("Data: "+new Date(), FontFactory.getFont(FontFactory.TIMES, 10)));
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			doc.add(new Paragraph("Data: "+sdf.format(new Date()), FontFactory.getFont(FontFactory.TIMES, 10)));
 			doc.add(new Paragraph(nomeCandidato, FontFactory.getFont(FontFactory.TIMES_BOLD, 30)));
 			doc.add(new Paragraph("---------------------------------------------------------------------------------"
 					+ "-------------------------------------------------"));
@@ -196,6 +199,95 @@ public class Entrevista {
        } catch (MessagingException e) {
             throw new RuntimeException(e);
       }
+	}
+	
+	//INICIO CARREGAR ENTREVISTA
+	public class dados{
+		private String nomeCandidato, nomeEntrevistador, feedback;
+		private int resultado, id;
+		private Date data;
+		public dados(String nomeEntrevistador, String nomeCandidato, Date data,int resultado, String feedback,int id) {			this.setNomeCandidato(nomeCandidato);
+			this.setNomeEntrevistador(nomeEntrevistador);
+			this.setData(data);
+			this.setResultado(resultado);
+			this.setFeedback(feedback); 
+			this.setId(id);
+		}
+		public String getNomeCandidato() {
+			return nomeCandidato;
+		}
+		public void setNomeCandidato(String nomeCandidato) {
+			this.nomeCandidato = nomeCandidato;
+		}
+		public String getNomeEntrevistador() {
+			return nomeEntrevistador;
+		}
+		public void setNomeEntrevistador(String nomeEntrevistador) {
+			this.nomeEntrevistador = nomeEntrevistador;
+		}
+		public String getFeedback() {
+			return feedback;
+		}
+		public void setFeedback(String feedback) {
+			this.feedback = feedback;
+		}
+		public int getResultado() {
+			return resultado;
+		}
+		public void setResultado(int resultado) {
+			this.resultado = resultado;
+		}
+		public Date getData() {
+			return data;
+		}
+		public void setData(Date data) {
+			this.data = data;
+		}
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		
+	}
+	public ArrayList<dados> carregarEntrevistas() {
+		ArrayList<dados> dadosLista = new ArrayList<>();
+		String sql ="SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
+				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
+				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
+				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, Empresa.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dadosLista.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
+						rs.getString(5), rs.getInt(6)));
+			}
+			return dadosLista;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	//FIM CARREGAR ENTREVISTAS
+	
+	//DELETAR ENTREVISTAS
+	public void deletarEntrevista(int id) {
+		String sql = "DELETE FROM `entrevista` WHERE ID = ?";
+		
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	//GETTERS E SETTERS
