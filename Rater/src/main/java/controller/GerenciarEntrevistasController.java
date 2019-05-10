@@ -1,6 +1,8 @@
 package controller;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Entrevista;
+import model.Entrevistado;
 
 
 public class GerenciarEntrevistasController extends Application{
@@ -27,8 +30,8 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private AnchorPane pane;
-		
-	private int NumEntrevistas = 10;
+	
+	private static int idSelecionado;
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;
 	ArrayList<Label> lbl = new ArrayList<>();
@@ -69,7 +72,29 @@ public class GerenciarEntrevistasController extends Application{
 			img.setPreserveRatio(true);
 			img.setFitHeight(200);
 			img.setFitWidth(85);
-			lbl.get(i).setGraphic(img);
+			
+			int idsel = entrevista.carregarEntrevistas().get(i).getId();
+			String nomeImagem = entrevista.visualizarEntrevista(idsel).getFoto();
+			Entrevistado c = new Entrevistado();
+			//Verificar se há alguma imagem salva no banco e no azure
+			if(nomeImagem != null) {
+				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
+				try {
+						c.baixarImgsCandidatos(nomeImagem);
+						img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+						lbl.get(i).setGraphic(img);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (FileNotFoundException e) {
+						System.out.print(e);
+					}
+			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+			}else {
+					img.setImage(new Image(("imagens/user.png")));
+					lbl.get(i).setGraphic(img);
+			}
+			
 
 			
 			//Adicionando a Label lbl1 na JFXListView
@@ -85,6 +110,8 @@ public class GerenciarEntrevistasController extends Application{
 	public void visualizarEntrevista(ActionEvent event) throws IOException {
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
+			int i = jfxlvListView.getSelectionModel().getSelectedIndex();
+			setIdSelecionado(entrevista.carregarEntrevistas().get(i).getId());
 			//Pegando fxml como parametro
 			if(MenuController.maximizado == false) {
 				fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
@@ -103,7 +130,14 @@ public class GerenciarEntrevistasController extends Application{
 	public void deletarEntrevista(ActionEvent event) throws IOException {
 		int i = jfxlvListView.getSelectionModel().getSelectedIndex();
 		entrevista.deletarEntrevista(entrevista.carregarEntrevistas().get(i).getId());
-		carregarlista();
-		
+		carregarlista();	
 	}
+	public static int getIdSelecionado() {
+		return idSelecionado;
+	}
+	public static void setIdSelecionado(int idSelecionado) {
+		GerenciarEntrevistasController.idSelecionado = idSelecionado;
+	}
+	
 }
+

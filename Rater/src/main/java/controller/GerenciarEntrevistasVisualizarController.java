@@ -1,6 +1,9 @@
 package controller;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,6 +21,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.Entrevista;
+import model.Entrevista.dados;
+import model.Entrevista.dadosCandidatos;
+import model.Entrevistado;
 
 
 public class GerenciarEntrevistasVisualizarController extends Application{
@@ -40,6 +47,7 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 	@FXML private Label lblCargo;
 		
 	private int NumCrit = 10;
+	private Entrevista e = new Entrevista();
 		
 	@FXML
 	public void start(Stage stage) throws IOException {
@@ -54,44 +62,53 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 	
 	public void carregarInformacoes() {
 		//Carregando informações do entrevistado
-		imgFoto.setImage(new Image("/imagens/user.png"));
-		lblNome.setText("Nome: " + "Jorjinho");
-		lblSexo.setText("Sexo: " + "Masculino");
-		lblIdade.setText("Idade: " + "12 anos");
-		lblEtnia.setText("Etnia: " + "Maconheiro");
-		lblRG.setText("RG: " + "121212909090");
-		lblEmail.setText("E-mail: " + "jorjinho.emprestaa12@maconheiro.com");
-		lblTelefone.setText("Telefone: " + "121209090912");
-		lblEndereco.setText("Endereço: " + "Favela da Rocinha");
-		lblCargo.setText("Cargo de Interesse: " + "Instrutor do PROERD");
+		Entrevistado infoCandidato =   e.visualizarEntrevista(GerenciarEntrevistasController.getIdSelecionado());
+		String nomeImagem = e.visualizarEntrevista(GerenciarEntrevistasController.getIdSelecionado()).getFoto();
+		Entrevistado c = new Entrevistado();
+		//Verificar se há alguma imagem salva no banco e no azure
+		if(nomeImagem != null) {
+			//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
+			try {
+					c.baixarImgsCandidatos(nomeImagem);
+					imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					System.out.print(e);
+				}
+		//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+		}else {
+				imgFoto.setImage(new Image(("imagens/user.png")));
+		}
+		lblNome.setText("Nome: " + infoCandidato.getNome());
+		lblSexo.setText("Sexo: " + infoCandidato.getSexo());
+		lblIdade.setText("Idade: " + infoCandidato.getIdade());
+		lblEtnia.setText("Etnia: " + infoCandidato.getEtnia());
+		lblRG.setText("RG: " + infoCandidato.getCpf());
+		lblEmail.setText("E-mail: " + infoCandidato.getEmail());
+		lblTelefone.setText("Telefone: " + infoCandidato.getTelefone());
+		lblEndereco.setText("Endereço: " + infoCandidato.getEndereco());
+		lblCargo.setText("Cargo de Interesse: " + infoCandidato.getCargo());
 	}
 	
 	public void carregarCriterios(){
-		for (int i = 0; i < NumCrit; i++) {
+		int idsel =GerenciarEntrevistasController.getIdSelecionado();
+		for (int i = 0; i < e.carregarCriteriosEntrevista(idsel).size(); i++) {
 			
 			//Pegando informações do critério
-			String Nome = "Critério" + (i + 1);
-			String Observacoes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras facilisis sollicitudin "
-					+ "tempor. Curabitur posuere convallis pulvinar. Curabitur blandit arcu eget arcu"
-					+ " faucibus, eget euismod tortor egestas. Duis fermentum orci sed pretium lacinia. Praesent "
-					+ "aliquam pretium velit, eu consequat ipsum finibus fermentum. Curabitur suscipit luctus diam et "
-					+ "egestas. Curabitur porttitor, odio sit amet rutrum molestie, leo risus laoreet felis, in varius justo justo nec elit."
-					+ " Mauris bibendum lectus tortor, eu rutrum dolor dapibus ut. Aenean dapibus porttitor iaculis. Nam rutrum lacus eget leo "
-					+ "efficitur, id consequat sem commodo. Vestibulum fringilla tortor massa, a volutpat mi posuere nec.";
+			String Nome = e.carregarCriteriosEntrevista(idsel).get(i).getNomeCriterio();
+			String Observacoes = e.carregarCriteriosEntrevista(idsel).get(i).getDescricaoCriterio() ;
 			
-			Boolean Status = true;
-			String Status2 = "";
+			
 			
 			//Definindo se o candidato está aprovado ou não no critério
-			if(Status == true) {
-				Status2 = "Aprovado";
-			}else {
-				Status2 = "Reprovado";
-			}
+			int status = e.carregarCriteriosEntrevista(idsel).get(i).getAprovado();
+			String conc = status == 1 ? "Aprovado":"Reprovado";
 			
 			
 			//Pegando nome e status do critério e adicionando na lbl1
-			Label lbl1 = new Label(Nome + "(" + Status2 + ")");
+			Label lbl1 = new Label(Nome + "(" + conc + ")");
 			//Definindo cor do texto da label
 			lbl1.setTextFill(Color.rgb(48,65,101));
 			

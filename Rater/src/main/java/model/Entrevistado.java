@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -16,8 +17,25 @@ public class Entrevistado {
 	private static String foto;
 	private static String etnia;
 	private static int idade;
+	private static String cargo;
 	private static String endereco;
 	Connection con = new Conexao().connect();
+	public Entrevistado() {
+		
+	}
+	public Entrevistado(String nome, String sexo,String etnia, String rg, String email, String telefone,String endereco,
+		String cargo, int idade, String foto) {
+		this.setNome(nome);
+		this.setSexo(sexo);
+		this.setEmail(email);
+		this.setCpf(rg);
+		this.setEtnia(etnia);
+		this.setTelefone(telefone);
+		this.setEndereco(endereco);
+		this.setCargo(cargo);
+		this.setIdade(idade);
+		this.setFoto(foto);
+	}
 	
 	//MÉTODO INSERIR
 	public void inserirInfo(String email,String nome, String telefone, String sexo, String cpf, String foto, 
@@ -58,6 +76,18 @@ public class Entrevistado {
 			// se der erro
 			e.printStackTrace();
 		}
+	}
+	public void baixarImgsCandidatos(String nomeImg) throws SQLException {
+		
+		File file = new File("C:\\Rater/imagens/"+nomeImg);
+			//verificando se existe a imagem
+		if(!file.exists()) {
+			//conexao com o azure para baixar as imagens
+			AzureConnection conAzr = new AzureConnection();
+			// se nao existe, baixar
+			conAzr.down(nomeImg);	
+			}
+			
 	}
 	
 	//GETTERS E SETTERS
@@ -124,6 +154,20 @@ public class Entrevistado {
 
 	public static void setId(int id) {
 		Entrevistado.id = id;
+	}
+
+	/**
+	 * @return the cargo
+	 */
+	public static String getCargo() {
+		return cargo;
+	}
+
+	/**
+	 * @param cargo the cargo to set
+	 */
+	public static void setCargo(String cargo) {
+		Entrevistado.cargo = cargo;
 	}
 	
 	

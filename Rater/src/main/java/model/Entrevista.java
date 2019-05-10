@@ -290,6 +290,170 @@ public class Entrevista {
 		
 	}
 	
+	//CARREGAR INFORMAÇÕES DO CANDIDATO
+	public class dadosCandidatos{
+		private String nome, sexo, etnia, rg, email, telefone, endereco,
+		cargo, foto;
+		private int idade;
+		
+		public dadosCandidatos(String nome, String sexo,String etnia, String rg, String email, String telefone,String endereco,
+				String cargo, int idade, String foto) {
+			this.setNome(nome);
+			this.setSexo(sexo);
+			this.setEmail(email);
+			this.setRg(rg);
+			this.setEtnia(etnia);
+			this.setTelefone(telefone);
+			this.setEndereco(endereco);
+			this.setCargo(cargo);
+			this.setIdade(idade);
+			this.setFoto(foto);
+		}
+		
+		//GETTERS E SETTERS
+		public String getEtnia() {
+			return etnia;
+		}
+		public void setEtnia(String etnia) {
+			this.etnia = etnia;
+		}
+		public String getNome() {
+			return nome;
+		}
+		public void setNome(String nome) {
+			this.nome = nome;
+		}
+		public String getSexo() {
+			return sexo;
+		}
+		public void setSexo(String sexo) {
+			this.sexo = sexo;
+		}
+		public String getRg() {
+			return rg;
+		}
+		public void setRg(String rg) {
+			this.rg = rg;
+		}
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		public String getTelefone() {
+			return telefone;
+		}
+		public void setTelefone(String telefone) {
+			this.telefone = telefone;
+		}
+		public String getEndereco() {
+			return endereco;
+		}
+		public void setEndereco(String endereco) {
+			this.endereco = endereco;
+		}
+		public String getCargo() {
+			return cargo;
+		}
+		public void setCargo(String cargo) {
+			this.cargo = cargo;
+		}
+		public int getIdade() {
+			return idade;
+		}
+		public void setIdade(int idade) {
+			this.idade = idade;
+		}
+
+		public String getFoto() {
+			return foto;
+		}
+
+		public void setFoto(String foto) {
+			this.foto = foto;
+		}
+		
+	}
+	public Entrevistado visualizarEntrevista(int id) {
+		String sql = "SELECT candidato.nome, candidato.SEXO, candidato.IDADE, candidato.ETNIA, candidato.CPF, candidato.EMAIL,"
+				+ " candidato.TELEFONE, candidato.ENDERECO, cargo.NOME, candidato.FOTO  FROM `entrevista` " + 
+				"INNER JOIN candidato ON candidato.id = ID_CANDIDATO " + 
+				"INNER JOIN cargo ON cargo.id = ID_CARGO " + 
+				"WHERE entrevista.ID = ?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return new Entrevistado(rs.getString(1), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6),
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(3), rs.getString(10));
+			}else {
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	//FIM CARREGAR INFORMAÇÕES DO CANDIDATO
+	
+	//INICIO CARREGAR CRITERIOS DA ENTREVISTA
+	public class dadosCriterios {
+		private String nomeCriterio;
+		private String descricaoCriterio;
+		private int aprovado;//0-reprovado 1-aprovado 2-em espera
+		
+		public dadosCriterios(String nomeCriterio, String descricaoCriterio, int aprovado) {
+			this.setDescricaoCriterio(descricaoCriterio);
+			this.setNomeCriterio(nomeCriterio);
+			this.setAprovado(aprovado);
+		}
+		
+		//GETTERS E SETTERS
+		public String getNomeCriterio() {
+			return nomeCriterio;
+		}
+		public void setNomeCriterio(String nomeCriterio) {
+			this.nomeCriterio = nomeCriterio;
+		}
+		public String getDescricaoCriterio() {
+			return descricaoCriterio;
+		}
+		public void setDescricaoCriterio(String descricaoCriterio) {
+			this.descricaoCriterio = descricaoCriterio;
+		}
+		public int getAprovado() {
+			return aprovado;
+		}
+		public void setAprovado(int aprovado) {
+			this.aprovado = aprovado;
+		}
+	}
+	public ArrayList<dadosCriterios> carregarCriteriosEntrevista(int id){
+		ArrayList<dadosCriterios> dados = new ArrayList<>();
+		String sql = "SELECT criterio.NOME, COMENTARIO, APROVACAO FROM criterio_entrevista " + 
+				"INNER JOIN criterio ON criterio.ID = ID_CRITERIO " + 
+				"WHERE ID_ENTREVISTA = ?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dados.add(new dadosCriterios(rs.getString(1), rs.getString(2), rs.getInt(3)));
+			}
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//FIM CARREGAR CRITERIOS DA ENTREVISTA
+	
 	//GETTERS E SETTERS
 	public Date getData() {
 		return data;
