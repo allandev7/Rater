@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.naming.spi.DirStateFactory.Result;
@@ -355,6 +356,145 @@ public class Empresa extends Usuarios {
 	//cria array para armazenar o id dos entrevistadores
 	private ArrayList<Integer> idEntrevistador = new ArrayList<>();
 
+	
+	
+	
+	
+	
+	/*----------------------------------------------------------*/
+	/*----------------Graficos do Home Empresa------------------*/
+	/*----------------------------------------------------------*/
+	
+	private ArrayList<Integer> numeroEntrevistaMes = new ArrayList<>();
+	private ArrayList<Integer> numeroEntrevistaEntrevistador = new ArrayList<>();
+	private ArrayList<Integer> numEntrevistaCargo= new ArrayList<>();
+	private ArrayList<Integer> idCargos = new ArrayList<>();
+	
+	
+	public ArrayList<Integer> numeroEntrevistaMes(){
+		
+		numeroEntrevistaMes.clear();
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		
+		try(Connection conn = con.connect() ){
+			for(int i = 1; i<=12; i++) {
+				String sql = "SELECT COUNT(*) AS JOOJ "
+							+ "FROM entrevista "
+							+ "INNER JOIN entrevistador "
+							+ "ON entrevista.ID_ENTREVISTADOR = entrevistador.ID "
+							+ "WHERE entrevistador.ID_EMPRESA = ? AND YEAR(entrevista.DATA_ENTREVISTA) = '"+year+"' AND MONTH(entrevista.DATA_ENTREVISTA) = '0"+i+"'";
+				
+					
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, getId());
+				ResultSet rs = pstmt.executeQuery();
+				while(rs.next()) {
+					numeroEntrevistaMes.add(rs.getInt("JOOJ"));
+				}
+			}
+		}catch(SQLException e) {
+			System.out.print(e);
+		}
+		
+		
+		
+		return numeroEntrevistaMes;
+	}
+	
+	
+	public ArrayList<Integer> carregarNumEntrevistaEntrevistadores() throws SQLException{
+		//limpar os arrays
+		numeroEntrevistaEntrevistador.clear();
+		try(Connection conn = con.connect()){
+			
+			//selecionar na tabela
+			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=?";
+			// criando statment
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			//definindo o id na query
+			pstmt.setInt(1, Empresa.getId());
+			//executando o query para obter o resultado
+			ResultSet rs = pstmt.executeQuery();
+			//enquanto houver linhas
+			while (rs.next()){
+				//adicionar cargos e ids aos arrays
+				
+				numeroEntrevistaEntrevistador.add(rs.getInt("ENTREVISTAS_REALIZADAS"));
+				
+				
+			}
+	
+		}catch(SQLException e) {
+			System.out.print(e);
+		}
+		return numeroEntrevistaEntrevistador;
+	}
+
+	public ArrayList<Integer> carregarCargos() throws SQLException {
+		//limpar os arrays
+		
+		idCargos.clear();
+		try(Connection conn = con.connect()){
+		//selecionar na tabela
+		String sql = "SELECT * FROM cargo WHERE ID_EMPRESA=?";
+		// criando statment
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		//definindo o id na query
+		pstmt.setInt(1, Empresa.getId());
+		//executando o query para obter o resultado
+		ResultSet rs = pstmt.executeQuery();
+		//enquanto houver linhas
+		while (rs.next()){
+			//adicionar cargos e ids aos arrays
+			idCargos.add(rs.getInt("ID"));
+				
+
+		}
+		}catch(SQLException e) {
+			
+		}
+		return idCargos;
+	}
+	
+	public ArrayList<Integer> carregarNumEntrevistaCargo() throws SQLException{
+		//limpar os arrays
+		numEntrevistaCargo.clear();
+		try(Connection conn = con.connect()){
+			//selecionar na tabela
+			for(int i = 0; i< carregarCargos().size(); i++) {
+				String sql = "SELECT COUNT(*) AS numCargo FROM entrevista WHERE ID_CARGO = "+carregarCargos().get(i);
+				
+				// criando statment
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				
+				
+				//executando o query para obter o resultado
+				
+				
+				ResultSet rs = pstmt.executeQuery();
+				//enquanto houver linhas
+				while (rs.next()){
+					//adicionar cargos e ids aos arrays
+					
+					numEntrevistaCargo.add(rs.getInt("numCargo"));
+					//System.out.print(rs.getInt("numCargo"));
+					
+				}
+			}
+		}catch(SQLException e) {
+			System.out.print(e);
+		}
+		
+		return numEntrevistaCargo;
+	}
+	
+	
+	
+	
+	
+	
 
 
 

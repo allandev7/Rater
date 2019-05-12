@@ -4,56 +4,89 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
+
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-
+import model.Empresa;
+import model.Padroes;
 public class HomeController {
 	@FXML LineChart<String , Number> lineChart;
 	@FXML PieChart pieChartLeft;
 	@FXML PieChart pieChartRight;
 	@FXML AnchorPane pane;
-	
-	public void initialize() {
+	private static int haentrevista;
+	public static int getHaentrevista() {
+		return haentrevista;
+	}
+
+	public static void setHaentrevista(int haentrevista) {
+		HomeController.haentrevista = haentrevista;
+	}
+
+	Empresa e = new Empresa();
+	Padroes p = new Padroes();
+	public void initialize() throws SQLException {
+		
+		
 		lineChart.getData().clear();
 		lineChart.setCreateSymbols(false);
 		XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-		series.getData().add(new XYChart.Data<String, Number>("Jan", 200));
-		series.getData().add(new XYChart.Data<String, Number>("Feb", 500));
-		series.getData().add(new XYChart.Data<String, Number>("Mar", 300));
-		series.getData().add(new XYChart.Data<String, Number>("Abr", 100));
-		series.getData().add(new XYChart.Data<String, Number>("Mai", 400));
-		series.getData().add(new XYChart.Data<String, Number>("Jun", 150));
-		series.getData().add(new XYChart.Data<String, Number>("Jul", 400));
-		series.getData().add(new XYChart.Data<String, Number>("Ago", 250));
-		series.getData().add(new XYChart.Data<String, Number>("Oct", 1000));
+		series.getData().add(new XYChart.Data<String, Number>("Jan", e.numeroEntrevistaMes().get(0)));
+		series.getData().add(new XYChart.Data<String, Number>("Feb", e.numeroEntrevistaMes().get(1)));
+		series.getData().add(new XYChart.Data<String, Number>("Mar", e.numeroEntrevistaMes().get(2)));
+		series.getData().add(new XYChart.Data<String, Number>("Abr", e.numeroEntrevistaMes().get(3)));
+		series.getData().add(new XYChart.Data<String, Number>("Mai", e.numeroEntrevistaMes().get(4)));
+		series.getData().add(new XYChart.Data<String, Number>("Jun", e.numeroEntrevistaMes().get(5)));
+		series.getData().add(new XYChart.Data<String, Number>("Jul", e.numeroEntrevistaMes().get(6)));
+		series.getData().add(new XYChart.Data<String, Number>("Ago", e.numeroEntrevistaMes().get(7)));
+		series.getData().add(new XYChart.Data<String, Number>("Oct", e.numeroEntrevistaMes().get(8)));
+		series.getData().add(new XYChart.Data<String, Number>("Set", e.numeroEntrevistaMes().get(9)));
+		series.getData().add(new XYChart.Data<String, Number>("Nov", e.numeroEntrevistaMes().get(10)));
+		series.getData().add(new XYChart.Data<String, Number>("Dec", e.numeroEntrevistaMes().get(11)));
+
 		series.setName("Número de entrevistas");
 		lineChart.getData().add(series);
 		lineChart.setLegendVisible(false);
 		
-		ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                new PieChart.Data("Allan", 13),
-                new PieChart.Data("Davi", 25),
-                new PieChart.Data("Daniel", 10),
-                new PieChart.Data("Thiago", 22),
-                new PieChart.Data("Marcelo", 30),
-        		new PieChart.Data("Rafael",15));
-				pieChartLeft.setData(pieChartData);
-				pieChartLeft.setLegendVisible(false);
-				pieChartLeft.setLabelLineLength(5);
-				
-		ObservableList<PieChart.Data> list = FXCollections.observableArrayList(
-                new PieChart.Data("Programador", 30),
-		        new PieChart.Data("Administrador", 45),
-                new PieChart.Data("Marketeiro", 30),
-	       		new PieChart.Data("Analista",25));			
-				pieChartRight.setData(list);
-				pieChartRight.setLabelLineLength(5);
-				pieChartRight.setLegendVisible(false);
-				//pieChartRight.setMinSize(292.0, 343.0);
+		
+		
+		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+		
+		for(int i =0; i<e.carregarEntrevistadores().size(); i++) {		
+			pieChartData.add(new PieChart.Data(e.carregarEntrevistadores().get(i), e.carregarNumEntrevistaEntrevistadores().get(i)+1));
 
-				pieChartRight.setMinSize(392.0, 300.0);
+		}
+		
+	
+		
+		pieChartLeft.setData(pieChartData);
+		pieChartLeft.setLegendVisible(false);
+		pieChartLeft.setLabelLineLength(5);
+				
+		ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
+		
+		for(int i =0 ;i< p.carregarCargos().size(); i++) {
+			int a = e.carregarCargos().get(i);
+
+			list.add(new PieChart.Data(p.carregarCargos().get(i), e.carregarNumEntrevistaCargo().get(i)));
+			//System.out.print(a);
+			//System.out.print(i);
+			
+
+		}
+		
+		System.out.print(e.carregarNumEntrevistaCargo().get(1));
+
+		
+		pieChartRight.setData(list);
+		pieChartRight.setLabelLineLength(5);
+		pieChartRight.setLegendVisible(false);
+		//pieChartRight.setMinSize(292.0, 343.0);
+
+		pieChartRight.setMinSize(392.0, 300.0);
 				
 				
 				
