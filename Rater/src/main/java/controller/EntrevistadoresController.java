@@ -27,7 +27,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.AzureConnection;
 import model.Empresa;
@@ -41,7 +43,7 @@ public class EntrevistadoresController extends Application{
 	@FXML private JFXListView<Label> jfxlvListView;
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistadores;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 	@FXML private Button btnVisualizarPerfil;
 	@FXML private Button btnDeletarEntrevistador;
 	private static int idEntrevistadorSel;
@@ -56,7 +58,7 @@ public class EntrevistadoresController extends Application{
 
 	@FXML
 	public void start(Stage stage) throws IOException {
-	
+
 	}
 	
 	private void carregarEntrevistadores() throws SQLException  {
@@ -115,8 +117,6 @@ public class EntrevistadoresController extends Application{
 	
 	@FXML
 	public void visualizarPerfilEntrevistador(ActionEvent event) throws IOException {
-		//Checando se existe algum item selecionado, caso não exista  não acontecerá nada
-		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {	
 			
 			//pegando o id do entrevistador ""escondido"" na label
 			String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
@@ -125,19 +125,11 @@ public class EntrevistadoresController extends Application{
 			setIdEntrevistadorSel(Integer.parseInt(idE[1]));
 			
 			//Pegando fxml como parametro
-			if(MenuController.maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
-			}else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresPerfil.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
-        	pane.getChildren().setAll(fxml);
-        	
-        	MenuController.telaAtual = 9;
-        
-		}
+        	pane.setCenter(fxml);
 	}
 	
 	@FXML
@@ -162,24 +154,26 @@ public class EntrevistadoresController extends Application{
 	@FXML 
 	public void novoEntrevistador(ActionEvent event) throws Exception {
 		//Pegando fxml como parametro
-		if(MenuController.maximizado == false) {
-			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresAdicionar.fxml"));
-		}else {
-			fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresAdicionar.fxml"));
-		}
+		fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresAdicionar.fxml"));
 		//Limpando o coteúdo do AnchorPane "pane"
     	pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteúdo do pane
-    	pane.getChildren().setAll(fxml);
-    	
-    	MenuController.telaAtual = 8;
+    	pane.setCenter(fxml);
 	}
 	
-	
-	
-	
-	
-	
+	@FXML
+	public void doubleClick(javafx.scene.input.MouseEvent event) throws IOException {
+		//Criando ActionEvent para o método
+		ActionEvent e = new ActionEvent();
+		//Checando se o botão do mouse pressionado foi o esquerdo
+		if(event.getButton().equals(MouseButton.PRIMARY)) {
+			//Checando se foi double click
+			if(event.getClickCount() == 2) {
+				//Caso seja, o método será executado
+				visualizarPerfilEntrevistador(e);
+			}
+		}
+	}	
 	
 	public static int getIdEntrevistadorSel() {
 		return idEntrevistadorSel;

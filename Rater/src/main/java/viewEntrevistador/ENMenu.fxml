@@ -9,13 +9,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="parent" prefHeight="600.0" prefWidth="900.0" stylesheets="@../view/MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerEntrevistador.ENMenuController">
    <children>
-      <Pane fx:id="pane" layoutX="178.0" layoutY="66.0" prefHeight="540.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
-      </Pane>
       <Pane prefHeight="600.0" prefWidth="178.0" style="-fx-background-color: #333645;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="86.0" opacity="0.89" pickOnBounds="true">
@@ -176,5 +175,6 @@
             <Button fx:id="btnMaximizar" layoutX="250.0" mnemonicParsing="false" onAction="#Maximizar" opacity="0.0" prefHeight="23.0" prefWidth="17.0" styleClass="btnLogin" stylesheets="@../view/MenuCSS.css" text="Button" />
          </children>
       </Pane>
+      <BorderPane fx:id="pane" layoutX="178.0" layoutY="67.0" prefHeight="535.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0" />
    </children>
 </AnchorPane>

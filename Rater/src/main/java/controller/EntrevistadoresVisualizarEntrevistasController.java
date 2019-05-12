@@ -11,7 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
@@ -21,7 +23,7 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 	@FXML private JFXListView<Label> jfxlvListView;
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 		
 	private int NumEntrevistas = 10;
 	Parent fxml;
@@ -71,7 +73,7 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteudo do pane
-		pane.getChildren().setAll(fxml);
+		pane.setCenter(fxml);
 	}
 	
 	@FXML
@@ -79,19 +81,25 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//Pegando fxml como parametro
-			if(MenuController.maximizado == false) {
-				 fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
-			} else {
-				 fxml = FXMLLoader.load(getClass().getResource("/view/maxGerenciarEntrevistasVisualizar.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
-        	pane.getChildren().setAll(fxml);
-        	
-        	MenuController.telaAtual = 11;
+        	pane.setCenter(fxml);
 		}
 	}
 	
-	
+	@FXML
+	public void doubleClick(javafx.scene.input.MouseEvent event) throws IOException {
+		//Criando ActionEvent para o método
+		ActionEvent e = new ActionEvent();
+		//Checando se o botão do mouse pressionado foi o esquerdo
+		if(event.getButton().equals(MouseButton.PRIMARY)) {
+			//Checando se foi double click
+			if(event.getClickCount() == 2) {
+				//Caso seja, o método será executado
+				visualizarEntrevista(e);
+			}
+		}
+	}
 }

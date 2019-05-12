@@ -19,7 +19,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import com.github.sarxos.webcam.Webcam;
+import com.itextpdf.awt.geom.misc.RenderingHints.Key;
 import com.sun.javafx.scene.CameraHelper.CameraAccessor;
+import com.sun.javafx.scene.EnteredExitedHandler;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -32,6 +34,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -44,6 +47,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -75,8 +79,9 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Label lblCarregarFoto;
 	@FXML private Button btnCancelar;
 	@FXML private Button btnConfirmar;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 	
+	ActionEvent e = new ActionEvent();
 	private static String cargoSelecionado ;
 	Parent fxml;
 
@@ -99,7 +104,7 @@ public class NovaEntrevistaController extends Application{
 	
 	@FXML
 	public void start(Stage stage) throws IOException {
-		
+
 	}
 	
 	//O método initialize e chamado automáticamente com o carregamento do FXML
@@ -248,17 +253,12 @@ public class NovaEntrevistaController extends Application{
 			//INICIAR OUTRA TELA
 			
 			//Pegando fxml como parametro
-			if(MenuController.maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
-			} else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxNovaEntrevista2.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
+	        pane.setCenter(fxml);
 	        
-	        MenuController.telaAtual = 12;
 		}else {
 			new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email,nome e cargo devem ser preenchidos");
 		}
@@ -268,7 +268,20 @@ public class NovaEntrevistaController extends Application{
 		
 	}
 	
-	
+	//Método para realizar ação quando tecla for pressionada
+	public void keyPressed(KeyEvent event) throws Exception {
+		//Reconhecendo a tecla pressionada
+		switch (event.getCode()) {
+		//Caso seja a tecla escolhida ira executar o método
+		case ENTER:
+			iniciarEntrevista(e);
+			break;
+		//Caso contrário não acontecerá nada
+		default:
+			break;
+		}
+	}
+		
 	//GETTERS E SETTERS
 
 	public String getCaminho() {

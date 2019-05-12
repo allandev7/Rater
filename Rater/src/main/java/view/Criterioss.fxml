@@ -2,71 +2,35 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CriteriosController">
    <children>
-      <Pane prefHeight="540.0" prefWidth="722.0">
-         <children>
-            <JFXListView fx:id="jfxlvListView" editable="true" layoutX="7.0" layoutY="49.0" prefHeight="419.0" prefWidth="715.0" verticalGap="10.0" />
-            <Label fx:id="lblNumCrit" layoutX="447.0" layoutY="12.0" prefHeight="21.0" prefWidth="277.0" text="Label">
-               <font>
-                  <Font name="Tahoma" size="17.0" />
-               </font>
-            </Label>
-            <HBox layoutX="54.0" layoutY="482.0" prefHeight="58.0" prefWidth="699.0">
-               <children>
-                  <JFXButton fx:id="btnDeletarCriterio" onAction="#deteteCriterio" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <effect>
-                        <DropShadow color="#0000006e" />
-                     </effect>
-                     <HBox.margin>
-                        <Insets right="90.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="btnAlterarCriterio" onAction="#alterarCriterio" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Alterar" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <effect>
-                        <DropShadow color="#0000006e" />
-                     </effect>
-                     <HBox.margin>
-                        <Insets right="90.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="btnNovoCriterio" onAction="#addCriterio" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo Critério" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <effect>
-                        <DropShadow color="#0000006e" />
-                     </effect>
-                     <HBox.margin>
-                        <Insets right="90.0" />
-                     </HBox.margin>
-                  </JFXButton>
-               </children>
-            </HBox>
-             <JFXButton fx:id="btnVoltar" layoutX="7.0" layoutY="7.0" onAction="#voltarParaCargos" prefHeight="31.0" prefWidth="115.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <DropShadow color="#0000006e" />
-               </effect>
-            </JFXButton>
-         </children>
-      </Pane>
+      <Label fx:id="lblNumCrit" layoutX="15.0" layoutY="14.0" prefHeight="21.0" prefWidth="277.0" text="Label" AnchorPane.leftAnchor="12.0">
+         <font>
+            <Font name="Tahoma" size="17.0" />
+         </font>
+      </Label>
+      <JFXListView fx:id="jfxlvListView" editable="true" layoutX="12.0" layoutY="42.0" onMouseClicked="#doubleClick" prefHeight="419.0" prefWidth="715.0" verticalGap="10.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="42.0" />
+      <JFXButton fx:id="btnDeletarCriterio" layoutX="14.0" layoutY="484.0" onAction="#deteteCriterio" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow color="#0000006e" />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="btnNovoCriterio" layoutX="569.0" layoutY="484.0" onAction="#addCriterio" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo Critério" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow color="#0000006e" />
+         </effect>
+      </JFXButton>
    </children>
 </AnchorPane>

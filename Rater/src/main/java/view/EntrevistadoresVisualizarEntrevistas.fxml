@@ -5,18 +5,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EntrevistadoresVisualizarEntrevistasController">
+<AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EntrevistadoresVisualizarEntrevistasController">
    <children>
-      <JFXListView fx:id="jfxlvListView" editable="true" layoutX="10.0" layoutY="51.0" prefHeight="408.0" prefWidth="702.0" verticalGap="10.0" />
-      <Label fx:id="lblNumEnt" layoutX="14.0" layoutY="14.0" text="Label">
-         <font>
-            <Font name="Tahoma" size="17.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtPesquisarEntrevistas" layoutX="393.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevista..." />
-      <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="478.0" onAction="#voltar" prefHeight="48.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" />
-      <JFXButton fx:id="btnVisualizar1" layoutX="547.0" layoutY="478.0" onAction="#visualizarEntrevista" prefHeight="48.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Visualizar" />
+      <BorderPane fx:id="pane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXListView fx:id="jfxlvListView" editable="true" onMouseClicked="#doubleClick" prefHeight="423.0" prefWidth="698.0" verticalGap="10.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="51.0" />
+                  <Label fx:id="lblNumEnt" text="Label" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+                     <font>
+                        <Font name="Tahoma" size="17.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPesquisarEntrevistas" layoutX="390.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevista..." AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0" />
+                  <JFXButton fx:id="btnVoltar" onAction="#voltar" prefHeight="42.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

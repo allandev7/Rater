@@ -35,8 +35,10 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -56,7 +58,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML private Label lblCarregarFoto;
 	@FXML private Button btnCancelar;
 	@FXML private Button btnConfirmar;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 		
 	
 	private static String nomeFotoCripto;
@@ -189,10 +191,27 @@ public class EntrevistadoresAdicionarController extends Application{
 			//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
 			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 			pane.getChildren().removeAll();
-			pane.getChildren().setAll(fxml);
+			pane.setCenter(fxml);
 		}
 	
 	}
+	
+	
+	//Método para realizar ação quando tecla for pressionada
+		public void keyPressed(KeyEvent event) throws Exception {
+			//Criando ActionEvent para por no método a ser executado
+			ActionEvent e = new ActionEvent();
+			//Reconhecendo a tecla pressionada
+			switch (event.getCode()) {
+			//Caso seja a tecla escolhida ira executar o método
+			case ENTER:
+				cadastrarEntrevistador(e);
+				break;
+			//Caso contrário não acontecerá nada
+			default:
+				break;
+			}
+		}
 	
 	public void cancelarCadastro(ActionEvent event) throws Exception {
 		//Pegando fxml como parâmetro
@@ -200,7 +219,7 @@ public class EntrevistadoresAdicionarController extends Application{
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane
-		pane.getChildren().setAll(fxml);
+		pane.setCenter(fxml);
 	}
 	
 	

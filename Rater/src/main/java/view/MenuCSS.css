@@ -66,5 +66,20 @@
 	-fx-font-size:15px;
 }
 
+.split-pane:horizontal > .split-pane-divider{
+	-fx-background-color: transparent;
+	-fx-padding: 0%;
+	-fx-cursor: default;
+}
+
+.split-pane:vertical > .split-pane-divider{
+	-fx-background-color: transparent;
+	-fx-padding: 0%;
+	-fx-cursor: default;
+}
+
+.split-pane{
+	-fx-background-color: transparent;
+}
 
 

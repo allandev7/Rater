@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -41,7 +42,7 @@ public class MenuController extends Application{
 	private Label lblNewEntrevista;
 	
 	@FXML
-	private Pane pane;
+	private BorderPane pane;
 	
 	@FXML
 	private AnchorPane parent;
@@ -117,10 +118,7 @@ public class MenuController extends Application{
 		 //Pegando fxml como parametro
 		 fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
         //Colocando o documento fxml como conteúdo do pane
-        pane.getChildren().setAll(fxml);
-        //Definindo a tela atual
-        telaAtual = 1;
-        
+        pane.setCenter(fxml); 
 	}
 	
 	@FXML 
@@ -130,97 +128,61 @@ public class MenuController extends Application{
 	@FXML
 	public void NovaEntrevista(MouseEvent event) throws IOException {
 			//Pegando fxml como parametro
-			if(maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
-			} else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxNovaEntrevista.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteudo do pane
-        	pane.getChildren().setAll(fxml);
-        	//Definindo a tela atual
-			telaAtual = 2;
+        	pane.setCenter(fxml);
     	}
 	
 	 @FXML
 	 public void GerenciarEntrevistas(MouseEvent event) throws IOException {
 		//Pegando fxml como parametro
-			if(maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
-			} else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxGerenciarEntrevistas.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteudo do pane
-			pane.getChildren().setAll(fxml);
-			//Definindo a tela atual
-			telaAtual = 3;
+			pane.setCenter(fxml);
 	    }
 	 
 	 @FXML
 	 public void Criterios(MouseEvent event) throws IOException {
 		//Pegando fxml como parametro
-			if(maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
-			} else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxCargos.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteudo do pane
-			pane.getChildren().setAll(fxml);
-			//Definindo a tela atual
-			telaAtual = 4;
+			pane.setCenter(fxml);
 	    }
 	 
 	 @FXML
 	 public void Entrevistadores(MouseEvent event) throws IOException {
 		//Pegando fxml como parametro
-			if(maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-			} else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadores.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteudo do pane
-			pane.getChildren().setAll(fxml);
-			//Definindo a tela atual
-			telaAtual = 5;
+			pane.setCenter(fxml);
 	    }
 	 
 	 @FXML
 	 public void Home(MouseEvent event) throws IOException {
 		//Pegando fxml como parametro
-		if(maximizado == false) {
-			 fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-		} else {
-			 fxml = FXMLLoader.load(getClass().getResource("/view/maxHome.fxml"));
-		}
+			fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 		 	//Limpando o coteúdo do Pane "pane"
 		 	pane.getChildren().removeAll();
 		 	//Colocando o documento fxml como conteúdo do pane
-			pane.getChildren().setAll(fxml);
-			//Definindo a tela atual
-			telaAtual = 1;
+			pane.setCenter(fxml);
 	 }
 	 
 	 @FXML
 	 public void Perfil(MouseEvent event) throws IOException {
 		//Pegando fxml como parametro
-			if(maximizado == false) {
-				 fxml = FXMLLoader.load(getClass().getResource("/view/PerfilEmpresa.fxml"));
-			} else {
-				 fxml = FXMLLoader.load(getClass().getResource("/view/maxPerfilEmpresa.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/PerfilEmpresa.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteúdo do pane
-			pane.getChildren().setAll(fxml);
-			//Definindo a tela atual
-			telaAtual = 6;
+			pane.setCenter(fxml);
 	    }
 	 
 	@FXML
@@ -274,38 +236,7 @@ public class MenuController extends Application{
 			//Pocisionando a tela
 			stage.setX((primScreenBounds.getWidth() - stage.getWidth()));
 			stage.setY((primScreenBounds.getHeight() - stage.getHeight()));
-			
-			//Pegando fxml como parametro
-			if(telaAtual == 1) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxHome.fxml"));
-			}else if (telaAtual == 2) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxNovaEntrevista.fxml"));
-			}else if (telaAtual == 3) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxGerenciarEntrevistas.fxml"));
-			}else if (telaAtual == 4) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxCargos.fxml"));
-			}else if (telaAtual == 5) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadores.fxml"));
-			}else if (telaAtual == 6) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxPerfilEmpresa.fxml"));
-			}else if (telaAtual == 7) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxCriterioss.fxml"));
-			}else if (telaAtual == 8) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresAdicionar.fxml"));
-			}else if (telaAtual == 9) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresPerfil.fxml"));
-			}else if (telaAtual == 10) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresVisualizarEntrevistas.fxml"));
-			}else if (telaAtual == 11) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxGerenciarEntrevistasVisualizar.fxml"));
-			}else if (telaAtual == 12) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxNovaEntrevista2.fxml"));
-			}
-			//Limpando conteúdo do pane
-			pane.getChildren().clear();
-			//Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
-			
+
 			//Marcar a tela como maximizada
 			maximizado = true;
 			
@@ -316,37 +247,6 @@ public class MenuController extends Application{
 			//Posicionando a tela
 			stage.setX((primScreenBounds.getWidth() - stage.getWidth())/2);
 			stage.setY((primScreenBounds.getHeight() - stage.getHeight())/2);
-			
-			//Pegando fxml como parametro
-			if(telaAtual == 1) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-			}else if (telaAtual == 2) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
-			}else if (telaAtual == 3) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
-			}else if (telaAtual == 4) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
-			}else if (telaAtual == 5) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-			}else if (telaAtual == 6) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/PerfilEmpresa.fxml"));
-			}else if (telaAtual == 7) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Criterioss.fxml"));
-			}else if (telaAtual == 8) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresAdicionar.fxml"));
-			}else if (telaAtual == 9) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresPerfil.fxml"));
-			}else if (telaAtual == 10) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
-			}else if (telaAtual == 11) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
-			}else if (telaAtual == 12) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
-			}
-	        //Limpando conteúdo do pane
-			pane.getChildren().clear();
-			//Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
 			
 			//Marcando a tela como minimizada
 			maximizado = false;

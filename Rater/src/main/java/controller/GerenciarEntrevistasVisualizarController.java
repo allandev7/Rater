@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -31,7 +32,7 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 	
 	//Criando uma JFXListView para armazenar os critérios
 	@FXML private JFXListView jfxlvListView;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 	@FXML private AnchorPane pane2;
 	@FXML private ScrollPane pane3;
 	@FXML private GridPane seila;
@@ -149,11 +150,7 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 		//Limpando o coteúdo do AnchorPane "pane"
     	pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteúdo do pane
-    	pane.getChildren().setAll(fxml);
+    	pane.setCenter(fxml);
 	}
-	
-	public void visualizarPDF(ActionEvent event) {
-		//EM BREVE//
-	}
-	
+		
 }

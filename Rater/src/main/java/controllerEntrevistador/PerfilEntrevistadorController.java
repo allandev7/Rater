@@ -48,6 +48,7 @@ public class PerfilEntrevistadorController extends Application{
 	@FXML private Label lblRG;
 	@FXML private Label lblEntrevistas;
 	@FXML private ImageView imgFoto;
+	@FXML private Label lblAlterarFoto;
 	
 	Entrevistador EN = new Entrevistador();
 	
@@ -85,6 +86,10 @@ public class PerfilEntrevistadorController extends Application{
 		// TODO Auto-generated method stub
 		
 	}	
+	
+	public void AlterarFoto(){
+		System.out.println("Alterar foto");
+	}
 }
 
 

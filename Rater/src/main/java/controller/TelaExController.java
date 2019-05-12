@@ -95,9 +95,9 @@ public class TelaExController extends Application{
 					lblErro.setText("Seja bem vindo");
 					empresa.buscarIdPadrao();
 					//instanciar o controller da outra tela
-					MenuController tela2 = new MenuController();
+					//MenuController tela2 = new MenuController();
 					
-					
+					ENMenuController tela2 = new ENMenuController();
 					
 					
 					//criar nova janela que será passado como parametro

@@ -4,19 +4,48 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <LineChart fx:id="lineChart" layoutY="2.0" prefHeight="235.0" prefWidth="723.0" title="          Entrevistas ao longo do ano" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <PieChart fx:id="pieChartLeft" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada entrevistador" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <PieChart fx:id="pieChartRight" layoutX="379.0" layoutY="248.0" prefHeight="292.0" prefWidth="343.0" title="Entrevistas feitas por cada cargo" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="540.0" prefWidth="722.0" stylesheets="@MenuCSS.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <AnchorPane layoutX="-64.0" layoutY="163.0" prefHeight="74.0" prefWidth="720.0" style="-fx-max-height: 300px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <LineChart fx:id="lineChart" prefHeight="235.0" prefWidth="723.0" title="          Entrevistas ao longo do ano" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <SplitPane dividerPositions="0.5" layoutX="-25.0" prefHeight="267.0" prefWidth="722.0" stylesheets="@MenuCSS.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <PieChart fx:id="pieChartLeft" layoutY="6.0" prefHeight="303.0" prefWidth="361.0" title="Entrevistas  por entrevistado" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <PieChart fx:id="pieChartRight" layoutX="6.0" layoutY="6.0" prefHeight="303.0" prefWidth="361.0" title="Entrevistas por cada cargo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

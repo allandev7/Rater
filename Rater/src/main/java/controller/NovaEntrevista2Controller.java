@@ -38,7 +38,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -56,7 +58,7 @@ public class NovaEntrevista2Controller extends Application{
 	//Criando uma JFXListView para armazenar os critérios
 	@FXML public JFXListView jfxlvListView;
 	@FXML private Label lblEntrevista;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 	@FXML private Button btnContinuar;
 	@FXML private Button btnCancelar;
 	JFXRadioButton aprovado;
@@ -214,7 +216,7 @@ public class NovaEntrevista2Controller extends Application{
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane
-		pane.getChildren().setAll(fxml);
+		pane.setCenter(fxml);
 	}
 	public void concluir() throws IOException {
 		String conclusaoADD = null;
@@ -262,8 +264,21 @@ public class NovaEntrevista2Controller extends Application{
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane
-		pane.getChildren().setAll(fxml);
+		pane.setCenter(fxml);
 	}
-
+	
+	//Método para realizar ação quando tecla for pressionada
+		public void keyPressed(KeyEvent event) throws Exception {
+			//Reconhecendo a tecla pressionada
+			switch (event.getCode()) {
+			//Caso seja a tecla escolhida ira executar o método
+			case ENTER:
+				concluir();
+				break;
+			//Caso contrário não acontecerá nada
+			default:
+				break;
+			}
+		}
 
 }

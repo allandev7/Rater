@@ -2,36 +2,30 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EntrevistadoresController">
+<AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EntrevistadoresController">
    <children>
-      <JFXListView fx:id="jfxlvListView" fixedCellSize="120.0" layoutX="9.0" layoutY="51.0" prefHeight="408.0" prefWidth="705.0" verticalGap="50.0" />
-      <Label fx:id="lblNumEnt" layoutX="14.0" layoutY="14.0" text="Label">
-         <font>
-            <Font name="Tahoma" size="17.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtPesquisarEntrevistadores" layoutX="393.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevistador..." />
-      <HBox layoutX="24.0" layoutY="474.0" prefHeight="42.0" prefWidth="689.0">
-         <children>
-            <JFXButton fx:id="btnDeletarEntrevistador" onAction="#deletarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar">
-               <HBox.margin>
-                  <Insets right="100.0" />
-               </HBox.margin>
-            </JFXButton>
-            <JFXButton fx:id="btnVisualizarPerfil" onAction="#visualizarPerfilEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Visualizar perfil">
-               <HBox.margin>
-                  <Insets right="100.0" />
-               </HBox.margin>
-            </JFXButton>
-            <JFXButton fx:id="btnAdicionarEntrevistador" onAction="#novoEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo entrevistador" />
-         </children>
-      </HBox>
+      <BorderPane fx:id="pane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXListView fx:id="jfxlvListView" fixedCellSize="120.0" onMouseClicked="#doubleClick" prefHeight="408.0" prefWidth="705.0" verticalGap="50.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="51.0" />
+                  <Label fx:id="lblNumEnt" layoutX="14.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="14.0">
+                     <font>
+                        <Font name="Tahoma" size="17.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPesquisarEntrevistadores" layoutX="393.0" layoutY="13.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevistador..." AnchorPane.rightAnchor="14.0" />
+                  <JFXButton fx:id="btnDeletarEntrevistador" onAction="#deletarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0" />
+                  <JFXButton fx:id="btnAdicionarEntrevistador" onAction="#novoEntrevistador" prefHeight="41.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo entrevistador" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

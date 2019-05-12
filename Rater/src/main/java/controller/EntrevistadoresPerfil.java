@@ -35,8 +35,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -50,10 +52,8 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML private TextField txtRG;
 	@FXML private TextField txtSenha;
 	@FXML private Button btnAlterarInformacoes;
-	@FXML private Button btnVoltar;
 	@FXML private ImageView imgFoto;
-	@FXML private AnchorPane pane;
-	@FXML private Hyperlink hplVisualizar;
+	@FXML private BorderPane pane;
 	@FXML private Label lblNumEnt;
 	
 /*Variáveis para pegar informações do entrevistador do banco de dados*/
@@ -146,10 +146,27 @@ public class EntrevistadoresPerfil extends Application{
         //Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 		//Limpando o coteúdo do Pane "pane"
-        pane.getChildren().removeAll();
+        //pane.getChildren().removeAll();
         //Colocando o documento fxml como conteúdo do pane
-        pane.getChildren().setAll(fxml);
+        //pane.setCenter(fxml);
 	}
+	
+	
+	//Método para realizar ação quando tecla for pressionada
+		public void keyPressed(KeyEvent event) throws Exception {
+			//Criando ActionEvent para por no método a ser executado
+			ActionEvent e = new ActionEvent();
+			//Reconhecendo a tecla pressionada
+			switch (event.getCode()) {
+			//Caso seja a tecla escolhida ira executar o método
+			case ENTER:
+				alterarInfos(e);
+				break;
+			//Caso contrário não acontecerá nada
+			default:
+				break;
+			}
+		}
 	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
@@ -217,33 +234,16 @@ public class EntrevistadoresPerfil extends Application{
 			e.printStackTrace();
 		}
     }
-
-	@FXML
-	 public void voltar(ActionEvent event) throws IOException {
-	        //Pegando fxml como parametro
-			fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-			//Limpando o coteúdo do Pane "pane"
-	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
-	    }
-	
 	@FXML
 	public void visualizarEntrevistas(ActionEvent event) throws IOException{
 		//Pegando fxml como parametro
-		if(MenuController.maximizado == false) {
-			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
-		}else {
-			fxml = FXMLLoader.load(getClass().getResource("/view/maxEntrevistadoresVisualizarEntrevistas.fxml"));
-		}
+		fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
 		//Limpando o coteúdo do Pane "pane"
-		pane.getChildren().removeAll();
+		//pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteudo do pane
-    	pane.getChildren().setAll(fxml);
-    	
-    	MenuController.telaAtual = 10;
+    	pane.setCenter(fxml);
 	}
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub

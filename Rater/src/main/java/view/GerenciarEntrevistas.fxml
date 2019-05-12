@@ -9,14 +9,13 @@
 
 <AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerenciarEntrevistasController">
    <children>
-      <JFXListView fx:id="jfxlvListView" editable="true" layoutX="7.0" layoutY="51.0" prefHeight="408.0" prefWidth="708.0" verticalGap="10.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="51.0" />
+      <JFXListView fx:id="jfxlvListView" editable="true" layoutX="7.0" layoutY="51.0" onMouseClicked="#doubleClick" prefHeight="408.0" prefWidth="708.0" verticalGap="10.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="51.0" />
       <Label fx:id="lblNumEnt" layoutX="14.0" layoutY="14.0" text="Label">
          <font>
             <Font name="Tahoma" size="17.0" />
          </font>
       </Label>
       <TextField fx:id="txtPesquisarEntrevistas" layoutX="393.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevista..." AnchorPane.rightAnchor="9.0" />
-      <JFXButton fx:id="btnDeletar" layoutX="14.0" onAction="#deletarEntrevista" layoutY="485.0" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
-      <JFXButton fx:id="btnVisualizar" layoutX="547.0" layoutY="485.0" onAction="#visualizarEntrevista" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Visualizar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <JFXButton fx:id="btnDeletar" layoutX="14.0" layoutY="485.0" onAction="#deletarEntrevista" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0" />
    </children>
 </AnchorPane>

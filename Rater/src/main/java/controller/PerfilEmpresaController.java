@@ -28,11 +28,13 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
@@ -90,10 +92,27 @@ public class PerfilEmpresaController extends Application{
     }
 	
 	@FXML
-	public void alterarInfos(MouseEvent event)  {
+	public void alterarInfos(ActionEvent e)  {
 		Empresa emp = new Empresa();
 		emp.alterarInfo(txtEmailEmpresa.getText(), txtNomeEmpresa.getText(), txtCnpj.getText());
     }
+	
+	//Método para realizar ação quando tecla for pressionada
+	public void keyPressed(KeyEvent event) throws Exception {
+		//Criando ActionEvent para por no método a ser executado
+		ActionEvent e = new ActionEvent();
+		//Reconhecendo a tecla pressionada
+		switch (event.getCode()) {
+		//Caso seja a tecla escolhida ira executar o método
+		case ENTER:
+			alterarInfos(e);
+			break;
+		//Caso contrário não acontecerá nada
+		default:
+			break;
+		}
+	}
+	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
 		//declarando o filechooser

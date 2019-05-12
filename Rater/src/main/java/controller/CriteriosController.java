@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Padroes;
 import view.PopUp;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent.*;
 import controller.MenuController;
 
@@ -129,14 +130,18 @@ public class CriteriosController extends Application{
 					carregarCriterios();
 		}
 	}
-
-	public void voltarParaCargos(ActionEvent event) throws Exception {
-		
-		//Pegando fxml como parâmetro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Cargos.fxml"));
-		//Limpando o coteúdo do Pane "pane"
-		pane.getChildren().removeAll();
-		//Colocando o documento fxml como conteúdo do pane
-		pane.getChildren().setAll(fxml);
+	
+	@FXML
+	public void doubleClick(javafx.scene.input.MouseEvent event) throws IOException, HeadlessException, SQLException {
+		//Criando ActionEvent para o método
+		ActionEvent e = new ActionEvent();
+		//Checando se o botão do mouse pressionado foi o esquerdo
+		if(event.getButton().equals(MouseButton.PRIMARY)) {
+			//Checando se foi double click
+			if(event.getClickCount() == 2) {
+				//Caso seja, o método será executado
+				alterarCriterio(e);
+			}
+		}
 	}
 }

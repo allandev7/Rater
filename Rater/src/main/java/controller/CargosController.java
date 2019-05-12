@@ -11,7 +11,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,7 +26,7 @@ public class CargosController extends Application{
 	//Criando uma JFXListView para armazenar os critérios
 	@FXML private JFXListView<Label> jfxlvListView;
 	@FXML private Label lblNumCargos;
-	@FXML private AnchorPane pane;
+	@FXML private BorderPane pane;
 	@FXML private Button btnNovoCargo;
 	@FXML private Button btnDeletarCargo;
 	@FXML private Button btnAlterarNome;
@@ -126,17 +128,25 @@ public class CargosController extends Application{
 			setIdSelecionado(id);
 			
 			//Pegando fxml como parametro
-			if(MenuController.maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/Criterioss.fxml"));
-			}else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxCriterioss.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/Criterioss.fxml"));
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
 			//Colocando o documento fxml como conteúdo do pane
-			pane.getChildren().setAll(fxml);
-			
-			MenuController.telaAtual = 7;
+			pane.setCenter(fxml);
+		}
+	}
+	
+	@FXML
+	public void doubleClick(javafx.scene.input.MouseEvent event) throws Exception {
+		//Criando ActionEvent para o método
+		ActionEvent e = new ActionEvent();
+		//Checando se o botão do mouse pressionado foi o esquerdo
+		if(event.getButton().equals(MouseButton.PRIMARY)) {
+			//Checando se foi double click
+			if(event.getClickCount() == 2) {
+				//Caso seja, o método será executado
+				alterarNomeCargo(e);
+			}
 		}
 	}
 

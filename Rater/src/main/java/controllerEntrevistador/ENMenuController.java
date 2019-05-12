@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -34,7 +35,7 @@ public class ENMenuController extends Application{
 	private Label lblNewEntrevista;
 	
 	@FXML
-	private Pane pane;
+	private BorderPane pane;
 	
 	@FXML
 	private AnchorPane parent;
@@ -100,9 +101,9 @@ public class ENMenuController extends Application{
 			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
 		}
 		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENHome.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
         //Colocando o documento fxml como conteúdo do pane
-        pane.getChildren().setAll(fxml);
+        pane.setCenter(fxml);
 	}
 	
 	@FXML 
@@ -119,7 +120,7 @@ public class ENMenuController extends Application{
 			//Limpando o coteúdo do Pane "pane"
 			pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteudo do pane
-        	pane.getChildren().setAll(fxml);
+        	pane.setCenter(fxml);
     	}
 	
 	 @FXML
@@ -129,7 +130,7 @@ public class ENMenuController extends Application{
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
+	        pane.setCenter(fxml);
 	    }
 	 
 	 @FXML
@@ -139,18 +140,18 @@ public class ENMenuController extends Application{
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
+	        pane.setCenter(fxml);
 	    }
 	 
 	 @FXML
 	 public void Home(MouseEvent event) throws IOException {
-	        //Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENHome.fxml"));
-			//Limpando o coteúdo do Pane "pane"
-	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
-	    }
+		 //Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+		//Limpando conteúdo do pane
+		pane.getChildren().removeAll();
+		//Colocando o documento fxml como conteúdo do pane
+		pane.setCenter(fxml);
+	 }
 	 
 	 @FXML
 	 public void Perfil(MouseEvent event) throws IOException {
@@ -159,7 +160,7 @@ public class ENMenuController extends Application{
 			//Limpando o coteúdo do Pane "pane"
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
-	        pane.getChildren().setAll(fxml);
+	        pane.setCenter(fxml);
 	    }
 	 
 		@FXML

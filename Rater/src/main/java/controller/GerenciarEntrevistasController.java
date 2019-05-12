@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -113,19 +114,28 @@ public class GerenciarEntrevistasController extends Application{
 			int i = jfxlvListView.getSelectionModel().getSelectedIndex();
 			setIdSelecionado(entrevista.carregarEntrevistas().get(i).getId());
 			//Pegando fxml como parametro
-			if(MenuController.maximizado == false) {
-				fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
-			}else {
-				fxml = FXMLLoader.load(getClass().getResource("/view/maxGerenciarEntrevistasVisualizar.fxml"));
-			}
+			fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
         	pane.getChildren().setAll(fxml);
-        	
-        	MenuController.telaAtual = 11;
 		}
 	}
+	
+	@FXML
+	public void doubleClick(javafx.scene.input.MouseEvent event) throws IOException {
+		//Criando ActionEvent para o método
+		ActionEvent e = new ActionEvent();
+		//Checando se o botão do mouse pressionado foi o esquerdo
+		if(event.getButton().equals(MouseButton.PRIMARY)) {
+			//Checando se foi double click
+			if(event.getClickCount() == 2) {
+				//Caso seja, o método será executado
+				visualizarEntrevista(e);
+			}
+		}
+	}
+	
 	@FXML
 	public void deletarEntrevista(ActionEvent event) throws IOException {
 		int i = jfxlvListView.getSelectionModel().getSelectedIndex();
