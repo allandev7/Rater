@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
-
 import java.sql.SQLException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import model.Empresa;
 import model.Padroes;
+import model.Entrevistador;
+
 public class HomeController {
 	@FXML LineChart<String , Number> lineChart;
 	@FXML PieChart pieChartLeft;
@@ -28,6 +28,7 @@ public class HomeController {
 
 	Empresa e = new Empresa();
 	Padroes p = new Padroes();
+	Entrevistador EN = new Entrevistador();
 	public void initialize() throws SQLException {
 		
 		
@@ -55,8 +56,8 @@ public class HomeController {
 		
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		
-		for(int i =0; i<e.carregarEntrevistadores().size(); i++) {		
-			pieChartData.add(new PieChart.Data(e.carregarEntrevistadores().get(i), e.carregarNumEntrevistaEntrevistadores().get(i)+1));
+		for(int i =0; i<EN.carregarEntrevistadores().size(); i++) {		
+			pieChartData.add(new PieChart.Data(EN.carregarEntrevistadores().get(i)+": " +  e.carregarNumEntrevistaEntrevistadores().get(i) , e.carregarNumEntrevistaEntrevistadores().get(i)));
 
 		}
 		
@@ -69,16 +70,9 @@ public class HomeController {
 		ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
 		
 		for(int i =0 ;i< p.carregarCargos().size(); i++) {
-			int a = e.carregarCargos().get(i);
-
-			list.add(new PieChart.Data(p.carregarCargos().get(i), e.carregarNumEntrevistaCargo().get(i)));
-			//System.out.print(a);
-			//System.out.print(i);
-			
-
+			list.add(new PieChart.Data(p.carregarCargos().get(i)+ ": "+ e.carregarNumEntrevistaCargo().get(i) , e.carregarNumEntrevistaCargo().get(i)));
 		}
 		
-		System.out.print(e.carregarNumEntrevistaCargo().get(1));
 
 		
 		pieChartRight.setData(list);
@@ -87,9 +81,8 @@ public class HomeController {
 		//pieChartRight.setMinSize(292.0, 343.0);
 
 		pieChartRight.setMinSize(392.0, 300.0);
-				
-				
-				
+		
+		
 				
 	}
 }

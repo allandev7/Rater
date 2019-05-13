@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import model.Empresa;
 public class Entrevistador extends Usuarios{
 
@@ -80,22 +82,175 @@ public class Entrevistador extends Usuarios{
 		return valido;
 	}
 
+	private ArrayList<String> nomeEntrevistador = new ArrayList<>();
+	private ArrayList<Integer> idEntrevistador = new ArrayList<>();
+	
+	//Metodo de carregar entrevistadores
+	public ArrayList<String> carregarEntrevistadores() throws SQLException{
+			
+			nomeEntrevistador.clear();
+			idEntrevistador.clear();
+			//selecionar na tabela
+			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=?";
+			// criando statment
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			//definindo o id na query
+			pstmt.setInt(1, Empresa.getId());
+			//executando o query para obter o resultado
+			ResultSet rs = pstmt.executeQuery();
+			//enquanto houver linhas
+			while (rs.next()){
+				//adicionar cargos e ids aos arrays
+				nomeEntrevistador.add(rs.getString("NOME"));
+				idEntrevistador.add(rs.getInt("ID"));
+				
+			}
+	
+		
+		return nomeEntrevistador;
+	}
+	
+	
+	/*-------------------------------------------------------*/
+	/*-----------------GRAFICOS ENTREVISTADORES--------------*/
+	/*-------------------------------------------------------*/
+	
+	
+	//grafico de entrevista realizadas pelos entrevistador durante o ano
+	private ArrayList<Integer> numEntrevistaMes = new ArrayList<Integer>();
+	
+	public ArrayList<Integer>carregarNumEntrevistaMesEN() throws SQLException{
+		numEntrevistaMes.clear();
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);		
+		for(int i=1; i<=12;i++) {
+			String sql = "SELECT COUNT(*) AS numMes FROM entrevista WHERE ID_ENTREVISTADOR = ? AND YEAR(entrevista.DATA_ENTREVISTA)='"+year+"' "
+					+ "AND MOUTH(entrevista.DATA_ENTREVISTA) ='0"+i+"'";
+			
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				numEntrevistaMes.add(rs.getInt("numEnMes"));
+			}
+		}
+		
+		return numEntrevistaMes;
+	}
 	
 	
 	
+	//graficos de entrevista aceitas recusadas e em espera feitas pelo entrevistador
+	private ArrayList<Integer> entrevistaAce = new ArrayList<Integer>();
+	private ArrayList<Integer> entrevistaRec = new ArrayList<Integer>();
+	private ArrayList<Integer> entrevistaEsp = new ArrayList<Integer>();
 	
-	
-	
-	
-	
+	public ArrayList<Integer> carregarEntrevistaAce() throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {	entrevistaAce.add(rs.getInt("numEn"));}
+		return entrevistaAce;
+	}
+	public ArrayList<Integer> carregarEntrevistaRec() throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {	entrevistaRec.add(rs.getInt(""));}
+		return entrevistaRec;
+	}	
+	public ArrayList<Integer> carregarEntrevistaEsp() throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {	entrevistaEsp.add(rs.getInt(""));}
+		return entrevistaEsp;
+	}	
 
 
 
+	//graficos de entrevistas realizadas por  cargo
+	private ArrayList<Integer> numEntrevistaCargo= new ArrayList<>();
+	private ArrayList<Integer> idCargos = new ArrayList<>();
+	
+	//pega o id do cargo
+	public ArrayList<Integer> carregarCargos() throws SQLException {
+		//limpar os arrays
+		
+		idCargos.clear();
+		//selecionar na tabela
+		String sql = "SELECT * FROM cargo WHERE ID_EMPRESA=?";
+		// criando statment
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		//definindo o id na query
+		pstmt.setInt(1, Empresa.getId());
+		//executando o query para obter o resultado
+		ResultSet rs = pstmt.executeQuery();
+		//enquanto houver linhas
+		while (rs.next()){
+			//adicionar cargos e ids aos arrays
+			idCargos.add(rs.getInt("ID"));
+				
 
+		}
 	
+		return idCargos;
+	}
 	
+	//pega o numeros de entrevistas realizadas de acordo com cada cargo
+	public ArrayList<Integer> carregarNumEntrevistaCargo() throws SQLException{
+		//limpar os arrays
+		numEntrevistaCargo.clear();
+
+			//selecionar na tabela
+			for(int i = 0; i< carregarCargos().size(); i++) {
+				String sql = "SELECT COUNT(*) AS numCargo FROM entrevista WHERE ID_CARGO = "+carregarCargos().get(i)+"AND ID_ENTREVISTADOR = ?";
+				
+				// criando statment
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
+				
+				ResultSet rs = pstmt.executeQuery();
+				//enquanto houver linhas
+				while (rs.next()){
+					//adicionar cargos e ids aos arrays
+					
+					numEntrevistaCargo.add(rs.getInt("numCargo"));
+					//System.out.print(rs.getInt("numCargo"));
+					
+				}
+			}
 	
-//GETTERS E SETTERS
+		
+		return numEntrevistaCargo;
+	}
+	
+
+	//GETTERS E SETTERS
+	
+	public ArrayList<Integer> getEntrevistaAce() {
+		return entrevistaAce;
+	}
+	public void setEntrevistaAce(ArrayList<Integer> entrevistaAce) {
+		this.entrevistaAce = entrevistaAce;
+	}
+	public ArrayList<Integer> getEntrevistaRec() {
+		return entrevistaRec;
+	}
+	public void setEntrevistaRec(ArrayList<Integer> entrevistaRec) {
+		this.entrevistaRec = entrevistaRec;
+	}
+	public ArrayList<Integer> getEntrevistaEsp() {
+		return entrevistaEsp;
+	}
+	public void setEntrevistaEsp(ArrayList<Integer> entrevistaEsp) {
+		this.entrevistaEsp = entrevistaEsp;
+	}
 	public static String getNomeImagem() {
 		return nomeImagem;
 	}
@@ -154,7 +309,9 @@ public class Entrevistador extends Usuarios{
 	public static void setEntrevistasRealizadas(int entrevistasRealizadas) {
 		EntrevistasRealizadas = entrevistasRealizadas;
 	}
-
+	public Integer getIdEntrevistador(int i) {
+		return this.idEntrevistador.get(i);
+	}
 
 
 

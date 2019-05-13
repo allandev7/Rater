@@ -64,7 +64,7 @@ public class EntrevistadoresController extends Application{
 	private void carregarEntrevistadores() throws SQLException  {
 		
 		jfxlvListView.getItems().clear();
-		int numEntrevistadores = e.carregarEntrevistadores().size();		
+		int numEntrevistadores = En.carregarEntrevistadores().size();		
 		lblNumEnt.setText("Número de entrevistadores: " + numEntrevistadores);
 	
 	
@@ -73,11 +73,11 @@ public class EntrevistadoresController extends Application{
 		for (int i = 0; i < numEntrevistadores; i++) {
 			
 			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistador = e.carregarEntrevistadores().get(i);
+			String nomeEntrevistador = En.carregarEntrevistadores().get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
-					+ "                                                                                                -"+e.getIdEntrevistador(i)+"-");	
+					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(110);
 

@@ -146,9 +146,9 @@ public class EntrevistadoresPerfil extends Application{
         //Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 		//Limpando o coteúdo do Pane "pane"
-        //pane.getChildren().removeAll();
+        pane.getChildren().removeAll();
         //Colocando o documento fxml como conteúdo do pane
-        //pane.setCenter(fxml);
+        pane.setCenter(fxml);
 	}
 	
 	

@@ -238,34 +238,7 @@ public class Empresa extends Usuarios {
 	}
 	
 	
-	//Metodo de carregar entrevistadores
-	public ArrayList<String> carregarEntrevistadores() throws SQLException{
-		//limpar os arrays
-		try(Connection conn = con.connect()){
-			
-			nomeEntrevistador.clear();
-			idEntrevistador.clear();
-			//selecionar na tabela
-			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=?";
-			// criando statment
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			//definindo o id na query
-			pstmt.setInt(1, Empresa.getId());
-			//executando o query para obter o resultado
-			ResultSet rs = pstmt.executeQuery();
-			//enquanto houver linhas
-			while (rs.next()){
-				//adicionar cargos e ids aos arrays
-				nomeEntrevistador.add(rs.getString("NOME"));
-				idEntrevistador.add(rs.getInt("ID"));
-				
-			}
-	
-		}catch(SQLException e) {
-			System.out.print(e);
-		}
-		return nomeEntrevistador;
-	}
+
 
 	
 	//Metodo de carregar Perfil do entrevistador
@@ -350,13 +323,7 @@ public class Empresa extends Usuarios {
 	//criar um array pra pegar os nomes criptografados das imagens no banco de dados
 	private ArrayList<String> imgNomesEn = new ArrayList<>();
 		
-	//cria array para armazenar os nomes dos cargos
-	private ArrayList<String> nomeEntrevistador = new ArrayList<>();
-		
-	//cria array para armazenar o id dos entrevistadores
-	private ArrayList<Integer> idEntrevistador = new ArrayList<>();
 
-	
 	
 	
 	
@@ -526,9 +493,7 @@ public static void setIdEntrevistadorPadrao(int idEntrevistadorPadrao) {
 public String getImgNomesEn(int i) {
 	return this.imgNomesEn.get(i);
 }
-public Integer getIdEntrevistador(int i) {
-	return this.idEntrevistador.get(i);
-}
+
 public static String getImgEntrevistadores() {
 	return imgEntrevistadores;
 }
