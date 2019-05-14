@@ -81,6 +81,18 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Button btnConfirmar;
 	@FXML private BorderPane pane;
 	
+	//Variáveis para guardar os valores
+	private static String sNome = "";
+	private static String sIdade = "0";
+	private static String sRG = "";
+	private static String sEmail = "";
+	private static String sTelefone = "";
+	private static String sEndereco = "";
+	private static String sEtnia = "";
+	private static String sCargo = "";
+	private static boolean sSexo = true;
+	
+	
 	ActionEvent e = new ActionEvent();
 	private static String cargoSelecionado ;
 	Parent fxml;
@@ -160,6 +172,71 @@ public class NovaEntrevistaController extends Application{
 		//Colocando a ObservableList de cargos como conteúdo da ComboBox
 		cbCargos.setItems(p.listaCargos);
 		
+		//Definindo o texto inicial das textboxes como sendo os valores armazenados
+		txtNome.setText(sNome);
+		txtIdade.setText(sIdade);
+		txtRG.setText(sRG);
+		txtEmail.setText(sEmail);
+		txtTelefone.setText(sTelefone);
+		txtEndereco.setText(sEndereco);
+		
+		cbEtnias.setValue(sEtnia);
+		cbCargos.setValue(sCargo);
+		
+		if(sSexo == true) {
+			rbMasculino.setSelected(true);
+		}else {
+			rbFeminino.setSelected(true);
+		}
+	}
+	
+	/*O método é executado quando alguma tecla do teclado é pressionada
+	 enquanto alguma checkbox está selecionada*/
+	public void salvarTXT(KeyEvent event) {
+		//Salvando as informações das textboxes nas variáveis
+		sNome = txtNome.getText();
+		sIdade = txtIdade.getText();
+		sRG = txtRG.getText();
+		sEmail = txtEmail.getText();
+		sTelefone = txtTelefone.getText();
+		sEndereco = txtEndereco.getText();
+	}
+	
+	//O método é executado quando algo é selecionado em alguma checkbox ou radiobutton
+	public void salvarCB(ActionEvent event) {
+		//Salvando valores selecionados nas variáveis
+		sEtnia = cbEtnias.getValue();
+		sCargo = cbCargos.getValue();
+		
+		if(rbMasculino.isSelected() == true) {
+			sSexo = true;
+		}else {
+			sSexo = false;
+		}
+	}
+	
+	public void cancelar() {
+		//Limpando as variáveis
+		sNome = "";
+		sIdade = "";
+		sRG = "";
+		sEmail = "";
+		sTelefone = "";
+		sEndereco = "";
+		sEtnia = "";
+		sCargo = "";
+		sSexo = true;
+		
+		//Limpando os campos
+		txtNome.setText(sNome);
+		txtIdade.setText(sIdade);
+		txtRG.setText(sRG);
+		txtEmail.setText(sEmail);
+		txtTelefone.setText(sTelefone);
+		txtEndereco.setText(sEndereco);
+		cbEtnias.setValue(sEtnia);
+		cbCargos.setValue(sCargo);
+		rbMasculino.setSelected(true);
 	}
 	
 	public void uparFoto(MouseEvent event)  {
