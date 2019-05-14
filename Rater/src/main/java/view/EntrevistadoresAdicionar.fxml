@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onKeyPressed="#keyPressed" prefHeight="540.0" prefWidth="722.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EntrevistadoresAdicionarController">
+<AnchorPane prefHeight="540.0" prefWidth="722.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EntrevistadoresAdicionarController">
    <children>
       <BorderPane fx:id="pane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane  onKeyPressed="#keyPressed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Nome de usuário:" textFill="#32447c" AnchorPane.leftAnchor="292.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="112.0">
                      <font>

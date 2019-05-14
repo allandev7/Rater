@@ -60,13 +60,15 @@ public class GerenciarEntrevistasController extends Application{
 	ArrayList<dados> listaPesquisa = new ArrayList<>();
 	public void carregarPesquisa() {
 		jfxlvListView.getItems().clear();
+		listaPesquisa.clear();
 		lbl.clear();
 		String nome = txtPesquisarEntrevistas.getText();
 		listaPesquisa.clear();
 		listaPesquisa = entrevista.pesquisar(nome);
-		lblNumEnt.setText("Número de entrevistas salvas: " + listaPesquisa.size());
+		int numEntrevista = listaPesquisa == null ? 0:listaPesquisa.size();
+		lblNumEnt.setText("Número de entrevistas salvas: " + numEntrevista);
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < listaPesquisa.size(); i++) {
+		for (int i = 0; i < numEntrevista; i++) {
 			
 			//Variáveis que pegam os dados da entrevista
 			String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();

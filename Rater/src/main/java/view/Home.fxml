@@ -33,7 +33,7 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <PieChart fx:id="pieChartLeft" layoutY="6.0" prefHeight="303.0" prefWidth="361.0" title="Entrevistas  por entrevistado" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <PieChart fx:id="pieChartLeft" layoutY="6.0" prefHeight="303.0" prefWidth="361.0" title="Entrevistas  por entrevistador" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

@@ -140,7 +140,23 @@ public class NovaEntrevistaController extends Application{
 		        }
 		    }
 		});
+
+		txtIdade.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            txtIdade.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
 		//Método para limitar o TextField
+
+		txtIdade.setOnKeyTyped(event ->{
+			int maxCharacters = 1;
+			if(txtIdade.getText().length() > maxCharacters) event.consume();
+		});
+		
 		txtTelefone.setOnKeyTyped(event ->{
 			int maxCharacters = 24;
 			if(txtTelefone.getText().length() > maxCharacters) event.consume();
