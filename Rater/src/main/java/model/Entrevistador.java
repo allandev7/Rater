@@ -18,6 +18,8 @@ public class Entrevistador extends Usuarios{
 	private static String SenhaEntrevistador;
 	private static String nomeImagem;
 	private static int Admissoes;
+	private static int Recusados;
+	private static int EmEspera;
 	private static int EntrevistasRealizadas;
 	private static int idEmpresa;
 
@@ -67,8 +69,8 @@ public class Entrevistador extends Usuarios{
 				File file = new File("C:\\Rater/imagens/"+getFoto());
 				if(!file.exists()) {
 					// se nao existe, baixar
-					AzureConnection con = new AzureConnection();
-					con.down(getFoto());
+					//AzureConnection con = new AzureConnection();
+				//	con.down(getFoto());
 				}
 				
 			}
@@ -129,14 +131,14 @@ public class Entrevistador extends Usuarios{
 		int year = cal.get(Calendar.YEAR);		
 		for(int i=1; i<=12;i++) {
 			String sql = "SELECT COUNT(*) AS numMes FROM entrevista WHERE ID_ENTREVISTADOR = ? AND YEAR(entrevista.DATA_ENTREVISTA)='"+year+"' "
-					+ "AND MOUTH(entrevista.DATA_ENTREVISTA) ='0"+i+"'";
+					+ "AND MONTH(entrevista.DATA_ENTREVISTA) ='0"+i+"'";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				numEntrevistaMes.add(rs.getInt("numEnMes"));
+				numEntrevistaMes.add(rs.getInt("numMes"));
 			}
 		}
 		
@@ -146,33 +148,30 @@ public class Entrevistador extends Usuarios{
 	
 	
 	//graficos de entrevista aceitas recusadas e em espera feitas pelo entrevistador
-	private ArrayList<Integer> entrevistaAce = new ArrayList<Integer>();
-	private ArrayList<Integer> entrevistaRec = new ArrayList<Integer>();
-	private ArrayList<Integer> entrevistaEsp = new ArrayList<Integer>();
 	
-	public ArrayList<Integer> carregarEntrevistaAce() throws SQLException {
+	public int carregarEntrevistaAce() throws SQLException {
 		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
 		ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {	entrevistaAce.add(rs.getInt("numEn"));}
-		return entrevistaAce;
+		while(rs.next()) {	setAdmissoes(rs.getInt("numEn"));}
+		return getAdmissoes();
 	}
-	public ArrayList<Integer> carregarEntrevistaRec() throws SQLException {
-		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
+	public int carregarEntrevistaRec() throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 0";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
 		ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {	entrevistaRec.add(rs.getInt(""));}
-		return entrevistaRec;
+		while(rs.next()) {	setRecusados(rs.getInt("numEn")); }
+		return getRecusados();
 	}	
-	public ArrayList<Integer> carregarEntrevistaEsp() throws SQLException {
-		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
+	public int carregarEntrevistaEsp() throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 2";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
 		ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {	entrevistaEsp.add(rs.getInt(""));}
-		return entrevistaEsp;
+		while(rs.next()) {	setEmEspera(rs.getInt("numEn"));;}
+		return getEmEspera();
 	}	
 
 
@@ -212,7 +211,7 @@ public class Entrevistador extends Usuarios{
 
 			//selecionar na tabela
 			for(int i = 0; i< carregarCargos().size(); i++) {
-				String sql = "SELECT COUNT(*) AS numCargo FROM entrevista WHERE ID_CARGO = "+carregarCargos().get(i)+"AND ID_ENTREVISTADOR = ?";
+				String sql = "SELECT COUNT(*) AS numCargo FROM entrevista WHERE ID_CARGO = "+carregarCargos().get(i)+" AND ID_ENTREVISTADOR = ?";
 				
 				// criando statment
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -235,25 +234,7 @@ public class Entrevistador extends Usuarios{
 	
 
 	//GETTERS E SETTERS
-	
-	public ArrayList<Integer> getEntrevistaAce() {
-		return entrevistaAce;
-	}
-	public void setEntrevistaAce(ArrayList<Integer> entrevistaAce) {
-		this.entrevistaAce = entrevistaAce;
-	}
-	public ArrayList<Integer> getEntrevistaRec() {
-		return entrevistaRec;
-	}
-	public void setEntrevistaRec(ArrayList<Integer> entrevistaRec) {
-		this.entrevistaRec = entrevistaRec;
-	}
-	public ArrayList<Integer> getEntrevistaEsp() {
-		return entrevistaEsp;
-	}
-	public void setEntrevistaEsp(ArrayList<Integer> entrevistaEsp) {
-		this.entrevistaEsp = entrevistaEsp;
-	}
+
 	public static String getNomeImagem() {
 		return nomeImagem;
 	}
@@ -323,6 +304,18 @@ public class Entrevistador extends Usuarios{
 
 
 
+	public static int getRecusados() {
+		return Recusados;
+	}
+	public static void setRecusados(int recusados) {
+		Recusados = recusados;
+	}
+	public static int getEmEspera() {
+		return EmEspera;
+	}
+	public static void setEmEspera(int emEspera) {
+		EmEspera = emEspera;
+	}
 	@Override
 	public void alterarInfo(String email, String nome, String identificacao) {
 		// TODO Auto-generated method stub

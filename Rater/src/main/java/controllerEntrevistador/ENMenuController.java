@@ -101,7 +101,7 @@ public class ENMenuController extends Application{
 			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
 		}
 		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENHome.fxml"));
         //Colocando o documento fxml como conteúdo do pane
         pane.setCenter(fxml);
 	}
