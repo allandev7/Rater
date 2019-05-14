@@ -291,11 +291,11 @@ public class Empresa extends Usuarios {
 			
 	}
 		
-	public ArrayList<String> carregarNomesImgEntrevistadores() throws SQLException {
+	public String carregarNomesImgEntrevistadores(int id) throws SQLException {
 				
-		imgNomesEn.clear();
+		String imgNomesEn = null;
 		//selecionar na tabela
-		String sql = "SELECT foto FROM entrevistador WHERE ID_EMPRESA=?";
+		String sql = "SELECT foto FROM entrevistador WHERE ID_EMPRESA=? AND ID = ?";
 			
 		try(Connection conn = con.connect(); ){
 				
@@ -303,12 +303,13 @@ public class Empresa extends Usuarios {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			//definindo o id na query
 			pstmt.setInt(1, Empresa.getId());
+			pstmt.setInt(2, id);
 			//executando o query para obter o resultado
 			ResultSet rs = pstmt.executeQuery();
 			//enquanto houver linhas
 			while (rs.next()){
 			//adicionar cargos e ids aos arrays
-				imgNomesEn.add(rs.getString("foto"));
+				imgNomesEn = rs.getString("foto");
 			}
 			
 		}catch(SQLException e) {
@@ -321,7 +322,7 @@ public class Empresa extends Usuarios {
 		
 		
 	//criar um array pra pegar os nomes criptografados das imagens no banco de dados
-	private ArrayList<String> imgNomesEn = new ArrayList<>();
+	
 		
 
 	
@@ -489,9 +490,6 @@ public static int getIdEntrevistadorPadrao() {
 
 public static void setIdEntrevistadorPadrao(int idEntrevistadorPadrao) {
 	Empresa.idEntrevistadorPadrao = idEntrevistadorPadrao;
-}
-public String getImgNomesEn(int i) {
-	return this.imgNomesEn.get(i);
 }
 
 public static String getImgEntrevistadores() {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,11 +17,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Entrevista;
+import model.Entrevista.dados;
+import view.PopUp;
 import model.Entrevistado;
 
 
@@ -40,22 +45,38 @@ public class GerenciarEntrevistasController extends Application{
 	public void start(Stage stage) throws IOException {
 	
 	}
-	public void carregarlista() {
+	public void initialize() throws Exception {
+		carregarPesquisa();
+		txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.ENTER) {
+					carregarPesquisa();
+				}
+			}
+		});
+	}
+	ArrayList<dados> listaPesquisa = new ArrayList<>();
+	public void carregarPesquisa() {
 		jfxlvListView.getItems().clear();
-		lblNumEnt.setText("Número de entrevistas salvas: " + entrevista.carregarEntrevistas().size());
-		
+		lbl.clear();
+		String nome = txtPesquisarEntrevistas.getText();
+		listaPesquisa.clear();
+		listaPesquisa = entrevista.pesquisar(nome);
+		lblNumEnt.setText("Número de entrevistas salvas: " + listaPesquisa.size());
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < entrevista.carregarEntrevistas().size(); i++) {
+		for (int i = 0; i < listaPesquisa.size(); i++) {
 			
-			//Variáveis que pegam os dados da entrevista, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistado = entrevista.carregarEntrevistas().get(i).getNomeCandidato();
+			//Variáveis que pegam os dados da entrevista
+			String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			String dataEntrevista = sdf.format(entrevista.carregarEntrevistas().get(i).getData());
-			String nomeEntrevistador = entrevista.carregarEntrevistas().get(i).getNomeEntrevistador();
+			String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
+			String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
 			String resultado;
-			if(entrevista.carregarEntrevistas().get(i).getResultado() == 1)
+			if(listaPesquisa.get(i).getResultado() == 1)
 				resultado = "Aprovado";
-			else if(entrevista.carregarEntrevistas().get(i).getResultado() == 0)
+			else if(listaPesquisa.get(i).getResultado() == 0)
 				resultado = "Reprovado";
 			else
 				resultado = "Em espera";
@@ -74,7 +95,7 @@ public class GerenciarEntrevistasController extends Application{
 			img.setFitHeight(200);
 			img.setFitWidth(85);
 			
-			int idsel = entrevista.carregarEntrevistas().get(i).getId();
+			int idsel = listaPesquisa.get(i).getId();
 			String nomeImagem = entrevista.visualizarEntrevista(idsel).getFoto();
 			Entrevistado c = new Entrevistado();
 			//Verificar se há alguma imagem salva no banco e no azure
@@ -103,16 +124,14 @@ public class GerenciarEntrevistasController extends Application{
 		}
 			
 	}
-	public void initialize() throws Exception {
-		carregarlista();
-	}
+	
 	
 	@FXML
 	public void visualizarEntrevista(ActionEvent event) throws IOException {
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			int i = jfxlvListView.getSelectionModel().getSelectedIndex();
-			setIdSelecionado(entrevista.carregarEntrevistas().get(i).getId());
+			setIdSelecionado(listaPesquisa.get(i).getId());
 			//Pegando fxml como parametro
 			fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
@@ -139,8 +158,9 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML
 	public void deletarEntrevista(ActionEvent event) throws IOException {
 		int i = jfxlvListView.getSelectionModel().getSelectedIndex();
-		entrevista.deletarEntrevista(entrevista.carregarEntrevistas().get(i).getId());
-		carregarlista();	
+		entrevista.deletarEntrevista(listaPesquisa.get(i).getId());
+		txtPesquisarEntrevistas.clear();
+		carregarPesquisa();	
 	}
 	public static int getIdSelecionado() {
 		return idSelecionado;
