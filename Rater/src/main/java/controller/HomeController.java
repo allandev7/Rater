@@ -56,8 +56,8 @@ public class HomeController {
 		
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		
-		for(int i =0; i<EN.carregarEntrevistadores().size(); i++) {		
-			pieChartData.add(new PieChart.Data(EN.carregarEntrevistadores().get(i)+": " +  e.carregarNumEntrevistaEntrevistadores().get(i) , e.carregarNumEntrevistaEntrevistadores().get(i)));
+		for(int i =0; i<EN.carregarEntrevistadores("").size(); i++) {		
+			pieChartData.add(new PieChart.Data(EN.carregarEntrevistadores("").get(i)+": " +  e.carregarNumEntrevistaEntrevistadores().get(i) , e.carregarNumEntrevistaEntrevistadores().get(i)));
 
 		}
 		

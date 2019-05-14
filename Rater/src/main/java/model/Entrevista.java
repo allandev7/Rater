@@ -454,6 +454,33 @@ public class Entrevista {
 	
 	//FIM CARREGAR CRITERIOS DA ENTREVISTA
 	
+	
+	//PESQUISAR ENTREVISTA 
+	ArrayList<dados> dadosList = new ArrayList<>();
+	public ArrayList<dados> pesquisar(String nome) {
+		dadosList.clear();
+		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
+				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
+				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
+				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ? AND candidato.NOME LIKE ?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, Empresa.getId());
+			pstmt.setString(2, "%"+nome+"%");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dadosList.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
+						rs.getString(5), rs.getInt(6)));
+			}
+			return dadosList;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	//GETTERS E SETTERS
 	public Date getData() {
 		return data;

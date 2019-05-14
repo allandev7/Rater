@@ -17,6 +17,7 @@ import com.sun.glass.events.MouseEvent;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -27,6 +28,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -64,7 +67,7 @@ public class EntrevistadoresController extends Application{
 	private void carregarEntrevistadores() throws SQLException  {
 		
 		jfxlvListView.getItems().clear();
-		int numEntrevistadores = En.carregarEntrevistadores().size();		
+		int numEntrevistadores = En.carregarEntrevistadores(txtPesquisarEntrevistadores.getText()).size();		
 		lblNumEnt.setText("Número de entrevistadores: " + numEntrevistadores);
 	
 	
@@ -73,7 +76,7 @@ public class EntrevistadoresController extends Application{
 		for (int i = 0; i < numEntrevistadores; i++) {
 			
 			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistador = En.carregarEntrevistadores().get(i);
+			String nomeEntrevistador = En.carregarEntrevistadores(txtPesquisarEntrevistadores.getText()).get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
@@ -81,7 +84,7 @@ public class EntrevistadoresController extends Application{
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(110);
 
-			String nomeImagem =  e.carregarNomesImgEntrevistadores().get(i);
+			String nomeImagem =  e.carregarNomesImgEntrevistadores(En.getIdEntrevistador(i));
 			
 			//Criando imageview para colocar a foto do entrevistador e definindo seu tamanho
 			ImageView img = new ImageView();
@@ -113,6 +116,20 @@ public class EntrevistadoresController extends Application{
 	
 	public void initialize() throws Exception {
 		carregarEntrevistadores();
+		txtPesquisarEntrevistadores.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.ENTER) {
+					try {
+						carregarEntrevistadores();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 	
 	@FXML

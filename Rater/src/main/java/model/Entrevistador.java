@@ -83,19 +83,20 @@ public class Entrevistador extends Usuarios{
 	}
 
 	private ArrayList<String> nomeEntrevistador = new ArrayList<>();
-	private ArrayList<Integer> idEntrevistador = new ArrayList<>();
+	private static ArrayList<Integer> idEntrevistador = new ArrayList<>();
 	
 	//Metodo de carregar entrevistadores
-	public ArrayList<String> carregarEntrevistadores() throws SQLException{
+	public ArrayList<String> carregarEntrevistadores(String nome) throws SQLException{
 			
 			nomeEntrevistador.clear();
 			idEntrevistador.clear();
 			//selecionar na tabela
-			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=?";
+			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=? AND NOME LIKE ?";
 			// criando statment
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			//definindo o id na query
 			pstmt.setInt(1, Empresa.getId());
+			pstmt.setString(2, "%"+ nome +"%");
 			//executando o query para obter o resultado
 			ResultSet rs = pstmt.executeQuery();
 			//enquanto houver linhas
@@ -109,6 +110,8 @@ public class Entrevistador extends Usuarios{
 		
 		return nomeEntrevistador;
 	}
+	
+	
 	
 	
 	/*-------------------------------------------------------*/
@@ -310,7 +313,7 @@ public class Entrevistador extends Usuarios{
 		EntrevistasRealizadas = entrevistasRealizadas;
 	}
 	public Integer getIdEntrevistador(int i) {
-		return this.idEntrevistador.get(i);
+		return Entrevistador.idEntrevistador.get(i);
 	}
 
 
