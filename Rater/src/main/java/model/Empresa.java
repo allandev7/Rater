@@ -151,7 +151,7 @@ public class Empresa extends Usuarios {
 	
 	public void alterarDadosEntrevistador(int id, String nomeDeUsuario, String Email, String Senha, String Nome, String Rg) {
 		try(Connection conn = con.connect()){
-			String sql = "UPDATE entrevistador SET NOMEDEUSUARIO = ?, EMAIL = ?,  SENHA =?, NOME = ?, RG = ? WHERE ID = ? AND ID_EMPRESA = ?";
+			String sql = "UPDATE entrevistador SET NOMEDEUSUARIO = ?, EMAIL = ?,  SENHA =md5(?), NOME = ?, RG = ? WHERE ID = ? AND ID_EMPRESA = ?";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
@@ -198,7 +198,7 @@ public class Empresa extends Usuarios {
 	public void cadastrarEntrevistador(String Nome, String nomeUsuario, String Email, String Senha, String RG, String FotoCripto, String caminho) {
 		try(Connection conn = con.connect()){
 			
-			String sql = "INSERT INTO entrevistador VALUES(NULL,?,?,?,?,?,?,0,0,?)";
+			String sql = "INSERT INTO entrevistador VALUES(NULL,?,?,?,md5(?),?,?,0,0,?)";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			

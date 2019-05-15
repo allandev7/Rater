@@ -78,7 +78,6 @@ public class EntrevistadoresPerfil extends Application{
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
-		
 		//Método só para números no txt
 		txtRG.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
@@ -122,13 +121,18 @@ public class EntrevistadoresPerfil extends Application{
 		setIdSel(EnC.getIdEntrevistadorSel());
 		
 		e.carregarPerfilEntrevistador(getIdSel());
-
+		
 		
 		txtNomeUsuario.setText(NomeUsuario);
 		txtNomeEntrevistador.setText(NomeEntrevistador);
         txtEmailEntrevistador.setText(EmailEntrevistador);
         txtRG.setText(RG);
         txtSenha.setText(Senha);
+        if(NomeUsuario.equals(Empresa.getEmail())) {
+			txtNomeUsuario.setDisable(true);
+			txtSenha.setDisable(true);
+			txtSenha.setText("********");
+		}
         lblNumEnt.setText("Entrevistas Realizadas: " + NumEntrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
         try {
 			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+En.getNomeImagem())));

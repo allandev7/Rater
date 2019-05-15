@@ -38,7 +38,7 @@ public class Entrevistador extends Usuarios{
 	@Override
 	public int login(String emailTxt, String senhaTxt) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ? AND SENHA = ?";
+		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ? AND SENHA = md5(?)";
 		int valido = 0;
 		try(Connection conn = connn.connect();
 			PreparedStatement pstmt  = conn.prepareStatement(sql)){
