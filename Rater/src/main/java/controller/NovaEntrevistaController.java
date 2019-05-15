@@ -55,6 +55,7 @@ import model.Padroes;
 import view.PopUp;
 import model.AzureConnection;
 import model.Empresa;
+import model.Entrevista;
 import model.Entrevistado;
 
 import java.awt.*;
@@ -339,27 +340,29 @@ public class NovaEntrevistaController extends Application{
 		int idade = txtIdade.getText().isEmpty() ? 0:Integer.parseInt(txtIdade.getText());
 		if(cbCargos.getValue()!=null) setCargoSelecionado(cbCargos.getValue().toString());
 		
-		
-		if (!nome.equals("") && !email.equals("") && getCargoSelecionado()!=null) {
-			new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade,endereco);
+		if(new Entrevista().verificarEmEspera() < 3) {
+			if (!nome.equals("") && !email.equals("") && getCargoSelecionado()!=null) {
+				new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade,endereco);
 			
-			//INICIAR OUTRA TELA
-			
-			//Pegando fxml como parametro
-			fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
-			//Limpando o coteúdo do Pane "pane"
-	        pane.getChildren().removeAll();
-	        //Colocando o documento fxml como conteúdo do pane
-	        pane.setCenter(fxml);
-	        
-		}else {
-			new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email,nome e cargo devem ser preenchidos");
-		}
-		if(getNomeFotoCripto()!=null) {
-			new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
-		}
-		
-	}
+				//INICIAR OUTRA TELA
+				
+			//	Pegando fxml como parametro
+				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
+			//	Limpando o coteúdo do Pane "pane"
+				pane.getChildren().removeAll();
+	        //	Colocando o documento fxml como conteúdo do pane
+				pane.setCenter(fxml);
+				
+			}else {
+				new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email,nome e cargo devem ser preenchidos");
+			}
+			if(getNomeFotoCripto()!=null) {
+				new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
+			}
+		}else 
+			new PopUp().popUpMensagem("Limite de espera atingido", "Responda os candidatos em espera, para fazer uma nova entrevista");
+	}	
+
 	
 	//Método para realizar ação quando tecla for pressionada
 	public void keyPressed(KeyEvent event) throws Exception {

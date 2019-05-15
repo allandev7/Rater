@@ -1,4 +1,6 @@
 package controller;
+import javafx.scene.paint.Color;
+import javafx.geometry.Insets;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,6 +23,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Entrevista;
@@ -90,7 +95,8 @@ public class GerenciarEntrevistasController extends Application{
 									"\n\nResultado: " + resultado + "\n"));
 			lbl.get(i).setMaxHeight(110);
 			lbl.get(i).setMinHeight(110);
-			
+			//Destacar o em espera
+			if(resultado.equals("Em espera")) lbl.get(i).setBackground(new Background(new BackgroundFill(Color.rgb(0,0, 255, 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
 			//Inserindo imagem na label lbl1
 			ImageView img = new ImageView(new Image("imagens/user.png"));
 			img.setPreserveRatio(true);

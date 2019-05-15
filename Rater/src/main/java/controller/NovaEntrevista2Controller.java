@@ -219,53 +219,55 @@ public class NovaEntrevista2Controller extends Application{
 		pane.setCenter(fxml);
 	}
 	public void concluir() throws IOException {
-		String conclusaoADD = null;
-		Entrevistado candidato = new Entrevistado();
-		//Inserir entrevista
 		Entrevista entrevista = new Entrevista();
-		if(aprovado.isSelected()) {
-			entrevista.setAprovado(1);
-			conclusaoADD = "Aprovado, ";
-		}else if(reprovado.isSelected()) {
-			entrevista.setAprovado(0);
-			conclusaoADD = "Reprovado, ";
-		}else if(espera.isSelected()) {
-			entrevista.setAprovado(2);
-			conclusaoADD = "Em espera, ";
-		}
-		entrevista.setFeedback(txtConclusao.getText());
-		//ESQUELETO PARA QUANDO HOUVER RELATORIO
-		entrevista.setRelatorio("relatorio.docx");
-		int idEntrevista = entrevista.inserirEntrevista(Empresa.getIdEntrevistadorPadrao(), 
-															Entrevistado.getId(),p.getIdCargoSelecionado());
-		
-		//buscar id dos criterios
-		ArrayList<Integer> criterios = entrevista.buscarIDcriterios(p.getIdCargoSelecionado(),
-																		Empresa.getIdEntrevistadorPadrao());
-		//inserir cada criterios
-		for(int i=0; i<criterios.size();i++){
-			entrevista.inserirCriterios(idEntrevista, criterios.get(i), cbx.get(i).isSelected()
-											, txt.get(i).getText());
-		}
+			String conclusaoADD = null;
+			Entrevistado candidato = new Entrevistado();
+			//Inserir entrevista
+			
+			if(aprovado.isSelected()) {
+				entrevista.setAprovado(1);
+				conclusaoADD = "Aprovado, ";
+			}else if(reprovado.isSelected()) {
+				entrevista.setAprovado(0);
+				conclusaoADD = "Reprovado, ";
+			}else if(espera.isSelected()) {
+				entrevista.setAprovado(2);
+				conclusaoADD = "Em espera, ";
+			}
+			entrevista.setFeedback(txtConclusao.getText());
+			//ESQUELETO PARA QUANDO HOUVER RELATORIO
+			entrevista.setRelatorio("relatorio.docx");
+			int idEntrevista = entrevista.inserirEntrevista(Empresa.getIdEntrevistadorPadrao(), 
+																Entrevistado.getId(),p.getIdCargoSelecionado());
+			
+			//buscar id dos criterios
+			ArrayList<Integer> criterios = entrevista.buscarIDcriterios(p.getIdCargoSelecionado(),
+																			Empresa.getIdEntrevistadorPadrao());
+			//inserir cada criterios
+			for(int i=0; i<criterios.size();i++){
+				entrevista.inserirCriterios(idEntrevista, criterios.get(i), cbx.get(i).isSelected()
+												, txt.get(i).getText());
+			}
 
+			
+			String nomeDoc= Empresa.getId()+candidato.getNome()+candidato.getId()+new Date().getTime()+".pdf";
+			entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
+					candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
+					candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
+					conclusaoADD+txtConclusao.getText());
+			
+			entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
+			new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
+					+ " e salvo o relatorio em C:/Rater");
+			
+			//Pegando fxml como parametro
+			Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
+			//Limpando o coteúdo do Pane "pane"
+			pane.getChildren().removeAll();
+			//Colocando o documento fxml como conteúdo do pane
+			pane.setCenter(fxml);
+		}
 		
-		String nomeDoc= Empresa.getId()+candidato.getNome()+candidato.getId()+new Date().getTime()+".pdf";
-		entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
-				candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
-				candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
-				conclusaoADD+txtConclusao.getText());
-		
-		entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
-		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
-				+ " e salvo o relatorio em C:/Rater");
-		
-		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
-		//Limpando o coteúdo do Pane "pane"
-		pane.getChildren().removeAll();
-		//Colocando o documento fxml como conteúdo do pane
-		pane.setCenter(fxml);
-	}
 	
 	//Método para realizar ação quando tecla for pressionada
 		public void keyPressed(KeyEvent event) throws Exception {

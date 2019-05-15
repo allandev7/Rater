@@ -481,6 +481,25 @@ public class Entrevista {
 		}
 	}
 	
+	
+	//VERIFICAÇÃO DO EM ESPERA
+	public int verificarEmEspera() {
+		String sql= "SELECT COUNT(RESULTADO) FROM entrevista WHERE ID_ENTREVISTADOR = ? AND RESULTADO = 2";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+				return rs.getInt(1);
+			else
+				return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 	//GETTERS E SETTERS
 	public Date getData() {
 		return data;
