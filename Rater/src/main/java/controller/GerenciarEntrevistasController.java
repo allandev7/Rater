@@ -82,7 +82,7 @@ public class GerenciarEntrevistasController extends Application{
 				resultado = "Reprovado";
 			else
 				resultado = "Em espera";
-			
+				
 			
 			//Inserindo dados da entrevista em uma Label
 			lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +

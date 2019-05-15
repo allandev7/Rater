@@ -19,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
@@ -82,7 +83,7 @@ public class TelaExController extends Application{
 	}
 		
 	@FXML
-	public void clicar(MouseEvent event) throws IOException {
+	public void clicar() throws IOException {
 		//Pegar o valor do login
 		int login = empresa.login(txtEmail.getText(), txtSenha.getText());
 		/* login = 0 -> Usuario e senha invalidos
@@ -134,6 +135,20 @@ public class TelaExController extends Application{
 
 		}
 	}
+	
+	//Método para realizar ação quando tecla for pressionada
+		public void keyPressed(KeyEvent event) throws Exception {
+			//Reconhecendo a tecla pressionada
+			switch (event.getCode()) {
+			//Caso seja a tecla escolhida ira executar o método
+			case ENTER:
+				clicar();
+				break;
+			//Caso contrário não acontecerá nada
+			default:
+				break;
+			}
+		}
 
 	@FXML
 	public void pressionar(MouseEvent event) {

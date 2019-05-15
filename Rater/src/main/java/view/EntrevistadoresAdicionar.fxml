@@ -16,7 +16,7 @@
    <children>
       <BorderPane fx:id="pane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AnchorPane  onKeyPressed="#keyPressed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane onKeyPressed="#keyPressed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Nome de usuário:" textFill="#32447c" AnchorPane.leftAnchor="292.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="112.0">
                      <font>
@@ -43,19 +43,6 @@
                      <effect>
                         <DropShadow color="TRANSPARENT" />
                      </effect>
-                  </Label>
-                   <ImageView fx:id="imgFoto" fitHeight="260.0" fitWidth="254.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="109.0">
-                     <image>
-                        <Image url="@../imagens/placeholderImgView.png" />
-                     </image>
-                     <effect>
-                        <DropShadow color="TRANSPARENT" />
-                     </effect>
-                  </ImageView>
-                  <Label fx:id="lblCarregarFoto" onMouseClicked="#uparFoto" prefHeight="118.0" prefWidth="254.0" styleClass="lblPerfil" text="                         Adicionar Foto" textFill="WHITE" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="241.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
                   </Label>
                   <Label prefHeight="28.0" prefWidth="64.0" text="E-mail:" textFill="#32447c" AnchorPane.leftAnchor="292.0" AnchorPane.topAnchor="203.0">
                      <font>
@@ -130,6 +117,23 @@
                         <DropShadow color="TRANSPARENT" />
                      </effect>
                   </Label>
+                  <AnchorPane layoutX="22.0" layoutY="112.0" prefHeight="184.0" prefWidth="239.0">
+                     <children>
+                        <ImageView fx:id="imgFoto" fitHeight="213.0" fitWidth="221.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@../imagens/placeholderImgView.png" />
+                           </image>
+                           <effect>
+                              <DropShadow color="TRANSPARENT" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="lblCarregarFoto" layoutY="90.0" onMouseClicked="#uparFoto" prefHeight="122.0" prefWidth="239.0" style="-fx-font-size: 20;" styleClass="lblPerfil" text="          Alterar Foto" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="90.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </center>

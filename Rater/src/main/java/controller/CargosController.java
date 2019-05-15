@@ -145,7 +145,7 @@ public class CargosController extends Application{
 			//Checando se foi double click
 			if(event.getClickCount() == 2) {
 				//Caso seja, o método será executado
-				alterarNomeCargo(e);
+				gerenciarCriterios(e);
 			}
 		}
 	}

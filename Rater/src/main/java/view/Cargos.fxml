@@ -42,7 +42,7 @@
                         <DropShadow color="#0000006e" />
                      </effect>
                   </JFXButton>
-                  <JFXButton fx:id="btnGerenciarCriterios" layoutX="200.0" layoutY="484.0" onAction="#gerenciarCriterios" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Gerenciar Critérios" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="290.0">
+                  <JFXButton fx:id="btnGerenciarCriterios" layoutX="200.0" layoutY="484.0" onAction="#alterarNomeCargo" prefHeight="42.0" prefWidth="141.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Alterar nome" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="290.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

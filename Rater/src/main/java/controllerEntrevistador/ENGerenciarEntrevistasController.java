@@ -69,7 +69,7 @@ public class ENGerenciarEntrevistasController extends Application{
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//Pegando fxml como parametro
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENGerenciarEntrevistasVisualizar.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane

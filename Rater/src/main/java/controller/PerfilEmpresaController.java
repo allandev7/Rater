@@ -89,7 +89,7 @@ public class PerfilEmpresaController extends Application{
 			// TODO Auto-generated catch block
 			imgFoto.setImage(new Image("imagens/Logo.png"));
 		}
-    }
+   	}
 	
 	@FXML
 	public void alterarInfos(ActionEvent e)  {
