@@ -7,15 +7,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXMasonryPane;
+
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +39,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Entrevista;
@@ -46,6 +61,7 @@ public class GerenciarEntrevistasController extends Application{
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;
 	ArrayList<Label> lbl = new ArrayList<>();
+	
 	@FXML
 	public void start(Stage stage) throws IOException {
 	
@@ -73,7 +89,8 @@ public class GerenciarEntrevistasController extends Application{
 		int numEntrevista = listaPesquisa == null ? 0:listaPesquisa.size();
 		lblNumEnt.setText("Número de entrevistas salvas: " + numEntrevista);
 		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < numEntrevista; i++) {
+		int i = 0;
+		for ( i = 0; i < numEntrevista; i++) {
 			
 			//Variáveis que pegam os dados da entrevista
 			String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
@@ -87,7 +104,6 @@ public class GerenciarEntrevistasController extends Application{
 				resultado = "Reprovado";
 			else
 				resultado = "Em espera";
-				
 			
 			//Inserindo dados da entrevista em uma Label
 			lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
@@ -95,8 +111,6 @@ public class GerenciarEntrevistasController extends Application{
 									"\n\nResultado: " + resultado + "\n"));
 			lbl.get(i).setMaxHeight(110);
 			lbl.get(i).setMinHeight(110);
-			//Destacar o em espera
-			if(resultado.equals("Em espera")) lbl.get(i).setBackground(new Background(new BackgroundFill(Color.rgb(0,0, 255, 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
 			//Inserindo imagem na label lbl1
 			ImageView img = new ImageView(new Image("imagens/user.png"));
 			img.setPreserveRatio(true);
@@ -125,10 +139,22 @@ public class GerenciarEntrevistasController extends Application{
 					lbl.get(i).setGraphic(img);
 			}
 			
-
+			HBox hbox = new HBox(lbl.get(i));
+			
+			if(resultado.equals("Em espera")) {
+				JFXComboBox<String> cbx = new JFXComboBox<String>();
+				cbx.setPromptText("Finalizar entrevista");
+				cbx.getItems().addAll("Aprovar", "Reprovar");
+				
+				Pane pane = new Pane();
+				pane.setPrefWidth(200);
+				
+				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
+				hbox.getChildren().addAll(pane, cbx);
+			}
 			
 			//Adicionando a Label lbl1 na JFXListView
-			jfxlvListView.getItems().add(lbl.get(i));
+			jfxlvListView.getItems().add(hbox);
 		}
 			
 	}

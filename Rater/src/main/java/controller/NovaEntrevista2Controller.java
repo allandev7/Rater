@@ -65,33 +65,48 @@ public class NovaEntrevista2Controller extends Application{
 	JFXRadioButton reprovado;
 	JFXRadioButton espera;
 	TextArea txtConclusao;
+	TextArea txtConclusao2 = new TextArea();
 	NovaEntrevistaController nec = new NovaEntrevistaController();
 	Padroes p = new Padroes();
 	ArrayList<TextArea> txt = new ArrayList<>();
 	ArrayList<JFXCheckBox> cbx = new ArrayList<>();
 	ArrayList<Label> lbl = new ArrayList<>();
-
+	static ArrayList<String> stringo = new ArrayList<>();
+	static ArrayList<Boolean> booList = new ArrayList<>();
+	static String obs = " ";
+	static int robs = 0;
+	
+	
+	int numCri = 0;
+	
 	@FXML
 	public void start(Stage stage) throws IOException {
 	
 	}
 	
-	public void initialize() throws Exception {
+	public void initialize() throws Exception {			
 		p.listarCriteriosNE2(nec.getCargoSelecionado());
-		int numCri = p.listarCriteriosNE2(nec.getCargoSelecionado()).size();
+		numCri = p.listarCriteriosNE2(nec.getCargoSelecionado()).size();
 		System.out.print(numCri);
 		System.out.print(nec.getCargoSelecionado());
+				
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < numCri; i++) {
+			booList.add(false);
+			stringo.add(" ");
 			
 			//Criando HBox para colocar componentes um ao lado do outro
 			HBox hbox = new HBox();
 			
 			//Criando checkbox
-			cbx.add(new JFXCheckBox());
+			JFXCheckBox cbxx = new JFXCheckBox();
+			if(booList.get(i) == true) cbxx.setSelected(true); else cbxx.setSelected(false);
+			cbx.add(cbxx);
+			
 			
 			//Criando textarea
-			TextArea txt2 = new TextArea();
+			TextArea txt2 = new TextArea(stringo.get(i));
+			if(stringo.get(i).equals(" ")) txt2.clear();
 			txt2.setWrapText(true);
 			txt.add(txt2);
 			
@@ -138,17 +153,18 @@ public class NovaEntrevista2Controller extends Application{
 		//Criando HBox para colocar componentes um ao lado do outro
 		HBox hbox1 = new HBox();
 
-		//Criando textarea
-		txtConclusao = new TextArea();
 		//Fazendo com que o texto pule para a próxima linha
-		txtConclusao.setWrapText(true);
+		txtConclusao2.setWrapText(true);
 		
 		//Definindo tamanho da textarea para não dar bug
-		txtConclusao.setMaxSize(500, 80);
-		txtConclusao.setMinSize(500, 80);
+		txtConclusao2.setMaxSize(500, 80);
+		txtConclusao2.setMinSize(500, 80);
 		
 		//Definindo o prompt text da textarea
-		txtConclusao.setPromptText("Observações..");
+		txtConclusao2.setPromptText("Observações..");
+		
+		txtConclusao2.setText(obs);
+		if(obs.equals(" ")) txtConclusao2.clear();
 		
 		//Criando pane
 		Pane panel = new Pane();
@@ -166,7 +182,13 @@ public class NovaEntrevista2Controller extends Application{
 		espera = new JFXRadioButton();
 		
 		//Deixar radio button de espera selecionado
-		espera.setSelected(true);
+		if(robs == 0) {
+			espera.setSelected(true);
+		}else if(robs == 1){
+			aprovado.setSelected(true);
+		} else {
+			reprovado.setSelected(true);
+		}
 		
 		//Adicionando radio buttons no toggle group
 		aprovado.setToggleGroup(group);
@@ -189,7 +211,7 @@ public class NovaEntrevista2Controller extends Application{
 		empilhador.setSpacing(10);
 		
 		//Adicionando componentes na hbox
-		hbox1.getChildren().addAll(panel, empilhador, txtConclusao);
+		hbox1.getChildren().addAll(panel, empilhador, txtConclusao2);
 		hbox1.setHgrow(panel, Priority.ALWAYS);
 		//Definindo espaçamento entre os itens da hbox
 		hbox1.setSpacing(10);
@@ -208,6 +230,36 @@ public class NovaEntrevista2Controller extends Application{
 		//Adicionando a Label vbox na JFXListView
 		jfxlvListView.getItems().add(vbox);
 		
+	}
+	
+	/*O método é executado quando alguma tecla do teclado é pressionada
+	 enquanto alguma textarea está selecionada*/
+	public void salvarTXT(KeyEvent event) {
+		//Salvando as informações das textareas na arraylist de Strings
+		for (int i = 0; i < numCri; i++) {
+				String str = txt.get(i).getText().toString();
+				stringo.set(i, str);
+		}
+		//Salvando o texto da textarea de observações finais na variável
+		obs = txtConclusao2.getText().toString();
+	}
+	
+	//O método é executado quando algo é selecionado em alguma checkbox ou radiobutton
+	public void salvarCBRB() {
+		//Salvando o estado de cada checkbox na arraylist de booleans
+		for (int i = 0; i < numCri; i++) {
+			boolean bl = false;
+			if(cbx.get(i).isSelected() == true) bl = true;
+			booList.set(i, bl);
+		}
+		//Salvando o estado dos radio buttons na variável 
+		if(aprovado.isSelected() == true) {
+			robs = 1;
+		}else if(espera.isSelected() == true){
+			robs = 0;
+		} else {
+			robs = 2;
+		}
 	}
 	
 	public void cancelar() throws IOException {

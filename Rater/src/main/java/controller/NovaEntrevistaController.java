@@ -208,7 +208,7 @@ public class NovaEntrevistaController extends Application{
 	}
 	
 	/*O método é executado quando alguma tecla do teclado é pressionada
-	 enquanto alguma checkbox está selecionada*/
+	 enquanto alguma textfield está selecionada*/
 	public void salvarTXT(KeyEvent event) {
 		//Salvando as informações das textboxes nas variáveis
 		sNome = txtNome.getText();
@@ -219,7 +219,7 @@ public class NovaEntrevistaController extends Application{
 		sEndereco = txtEndereco.getText();
 	}
 	
-	//O método é executado quando algo é selecionado em alguma checkbox ou radiobutton
+	//O método é executado quando algo é selecionado em alguma combobox ou radiobutton
 	public void salvarCB(ActionEvent event) {
 		//Salvando valores selecionados nas variáveis
 		sEtnia = cbEtnias.getValue();

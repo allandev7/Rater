@@ -33,7 +33,6 @@ public class HomeController {
 		
 		
 		lineChart.getData().clear();
-		lineChart.setCreateSymbols(false);
 		XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 		series.getData().add(new XYChart.Data<String, Number>("Jan", e.numeroEntrevistaMes().get(0)));
 		series.getData().add(new XYChart.Data<String, Number>("Feb", e.numeroEntrevistaMes().get(1)));

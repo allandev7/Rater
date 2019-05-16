@@ -13,7 +13,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXListView fx:id="jfxlvListView" editable="true" prefHeight="429.0" prefWidth="698.0" verticalGap="10.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
+                  <JFXListView fx:id="jfxlvListView" editable="true" onKeyReleased="#salvarTXT" onMouseMoved="#salvarCBRB" prefHeight="429.0" prefWidth="698.0" verticalGap="10.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
                   <Label fx:id="lblEntrevista" text="Entrevista em Andamento" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font name="Tahoma" size="17.0" />

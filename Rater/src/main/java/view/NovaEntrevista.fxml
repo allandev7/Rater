@@ -174,9 +174,9 @@
                   </Button>
                   <AnchorPane layoutX="14.0" layoutY="59.0" prefHeight="241.0" prefWidth="262.0">
                      <children>
-                        <ImageView fx:id="imgFoto" fitHeight="242.0" fitWidth="203.0" layoutX="3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="imgFoto" fitHeight="241.0" fitWidth="258.0" layoutX="11.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="0.0">
                            <image>
-                              <Image url="@../imagens/placeholder%20para%20imageview.png" />
+                              <Image url="@../imagens/placeholderImgView.png" />
                            </image>
                            <effect>
                               <DropShadow color="TRANSPARENT" />

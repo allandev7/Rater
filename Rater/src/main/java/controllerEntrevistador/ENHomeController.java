@@ -26,7 +26,6 @@ public class ENHomeController {
 	public void initialize() throws SQLException {
 	
 		lineChart.getData().clear();
-		lineChart.setCreateSymbols(false);
 		XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 		series.getData().add(new XYChart.Data<String, Number>("Jan", EN.carregarNumEntrevistaMesEN().get(0)));
 		series.getData().add(new XYChart.Data<String, Number>("Feb", EN.carregarNumEntrevistaMesEN().get(1)));
