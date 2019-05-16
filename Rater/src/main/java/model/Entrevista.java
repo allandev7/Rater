@@ -482,6 +482,36 @@ public class Entrevista {
 	}
 	
 	
+	ArrayList<dados> ENdadosList = new ArrayList<>();
+	public ArrayList<dados> ENpesquisar(String nome) {
+		dadosList.clear();
+		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
+				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
+				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
+				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ? AND candidato.NOME LIKE ? "
+				+ "AND entrevista.ID_ENTREVISTADOR = ?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, Empresa.getId());
+			pstmt.setString(2, "%"+nome+"%");
+			pstmt.setInt(3, Empresa.getIdEntrevistadorPadrao());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dadosList.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
+						rs.getString(5), rs.getInt(6)));
+			}
+			return dadosList;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
+	
+	
 	//VERIFICAÇÃO DO EM ESPERA
 	public int verificarEmEspera() {
 		String sql= "SELECT COUNT(RESULTADO) FROM entrevista WHERE ID_ENTREVISTADOR = ? AND RESULTADO = 2";

@@ -100,9 +100,11 @@ public class ENMenuController extends Application{
 			// TODO Auto-generated catch block
 			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
 		}
-		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENHome.fxml"));
-        //Colocando o documento fxml como conteúdo do pane
+		
+		//Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENHome.fxml"));        
+		
+		//Colocando o documento fxml como conteúdo do pane
         pane.setCenter(fxml);
 	}
 	
