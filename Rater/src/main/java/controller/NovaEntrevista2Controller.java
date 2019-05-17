@@ -64,7 +64,6 @@ public class NovaEntrevista2Controller extends Application{
 	JFXRadioButton aprovado;
 	JFXRadioButton reprovado;
 	JFXRadioButton espera;
-	TextArea txtConclusao;
 	TextArea txtConclusao2 = new TextArea();
 	NovaEntrevistaController nec = new NovaEntrevistaController();
 	Padroes p = new Padroes();
@@ -286,7 +285,7 @@ public class NovaEntrevista2Controller extends Application{
 				entrevista.setAprovado(2);
 				conclusaoADD = "Em espera, ";
 			}
-			entrevista.setFeedback(txtConclusao.getText());
+			entrevista.setFeedback(txtConclusao2.getText());
 			//ESQUELETO PARA QUANDO HOUVER RELATORIO
 			entrevista.setRelatorio("relatorio.docx");
 			int idEntrevista = entrevista.inserirEntrevista(Empresa.getIdEntrevistadorPadrao(), 
@@ -306,7 +305,7 @@ public class NovaEntrevista2Controller extends Application{
 			entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
 					candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
 					candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
-					conclusaoADD+txtConclusao.getText());
+					conclusaoADD+txtConclusao2.getText());
 			
 			entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
 			new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
