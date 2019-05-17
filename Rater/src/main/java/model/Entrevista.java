@@ -58,8 +58,8 @@ public class Entrevista {
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO entrevista VALUES (NULL,?,?,?,?,?,?,?,?)", java.sql.Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, idEntrevistador);
-			pstmt.setInt(2, idCandidato);
-			pstmt.setInt(3, idCargo);
+			pstmt.setInt(3, idCandidato);
+			pstmt.setInt(2, idCargo);
 			pstmt.setDate(4, dateConvert);
 			pstmt.setInt(5, isAprovado());
 			pstmt.setString(6, getFeedback());
@@ -256,7 +256,7 @@ public class Entrevista {
 		String sql ="SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
 				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
 				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
-				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ?";
+				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE entrevistador.ID_EMPRESA = ?";
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 			pstmt.setInt(1, Empresa.getId());
