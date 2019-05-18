@@ -59,7 +59,7 @@ public class Entrevistador extends Usuarios{
 				setRgEntrevistador(rs.getString("RG"));
 				e.setIdEntrevistadorPadrao(rs.getInt("ID"));
 				e.setId(rs.getInt("ID_EMPRESA"));
-				setAdmissoes(rs.getInt("ADMISSÕES"));
+				setAdmissoes(rs.getInt("ADMISSOES"));
 				setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
 				setNomeUsuario(rs.getString("NOMEDEUSUARIO"));
 

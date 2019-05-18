@@ -97,7 +97,7 @@ public class ENGerenciarEntrevistasController extends Application{
 		private Entrevista entrevista= new Entrevista();
 		private static int idSelecionado;
 		ArrayList<Label> lbl = new ArrayList<>();
-
+		Parent fxml;
 		@FXML
 		public void start(Stage stage) throws IOException {
 		
@@ -200,17 +200,18 @@ public class ENGerenciarEntrevistasController extends Application{
 
 		@FXML
 		public void visualizarEntrevista(ActionEvent event) throws IOException {
-			//Checando se há algum item selecionado
 			if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
+				int i = jfxlvListView.getSelectionModel().getSelectedIndex();
+				setIdSelecionado(listaPesquisa.get(i).getId());
 				//Pegando fxml como parametro
-				Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENGerenciarEntrevistasVisualizar.fxml"));
+				fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENGerenciarEntrevistasVisualizar.fxml"));
 				//Limpando o coteúdo do AnchorPane "pane"
 	        	pane.getChildren().removeAll();
 	        	//Colocando o documento fxml como conteúdo do pane
-	        	pane.setCenter(fxml);
+	        	pane.getChildren().setAll(fxml);
 			}
 		}
-		
+
 		@FXML
 		public void doubleClick(javafx.scene.input.MouseEvent event) throws IOException {
 			//Criando ActionEvent para o método

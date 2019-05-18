@@ -107,6 +107,7 @@ public class EntrevistadoresPerfil extends Application{
 	    });
 		//executando o metodo que carrega os dados de um perfil individual do banco
 		e.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
+		int idEn = EnC.getIdEntrevistadorSel();
 		
 		//passando os valores dos resultados da query do banco da classe Entrevistador para os atributos desta propria classe 
 		NomeUsuario = En.getNomeUsuario();
@@ -116,8 +117,8 @@ public class EntrevistadoresPerfil extends Application{
 		Senha = En.getSenhaEntrevistador();
 		NumEntrevistas = En.getEntrevistasRealizadas();
 		Aprovados = En.getAdmissoes();
-		Reprovados = 5;
-		EmEspera = 1;
+		Reprovados = e.carregarEntrevistaRec(idEn);
+		EmEspera = e.carregarEntrevistaEsp(idEn);
 		setIdSel(EnC.getIdEntrevistadorSel());
 		
 		e.carregarPerfilEntrevistador(getIdSel());

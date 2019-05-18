@@ -29,7 +29,10 @@ public class Empresa extends Usuarios {
 	private static int id;
 	private static int idEntrevistadorPadrao;
 	private static String imgEntrevistadores;
-
+	
+	private static int EntrevistasRec;
+	private static int EntrevistasEmEs;
+	
 	public Empresa() {
 		// TODO Auto-generated constructor stub
 	}
@@ -268,7 +271,7 @@ public class Empresa extends Usuarios {
 				Entrevistador.setRgEntrevistador(rs.getString("RG"));
 				Entrevistador.setSenhaEntrevistador(rs.getString("SENHA"));
 				Entrevistador.setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
-				Entrevistador.setAdmissoes(rs.getInt("ADMISSÕES"));
+				Entrevistador.setAdmissoes(rs.getInt("ADMISSOES"));
 				Entrevistador.setNomeImagem(rs.getString("FOTO"));
 			}
 				
@@ -321,8 +324,37 @@ public class Empresa extends Usuarios {
 	}
 		
 		
-	//criar um array pra pegar os nomes criptografados das imagens no banco de dados
 	
+//Listar entrevistas em espera e recusadas perfil do entrevistador utilizando o perfil da empres
+	
+
+	public int carregarEntrevistaRec(int idEntrevistador) throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 0";
+		try(Connection conn = con.connect(); ){
+	
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idEntrevistador);		
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {	setEntrevistasRec(rs.getInt("numEn")); }
+		}catch(SQLException e) {
+			
+		}
+		return getEntrevistasRec();
+	}	
+
+
+	public int carregarEntrevistaEsp(int idEntrevistador) throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 2";
+		try(Connection conn = con.connect(); ){
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idEntrevistador);		
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {	setEntrevistasEmEs(rs.getInt("numEn"));}
+		}catch(SQLException e) {
+			
+		}
+		return getEntrevistasEmEs();
+	}	
 		
 
 	
@@ -499,6 +531,20 @@ public static String getImgEntrevistadores() {
 public static void setImgEntrevistadores(String imgEntrevistadores) {
 	Empresa.imgEntrevistadores = imgEntrevistadores;
 }
+public static int getEntrevistasRec() {
+	return EntrevistasRec;
+}
 
+public static void setEntrevistasRec(int entrevistasRec) {
+	EntrevistasRec = entrevistasRec;
+}
+
+public static int getEntrevistasEmEs() {
+	return EntrevistasEmEs;
+}
+
+public static void setEntrevistasEmEs(int entrevistasEmES) {
+	EntrevistasEmEs = entrevistasEmES;
+}
 }
 
