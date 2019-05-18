@@ -81,7 +81,7 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 		//Checando se há algum item selecionado
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			//Pegando fxml como parametro
-			fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistasVisualizar.fxml"));
+			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevista.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane

@@ -20,6 +20,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Empresa;
+import view.PopUp;
 import javafx.scene.Node;
 
 public class ENMenuController extends Application{
@@ -231,9 +232,13 @@ public class ENMenuController extends Application{
 	
 	 @FXML
 	 public void Fechar(MouseEvent event) {
-		 //Fechar aplicação//
-		 System.exit(0);
+		//Fechar aplicação//
+		 PopUp p = new PopUp();
+		 if(p.popUpEscolha("Deseja mesmo fechar o aplicativo?", "Sim", "Não") == 1) {
+		 	System.exit(0);
+	 	 }
 	 }
 
 }
+
 

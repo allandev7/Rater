@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXMasonryPane;
@@ -58,6 +59,8 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private AnchorPane pane;
 	
+	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
+	
 	private static int idSelecionado;
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;
@@ -79,6 +82,7 @@ public class GerenciarEntrevistasController extends Application{
 			}
 		});
 	}
+	
 	ArrayList<dados> listaPesquisa = new ArrayList<>();
 	public void carregarPesquisa() {
 		jfxlvListView.getItems().clear();
@@ -143,19 +147,32 @@ public class GerenciarEntrevistasController extends Application{
 			HBox hbox = new HBox(lbl.get(i));
 			
 			if(resultado.equals("Em espera")) {
+				
 				JFXComboBox<String> cbx = new JFXComboBox<String>();
 				cbx.setPromptText("Finalizar entrevista");
 				cbx.getItems().addAll("Aprovar", "Reprovar");
+				cbx.setId(Integer.toString(i));
+				
+				cbx.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						 System.out.println(nomeEntrevistado);
+					}
+				});
+				
+				cb.add(cbx);
 				
 				Pane pane = new Pane();
 				pane.setPrefWidth(200);
 				
 				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
-				hbox.getChildren().addAll(pane, cbx);
+				hbox.getChildren().addAll(pane, cb.get(i));
 			}
 			
 			//Adicionando a Label lbl1 na JFXListView
 			jfxlvListView.getItems().add(hbox);
+				
 		}
 			
 	}

@@ -81,7 +81,7 @@
             </Label>
          </children>
       </GridPane>
-      <Label fx:id="lblEntrevistas" layoutX="12.0" layoutY="387.0" onMouseClicked="#AlterarFoto" prefHeight="32.0" prefWidth="275.0" text="Entrevistas:" textFill="#32447c" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="387.0">
+      <Label fx:id="lblEntrevistas" contentDisplay="TOP" layoutX="12.0" layoutY="339.0" onMouseClicked="#AlterarFoto" prefHeight="152.0" prefWidth="275.0" text="Entrevistas:" textFill="#32447c" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="339.0">
          <font>
             <Font size="19.0" />
          </font>
@@ -94,5 +94,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
+      <Separator layoutX="10.0" layoutY="462.0" prefHeight="56.0" prefWidth="705.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+         <effect>
+            <DropShadow color="#0000002f" />
+         </effect>
+      </Separator>
    </children>
 </AnchorPane>
