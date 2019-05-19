@@ -206,9 +206,9 @@ public class ENGerenciarEntrevistasController extends Application{
 				//Pegando fxml como parametro
 				fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENGerenciarEntrevistasVisualizar.fxml"));
 				//Limpando o coteúdo do AnchorPane "pane"
-	        	pane.getChildren().removeAll();
-	        	//Colocando o documento fxml como conteúdo do pane
-	        	pane.getChildren().setAll(fxml);
+				pane.getChildren().removeAll();
+		        //	Colocando o documento fxml como conteúdo do pane
+				pane.setCenter(fxml);
 			}
 		}
 

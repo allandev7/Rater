@@ -70,10 +70,10 @@ public class ENGerenciarEntrevistasVisualizarController extends Application{
 	public void carregarInformacoes() {
 		//Carregando informações do entrevistado
 		Entrevistado infoCandidato =   e.visualizarEntrevista(ENGerenciarEntrevistasController.getIdSelecionado());
-		//String nomeImagem = e.visualizarEntrevista(ENGerenciarEntrevistasController.getIdSelecionado()).getFoto();
+		String nomeImagem = e.visualizarEntrevista(ENGerenciarEntrevistasController.getIdSelecionado()).getFoto();
 		Entrevistado c = new Entrevistado();
 		//Verificar se há alguma imagem salva no banco e no azure
-	/*	if(nomeImagem != null) {
+		if(nomeImagem != null) {
 			//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
 			try {
 					c.baixarImgsCandidatos(nomeImagem);
@@ -87,7 +87,7 @@ public class ENGerenciarEntrevistasVisualizarController extends Application{
 		//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 		}else {
 				imgFoto.setImage(new Image(("imagens/user.png")));
-		}*/
+		}
 		lblNome.setText("Nome: " + infoCandidato.getNome());
 		lblSexo.setText("Sexo: " + infoCandidato.getSexo());
 		lblIdade.setText("Idade: " + infoCandidato.getIdade());

@@ -48,7 +48,7 @@ import view.PopUp;
 public class EntrevistadoresAdicionarController extends Application{
 	
 	Empresa e = new Empresa();
-	
+	PopUp pop = new PopUp();
 	@FXML private TextField txtNomeUsuario;
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
@@ -174,26 +174,29 @@ public class EntrevistadoresAdicionarController extends Application{
 		String senha = txtSenha.getText();
 		String Rg = txtRG.getText();
 		String fotoVazia = "null";
-		
-		//verifica se há algum campo obrigatorio em branco	
-		if(nome.equals("") || email.equals("") || senha.equals("")|| Rg.equals("") ) {
+		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
+			//verifica se há algum campo obrigatorio em branco	
+			if(nome.equals("") || email.equals("") || senha.equals("")|| Rg.equals("") ) {
+				
+				pop.popUpMensagem("Preencha os campos obrigatorios","");
 			
-			JOptionPane.showMessageDialog(null, "Preencha os campos obrigatorios");
+			}else {
+				//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
+				if(getNomeFotoCripto() == null) {
+					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, fotoVazia, getCaminho());
+				}else {
+					//cadastra entrevistador com imagem
+					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+				}
+				//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
+				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+				pane.getChildren().removeAll();
+				pane.setCenter(fxml);
+			}
 		
 		}else {
-			//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
-			if(getNomeFotoCripto() == null) {
-				e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, fotoVazia, getCaminho());
-			}else {
-				//cadastra entrevistador com imagem
-				e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
-			}
-			//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
-			Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-			pane.getChildren().removeAll();
-			pane.setCenter(fxml);
+			pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
 		}
-	
 	}
 	
 	

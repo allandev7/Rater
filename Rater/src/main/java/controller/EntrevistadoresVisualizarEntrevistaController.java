@@ -149,7 +149,7 @@ public class EntrevistadoresVisualizarEntrevistaController extends Application{
 	
 	public void voltar(ActionEvent event) throws IOException {
 		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
 		//Limpando o coteúdo do AnchorPane "pane"
     	pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteúdo do pane

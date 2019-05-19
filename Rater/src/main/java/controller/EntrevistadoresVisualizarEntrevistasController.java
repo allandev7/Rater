@@ -184,11 +184,11 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 			int i = jfxlvListView.getSelectionModel().getSelectedIndex();
 			setIdSelecionado(listaPesquisa.get(i).getId());
 			//Pegando fxml como parametro
-			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistaController.java"));
+			fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevista.fxml"));
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
-        	pane.getChildren().setAll(fxml);
+			pane.setCenter(fxml);
 		}
 	}
 	

@@ -150,7 +150,32 @@ public class Empresa extends Usuarios {
 	/*-----------------------------------------------------------*/
 	/*---------------GERENCIAR ENTREVISTADORES--------------------*/
 	/*---------------------------------------------------------------*/
-	
+	public int verificarNomeUsuario(String nomeUsuario) { 
+		int haNome = 0;
+		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ?";
+
+		try(Connection conn = con.connect()){
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nomeUsuario);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				haNome = 0;
+			}else {
+				haNome = 1;
+			}
+		//se houver nome ja cadastrado = 0
+		//se nao tiver nome cadastro = 1
+		
+		}catch(SQLException e) {
+			
+		}
+		
+		
+		return haNome;
+	}
 	
 	public void alterarDadosEntrevistador(int id, String nomeDeUsuario, String Email, String Senha, String Nome, String Rg) {
 		try(Connection conn = con.connect()){
