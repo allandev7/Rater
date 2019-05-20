@@ -11,16 +11,5 @@
 <AnchorPane prefHeight="540.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingScreenController">
    <children>
       <ImageView fx:id="imageView" fitHeight="540.0" fitWidth="722.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnMenu" layoutX="279.0" layoutY="442.0" mnemonicParsing="false" onAction="#voltar" prefHeight="57.0" prefWidth="164.0" text="Voltar ao Menu" />
-      <Label layoutX="261.0" layoutY="48.0" prefHeight="27.0" prefWidth="230.0" text="Entrevista sendo concluida..." textFill="WHITE">
-         <font>
-            <Font name="Tahoma" size="18.0" />
-         </font>
-      </Label>
-      <BorderPane fx:id="pane" layoutX="-1.0" layoutY="-1.0" prefHeight="540.0" prefWidth="89.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </BorderPane>
    </children>
 </AnchorPane>
