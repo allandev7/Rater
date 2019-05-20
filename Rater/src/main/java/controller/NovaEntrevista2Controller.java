@@ -289,8 +289,8 @@ public class NovaEntrevista2Controller extends Application{
 			//ESQUELETO PARA QUANDO HOUVER RELATORIO
 			entrevista.setRelatorio("relatorio.docx");
 			int idEntrevista = entrevista.inserirEntrevista(Empresa.getIdEntrevistadorPadrao(), 
-																Entrevistado.getId(),p.getIdCargoSelecionado());
-			
+																candidato.getId(),p.getIdCargoSelecionado());
+			System.out.println("--------"+candidato.getId());
 			//buscar id dos criterios
 			ArrayList<Integer> criterios = entrevista.buscarIDcriterios(p.getIdCargoSelecionado(),
 																			Empresa.getIdEntrevistadorPadrao());

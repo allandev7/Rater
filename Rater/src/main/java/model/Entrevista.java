@@ -58,8 +58,8 @@ public class Entrevista {
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO entrevista VALUES (NULL,?,?,?,?,?,?,?,?)", java.sql.Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, idEntrevistador);
-			pstmt.setInt(3, idCandidato);
-			pstmt.setInt(2, idCargo);
+			pstmt.setInt(2, idCandidato);
+			pstmt.setInt(3, idCargo);
 			pstmt.setDate(4, dateConvert);
 			pstmt.setInt(5, isAprovado());
 			pstmt.setString(6, getFeedback());

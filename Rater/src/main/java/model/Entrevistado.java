@@ -2,7 +2,9 @@ package model;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -43,7 +45,7 @@ public class Entrevistado {
 		try {
 			//preparar a query
 			PreparedStatement pstmt = (PreparedStatement)
-					con.prepareStatement("INSERT INTO candidato VALUES (null,?,?,?,?,?,?,?,?,?,?);");
+					con.prepareStatement("INSERT INTO candidato VALUES (null,?,?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 			//definir os parametros
 			pstmt.setString(1, email);
 			pstmt.setString(2, nome);
@@ -68,8 +70,8 @@ public class Entrevistado {
 			setEndereco(endereco);
 			
 			
-			
-			setId((int) pstmt.getLastInsertID());
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) setId((int) rs.getInt(1));
 			
 			
 		} catch (SQLException e) {
