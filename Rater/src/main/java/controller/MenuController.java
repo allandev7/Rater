@@ -24,7 +24,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Empresa;
 import view.PopUp;
-import controller.HomeController;;
+import controller.HomeController;
+
 
 public class MenuController extends Application{
 	Empresa empresa = new Empresa();
@@ -74,6 +75,9 @@ public class MenuController extends Application{
 	@FXML
 	private ImageView imgMaximizar;
 	
+	@FXML
+	public static com.jfoenix.controls.JFXSpinner JFXSpinner;
+	
 	public static int telaAtual;
 	public static boolean maximizado = false;
 	
@@ -108,6 +112,7 @@ public class MenuController extends Application{
 	}
 	
 	public void initialize() throws IOException {
+		
 		lblNomeUsuario.setText(Empresa.getNome());
 		try {
 			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));

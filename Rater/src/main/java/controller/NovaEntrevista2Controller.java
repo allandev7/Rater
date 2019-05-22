@@ -271,6 +271,7 @@ public class NovaEntrevista2Controller extends Application{
 	}
 	
 	public void concluir() throws IOException {
+<<<<<<< HEAD
 		//chamaLoading();
 		class T1 extends Thread {
 		    public void run () {
@@ -286,6 +287,10 @@ public class NovaEntrevista2Controller extends Application{
 		T1 t1 = new T1();
 		t1.start();
 	}
+=======
+					insereEntrevista();
+		}
+>>>>>>> ec07b8524daf7247690c9c8900fcd90cb0443f80
 		
 	public void sairEntrevista() throws IOException {
 		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
@@ -298,6 +303,7 @@ public class NovaEntrevista2Controller extends Application{
 		//Colocando o documento fxml como conteúdo do pane
 		pane.setCenter(fxml);
 	}
+<<<<<<< HEAD
 	
 	public void chamaLoading() throws IOException {
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/LoadingScreen.fxml"));
@@ -305,6 +311,8 @@ public class NovaEntrevista2Controller extends Application{
 		pane.setCenter(fxml);
 	}
 	
+=======
+>>>>>>> ec07b8524daf7247690c9c8900fcd90cb0443f80
 	public void insereEntrevista() throws IOException {
 		Entrevista entrevista = new Entrevista();
 		String conclusaoADD = null;
@@ -345,7 +353,7 @@ public class NovaEntrevista2Controller extends Application{
 		
 		entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
 		
-		gambit=0;
+		gambit=1;
 	}
 	
 	//Método para realizar ação quando tecla for pressionada
