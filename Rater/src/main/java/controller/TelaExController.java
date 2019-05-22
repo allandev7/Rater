@@ -6,8 +6,11 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import com.jfoenix.controls.JFXTextField;
+
 import controllerEntrevistador.ENMenuController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -35,10 +40,13 @@ public class TelaExController extends Application{
 	@FXML private TextField txtSenha;
 	@FXML private CheckBox chbLoginEmpresa;
 	@FXML private AnchorPane anchorPane;
+	@FXML private Button btnCancelar;
+	@FXML private JFXTextField txtEmailEmpresa;
 				
 	double X = 0;
 	double Y = 0;
 	
+	private static String email = "";
 	public Empresa empresa = new Empresa();
 	public Entrevistador EN = new Entrevistador();
 	
@@ -72,9 +80,6 @@ public class TelaExController extends Application{
 	public void initialize() {
 		File file = new File("C:/Rater/imagens");
 		file.mkdirs();
-		
-		txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("rater123");
 	}
 
 	// Event Listener on Button.onMouseClicked
@@ -132,10 +137,60 @@ public class TelaExController extends Application{
 		
 		}else {
 			lblErro.setText("Usuário e/ou senha incorreto(s)");
-
 		}
 	}
 	
+	public void esqueciSenha(ActionEvent event) throws Exception {
+		//Criando nova janela
+		Stage popup = new Stage();
+		//Fazendo com que as outras janelas fiquem "bloqueadas" enquanto o popup estiver aberto
+		popup.initModality(Modality.APPLICATION_MODAL);
+		//Pegando fxml como parâmetro
+		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/EsqueciSenha.fxml"));
+		//Carregando a tela nova
+		Parent root = loader.load();
+		//Definindo o fxml como uma cena
+		Scene scene = new Scene(root);
+		//Definindo a cena da janela 
+		popup.setScene(scene);
+		//Deixando a janela sem os botões
+		popup.initStyle(StageStyle.UNDECORATED);
+		//Fazendo com que o tamanho da janela não possa ser modificado
+		popup.setResizable(false);
+		//Exibindo a janela
+		popup.show();
+		
+		//Agora tem que apertar o botão de esqueci minha senha pra preencher os campos automáticamente, não pergunte o pq.
+		txtEmail.setText("raterptcc@gmail.com");
+		txtSenha.setText("rater123");
+	}
+	
+	public void confirmar() throws IOException {
+		//Verificando se o campo de E-mail está preenchido
+		if (!txtEmailEmpresa.getText().equals("")) {
+			//Pegando o e-mail digitado
+			email = txtEmailEmpresa.getText();
+			//Pegando a janela onde está o btnCancelar
+			Stage stage = (Stage) btnCancelar.getScene().getWindow();
+			//Pegando o fxml como parâmetro 
+			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/EsqueciSenha2.fxml"));
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			//Definindo a cena da janela como sendo a tela EsqueciSenha2
+			stage.setScene(scene);	
+		}else {
+			//Caso o E-mail não esteja preenchido exibe uma mensagem de aviso no txtEmailEmpresa
+			txtEmailEmpresa.setPromptText("Digite um E-mail válido!");
+		}
+	}
+	
+	public void fecharPopup() {
+		//Pegando a janela onde o btnCancelar está
+		Stage stage = (Stage) btnCancelar.getScene().getWindow();
+		//Fechando a janela
+	    stage.close();
+	}
+		
 	//Método para realizar ação quando tecla for pressionada
 		public void keyPressed(KeyEvent event) throws Exception {
 			//Reconhecendo a tecla pressionada

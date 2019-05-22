@@ -94,7 +94,7 @@
                               <Font size="10.0" />
                            </font>
                         </CheckBox>
-                        <Hyperlink layoutX="128.0" layoutY="2.0" style="-fx-font-size: 10;" stylesheets="@MenuCSS.css" text="Esqueci minha senha">
+                        <Hyperlink layoutX="128.0" layoutY="2.0" onAction="#esqueciSenha" style="-fx-font-size: 10;" stylesheets="@MenuCSS.css" text="Esqueci minha senha">
                            <effect>
                               <DropShadow color="#00000032" />
                            </effect>

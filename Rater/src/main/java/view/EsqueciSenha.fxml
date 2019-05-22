@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="400.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaExController">
+   <children>
+      <JFXTextField fx:id="txtEmailEmpresa" layoutX="14.0" layoutY="76.0" prefHeight="31.0" prefWidth="376.0" promptText="Insira o E-mail da empresa" />
+      <JFXButton layoutX="255.0" layoutY="151.0" onAction="#confirmar" prefHeight="55.0" prefWidth="131.0" styleClass="btnLogin" text="Confirmar" />
+      <JFXButton fx:id="btnCancelar" layoutX="14.0" layoutY="151.0" onAction="#fecharPopup" prefHeight="55.0" prefWidth="131.0" styleClass="btnLogin" text="Cancelar" />
+      <Pane onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="55.0" prefWidth="400.0" />
+   </children>
+</AnchorPane>

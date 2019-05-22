@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="400.0" stylesheets="@MenuCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaExController">
+   <children>
+      <JFXButton fx:id="btnCancelar" layoutX="14.0" layoutY="151.0" onAction="#fecharPopup" prefHeight="55.0" prefWidth="131.0" styleClass="btnLogin" text="Ok" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" />
+      <Pane onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="55.0" prefWidth="400.0" />
+      <Label layoutX="15.0" layoutY="70.0" prefHeight="37.0" prefWidth="371.0" style="-fx-font-size: 11;" stylesheets="@MenuCSS.css" text="Uma mensagem com o link para a troca de senha foi enviada para o E-mail." wrapText="true" />
+   </children>
+</AnchorPane>
