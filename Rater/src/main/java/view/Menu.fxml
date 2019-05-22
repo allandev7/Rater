@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -90,6 +91,7 @@
                   <Insets right="6.0" />
                </opaqueInsets>
             </Pane>
+            <JFXSpinner id="JFXSpinner" fx:id="JFXSpinner" layoutX="62.0" layoutY="515.0" visible="false" />
          </children>
          <effect>
             <DropShadow />

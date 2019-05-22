@@ -270,20 +270,7 @@ public class NovaEntrevista2Controller extends Application{
 		pane.setCenter(fxml);
 	}
 	public void concluir() throws IOException {
-		chamaLoading();
-		class T1 extends Thread {
-		    public void run () {
-		        try {
 					insereEntrevista();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    }
-		}
-				
-		T1 t1 = new T1();
-		t1.start();
 		}
 		
 	public void sairEntrevista() throws IOException {
@@ -295,11 +282,6 @@ public class NovaEntrevista2Controller extends Application{
 		//Limpando o coteúdo do Pane "pane"
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane
-		pane.setCenter(fxml);
-	}
-	public void chamaLoading() throws IOException {
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/LoadingScreen.fxml"));
-		pane.getChildren().removeAll();
 		pane.setCenter(fxml);
 	}
 	public void insereEntrevista() throws IOException {
@@ -342,7 +324,7 @@ public class NovaEntrevista2Controller extends Application{
 		
 		entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
 		
-		gambit=0;
+		gambit=1;
 	}
 	
 	//Método para realizar ação quando tecla for pressionada
