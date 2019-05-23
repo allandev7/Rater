@@ -75,14 +75,16 @@ public class EntrevistadoresController extends Application{
 		//Utilizando um for para preencher a JFXListView
 		for (int i = 0; i < numEntrevistadores; i++) {
 			
-			//Variáveis que pegam os dados do entrevistador, deverão ser substituídas por colsulta ao banco de dados
+			//Variáveis que pegam os dads do entrevistador, deverão ser substituídas por colsulta ao banco de dados
 			String nomeEntrevistador = En.carregarEntrevistadores(txtPesquisarEntrevistadores.getText()).get(i);
 			
 			//Inserindo dados do entrevistador em uma Label
 			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
-					+ "                                                                                                -"+En.getIdEntrevistador(i)+"-");	
+					+ "                                                                      -"+En.getIdEntrevistador(i)+"-");	
 			lbl1.setMaxHeight(110);
 			lbl1.setMinHeight(110);
+			lbl1.setMaxSize(500, 80);
+			lbl1.setMinSize(500, 80);
 
 			String nomeImagem =  e.carregarNomesImgEntrevistadores(En.getIdEntrevistador(i));
 			

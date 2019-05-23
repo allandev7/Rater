@@ -167,7 +167,7 @@ public class GerenciarEntrevistasController extends Application{
 				pane.setPrefWidth(200);
 				
 				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
-				hbox.getChildren().addAll(pane, cb.get(i));
+				hbox.getChildren().addAll(pane, cbx);
 			}
 			
 			//Adicionando a Label lbl1 na JFXListView
