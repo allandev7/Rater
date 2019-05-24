@@ -101,6 +101,7 @@ public class GerenciarEntrevistasController extends Application{
 			String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
+			String emailCandidato = "Joojenaldo.Joojenaldo";
 			String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
 			String resultado;
 			if(listaPesquisa.get(i).getResultado() == 1)
@@ -112,7 +113,7 @@ public class GerenciarEntrevistasController extends Application{
 			
 			//Inserindo dados da entrevista em uma Label
 			lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
-									dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador +
+									dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato + "\n\nNome do Entrevistador: " + nomeEntrevistador +
 									"\n\nResultado: " + resultado + "\n"));
 			lbl.get(i).setMaxHeight(110);
 			lbl.get(i).setMinHeight(110);
@@ -157,7 +158,11 @@ public class GerenciarEntrevistasController extends Application{
 
 					@Override
 					public void handle(ActionEvent event) {
-						 System.out.println(nomeEntrevistado);
+						if(cbx.getValue().equals("Aprovar")) {
+							System.out.println(nomeEntrevistado + " foi aprovado!");
+						} else {
+							System.out.println(nomeEntrevistado + " foi reprovado!");
+						}
 					}
 				});
 				
