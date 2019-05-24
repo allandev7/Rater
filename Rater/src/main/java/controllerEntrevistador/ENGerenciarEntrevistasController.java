@@ -136,6 +136,7 @@ public class ENGerenciarEntrevistasController extends Application{
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
 				String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
+				String emailCandidato = listaPesquisa.get(i).getEmail();
 				String resultado;
 				if(listaPesquisa.get(i).getResultado() == 1)
 					resultado = "Aprovado";
@@ -146,7 +147,7 @@ public class ENGerenciarEntrevistasController extends Application{
 				
 				//Inserindo dados da entrevista em uma Label
 				lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
-										dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador +
+										dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato +"\n\nNome do Entrevistador: " + nomeEntrevistador +
 										"\n\nResultado: " + resultado + "\n"));
 				lbl.get(i).setMaxHeight(110);
 				lbl.get(i).setMinHeight(110);

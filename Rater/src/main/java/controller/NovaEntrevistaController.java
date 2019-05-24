@@ -342,19 +342,22 @@ public class NovaEntrevistaController extends Application{
 		
 		if(new Entrevista().verificarEmEspera() < 3) {
 			if (!nome.equals("") && !email.equals("") && getCargoSelecionado()!=null) {
+				if(email.indexOf("@")>0 && email.indexOf(".")>0) {
 				new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade,endereco);
 			
-				//INICIAR OUTRA TELA
+					//INICIAR OUTRA TELA
 				
-			//	Pegando fxml como parametro
-				fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
-			//	Limpando o coteúdo do Pane "pane"
-				pane.getChildren().removeAll();
-	        //	Colocando o documento fxml como conteúdo do pane
-				pane.setCenter(fxml);
-				
+					//Pegando fxml como parametro
+					fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
+					//Limpando o coteúdo do Pane "pane"
+					pane.getChildren().removeAll();
+					//Colocando o documento fxml como conteúdo do pane
+					pane.setCenter(fxml);
+				}else {
+					new PopUp().popUpErro("Email inválido", "Digite um email válido");
+				}
 			}else {
-				new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email,nome e cargo devem ser preenchidos");
+				new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email, nome e cargo devem ser preenchidos");
 			}
 			if(getNomeFotoCripto()!=null) {
 				new AzureConnection().upload(getCaminho(), getNomeFotoCripto());

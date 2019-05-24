@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -11,7 +12,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.JOptionPane;
 
@@ -517,9 +534,88 @@ public class Empresa extends Usuarios {
 	
 	
 	
+	  /*---------------------------------------------*/
+	 /*------------Esqueci minha senha--------------*/
+	/*---------------------------------------------*/
+	
+	public int pegarIdEmpresa(String emailEm) {
+		int idEmpresa = 0;
+		String sql = "SELECT * FROM empresa WHERE EMAIL = ?";
+		try(Connection conn = con.connect()){
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emailEm);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				idEmpresa = rs.getInt("ID");
+			}
+			
+			
+		}catch(SQLException e) {
+			System.out.print(e.getMessage());
+		}
+		
+		
+		return idEmpresa;
+	}
+	
+	public String criptografarId(int idEmpresa)  {
+		String idMD5 = ""+idEmpresa;
+		
+		 MessageDigest m;
+		try {
+			m = MessageDigest.getInstance("MD5");
+			 m.update(idMD5.getBytes(), 0, idMD5.length());
+			 idMD5 = new BigInteger(1, m.digest()).toString(16);
+
+		} catch (NoSuchAlgorithmException e) {
+
+			e.printStackTrace();
+		}
+		
+
+		return idMD5;
+	}
 	
 	
-	
+	public void enviarEmailConfirmacao(String emailEm, String idCripto) {
+		Properties props = new Properties();
+        // Parâmetros de conexão com servidor Gmail 
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("raterptcc@gmail.com", "etec_TCC");
+                         }
+                    });
+        session.setDebug(true);
+        
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("raterptcc@gmail.com")); //Remetente
+
+            Address[] toUser = InternetAddress.parse(emailEm);  
+
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject("Confirmação de email para trocar de senha. ");//Assunto
+            message.setText("Clique no link para trocar a senha \n http://localhost/SiteRater/rater/Download/esqueciminhasenha.php?id="+idCripto);
+            
+            //Método para enviar a mensagem criada
+            Transport.send(message);
+
+            System.out.println("Feito!!!");
+
+       } catch (MessagingException e) {
+    	   System.out.println(e);
+      }
+	}
 
 
 
@@ -572,4 +668,3 @@ public static void setEntrevistasEmEs(int entrevistasEmES) {
 	EntrevistasEmEs = entrevistasEmES;
 }
 }
-

@@ -101,7 +101,7 @@ public class GerenciarEntrevistasController extends Application{
 			String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
-			String emailCandidato = "Joojenaldo.Joojenaldo";
+			String emailCandidato = listaPesquisa.get(i).getEmail();
 			String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
 			String resultado;
 			if(listaPesquisa.get(i).getResultado() == 1)
@@ -146,7 +146,7 @@ public class GerenciarEntrevistasController extends Application{
 			}
 			
 			HBox hbox = new HBox(lbl.get(i));
-			
+			int ih = i;
 			if(resultado.equals("Em espera")) {
 				
 				JFXComboBox<String> cbx = new JFXComboBox<String>();
@@ -155,13 +155,17 @@ public class GerenciarEntrevistasController extends Application{
 				cbx.setId(Integer.toString(i));
 				
 				cbx.setOnAction(new EventHandler<ActionEvent>() {
-
+						
 					@Override
 					public void handle(ActionEvent event) {
 						if(cbx.getValue().equals("Aprovar")) {
-							System.out.println(nomeEntrevistado + " foi aprovado!");
-						} else {
-							System.out.println(nomeEntrevistado + " foi reprovado!");
+							entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+							carregarPesquisa();
+							new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+						} else if(cbx.getValue().equals("Reprovar")){
+							entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+							carregarPesquisa();
+							new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
 						}
 					}
 				});
@@ -215,9 +219,13 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML
 	public void deletarEntrevista(ActionEvent event) throws IOException {
 		int i = jfxlvListView.getSelectionModel().getSelectedIndex();
-		entrevista.deletarEntrevista(listaPesquisa.get(i).getId());
-		txtPesquisarEntrevistas.clear();
-		carregarPesquisa();	
+		if(listaPesquisa.get(i).getResultado() != 2) {
+			entrevista.deletarEntrevista(listaPesquisa.get(i).getId());
+			txtPesquisarEntrevistas.clear();
+			carregarPesquisa();	
+		}else {
+			new PopUp().popUpErro("Não é possível deletar entrevistas em espera", "Você deve dar o resultado da entrevista antes");
+		}
 	}
 	public static int getIdSelecionado() {
 		return idSelecionado;

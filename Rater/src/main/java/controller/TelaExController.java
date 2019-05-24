@@ -80,8 +80,8 @@ public class TelaExController extends Application{
 	public void initialize() {
 		File file = new File("C:/Rater/imagens");
 		file.mkdirs();
-		txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("rater123");
+		//txtEmail.setText("raterptcc@gmail.com");
+		//txtSenha.setText("rater123");
 	}
 
 	// Event Listener on Button.onMouseClicked
@@ -172,6 +172,8 @@ public class TelaExController extends Application{
 		if (!txtEmailEmpresa.getText().equals("")) {
 			//Pegando o e-mail digitado
 			email = txtEmailEmpresa.getText();
+			
+			empresa.enviarEmailConfirmacao(email, empresa.criptografarId(empresa.pegarIdEmpresa(email)) );
 			//Pegando a janela onde está o btnCancelar
 			Stage stage = (Stage) btnCancelar.getScene().getWindow();
 			//Pegando o fxml como parâmetro 

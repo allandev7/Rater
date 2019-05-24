@@ -203,15 +203,16 @@ public class Entrevista {
 	
 	//INICIO CARREGAR ENTREVISTA
 	public class dados{
-		private String nomeCandidato, nomeEntrevistador, feedback;
+		private String nomeCandidato, nomeEntrevistador, feedback, email;
 		private int resultado, id;
 		private Date data;
-		public dados(String nomeEntrevistador, String nomeCandidato, Date data,int resultado, String feedback,int id) {			this.setNomeCandidato(nomeCandidato);
+		public dados(String nomeEntrevistador, String nomeCandidato, Date data,int resultado, String feedback,int id, String email) {			this.setNomeCandidato(nomeCandidato);
 			this.setNomeEntrevistador(nomeEntrevistador);
 			this.setData(data);
 			this.setResultado(resultado);
 			this.setFeedback(feedback); 
 			this.setId(id);
+			this.setEmail(email);
 		}
 		public String getNomeCandidato() {
 			return nomeCandidato;
@@ -249,6 +250,18 @@ public class Entrevista {
 		public void setId(int id) {
 			this.id = id;
 		}
+		/**
+		 * @return the email
+		 */
+		public String getEmail() {
+			return email;
+		}
+		/**
+		 * @param email the email to set
+		 */
+		public void setEmail(String email) {
+			this.email = email;
+		}
 		
 	}
 	public ArrayList<dados> carregarEntrevistas() {
@@ -263,7 +276,7 @@ public class Entrevista {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				dadosLista.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
-						rs.getString(5), rs.getInt(6)));
+						rs.getString(5), rs.getInt(6), rs.getString(7)));
 			}
 			return dadosLista;
 		} catch (SQLException e) {
@@ -460,7 +473,7 @@ public class Entrevista {
 	public ArrayList<dados> pesquisar(String nome) {
 		dadosList.clear();
 		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
-				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
+				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID, candidato.EMAIL FROM `entrevista` " + 
 				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
 				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ? AND candidato.NOME LIKE ?";
 		try {
@@ -470,7 +483,7 @@ public class Entrevista {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				dadosList.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
-						rs.getString(5), rs.getInt(6)));
+						rs.getString(5), rs.getInt(6),rs.getString(7)));
 			}
 			return dadosList;
 			
@@ -486,7 +499,7 @@ public class Entrevista {
 	public ArrayList<dados> ENpesquisar(String nome) {
 		dadosList.clear();
 		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
-				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
+				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID, candidato.Email FROM `entrevista` " + 
 				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
 				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ? AND candidato.NOME LIKE ? "
 				+ "AND entrevista.ID_ENTREVISTADOR = ?";
@@ -498,7 +511,7 @@ public class Entrevista {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				dadosList.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
-						rs.getString(5), rs.getInt(6)));
+						rs.getString(5), rs.getInt(6), rs.getString(7)));
 			}
 			return dadosList;
 			
@@ -513,7 +526,7 @@ public class Entrevista {
 	public ArrayList<dados> ENpesquisar2(String nome, int idEntrevistador) {
 		dadosList.clear();
 		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
-				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
+				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID, candidato.EMAIL FROM `entrevista` " + 
 				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
 				"INNER JOIN candidato ON candidato.ID = entrevista.ID_CANDIDATO WHERE IDEMPRESA = ? AND candidato.NOME LIKE ? "
 				+ "AND entrevista.ID_ENTREVISTADOR = ?";
@@ -525,7 +538,7 @@ public class Entrevista {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				dadosList.add(new dados(rs.getString(1), rs.getString(2),rs.getDate(3), rs.getInt(4),
-						rs.getString(5), rs.getInt(6)));
+						rs.getString(5), rs.getInt(6), rs.getString(7)));
 			}
 			return dadosList;
 			
@@ -555,6 +568,59 @@ public class Entrevista {
 		}
 	}
 	
+	
+	//ENVIAR RESPOSTA AO MANO QUE TA ESPERANDO 
+	public void enviarEmailEmEspera(String emailEm, String resul) {
+		Properties props = new Properties();
+        // Parâmetros de conexão com servidor Gmail 
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("raterptcc@gmail.com", "etec_TCC");
+                         }
+                    });
+        session.setDebug(true);
+        
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("raterptcc@gmail.com")); //Remetente
+
+            Address[] toUser = InternetAddress.parse(emailEm);  
+
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject("Entrevista em espera. ");//Assunto
+            message.setText("Sua entrevista que estava em espera na empresa "+Empresa.getNome()+" foi analisada e você foi " + resul);
+            
+            //Método para enviar a mensagem criada
+            Transport.send(message);
+
+            System.out.println("Feito!!!");
+
+       } catch (MessagingException e) {
+    	   System.out.println(e);
+      }
+	}
+	
+	//ATUALIZAR ENTREVISTA
+	public void atualizarEmEspera(int resul, int idEntrevista) {
+		String sql = "UPDATE entrevista SET RESULTADO = ? WHERE ID = ?";
+		try {
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setInt(1, resul);
+			pstmt.setInt(2, idEntrevista);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	//GETTERS E SETTERS
 	public Date getData() {
 		return data;

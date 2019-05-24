@@ -45,11 +45,12 @@ public class ENHomeController {
 		lineChart.setLegendVisible(false);
 		
 		
-		
+		ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
+
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		
 		for(int i =0 ;i< p.carregarCargos().size(); i++) {
-			pieChartData.add(new PieChart.Data(p.carregarCargos().get(i)+ ": "+ EN.carregarNumEntrevistaCargo().get(i) , EN.carregarNumEntrevistaCargo().get(i)));
+			list.add(new PieChart.Data(p.carregarCargos().get(i)+ ": "+ EN.carregarNumEntrevistaCargo().get(i) , EN.carregarNumEntrevistaCargo().get(i)));
 		}
 		
 
@@ -60,13 +61,12 @@ public class ENHomeController {
 		pieChartLeft.setLegendVisible(false);
 		pieChartLeft.setLabelLineLength(5);
 				
-		ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
 		
 		//list.add(new PieChart.Data(p.carregarCargos().get(i)+ ": "+ e.carregarNumEntrevistaCargo().get(i) , e.carregarNumEntrevistaCargo().get(i)));
 		
-		list.add(new PieChart.Data("Contratados", EN.carregarEntrevistaAce()));
-		list.add(new PieChart.Data("Recusados", EN.carregarEntrevistaRec()));
-		list.add(new PieChart.Data("Em espera", EN.carregarEntrevistaEsp()));
+		pieChartData.add(new PieChart.Data("Contratados", EN.carregarEntrevistaAce()));
+		pieChartData.add(new PieChart.Data("Recusados", EN.carregarEntrevistaRec()));
+		pieChartData.add(new PieChart.Data("Em espera", EN.carregarEntrevistaEsp()));
 
 		
 		pieChartRight.setData(list);

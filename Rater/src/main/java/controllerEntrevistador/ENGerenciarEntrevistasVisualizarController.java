@@ -100,7 +100,7 @@ public class ENGerenciarEntrevistasVisualizarController extends Application{
 	}
 	
 	public void carregarCriterios(){
-		int idsel =GerenciarEntrevistasController.getIdSelecionado();
+		int idsel =ENGerenciarEntrevistasController.getIdSelecionado();
 		for (int i = 0; i < e.carregarCriteriosEntrevista(idsel).size(); i++) {
 			
 			//Pegando informações do critério

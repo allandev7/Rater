@@ -149,7 +149,7 @@ public class ENMenuController extends Application{
 	 @FXML
 	 public void Home(MouseEvent event) throws IOException {
 		 //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+		Parent fxml = FXMLLoader.load(getClass().getResource("/viewEntrevistador/ENHome.fxml"));
 		//Limpando conteúdo do pane
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane
