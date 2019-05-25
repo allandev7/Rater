@@ -180,12 +180,26 @@ public class ENGerenciarEntrevistasController extends Application{
 				}
 				
 				HBox hbox = new HBox(lbl.get(i));
-				
+				int ih = i;
 				if(resultado.equals("Em espera")) {
 					JFXComboBox<String> cbx = new JFXComboBox<String>();
 					cbx.setPromptText("Finalizar entrevista");
 					cbx.getItems().addAll("Aprovar", "Reprovar");
 					
+					cbx.setOnAction(new EventHandler<ActionEvent>() {	
+						@Override
+						public void handle(ActionEvent event) {
+								if(cbx.getValue().equals("Aprovar")) {
+									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+								} else if(cbx.getValue().equals("Reprovar")){
+									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+							}
+						}
+					});
 					Pane pane = new Pane();
 					pane.setPrefWidth(200);
 					

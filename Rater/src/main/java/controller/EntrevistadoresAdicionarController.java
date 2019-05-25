@@ -100,6 +100,9 @@ public class EntrevistadoresAdicionarController extends Application{
 	//metodo para pegar o nome da imagem criptografada
 	public void uparFoto(MouseEvent event)  {
 		String nome="", extensao="", caminho = "";
+		
+		
+		
 		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
 		if(escolha == 1) {
 			caminho = "C:\\Rater/imagens/fotoTEMP.png";
@@ -168,6 +171,8 @@ public class EntrevistadoresAdicionarController extends Application{
 
 	public void cadastrarEntrevistador(ActionEvent event) throws Exception {
 		System.out.print(getNomeFotoCripto());
+		//instanciando objeto da classe do Azure
+		AzureConnection con = new AzureConnection();
 		String nomeUsuario = txtNomeUsuario.getText();
 		String nome = txtNome.getText();
 		String email = txtEmail.getText();
@@ -176,7 +181,7 @@ public class EntrevistadoresAdicionarController extends Application{
 		String fotoVazia = "null";
 		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
 			//verifica se há algum campo obrigatorio em branco	
-			if(nome.equals("") || email.equals("") || senha.equals("")|| Rg.equals("") ) {
+			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") ) {
 				
 				pop.popUpMensagem("Preencha os campos obrigatorios","");
 			
@@ -187,6 +192,7 @@ public class EntrevistadoresAdicionarController extends Application{
 				}else {
 					//cadastra entrevistador com imagem
 					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+					con.upload(caminho, getNomeFotoCripto());
 				}
 				//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
 				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
