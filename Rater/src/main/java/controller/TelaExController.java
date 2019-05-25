@@ -42,7 +42,8 @@ public class TelaExController extends Application{
 	@FXML private AnchorPane anchorPane;
 	@FXML private Button btnCancelar;
 	@FXML private JFXTextField txtEmailEmpresa;
-				
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
+	
 	double X = 0;
 	double Y = 0;
 	
@@ -168,6 +169,10 @@ public class TelaExController extends Application{
 	}
 	
 	public void confirmar() throws IOException {
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+	 @Override
+	 protected Void call() throws Exception  {
 		//Verificando se o campo de E-mail está preenchido
 		if (!txtEmailEmpresa.getText().equals("")) {
 			//Pegando o e-mail digitado
@@ -186,7 +191,27 @@ public class TelaExController extends Application{
 			//Caso o E-mail não esteja preenchido exibe uma mensagem de aviso no txtEmailEmpresa
 			txtEmailEmpresa.setPromptText("Digite um E-mail válido!");
 		}
+	      return null;
+	 }
+		 @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	        }
+
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	            JFXSpinner.setVisible(false);
+	        }
+
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
+	    
 	}
+	
 	
 	public void fecharPopup() {
 		//Pegando a janela onde o btnCancelar está

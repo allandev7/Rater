@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -11,5 +12,6 @@
       <JFXButton layoutX="255.0" layoutY="151.0" onAction="#confirmar" prefHeight="55.0" prefWidth="131.0" styleClass="btnLogin" text="Confirmar" />
       <JFXButton fx:id="btnCancelar" layoutX="14.0" layoutY="151.0" onAction="#fecharPopup" prefHeight="55.0" prefWidth="131.0" styleClass="btnLogin" text="Cancelar" />
       <Pane onMouseDragged="#arrastar" onMousePressed="#pressionar" onMouseReleased="#soltar" prefHeight="55.0" prefWidth="400.0" />
+      <JFXSpinner fx:id="JFXSpinner" layoutX="196.0" layoutY="154.0" visible="false" />
    </children>
 </AnchorPane>

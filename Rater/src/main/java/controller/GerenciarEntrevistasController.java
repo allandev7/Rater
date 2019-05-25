@@ -58,6 +58,7 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private AnchorPane pane;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
 	
@@ -154,20 +155,38 @@ public class GerenciarEntrevistasController extends Application{
 				cbx.getItems().addAll("Aprovar", "Reprovar");
 				cbx.setId(Integer.toString(i));
 				
-				cbx.setOnAction(new EventHandler<ActionEvent>() {
-						
+				cbx.setOnAction(new EventHandler<ActionEvent>() {	
 					@Override
 					public void handle(ActionEvent event) {
-						if(cbx.getValue().equals("Aprovar")) {
-							entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
-							carregarPesquisa();
-							new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
-						} else if(cbx.getValue().equals("Reprovar")){
-							entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
-							carregarPesquisa();
-							new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+						@Override
+						protected Void call() throws Exception  {
+							if(cbx.getValue().equals("Aprovar")) {
+								entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+								carregarPesquisa();
+								new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+							} else if(cbx.getValue().equals("Reprovar")){
+								entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+								carregarPesquisa();
+								new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+							}
+						return null;
 						}
-					}
+							 @Override
+						        protected void succeeded() {
+						            JFXSpinner.setVisible(false);
+						        }
+						        @Override
+						        protected void failed() {
+						            JFXSpinner.setVisible(false);
+						            JFXSpinner.setVisible(false);
+						        }
+						    };
+						    Thread thread = new Thread(task, "My Task");
+						    thread.setDaemon(true);
+						    JFXSpinner.setVisible(true);
+						    thread.start();	
+						}
 				});
 				
 				cb.add(cbx);
