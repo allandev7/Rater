@@ -93,6 +93,7 @@ public class ENGerenciarEntrevistasController extends Application{
 		@FXML private Label lblNumEnt;
 		@FXML private TextField txtPesquisarEntrevistas;
 		@FXML private BorderPane pane;
+		@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 		
 		ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
 
@@ -191,6 +192,9 @@ public class ENGerenciarEntrevistasController extends Application{
 					cbx.setOnAction(new EventHandler<ActionEvent>() {	
 						@Override
 						public void handle(ActionEvent event) {
+							javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+							@Override
+							protected Void call() throws Exception  {
 								if(cbx.getValue().equals("Aprovar")) {
 									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
 									carregarPesquisa();
@@ -199,9 +203,26 @@ public class ENGerenciarEntrevistasController extends Application{
 									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
 									carregarPesquisa();
 									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+								}
+							return null;
 							}
-						}
+								 @Override
+							        protected void succeeded() {
+							            JFXSpinner.setVisible(false);
+							        }
+							        @Override
+							        protected void failed() {
+							            JFXSpinner.setVisible(false);
+							            JFXSpinner.setVisible(false);
+							        }
+							    };
+							    Thread thread = new Thread(task, "My Task");
+							    thread.setDaemon(true);
+							    JFXSpinner.setVisible(true);
+							    thread.start();	
+							}
 					});
+					
 					Pane pane = new Pane();
 					pane.setPrefWidth(200);
 					
