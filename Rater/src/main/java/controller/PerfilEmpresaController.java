@@ -84,7 +84,7 @@ public class PerfilEmpresaController extends Application{
         txtEmailEmpresa.setText(EmailEmpresa);
         txtCnpj.setText(Cnpj);
         try {
-			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto()),247,212,false,false));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			imgFoto.setImage(new Image("imagens/Logo.png"));

@@ -39,7 +39,7 @@
                         <DropShadow color="TRANSPARENT" />
                      </effect>
                   </Label>
-                  <Label text="Nome:" textFill="#32447c" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="366.0" AnchorPane.topAnchor="57.0">
+                  <Label prefHeight="24.0" prefWidth="69.0" text="Nome:*" textFill="#32447c" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="353.0" AnchorPane.topAnchor="57.0">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -69,7 +69,7 @@
                         <DropShadow color="TRANSPARENT" />
                      </effect>
                   </RadioButton>
-                  <Label prefHeight="28.0" prefWidth="64.0" text="E-mail:" textFill="#32447c" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="278.0">
+                  <Label prefHeight="28.0" prefWidth="70.0" text="E-mail:*" textFill="#32447c" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="352.0" AnchorPane.topAnchor="278.0">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -133,7 +133,7 @@
                         <DropShadow color="TRANSPARENT" />
                      </effect>
                   </Label>
-                  <Label prefHeight="24.0" prefWidth="181.0" text="Cargo de interesse:" textFill="#32447c" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="529.0" AnchorPane.topAnchor="425.0">
+                  <Label prefHeight="24.0" prefWidth="174.0" text="Cargo de interesse:*" textFill="#32447c" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="536.0" AnchorPane.topAnchor="425.0">
                      <font>
                         <Font size="19.0" />
                      </font>

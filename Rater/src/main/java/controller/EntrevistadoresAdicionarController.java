@@ -29,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -53,7 +54,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML private TextField txtNome;
 	@FXML private TextField txtEmail;
 	@FXML private TextField txtRG;
-	@FXML private TextField txtSenha;
+	@FXML private PasswordField txtSenha;
 	@FXML private ImageView imgFoto;
 	@FXML private Label lblCarregarFoto;
 	@FXML private Button btnCancelar;

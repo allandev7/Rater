@@ -93,6 +93,8 @@ public class ENGerenciarEntrevistasController extends Application{
 		@FXML private Label lblNumEnt;
 		@FXML private TextField txtPesquisarEntrevistas;
 		@FXML private BorderPane pane;
+		
+		ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
 
 		private Entrevista entrevista= new Entrevista();
 		private static int idSelecionado;

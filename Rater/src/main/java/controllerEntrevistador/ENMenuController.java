@@ -3,6 +3,8 @@ package controllerEntrevistador;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import controller.TelaExController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,9 @@ public class ENMenuController extends Application{
 	
 	@FXML
 	private Label lblGerenciarEntrevistas;
+	
+	@FXML
+	private Label lblLogout;
 	
 	@FXML
 	private Label lblCriteriosAvaliacao;
@@ -164,6 +169,25 @@ public class ENMenuController extends Application{
 	        pane.getChildren().removeAll();
 	        //Colocando o documento fxml como conteúdo do pane
 	        pane.setCenter(fxml);
+	    }
+	 
+	 @FXML
+	 public void Logout(MouseEvent event) throws Exception {
+		 PopUp p = new PopUp();
+		 //Exibindo popup e pegando escolha
+		 int e = p.popUpEscolha("Deseja mesmo voltar para a tela de login?", "Sim", "Não");
+		 	if(e == 1) {
+		 		//instanciar o controller da outra tela
+				TelaExController loginTela = new TelaExController();
+				//criar nova janela que será passado como parametro
+				Stage stage = new  Stage();
+				//executar metodo start da tela 2
+				loginTela.start(stage);
+				//pegar a janela desse controller
+				Stage agr = (Stage) lblLogout.getScene().getWindow();
+				//fechar essa janela
+				agr.close();
+		 	}
 	    }
 	 
 		@FXML

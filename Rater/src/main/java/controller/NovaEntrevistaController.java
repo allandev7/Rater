@@ -82,6 +82,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Button btnConfirmar;
 	@FXML private BorderPane pane;
 	
+	
 	//Variáveis para guardar os valores
 	private static String sNome = "";
 	private static String sIdade = "0";

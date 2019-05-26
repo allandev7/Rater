@@ -77,6 +77,16 @@
                   <Insets right="6.0" />
                </opaqueInsets>
             </Pane>
+            <ImageView fitHeight="23.0" fitWidth="32.0" layoutX="5.0" layoutY="321.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagens/logout.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblLogout" layoutX="2.0" layoutY="311.0" onMouseClicked="#Logout" opacity="0.65" prefHeight="40.0" prefWidth="198.0" styleClass="opcoes" stylesheets="@../view/MenuCSS.css" text="           Logout" textFill="WHITE">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow />
