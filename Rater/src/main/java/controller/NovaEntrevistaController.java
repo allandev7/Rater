@@ -81,6 +81,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Button btnCancelar;
 	@FXML private Button btnConfirmar;
 	@FXML private BorderPane pane;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	
 	//Variáveis para guardar os valores
@@ -123,6 +124,7 @@ public class NovaEntrevistaController extends Application{
 	
 	//O método initialize e chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException {
+		//JFXSpinner.setVisible(true);
 		//Método para deixar só numeros no TextField
 		txtTelefone.textProperty().addListener(new ChangeListener<String>() {
 		    @Override

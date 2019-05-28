@@ -13,6 +13,7 @@ import javax.print.DocFlavor.URL;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXSpinner;
 import com.sun.glass.events.MouseEvent;
 
 import javafx.application.Application;
@@ -49,6 +50,7 @@ public class EntrevistadoresController extends Application{
 	@FXML private BorderPane pane;
 	@FXML private Button btnVisualizarPerfil;
 	@FXML private Button btnDeletarEntrevistador;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	private static int idEntrevistadorSel;
 	
 	Parent fxml;
@@ -117,7 +119,33 @@ public class EntrevistadoresController extends Application{
 	
 	
 	public void initialize() throws Exception {
-		carregarEntrevistadores();
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+	        @Override
+	        protected Void call() throws Exception  {
+	        		carregarEntrevistadores();
+	        		return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	          
+	        }
+
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
+	    
+		
 		txtPesquisarEntrevistadores.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override

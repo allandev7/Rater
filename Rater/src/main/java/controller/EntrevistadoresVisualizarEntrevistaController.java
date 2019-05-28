@@ -65,6 +65,7 @@ public class EntrevistadoresVisualizarEntrevistaController extends Application{
 	}
 	
 	public void carregarInformacoes() {
+		
 		//Carregando informações do entrevistado
 		Entrevistado infoCandidato =   e.visualizarEntrevista(EntrevistadoresVisualizarEntrevistasController.getIdSelecionado());
 		String nomeImagem = e.visualizarEntrevista(EntrevistadoresVisualizarEntrevistasController.getIdSelecionado()).getFoto();

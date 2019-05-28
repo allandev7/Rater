@@ -169,6 +169,7 @@
                         <JFXListView fx:id="jfxlvListView" editable="true" fixedCellSize="150.0" layoutX="13.0" layoutY="521.0" prefHeight="13.0" prefWidth="679.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="521.0" />
                         <JFXButton fx:id="btnVoltar" layoutX="6.0" layoutY="11.0" onAction="#voltar" prefHeight="35.0" prefWidth="147.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0" />
                         <Separator layoutX="5.0" layoutY="54.0" prefHeight="12.0" prefWidth="695.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="54.0" />
+                     	 <JFXSpinner fx:id="JFXSpinner" layoutX="465.0" layoutY="477.0" prefHeight="45.0" prefWidth="54.0" visible="false" />
                      </children>
                   </AnchorPane>
               </content>
