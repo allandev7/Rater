@@ -107,8 +107,34 @@ public class ENGerenciarEntrevistasController extends Application{
 		}
 		
 		public void initialize() throws Exception {
+			javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+		        @Override
+		        protected Void call() throws Exception  {
+		        	carregarPesquisa();
+		        		return null;
+		        }
+
+		        @Override
+		        protected void succeeded() {
+		            JFXSpinner.setVisible(false);
+		           
+		        }
+
+		        @Override
+		        protected void failed() {
+		            JFXSpinner.setVisible(false);
+		          
+		        }
+
+		    };
+		    Thread thread = new Thread(task, "My Task");
+		    thread.setDaemon(true);
+		    JFXSpinner.setVisible(true);
+		    thread.start();	
 			carregarPesquisa();
 			txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
 				@Override
 				public void handle(KeyEvent event) {
 					if (event.getCode() == KeyCode.ENTER) {
@@ -117,6 +143,7 @@ public class ENGerenciarEntrevistasController extends Application{
 				}
 			});
 		}
+			
 		
 		
 		
