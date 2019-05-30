@@ -21,7 +21,6 @@ public class Entrevistado {
 	private static int idade;
 	private static String cargo;
 	private static String endereco;
-	Connection con = new Conexao().connect();
 	public Entrevistado() {
 		
 	}
@@ -42,6 +41,7 @@ public class Entrevistado {
 	//MÉTODO INSERIR
 	public void inserirInfo(String email,String nome, String telefone, String sexo, String cpf, String foto, 
 			String etnia, int idade, String endereco) {
+		Connection con = new Conexao().connect();
 		try {
 			//preparar a query
 			PreparedStatement pstmt = (PreparedStatement)
@@ -77,6 +77,13 @@ public class Entrevistado {
 		} catch (SQLException e) {
 			// se der erro
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void baixarImgsCandidatos(String nomeImg) throws SQLException {

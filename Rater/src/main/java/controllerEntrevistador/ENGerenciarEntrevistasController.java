@@ -107,31 +107,7 @@ public class ENGerenciarEntrevistasController extends Application{
 		}
 		
 		public void initialize() throws Exception {
-			javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-
-		        @Override
-		        protected Void call() throws Exception  {
-		        	carregarPesquisa();
-		        		return null;
-		        }
-
-		        @Override
-		        protected void succeeded() {
-		            JFXSpinner.setVisible(false);
-		           
-		        }
-
-		        @Override
-		        protected void failed() {
-		            JFXSpinner.setVisible(false);
-		          
-		        }
-
-		    };
-		    Thread thread = new Thread(task, "My Task");
-		    thread.setDaemon(true);
-		    JFXSpinner.setVisible(true);
-		    thread.start();	
+			carregarPesquisa();
 			txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 				@Override
@@ -192,16 +168,33 @@ public class ENGerenciarEntrevistasController extends Application{
 				//Verificar se há alguma imagem salva no banco e no azure
 				if(nomeImagem != null) {
 					//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-					try {
-							c.baixarImgsCandidatos(nomeImagem);
-							img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-							lbl.get(i).setGraphic(img);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (FileNotFoundException e) {
-							System.out.print(e);
-						}
+						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+					        @Override
+					        protected Void call() throws Exception  {
+					        	c.baixarImgsCandidatos(nomeImagem);
+								img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+					        		return null;
+					        }
+
+					        @Override
+					        protected void succeeded() {
+					            JFXSpinner.setVisible(false);
+					           
+					        }
+
+					        @Override
+					        protected void failed() {
+					            JFXSpinner.setVisible(false);
+					          
+					        }
+
+					    };
+					    Thread thread = new Thread(task, "My Task");
+					    thread.setDaemon(true);
+					    JFXSpinner.setVisible(true);
+					    thread.start();	
+						lbl.get(i).setGraphic(img);
 				//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 				}else {
 						img.setImage(new Image(("imagens/user.png")));

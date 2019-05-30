@@ -189,10 +189,7 @@ public class PerfilEmpresaController extends Application{
 	    		
 				//executar query
 				pstmt.execute();
-				//mensagem de sucesso
-				PopUp pop = new PopUp();
-				pop.popUpMensagem("Foto alterada com sucesso, reinicie o software para executar as alterações", 
-													"Sucesso");
+		
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -203,6 +200,10 @@ public class PerfilEmpresaController extends Application{
 	        @Override
 	        protected void succeeded() {
 	            JFXSpinner.setVisible(false);
+	    		//mensagem de sucesso
+				PopUp pop = new PopUp();
+				pop.popUpMensagem("Foto alterada com sucesso, reinicie o software para executar as alterações", 
+													"Sucesso");
 	          
 	        }
 	        @Override

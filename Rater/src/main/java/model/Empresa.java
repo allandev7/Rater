@@ -57,7 +57,6 @@ public class Empresa extends Usuarios {
 	public void consultarProgresso () {
 		
 	}
-	private Conexao con = new Conexao();
 	
 	
 /* =============================================================================
@@ -66,11 +65,11 @@ public class Empresa extends Usuarios {
 
 	@Override
 	public int login(String emailTxt, String senhaTxt) {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT * FROM EMPRESA WHERE EMAIL = ? AND SENHA = MD5(?)";
 		int status=0, valido = 0;
 	//tentar conexão
-		try(Connection conn = con.connect();
-			PreparedStatement stmt  = conn.prepareStatement(sql)){
+		try{PreparedStatement stmt  = con.prepareStatement(sql);
 			//definindo os parametros do statment para query
 			stmt.setString(1, emailTxt);
 			stmt.setString(2, senhaTxt);
@@ -97,8 +96,8 @@ public class Empresa extends Usuarios {
 				file.delete();
 				if(!file.exists()) {
 					// se nao existe, baixar
-					AzureConnection con = new AzureConnection();
-					con.down(getFoto());
+					AzureConnection cona = new AzureConnection();
+					cona.down(getFoto());
 				}
 
 			}else {
@@ -113,6 +112,13 @@ public class Empresa extends Usuarios {
 			System.out.println(e);
 		}catch(Exception e) {
 			System.out.println(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return valido;
 		}
@@ -123,21 +129,30 @@ public class Empresa extends Usuarios {
 
 	
 	public void buscarIdPadrao() {
+		Connection con = new Conexao().connect();
 		try {
-			PreparedStatement pstmt = con.connect().prepareStatement("SELECT * FROM entrevistador WHERE ID_EMPRESA = ?");
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM entrevistador WHERE ID_EMPRESA = ?");
 			pstmt.setInt(1, getId());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next())setIdEntrevistadorPadrao(rs.getInt("ID"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
 		}
 	}
 	@Override
 	public void alterarInfo(String email, String nome, String identificacao) {
-		try(Connection conn = con.connect()){
+		Connection con = new Conexao().connect();
+		try{
 			String sql = "UPDATE EMPRESA SET EMAIL = ?, NOME = ?, CNPJ = ? WHERE empresa.ID = ?;";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = con.prepareStatement(sql);
 			//definindo os parametros do statment para query
 			stmt.setString(1, email);
 			stmt.setString(2, nome);
@@ -155,6 +170,13 @@ public class Empresa extends Usuarios {
 			PopUp pop = new PopUp();
 			pop.popUpErro("Erro no banco de dados", "erro ao enviar ao banco de dados, tente novamente mais tarde");
 			
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	 }
 
@@ -168,13 +190,14 @@ public class Empresa extends Usuarios {
 	/*-----------------------------------------------------------*/
 	/*---------------GERENCIAR ENTREVISTADORES--------------------*/
 	/*---------------------------------------------------------------*/
-	public int verificarNomeUsuario(String nomeUsuario) { 
+	public int verificarNomeUsuario(String nomeUsuario) {
+		Connection con = new Conexao().connect();
 		int haNome = 0;
 		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ?";
 
-		try(Connection conn = con.connect()){
+		try{
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1, nomeUsuario);
 			ResultSet rs = pstmt.executeQuery();
@@ -189,6 +212,13 @@ public class Empresa extends Usuarios {
 		
 		}catch(SQLException e) {
 			
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -196,10 +226,11 @@ public class Empresa extends Usuarios {
 	}
 	
 	public void alterarDadosEntrevistador(int id, String nomeDeUsuario, String Email, String Senha, String Nome, String Rg) {
-		try(Connection conn = con.connect()){
+		Connection con = new Conexao().connect();
+		try{
 			String sql = "UPDATE entrevistador SET NOMEDEUSUARIO = ?, EMAIL = ?,  SENHA =md5(?), NOME = ?, RG = ? WHERE ID = ? AND ID_EMPRESA = ?";
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1, nomeDeUsuario);
 			pstmt.setString(2, Email);
@@ -213,17 +244,25 @@ public class Empresa extends Usuarios {
 			
 		}catch(SQLException e) {
 			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 			
 	}
 
 	public void deletarEntrevistador(int id) {
-		try(Connection conn = con.connect()){
+		Connection con = new Conexao().connect();
+		try{
 			//query para deletar entrevistador
 			String sql = "DELETE FROM entrevistador WHERE ID = ? AND ID_EMPRESA=?";
 			
 			//criando um statement
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			
 			//definindo qual o id do entrevistador sera deletado
 			pstmt.setInt(1, id);
@@ -236,17 +275,25 @@ public class Empresa extends Usuarios {
 		
 		}catch(SQLException ex) {
 			System.out.print("erro " + ex);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
 	
 	
 	public void cadastrarEntrevistador(String Nome, String nomeUsuario, String Email, String Senha, String RG, String FotoCripto, String caminho) {
-		try(Connection conn = con.connect()){
+		Connection con = new Conexao().connect();
+		try{
 			
 			String sql = "INSERT INTO entrevistador VALUES(NULL,?,?,?,md5(?),?,?,0,0,?)";
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, this.getId());
 			pstmt.setString(2, nomeUsuario);
@@ -259,7 +306,7 @@ public class Empresa extends Usuarios {
 			pstmt.setString(7, FotoCripto);
 			//upload da foto no azure
 			if(!FotoCripto.equals("null")) {
-				AzureConnection con = new AzureConnection();
+				AzureConnection cona = new AzureConnection();
 				
 				MessageDigest m = null;
 				try {//tente//pegar instancia de MD5
@@ -269,7 +316,7 @@ public class Empresa extends Usuarios {
 				}
 				// atualizar objeto com bytes e tamanho
 				m.update(nome.getBytes(),0,nome.length());
-				con.upload(caminho, FotoCripto);
+				cona.upload(caminho, FotoCripto);
 			}
 			//executando a query
 			pstmt.execute();
@@ -280,6 +327,13 @@ public class Empresa extends Usuarios {
 			System.out.print("erro " + ex);
 			ex.printStackTrace();
 
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -289,12 +343,13 @@ public class Empresa extends Usuarios {
 	
 	//Metodo de carregar Perfil do entrevistador
 	public void carregarPerfilEntrevistador(int idSelecionado) throws SQLException{
+		Connection con = new Conexao().connect();
 		//selecionar na tabela
 		String sql = "SELECT * FROM entrevistador WHERE ID = ? AND ID_EMPRESA=?";
-		try(Connection conn = con.connect()){
+		try{
 				
 			// criando statment
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 				
 			//definindo o id selecionado do entrevistador
 			pstmt.setInt(1, idSelecionado);
@@ -320,6 +375,13 @@ public class Empresa extends Usuarios {
 				
 		}catch(SQLException e) {
 			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -338,15 +400,15 @@ public class Empresa extends Usuarios {
 	}
 		
 	public String carregarNomesImgEntrevistadores(int id) throws SQLException {
-				
+		Connection con = new Conexao().connect();
 		String imgNomesEn = null;
 		//selecionar na tabela
 		String sql = "SELECT foto FROM entrevistador WHERE ID_EMPRESA=? AND ID = ?";
 			
-		try(Connection conn = con.connect(); ){
+		try{
 				
 			// criando statment
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			//definindo o id na query
 			pstmt.setInt(1, Empresa.getId());
 			pstmt.setInt(2, id);
@@ -360,6 +422,13 @@ public class Empresa extends Usuarios {
 			
 		}catch(SQLException e) {
 			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 				
 		return imgNomesEn;
@@ -372,29 +441,45 @@ public class Empresa extends Usuarios {
 	
 
 	public int carregarEntrevistaRec(int idEntrevistador) throws SQLException {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 0";
-		try(Connection conn = con.connect(); ){
+		try{
 	
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idEntrevistador);		
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {	setEntrevistasRec(rs.getInt("numEn")); }
 		}catch(SQLException e) {
 			
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return getEntrevistasRec();
 	}	
 
 
 	public int carregarEntrevistaEsp(int idEntrevistador) throws SQLException {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 2";
-		try(Connection conn = con.connect(); ){
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try{
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idEntrevistador);		
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {	setEntrevistasEmEs(rs.getInt("numEn"));}
 		}catch(SQLException e) {
 			
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return getEntrevistasEmEs();
 	}	
@@ -415,13 +500,13 @@ public class Empresa extends Usuarios {
 	
 	
 	public ArrayList<Integer> numeroEntrevistaMes(){
-		
+		Connection con = new Conexao().connect();
 		numeroEntrevistaMes.clear();
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		
-		try(Connection conn = con.connect() ){
+		try{
 			for(int i = 1; i<=12; i++) {
 				String sql = "SELECT COUNT(*) AS JOOJ "
 							+ "FROM entrevista "
@@ -430,7 +515,7 @@ public class Empresa extends Usuarios {
 							+ "WHERE entrevistador.ID_EMPRESA = ? AND YEAR(entrevista.DATA_ENTREVISTA) = '"+year+"' AND MONTH(entrevista.DATA_ENTREVISTA) = '0"+i+"'";
 				
 					
-				PreparedStatement pstmt = conn.prepareStatement(sql);
+				PreparedStatement pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, getId());
 				ResultSet rs = pstmt.executeQuery();
 				while(rs.next()) {
@@ -439,6 +524,13 @@ public class Empresa extends Usuarios {
 			}
 		}catch(SQLException e) {
 			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -448,14 +540,15 @@ public class Empresa extends Usuarios {
 	
 	
 	public ArrayList<Integer> carregarNumEntrevistaEntrevistadores() throws SQLException{
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		numeroEntrevistaEntrevistador.clear();
-		try(Connection conn = con.connect()){
+		try{
 			
 			//selecionar na tabela
 			String sql = "SELECT * FROM entrevistador WHERE ID_EMPRESA=?";
 			// criando statment
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			//definindo o id na query
 			pstmt.setInt(1, Empresa.getId());
 			//executando o query para obter o resultado
@@ -471,19 +564,28 @@ public class Empresa extends Usuarios {
 	
 		}catch(SQLException e) {
 			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		return numeroEntrevistaEntrevistador;
 	}
 
 	public ArrayList<Integer> carregarCargos() throws SQLException {
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		
 		idCargos.clear();
-		try(Connection conn = con.connect()){
+		try{
 		//selecionar na tabela
 		String sql = "SELECT * FROM cargo WHERE ID_EMPRESA=?";
 		// criando statment
-		PreparedStatement pstmt = conn.prepareStatement(sql);
+		PreparedStatement pstmt = con.prepareStatement(sql);
 		//definindo o id na query
 		pstmt.setInt(1, Empresa.getId());
 		//executando o query para obter o resultado
@@ -497,20 +599,28 @@ public class Empresa extends Usuarios {
 		}
 		}catch(SQLException e) {
 			
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return idCargos;
 	}
 	
 	public ArrayList<Integer> carregarNumEntrevistaCargo() throws SQLException{
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		numEntrevistaCargo.clear();
-		try(Connection conn = con.connect()){
+		try{
 			//selecionar na tabela
 			for(int i = 0; i< carregarCargos().size(); i++) {
 				String sql = "SELECT COUNT(*) AS numCargo FROM entrevista WHERE ID_CARGO = "+carregarCargos().get(i);
 				
 				// criando statment
-				PreparedStatement pstmt = conn.prepareStatement(sql);
+				PreparedStatement pstmt = con.prepareStatement(sql);
 				
 				
 				//executando o query para obter o resultado
@@ -528,6 +638,13 @@ public class Empresa extends Usuarios {
 			}
 		}catch(SQLException e) {
 			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return numEntrevistaCargo;
@@ -540,11 +657,12 @@ public class Empresa extends Usuarios {
 	/*---------------------------------------------*/
 	
 	public int pegarIdEmpresa(String emailEm) {
+		Connection con = new Conexao().connect();
 		int idEmpresa = 0;
 		String sql = "SELECT * FROM empresa WHERE EMAIL = ?";
-		try(Connection conn = con.connect()){
+		try{
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, emailEm);
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -555,6 +673,13 @@ public class Empresa extends Usuarios {
 			
 		}catch(SQLException e) {
 			System.out.print(e.getMessage());
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		

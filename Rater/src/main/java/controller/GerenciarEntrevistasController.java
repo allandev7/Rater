@@ -69,31 +69,7 @@ public class GerenciarEntrevistasController extends Application{
 	
 	}
 	public void initialize() throws Exception {
-		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-
-	        @Override
-	        protected Void call() throws Exception  {
-	        	carregarPesquisa();
-	        		return null;
-	        }
-
-	        @Override
-	        protected void succeeded() {
-	            JFXSpinner.setVisible(false);
-	           
-	        }
-
-	        @Override
-	        protected void failed() {
-	            JFXSpinner.setVisible(false);
-	          
-	        }
-
-	    };
-	    Thread thread = new Thread(task, "My Task");
-	    thread.setDaemon(true);
-	    JFXSpinner.setVisible(true);
-	    thread.start();	
+		carregarPesquisa();
 		txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -112,7 +88,7 @@ public class GerenciarEntrevistasController extends Application{
 		lbl.clear();
 		String nome = txtPesquisarEntrevistas.getText();
 		listaPesquisa.clear();
-		listaPesquisa = entrevista.pesquisar(nome);
+		listaPesquisa = entrevista.pesquisar("");
 		int numEntrevista = listaPesquisa == null ? 0:listaPesquisa.size();
 		lblNumEnt.setText("Número de entrevistas salvas: " + numEntrevista);
 		//Utilizando um for para preencher a JFXListView
@@ -151,16 +127,28 @@ public class GerenciarEntrevistasController extends Application{
 			//Verificar se há alguma imagem salva no banco e no azure
 			if(nomeImagem != null) {
 				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-				try {
-						c.baixarImgsCandidatos(nomeImagem);
-						img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+					javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+						@Override
+						protected Void call() throws Exception  {
+							c.baixarImgsCandidatos(nomeImagem);
+							img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+						return null;
+						}
+							 @Override
+						        protected void succeeded() {
+						            JFXSpinner.setVisible(false);
+						        }
+						        @Override
+						        protected void failed() {
+						            JFXSpinner.setVisible(false);
+						            JFXSpinner.setVisible(false);
+						        }
+						    };
+						Thread thread = new Thread(task, "carregarIMGS");
+						thread.setDaemon(true);
+						JFXSpinner.setVisible(true);
+						thread.start();
 						lbl.get(i).setGraphic(img);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (FileNotFoundException e) {
-						System.out.print(e);
-					}
 			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 			}else {
 					img.setImage(new Image(("imagens/user.png")));
