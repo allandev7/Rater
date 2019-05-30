@@ -94,6 +94,7 @@ public class Empresa extends Usuarios {
 				}
 				//verificando se existe a imagem
 				File file = new File("C:\\Rater/imagens/"+getFoto());
+				file.delete();
 				if(!file.exists()) {
 					// se nao existe, baixar
 					AzureConnection con = new AzureConnection();

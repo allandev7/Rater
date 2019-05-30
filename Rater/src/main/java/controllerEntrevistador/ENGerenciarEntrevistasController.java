@@ -132,7 +132,6 @@ public class ENGerenciarEntrevistasController extends Application{
 		    thread.setDaemon(true);
 		    JFXSpinner.setVisible(true);
 		    thread.start();	
-			carregarPesquisa();
 			txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 				@Override

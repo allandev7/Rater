@@ -37,7 +37,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -53,6 +52,7 @@ public class PerfilEmpresaController extends Application{
 	private String NomeEmpresa = Empresa.getNome();
 	private String EmailEmpresa = Empresa.getEmail();
 	private String Cnpj = Empresa.getCnpj();
+	Image img;
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){
@@ -133,12 +133,12 @@ public class PerfilEmpresaController extends Application{
 		//Abrindo conexao com o banco
 		Connection conBD =  (Connection) new Conexao().connect();
 		//query de update
-		String sql = "UPDATE empresa SET foto=?";
+		String sql = "UPDATE empresa SET foto=? WHERE id= "+ Empresa.getId();
 		try {
 			//armazenar imagem na memoriaRAM
 			BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
 			//converter para imagem comum
-			Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+			img= SwingFXUtils.toFXImage(armazenarMEMO, null);
 			//colocar ela no imgview
 			imgFoto.setImage(img);
 		}catch(IOException ex){
@@ -167,6 +167,8 @@ public class PerfilEmpresaController extends Application{
 			}
 			else {//senao
 				//pega nome da propria foto e faz upload e update
+				
+				new File("C:\\Rater\\imagens\\"+Empresa.getFoto()).deleteOnExit();
 				pstmt.setString(1, Empresa.getFoto());
 				con.upload(caminho, Empresa.getFoto());
 				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {

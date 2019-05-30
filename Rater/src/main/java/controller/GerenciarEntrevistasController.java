@@ -54,13 +54,11 @@ import model.Entrevistado;
 public class GerenciarEntrevistasController extends Application{
 	
 	//Criando uma JFXListView para armazenar as entrevistas
-	@FXML private JFXListView jfxlvListView;
+	@FXML private JFXListView<HBox> jfxlvListView;
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private AnchorPane pane;
-	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
-	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
-	
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;	
 	private static int idSelecionado;
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;
@@ -96,7 +94,6 @@ public class GerenciarEntrevistasController extends Application{
 	    thread.setDaemon(true);
 	    JFXSpinner.setVisible(true);
 	    thread.start();	
-		carregarPesquisa();
 		txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -212,8 +209,6 @@ public class GerenciarEntrevistasController extends Application{
 						    thread.start();	
 						}
 				});
-				
-				cb.add(cbx);
 				
 				Pane pane = new Pane();
 				pane.setPrefWidth(200);
