@@ -22,6 +22,7 @@
                   </Label>
                   <TextField fx:id="txtPesquisarEntrevistas" layoutX="390.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevista..." AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0" />
                   <JFXButton fx:id="btnVoltar" onAction="#voltar" prefHeight="42.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0" />
+               
                </children>
             </AnchorPane>
          </center>
