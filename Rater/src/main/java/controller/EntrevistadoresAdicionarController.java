@@ -60,7 +60,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML private Button btnCancelar;
 	@FXML private Button btnConfirmar;
 	@FXML private BorderPane pane;
-		
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	private static String nomeFotoCripto;
 	private static String caminho;
@@ -171,6 +171,9 @@ public class EntrevistadoresAdicionarController extends Application{
 	
 
 	public void cadastrarEntrevistador(ActionEvent event) throws Exception {
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+	        @Override
+	        protected Void call() throws Exception  {
 		System.out.print(getNomeFotoCripto());
 		//instanciando objeto da classe do Azure
 		AzureConnection con = new AzureConnection();
@@ -193,7 +196,10 @@ public class EntrevistadoresAdicionarController extends Application{
 				}else {
 					//cadastra entrevistador com imagem
 					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+					
 					con.upload(caminho, getNomeFotoCripto());
+					
+					
 				}
 				//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
 				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
@@ -204,6 +210,24 @@ public class EntrevistadoresAdicionarController extends Application{
 		}else {
 			pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
 		}
+		return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	          
+	        }
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
 	}
 	
 	

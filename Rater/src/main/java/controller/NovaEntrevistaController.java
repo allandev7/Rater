@@ -135,15 +135,6 @@ public class NovaEntrevistaController extends Application{
 		        }
 		    }
 		});
-		txtRG.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
-		        String newValue) {
-		        if (!newValue.matches("\\d*")) {
-		            txtRG.setText(newValue.replaceAll("[^\\d]", ""));
-		        }
-		    }
-		});
 
 		txtIdade.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
