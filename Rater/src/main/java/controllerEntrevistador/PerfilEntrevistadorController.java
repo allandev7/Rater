@@ -58,19 +58,21 @@ public class PerfilEntrevistadorController extends Application{
 	private String Nome = Entrevistador.getNome();
 	private String Email = Entrevistador.getEmail();
 	private String RG = Entrevistador.getRgEntrevistador();
-	private int Entrevistas = Entrevistador.getEntrevistasRealizadas();
-	private int Aprovados = Entrevistador.getAdmissoes();
-	private int Reprovados = 4;
-	private int EmEspera = 4;
+	
+
 	
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
-	public void initialize(){		
+	public void initialize() throws SQLException{		
+
+
+		
 		lblNomeUsuario.setText("Nome de usuario: " + NomeUsuario);
 		lblNome.setText("Nome do entrevistador: " + Nome);
         lblEmail.setText("E-Mail do entrevistador: " + Email);
         lblRG.setText("RG do entrevistador: " + RG);
-        lblEntrevistas.setText("Número de entrevistas: " + Entrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
+        lblEntrevistas.setText("Número de entrevistas: " + EN.carregarEntrevistaRea() + "\nAprovados: " + EN.carregarEntrevistaAce() 
+        						+ "\nReprovados: " + EN.carregarEntrevistaRec() + "\nEm espera: " + EN.carregarEntrevistaEsp());
         try {
 			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
 

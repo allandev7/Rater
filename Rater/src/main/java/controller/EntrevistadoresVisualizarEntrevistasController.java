@@ -140,25 +140,14 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 			if(resultado.equals("Em espera")) {
 				
 				JFXComboBox<String> cbx = new JFXComboBox<String>();
-				cbx.setPromptText("Finalizar entrevista");
-				cbx.getItems().addAll("Aprovar", "Reprovar");
-				cbx.setId(Integer.toString(i));
 				
-				cbx.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-						 System.out.println(nomeEntrevistado);
-					}
-				});
 				
-				cb.add(cbx);
 				
 				Pane pane = new Pane();
 				pane.setPrefWidth(200);
 				
 				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
-				hbox.getChildren().addAll(pane, cb.get(i));
+				hbox.getChildren().addAll(pane);
 			}
 			
 			//Adicionando a Label lbl1 na JFXListView

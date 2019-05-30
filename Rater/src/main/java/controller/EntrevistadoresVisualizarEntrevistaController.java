@@ -47,7 +47,6 @@ public class EntrevistadoresVisualizarEntrevistaController extends Application{
 	@FXML private Label lblEndereco;
 	@FXML private Label lblCargo;
 		
-	private int NumCrit = 10;
 	private Entrevista e = new Entrevista();
 		
 	@FXML

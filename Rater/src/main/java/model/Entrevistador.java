@@ -173,7 +173,16 @@ public class Entrevistador extends Usuarios{
 		while(rs.next()) {	setEmEspera(rs.getInt("numEn"));;}
 		return getEmEspera();
 	}	
-
+	
+	public int carregarEntrevistaRea() throws SQLException {
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? ";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {	setEntrevistasRealizadas(rs.getInt("numEn"));;}
+		return getEntrevistasRealizadas();
+	}	
+	
 
 
 	//graficos de entrevistas realizadas por  cargo
