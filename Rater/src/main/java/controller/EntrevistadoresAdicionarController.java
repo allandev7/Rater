@@ -171,9 +171,6 @@ public class EntrevistadoresAdicionarController extends Application{
 	
 
 	public void cadastrarEntrevistador(ActionEvent event) throws Exception {
-		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-	        @Override
-	        protected Void call() throws Exception  {
 		System.out.print(getNomeFotoCripto());
 		//instanciando objeto da classe do Azure
 		AzureConnection con = new AzureConnection();
@@ -182,7 +179,7 @@ public class EntrevistadoresAdicionarController extends Application{
 		String email = txtEmail.getText();
 		String senha = txtSenha.getText();
 		String Rg = txtRG.getText();
-		String fotoVazia = "null";
+		String fotoVazia = "null";	
 		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
 			//verifica se há algum campo obrigatorio em branco	
 			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") ) {
@@ -190,6 +187,11 @@ public class EntrevistadoresAdicionarController extends Application{
 				pop.popUpMensagem("Preencha os campos obrigatorios","");
 			
 			}else {
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+	        @Override
+	        protected Void call() throws Exception  {
+		
+		
 				//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
 				if(getNomeFotoCripto() == null) {
 					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, fotoVazia, getCaminho());
@@ -205,11 +207,9 @@ public class EntrevistadoresAdicionarController extends Application{
 				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 				pane.getChildren().removeAll();
 				pane.setCenter(fxml);
-			}
+			
 		
-		}else {
-			pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
-		}
+		
 		return null;
 	        }
 
@@ -228,6 +228,9 @@ public class EntrevistadoresAdicionarController extends Application{
 	    thread.setDaemon(true);
 	    JFXSpinner.setVisible(true);
 	    thread.start();	
+			}}else {
+				pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
+			}
 	}
 	
 	
