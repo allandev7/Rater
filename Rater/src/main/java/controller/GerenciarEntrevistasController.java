@@ -121,7 +121,7 @@ public class GerenciarEntrevistasController extends Application{
 			img.setPreserveRatio(true);
 			img.setFitHeight(200);
 			img.setFitWidth(85);
-			
+			int cont = i;
 			int idsel = listaPesquisa.get(i).getId();
 			String nomeImagem = entrevista.visualizarEntrevista(idsel).getFoto();
 			Entrevistado c = new Entrevistado();
@@ -133,6 +133,7 @@ public class GerenciarEntrevistasController extends Application{
 						protected Void call() throws Exception  {
 							c.baixarImgsCandidatos(nomeImagem);
 							img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+							lbl.get(cont).setGraphic(img);
 						return null;
 						}
 							 @Override
@@ -149,7 +150,7 @@ public class GerenciarEntrevistasController extends Application{
 						thread.setDaemon(true);
 						JFXSpinner.setVisible(true);
 						thread.start();
-						lbl.get(i).setGraphic(img);
+						
 			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 			}else {
 					img.setImage(new Image(("imagens/user.png")));
