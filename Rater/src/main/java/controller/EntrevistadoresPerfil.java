@@ -74,10 +74,11 @@ public class EntrevistadoresPerfil extends Application{
 	EntrevistadoresController EnC = new EntrevistadoresController();
 
 	Empresa e = new Empresa();
-
+	PopUp pop = new PopUp();
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
+		txtNomeUsuario.setDisable(true);
 		//Método só para números no txt
 		txtRG.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
@@ -147,6 +148,11 @@ public class EntrevistadoresPerfil extends Application{
 	
 	@FXML
 	public void alterarInfos(ActionEvent event)  throws IOException {
+		if(txtNomeEntrevistador.getText().equals("") || txtSenha.getText().equals("")|| txtNomeUsuario.getText().equals("") || txtSenha.getText().length()> 8) {
+			
+			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
+		
+		}else {
 		e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
         //Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
@@ -154,6 +160,7 @@ public class EntrevistadoresPerfil extends Application{
         pane.getChildren().removeAll();
         //Colocando o documento fxml como conteúdo do pane
         pane.setCenter(fxml);
+		}
 	}
 	
 	

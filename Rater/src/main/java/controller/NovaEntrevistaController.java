@@ -21,6 +21,9 @@ import javax.swing.JOptionPane;
 import com.github.sarxos.webcam.Webcam;
 import com.itextpdf.awt.geom.misc.RenderingHints.Key;
 import com.sun.javafx.scene.CameraHelper.CameraAccessor;
+
+import controllerEntrevistador.ENMenuController;
+
 import com.sun.javafx.scene.EnteredExitedHandler;
 
 import javafx.application.Application;
@@ -359,7 +362,31 @@ public class NovaEntrevistaController extends Application{
 				new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email, nome e cargo devem ser preenchidos");
 			}
 			if(getNomeFotoCripto()!=null) {
-				new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
+				javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+				@Override
+				protected Void call() throws Exception  {
+					new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
+		        	return null;
+		        }
+
+		        @Override
+		        protected void succeeded() {
+		            JFXSpinner.setVisible(false);
+		  
+		        }
+
+		        @Override
+		        protected void failed() {
+		            JFXSpinner.setVisible(false);
+		           
+		        }
+		      
+		    };
+		        Thread thread = new Thread(task, "My Task");
+			    thread.setDaemon(true);
+			    JFXSpinner.setVisible(true);
+			    thread.start();	
+				
 			}
 		}else 
 			new PopUp().popUpMensagem("Limite de espera atingido", "Responda os candidatos em espera, para fazer uma nova entrevista");
