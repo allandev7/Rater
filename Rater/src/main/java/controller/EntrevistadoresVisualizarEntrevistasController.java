@@ -157,46 +157,43 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 							@Override
 							protected Void call() throws Exception  {
 								if(cbx.getValue().equals("Aprovar")) {
-									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
-									carregarPesquisa();
-									new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+									JOptionPane.showMessageDialog(null, ih);
+									//entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+									//carregarPesquisa();
+									//new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
 								} else if(cbx.getValue().equals("Reprovar")){
-									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
-									carregarPesquisa();
-									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+									//entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+									//carregarPesquisa();
+									//new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
 								}
 							return null;
 							}
-								 @Override
-							        protected void succeeded() {
-							            JFXSpinner.setVisible(false);
-							        }
-							        @Override
-							        protected void failed() {
-							            JFXSpinner.setVisible(false);
-							            JFXSpinner.setVisible(false);
-							        }
-							    };
-							    Thread thread = new Thread(task, "My Task");
-							    thread.setDaemon(true);
-							    JFXSpinner.setVisible(true);
-							    thread.start();	
-							}
-					
-				});
-
-				cb.add(cbx);
-
-				Pane pane = new Pane();
-				pane.setPrefWidth(200);
-
-				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
-				hbox.getChildren().addAll(pane, cbx);
-
-			}
+							@Override
+					        protected void succeeded() {
+					            JFXSpinner.setVisible(false);
+					        }
+					        @Override
+					        protected void failed() {
+					            JFXSpinner.setVisible(false);
+					            JFXSpinner.setVisible(false);
+					        }
+					    };
+					    Thread thread = new Thread(task, "My Task");
+					    thread.setDaemon(true);
+					    JFXSpinner.setVisible(true);
+					    thread.start();	
+					}
+			});
 			
-			//Adicionando a Label lbl1 na JFXListView
-			jfxlvListView.getItems().add(hbox);
+			Pane pane = new Pane();
+			pane.setPrefWidth(200);
+			
+			hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
+			hbox.getChildren().addAll(pane, cbx);
+		}
+		
+		//Adicionando a Label lbl1 na JFXListView
+		jfxlvListView.getItems().add(hbox);
 				
 		}
 			

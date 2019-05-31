@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
+import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -102,6 +103,7 @@ public class EntrevistadoresController extends Application{
 
 				        @Override
 				        protected Void call() throws Exception  {
+				        		JOptionPane.showMessageDialog(null, nomeImagem);
 				        		e.baixarImgsEntrevistadores(nomeImagem);
 				        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 				        		return null;

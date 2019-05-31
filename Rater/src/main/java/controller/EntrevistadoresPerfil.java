@@ -193,7 +193,7 @@ public class EntrevistadoresPerfil extends Application{
 		//Abrindo conexao com o banco
 		Connection conBD =  (Connection) new Conexao().connect();
 		//query de update
-		String sql = "UPDATE entrevistador SET foto=?";
+		String sql = "UPDATE entrevistador SET foto=? WHERE ID = ?";
 		try {//tentar
 			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
 			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
@@ -229,6 +229,7 @@ public class EntrevistadoresPerfil extends Application{
 				}
 			}
 			//executar query
+			pstmt.setInt(2, getIdSel());
 			pstmt.execute();
 			//mensagem de sucesso
 			PopUp pop = new PopUp();
