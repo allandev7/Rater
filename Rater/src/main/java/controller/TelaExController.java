@@ -43,9 +43,11 @@ public class TelaExController extends Application{
 	@FXML private Button btnCancelar;
 	@FXML private JFXTextField txtEmailEmpresa;
 	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinnerNew;
 	
 	double X = 0;
 	double Y = 0;
+	int login;
 	
 	private static String email = "";
 	public Empresa empresa = new Empresa();
@@ -93,54 +95,89 @@ public class TelaExController extends Application{
 	@FXML
 	public void clicar() throws IOException {
 		//Pegar o valor do login
-		int login = empresa.login(txtEmail.getText(), txtSenha.getText());
-		/* login = 0 -> Usuario e senha invalidos
-		 * login = 1 -> pode logar
-		 * login = 2 -> deve confirmar email
-		 * */	
-		int loginEntrevistador = EN.login(txtEmail.getText(), txtSenha.getText());
-		if(chbLoginEmpresa.isSelected()) {
-			if(login == 1) {
-					lblErro.setText("Seja bem vindo");
-					empresa.buscarIdPadrao();
-					//instanciar o controller da outra tela
-					MenuController tela2 = new MenuController();
-					
-					//ENMenuController tela2 = new ENMenuController();
-					
-					
-					//criar nova janela que será passado como parametro
-					Stage stage = new  Stage();
-					//executar metodo start da tela 2
-					tela2.start(stage);
-					//pegar a janela desse controller
-					Stage agr = (Stage) txtEmail.getScene().getWindow();
-					//fechar essa janela
-					agr.close();
-				
-			}else if(login ==0) {
-				//se os usuarios não forem corretos
-				lblErro.setText("Usuário e/ou senha incorreto(s)");
-			}else {
-				//se o email nao for confirmado
-				JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
-				lblErro.setText("");
-			}
-		}else if(loginEntrevistador == 1){
-			lblErro.setText("Seja bem vindo");
-			ENMenuController tela2 = new ENMenuController();
-			//criar nova janela que será passado como parametro
-			Stage stage = new  Stage();
-			//executar metodo start da tela 2
-			tela2.start(stage);
-			//pegar a janela desse controller
-			Stage agr = (Stage) txtEmail.getScene().getWindow();
-			//fechar essa janela
-			agr.close();
+	    javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+	        @Override
+	        protected Void call() throws Exception  {
+	        	login = empresa.login(txtEmail.getText(), txtSenha.getText());
+	        	/* login = 0 -> Usuario e senha invalidos
+	        	 * login = 1 -> pode logar
+	        	 * login = 2 -> deve confirmar email
+	        	 * */	
+	        	return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinnerNew.setVisible(false);
+	            
+	            int loginEntrevistador = EN.login(txtEmail.getText(), txtSenha.getText());
+	    		if(chbLoginEmpresa.isSelected()) {
+	    			if(login == 1) {
+	    					lblErro.setText("Seja bem vindo");
+	    					empresa.buscarIdPadrao();
+	    					//instanciar o controller da outra tela
+	    					MenuController tela2 = new MenuController();
+	    					
+	    					//ENMenuController tela2 = new ENMenuController();
+	    					
+	    					
+	    					//criar nova janela que será passado como parametro
+	    					Stage stage = new  Stage();
+	    					//executar metodo start da tela 2
+	    					try {
+								tela2.start(stage);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	    					//pegar a janela desse controller
+	    					Stage agr = (Stage) txtEmail.getScene().getWindow();
+	    					//fechar essa janela
+	    					agr.close();
+	    				
+	    			}else if(login ==0) {
+	    				//se os usuarios não forem corretos
+	    				lblErro.setText("Usuário e/ou senha incorreto(s)");
+	    			}else {
+	    				//se o email nao for confirmado
+	    				JOptionPane.showMessageDialog(null, "Você deve confirmar seu email", "Confirmar", JOptionPane.WARNING_MESSAGE);
+	    				lblErro.setText("");
+	    			}
+	    		}else if(loginEntrevistador == 1){
+	    			lblErro.setText("Seja bem vindo");
+	    			ENMenuController tela2 = new ENMenuController();
+	    			//criar nova janela que será passado como parametro
+	    			Stage stage = new  Stage();
+	    			//executar metodo start da tela 2
+	    			try {
+						tela2.start(stage);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    			//pegar a janela desse controller
+	    			Stage agr = (Stage) txtEmail.getScene().getWindow();
+	    			//fechar essa janela
+	    			agr.close();
+	    		
+	    		}else {
+	    			lblErro.setText("Usuário e/ou senha incorreto(s)");
+	    		}
+	        }
+
+	        @Override
+	        protected void failed() {
+	            JFXSpinnerNew.setVisible(false);
+	           
+	        }
+	    };
+	        Thread thread = new Thread(task, "My Task");
+		    thread.setDaemon(true);
+		    JFXSpinnerNew.setVisible(true);
+		    thread.start();	
+		    
 		
-		}else {
-			lblErro.setText("Usuário e/ou senha incorreto(s)");
-		}
 	}
 	
 	public void esqueciSenha(ActionEvent event) throws Exception {
