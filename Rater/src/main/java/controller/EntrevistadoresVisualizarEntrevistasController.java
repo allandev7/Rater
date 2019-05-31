@@ -157,14 +157,13 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 							@Override
 							protected Void call() throws Exception  {
 								if(cbx.getValue().equals("Aprovar")) {
-									JOptionPane.showMessageDialog(null, ih);
-									//entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
-									//carregarPesquisa();
-									//new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
 								} else if(cbx.getValue().equals("Reprovar")){
-									//entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
-									//carregarPesquisa();
-									//new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
 								}
 							return null;
 							}
