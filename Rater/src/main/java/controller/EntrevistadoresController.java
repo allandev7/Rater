@@ -103,7 +103,7 @@ public class EntrevistadoresController extends Application{
 
 				        @Override
 				        protected Void call() throws Exception  {
-				        		JOptionPane.showMessageDialog(null, nomeImagem);
+				        		//JOptionPane.showMessageDialog(null, nomeImagem);
 				        		e.baixarImgsEntrevistadores(nomeImagem);
 				        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 				        		return null;
