@@ -182,9 +182,9 @@ public class EntrevistadoresAdicionarController extends Application{
 		String fotoVazia = "null";	
 		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
 			//verifica se há algum campo obrigatorio em branco	
-			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") ) {
+			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") || senha.length()> 8) {
 				
-				pop.popUpMensagem("Preencha os campos obrigatorios","");
+				pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
 			
 			}else {
 		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
