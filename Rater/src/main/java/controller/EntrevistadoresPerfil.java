@@ -6,6 +6,8 @@ import model.Entrevistador;
 import model.Usuarios;
 import view.PopUp;
 import javafx.stage.FileChooser.ExtensionFilter;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +16,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -25,6 +30,7 @@ import com.mysql.jdbc.PreparedStatement;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +74,14 @@ public class EntrevistadoresPerfil extends Application{
 	private int Reprovados = 0;
 	private int EmEspera = 0;
 	
+
+	private static String caminho;
+	private static String nome;
+	private static String extensao;
+	private static int trocouImg = 0;
+	
+	
+
 	Parent fxml;
 	
 	Entrevistador En = new Entrevistador();
@@ -75,9 +89,10 @@ public class EntrevistadoresPerfil extends Application{
 
 	Empresa e = new Empresa();
 	PopUp pop = new PopUp();
-	
+	int trocouImgEN = 0;
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException{
+		trocouImgEN = 0;
 		txtNomeUsuario.setDisable(true);
 		//Método só para números no txt
 		txtRG.textProperty().addListener(new ChangeListener<String>() {
@@ -153,13 +168,25 @@ public class EntrevistadoresPerfil extends Application{
 			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
 		
 		}else {
-		e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
-        //Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-		//Limpando o coteúdo do Pane "pane"
-        pane.getChildren().removeAll();
-        //Colocando o documento fxml como conteúdo do pane
-        pane.setCenter(fxml);
+			if(trocouImgEN == 1) {
+				e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
+				e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+		        //Pegando fxml como parametro
+				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+				//Limpando o coteúdo do Pane "pane"
+		        pane.getChildren().removeAll();
+		        //Colocando o documento fxml como conteúdo do pane
+		        pane.setCenter(fxml);
+			}else {
+				e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+		        //Pegando fxml como parametro
+				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+				//Limpando o coteúdo do Pane "pane"
+		        pane.getChildren().removeAll();
+		        //Colocando o documento fxml como conteúdo do pane
+		        pane.setCenter(fxml);
+			}
+		
 		}
 	}
 	
@@ -190,69 +217,32 @@ public class EntrevistadoresPerfil extends Application{
 		//abrir a janela e pegar o arquivo selecionado
 		File arquivo = abrirArquivo.showOpenDialog(null);
 		//pegando caminho da pasta
-		String caminho = arquivo.getAbsolutePath();
+		setCaminho(arquivo.getAbsolutePath());
 		//pegando nome do arquivo
-		String nome = arquivo.getName();
+		setNome(arquivo.getName());
 		//pegando extensao do arquivo
-		String extensao = nome.substring(nome.length()-4);
-		//instanciando objeto da classe do Azure
-		AzureConnection con = new AzureConnection();
-		//Abrindo conexao com o banco
-		Connection conBD =  (Connection) new Conexao().connect();
-		//query de update
-		String sql = "UPDATE entrevistador SET foto=? WHERE ID = ?";
-		try {//tentar
-			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
-			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
-				
-				//cria objeto MessageDigest nulo para criptografia
-				MessageDigest m = null;
-				try {//tente
-					//pegar instancia de MD5
-					m = MessageDigest.getInstance("MD5");
-				} catch (NoSuchAlgorithmException e) {//erro
-					e.printStackTrace();//erro
-				}
-				//// atualizar objeto com bytes e tamanho
-			    m.update(nome.getBytes(),0,nome.length());
-			    // String para nome criptografado
-			    String nomeCripto = m.digest().toString()+new Date().getTime()+extensao;
-			    //definindo parametros da query
-				pstmt.setString(1, nomeCripto);
-				//upload da foto no azure
-				con.upload(caminho, nomeCripto);
-			}
-			else {//senao
-				//pega nome da propria foto e faz upload e update
-				pstmt.setString(1, Empresa.getFoto());
-				con.upload(caminho, Empresa.getFoto());
-				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
-					pstmt.setString(1, Empresa.getFoto());
-					con.upload(caminho, Empresa.getFoto());
-					
-				}else {
-					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
-					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
-				}
-			}
-			//executar query
-			pstmt.setInt(2, getIdSel());
-			pstmt.execute();
-			//mensagem de sucesso
-			PopUp pop = new PopUp();
-			pop.popUpMensagem("Foto alterada com sucesso, reinicie o software para executar as alterações", 
-												"Sucesso");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		setExtensao(getNome().substring(getNome().length()-4));
+		
+		
+		try {
+			//armazenar imagem na memoriaRAM
+			BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
+			//converter para imagem comum
+			Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+			//colocar ela no imgview
+			imgFoto.setImage(img);
+		}catch(IOException ex){
+			Logger.getLogger(EntrevistadoresPerfil.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		trocouImgEN =1;
+		
     }
 	@FXML
 	public void visualizarEntrevistas(ActionEvent event) throws IOException{
 		//Pegando fxml como parametro
 		fxml = FXMLLoader.load(getClass().getResource("/view/EntrevistadoresVisualizarEntrevistas.fxml"));
 		//Limpando o coteúdo do Pane "pane"
-		//pane.getChildren().removeAll();
+		pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteudo do pane
     	pane.setCenter(fxml);
 	}
@@ -272,7 +262,52 @@ public class EntrevistadoresPerfil extends Application{
 		EntrevistadoresPerfil.idSel = idSel;
 	}	
 	
-	
+	public static String getCaminho() {
+		return caminho;
+	}
+
+
+
+	public static void setCaminho(String caminho) {
+		EntrevistadoresPerfil.caminho = caminho;
+	}
+
+
+
+	public static String getNome() {
+		return nome;
+	}
+
+
+
+	public static void setNome(String nome) {
+		EntrevistadoresPerfil.nome = nome;
+	}
+
+
+
+	public static String getExtensao() {
+		return extensao;
+	}
+
+
+
+	public static void setExtensao(String extensao) {
+		EntrevistadoresPerfil.extensao = extensao;
+	}
+
+
+
+	public static int getTrocouImg() {
+		return trocouImg;
+	}
+
+
+
+	public static void setTrocouImg(int trocouImg) {
+		EntrevistadoresPerfil.trocouImg = trocouImg;
+	}
+
 	
 	
 	
