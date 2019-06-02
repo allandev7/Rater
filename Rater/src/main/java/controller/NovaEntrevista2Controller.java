@@ -320,6 +320,7 @@ public class NovaEntrevista2Controller extends Application{
 		pane.setCenter(fxml);
 	}
 	public void insereEntrevista() throws IOException {
+		btnContinuar.setDisable(true);
 		Entrevista entrevista = new Entrevista();
 		String conclusaoADD = null;
 		Entrevistado candidato = new Entrevistado();

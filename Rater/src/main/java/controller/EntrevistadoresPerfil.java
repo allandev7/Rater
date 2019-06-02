@@ -163,7 +163,8 @@ public class EntrevistadoresPerfil extends Application{
 	
 	@FXML
 	public void alterarInfos(ActionEvent event)  throws IOException {
-		if(txtNomeEntrevistador.getText().equals("") || txtSenha.getText().equals("")|| txtNomeUsuario.getText().equals("") || txtSenha.getText().length()> 8) {
+		if(txtNomeEntrevistador.getText().equals("") || txtSenha.getText().equals("")|| txtNomeUsuario.getText().equals("") ||
+				txtSenha.getText().length()<8) {
 			
 			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
 		
