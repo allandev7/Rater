@@ -199,10 +199,10 @@ public class Empresa extends Usuarios {
 		String sql = "UPDATE entrevistador SET foto=? WHERE ID = ?";
 		try {//tentar
 			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
-			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
 			
-			//cria objeto MessageDigest nulo para criptografia
-			MessageDigest m = null;
+			
+				//cria objeto MessageDigest nulo para criptografia
+				MessageDigest m = null;
 				try {//tente
 					//pegar instancia de MD5
 					m = MessageDigest.getInstance("MD5");
@@ -217,20 +217,9 @@ public class Empresa extends Usuarios {
 				pstmt.setString(1, nomeCripto);
 				//upload da foto no azure
 				con.upload(caminho, nomeCripto);
-			}
-			else {//senao
-				//pega nome da propria foto e faz upload e update
-				pstmt.setString(1, Empresa.getFoto());
-				con.upload(caminho, Empresa.getFoto());
-				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
-					pstmt.setString(1, Empresa.getFoto());
-					con.upload(caminho, Empresa.getFoto());
-						
-				}else {
-					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
-					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
-				}
-			}
+			
+
+			
 					//executar query
 			pstmt.setInt(2, idEntrevistador);
 			pstmt.execute();
