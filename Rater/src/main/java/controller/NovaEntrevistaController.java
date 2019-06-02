@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import java.text.ParseException;
 import javax.swing.text.MaskFormatter;
 import javax.imageio.ImageIO;
+import javax.naming.LimitExceededException;
 import javax.swing.JOptionPane;
 
 import com.github.sarxos.webcam.Webcam;
@@ -233,7 +234,7 @@ public class NovaEntrevistaController extends Application{
 		}
 	}
 	
-	public void cancelar() {
+	public void cancelar1() {
 		//Limpando as variáveis
 		sNome = "";
 		sIdade = "";
@@ -255,8 +256,24 @@ public class NovaEntrevistaController extends Application{
 		cbEtnias.setValue(sEtnia);
 		cbCargos.setValue(sCargo);
 		rbMasculino.setSelected(true);
+		
+		NovaEntrevista2Controller.limpar();
 	}
 	
+	//Método para limpar as variáveis estáticas automáticamente
+	public static void cancelar2() {
+		//Limpando as variáveis
+		sNome = "";
+		sIdade = "";
+		sRG = "";
+		sEmail = "";
+		sTelefone = "";
+		sEndereco = "";
+		sEtnia = "";
+		sCargo = "";
+		sSexo = true;
+	}
+		
 	public void uparFoto(MouseEvent event)  {
 		String nome="", extensao="", caminho = "";
 		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");

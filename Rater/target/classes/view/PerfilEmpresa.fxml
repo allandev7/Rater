@@ -29,7 +29,7 @@
             <DropShadow color="TRANSPARENT" />
          </effect>
       </Label>
-      <AnchorPane layoutX="12.0" layoutY="122.0" prefHeight="184.0" prefWidth="239.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="122.0">
+      <AnchorPane layoutX="12.0" layoutY="122.0" prefHeight="212.0" prefWidth="213.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="122.0">
          <children>
             <ImageView fx:id="imgFoto" fitHeight="212.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>

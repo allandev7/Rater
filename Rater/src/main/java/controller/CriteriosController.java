@@ -86,19 +86,22 @@ public class CriteriosController extends Application{
 	}
 	
 	public void deteteCriterio(ActionEvent event) throws Exception {
-		
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
-		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
+		PopUp aeiou = new PopUp();
+		int eee = aeiou.popUpEscolha("Deseja mesmo excluir o critério?", "Sim", "Não");
+	 	if(eee == 1) {
+	 		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+	 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			
-			//pegando o id no fim da label
-			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
-			//convertendo para inteiro
-			int id = Integer.parseInt(idC[1]);
-			//executano metodo deletar
-			p.deletarCriterios(id);
-			//atualizar lista
-			carregarCriterios();
-		}
+				//pegando o id no fim da label
+				String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+				//convertendo para inteiro
+				int id = Integer.parseInt(idC[1]);
+				//executano metodo deletar
+				p.deletarCriterios(id);
+				//atualizar lista
+				carregarCriterios();
+			}
+	 	}
 		
 	}
 	

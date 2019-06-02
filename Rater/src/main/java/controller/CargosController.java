@@ -77,17 +77,20 @@ public class CargosController extends Application{
 
 	
 	public void deteteCargo(ActionEvent event) throws Exception {
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
-		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
-			//pegando o id no fim da label
-			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
-			//convertendo para inteiro
-			int id = Integer.parseInt(idC[1]);
-			//executando o deletar
-			p.deletarCargo(id);
-			carregarCargos();
-		}
-		
+		PopUp aeiou = new PopUp();
+		int eee = aeiou.popUpEscolha("Deseja mesmo excluir o cargo?", "Sim", "Não");
+	 	if(eee == 1) {
+	 		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+	 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
+	 			//pegando o id no fim da label
+	 			String[] idC = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+	 			//convertendo para inteiro
+	 			int id = Integer.parseInt(idC[1]);
+	 			//executando o deletar
+	 			p.deletarCargo(id);
+	 			carregarCargos();
+	 		}
+	 	}
 	}
 	
 	public void addCargo(ActionEvent event) throws SQLException {

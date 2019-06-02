@@ -261,6 +261,15 @@ public class NovaEntrevista2Controller extends Application{
 		}
 	}
 	
+	//Método para limpar as variáveis estáticas automáticamente
+	public static void limpar() {
+		//Limpando as variáveis
+		stringo.clear();
+		booList.clear();
+		obs = " ";
+		robs = 0;
+	}
+	
 	public void cancelar() throws IOException {
 		//Pegando fxml como parametro
 		Parent fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista.fxml"));
@@ -318,6 +327,8 @@ public class NovaEntrevista2Controller extends Application{
 		pane.getChildren().removeAll();
 		//Colocando o documento fxml como conteúdo do pane
 		pane.setCenter(fxml);
+		
+		limpar();
 	}
 	public void insereEntrevista() throws IOException {
 		Entrevista entrevista = new Entrevista();

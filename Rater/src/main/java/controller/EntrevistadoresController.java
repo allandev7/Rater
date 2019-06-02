@@ -37,6 +37,7 @@ import javafx.scene.layout.HBox;
 import model.AzureConnection;
 import model.Empresa;
 import model.Entrevistador;
+import view.PopUp;
 import javafx.stage.Stage;
 
 
@@ -153,21 +154,23 @@ public class EntrevistadoresController extends Application{
 	
 	@FXML
 	public void deletarEntrevistador(ActionEvent event) throws SQLException {
-		
+		PopUp aeiou = new PopUp();
+		int eee = aeiou.popUpEscolha("Deseja mesmo excluir o entrevistador?", "Sim", "Não");
+	 	if(eee == 1) {
 				//Checando se existe algum item selecionado, caso não exista não acontecerá nada
 				if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 					
-					//pegando o id do entrevistador ""escondido"" na label
-					String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+						//pegando o id do entrevistador ""escondido"" na label
+						String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
 					
-					//colocando o Id do entrevistador em uma variavel ID Selecionado 
-					int ide = Integer.parseInt(idE[1]);
+						//colocando o Id do entrevistador em uma variavel ID Selecionado 
+						int ide = Integer.parseInt(idE[1]);
 					
-					//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
-					e.deletarEntrevistador(ide);
-					carregarEntrevistadores();
+						//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
+						e.deletarEntrevistador(ide);
+						carregarEntrevistadores();
 					}
-					
+	 	}
 	}
 	
 	@FXML 

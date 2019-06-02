@@ -46,13 +46,14 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 	@FXML private Label lblTelefone;
 	@FXML private Label lblEndereco;
 	@FXML private Label lblCargo;
-		
+	
+	Parent fxml;
 	private int NumCrit = 10;
 	private Entrevista e = new Entrevista();
 		
 	@FXML
 	public void start(Stage stage) throws IOException {
-	
+
 	}
 	
 	public void initialize() throws Exception {
@@ -61,7 +62,6 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 		
 		carregarInformacoes();
 		carregarCriterios();
-
 	}
 	
 	public void carregarInformacoes() {
@@ -139,17 +139,17 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 		}
 		
 		/*O pane2 é um anchorpane presente dentro do scrollpane que possui seu conteúdo
-		Colocando o tamanho do pane 2 como o tamanho de todos os itens da listview + 550pixels*/
+		Colocando o tamanho do pane 2 como o tamanho de todos os itens da listview + 550pixels
 		pane2.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 600);
 		/*Fazendo com que a listview aumente de tamanho baseado no tamanho de seus itens ao invés de
-		aparecer uma scrollbar*/
+		aparecer uma scrollbar
 		jfxlvListView.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 2);
-		
+		*/
 	}
 	
 	public void voltar(ActionEvent event) throws IOException {
 		//Pegando fxml como parametro
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
+		fxml = FXMLLoader.load(getClass().getResource("/view/GerenciarEntrevistas.fxml"));
 		//Limpando o coteúdo do AnchorPane "pane"
     	pane.getChildren().removeAll();
     	//Colocando o documento fxml como conteúdo do pane

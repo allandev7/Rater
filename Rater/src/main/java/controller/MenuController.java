@@ -89,7 +89,6 @@ public class MenuController extends Application{
 	double Y = 0;
 	Parent fxml;
 	
-	
 	@FXML
 	public void start(Stage stage) throws IOException {
 		stage.getIcons().add(new Image("imagens/icon.png"));
@@ -210,6 +209,9 @@ public class MenuController extends Application{
 				Stage agr = (Stage) lblLogout.getScene().getWindow();
 				//fechar essa janela
 				agr.close();
+				
+				NovaEntrevistaController.cancelar2();
+				NovaEntrevista2Controller.limpar();
 		 	}
 	    }
 	 
@@ -264,10 +266,10 @@ public class MenuController extends Application{
 			//Pocisionando a tela
 			stage.setX((primScreenBounds.getWidth() - stage.getWidth()));
 			stage.setY((primScreenBounds.getHeight() - stage.getHeight()));
-
+			
 			//Marcar a tela como maximizada
 			maximizado = true;
-			
+						
 		}else {
 			//Se a janela já estiver maximizada ela irá voltar ao tamanho normal
 			stage.setWidth(900);
@@ -275,9 +277,10 @@ public class MenuController extends Application{
 			//Posicionando a tela
 			stage.setX((primScreenBounds.getWidth() - stage.getWidth())/2);
 			stage.setY((primScreenBounds.getHeight() - stage.getHeight())/2);
-			
+
 			//Marcando a tela como minimizada
 			maximizado = false;
+			
 		}
         
 	}
