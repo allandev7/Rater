@@ -37,7 +37,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -48,11 +47,13 @@ public class PerfilEmpresaController extends Application{
 	@FXML private TextField txtCnpj;
 	@FXML private Button btnAlterarInformacoes;
 	@FXML private ImageView imgFoto;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	/*Variáveis para pegar informações da empresa do banco de dados*/
 	private String NomeEmpresa = Empresa.getNome();
 	private String EmailEmpresa = Empresa.getEmail();
 	private String Cnpj = Empresa.getCnpj();
+	Image img;
 	
 	//O método initialize é chamado automáticamente com o carregamento do FXML
 	public void initialize(){
@@ -115,6 +116,7 @@ public class PerfilEmpresaController extends Application{
 	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
+
 		//declarando o filechooser
 		FileChooser abrirArquivo = new FileChooser();
 		//defininfo os filtros
@@ -133,12 +135,116 @@ public class PerfilEmpresaController extends Application{
 		//Abrindo conexao com o banco
 		Connection conBD =  (Connection) new Conexao().connect();
 		//query de update
-		String sql = "UPDATE empresa SET foto=?";
+		String sql = "UPDATE empresa SET foto=? WHERE id= "+ Empresa.getId();	
+	
+	
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+	        @Override
+	        protected Void call() throws Exception  {
+	        	try {
+	    			//armazenar imagem na memoriaRAM
+	    			BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
+	    			//converter para imagem comum
+	    			img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+	    			//colocar ela no imgview
+	    			imgFoto.setImage(img);
+	    		}catch(IOException ex){
+	    			Logger.getLogger(NovaEntrevistaController.class.getName()).log(Level.SEVERE, null, ex);
+	    		}
+	    		try {//tentar
+	    			PreparedStatement pstmt = (PreparedStatement) conBD.prepareStatement(sql);//criando statment
+	    			if (Empresa.getFoto().equals("")) {// se nao haver foto no banco
+	    				
+	    				//cria objeto MessageDigest nulo para criptografia
+	    				MessageDigest m = null;
+	    				try {//tente
+	    					//pegar instancia de MD5
+	    					m = MessageDigest.getInstance("MD5");
+	    				} catch (NoSuchAlgorithmException e) {//erro
+	    					e.printStackTrace();//erro
+	    				}
+	    				//// atualizar objeto com bytes e tamanho
+	    			    m.update(nome.getBytes(),0,nome.length());
+	    			    // String para nome criptografado
+	    			    String nomeCripto = m.digest().toString()+new Date().getTime()+extensao;
+	    			    //definindo parametros da query
+	    				pstmt.setString(1, nomeCripto);
+	    				//upload da foto no azure
+	    				con.upload(caminho, nomeCripto);
+	    			}
+	    			else {//senao
+	    				//pega nome da propria foto e faz upload e update
+	    				
+	    				new File("C:\\Rater\\imagens\\"+Empresa.getFoto()).deleteOnExit();
+	    				pstmt.setString(1, Empresa.getFoto());
+	    				con.upload(caminho, Empresa.getFoto());
+	    				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
+	    					pstmt.setString(1, Empresa.getFoto());
+	    					con.upload(caminho, Empresa.getFoto());
+	    				}else {
+	    					pstmt.setString(1, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
+	    					con.upload(caminho, Empresa.getFoto().replace(Empresa.getFoto().substring(Empresa.getFoto().length()-4), extensao));
+	    				}
+	    			}
+	    		
+				//executar query
+				pstmt.execute();
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	    		//mensagem de sucesso
+				PopUp pop = new PopUp();
+				pop.popUpMensagem("Foto alterada com sucesso, reinicie o software para executar as alterações", 
+													"Sucesso");
+	          
+	        }
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
+		
+    }
+	
+	public void uparAzure() {
+
+		//declarando o filechooser
+		FileChooser abrirArquivo = new FileChooser();
+		//defininfo os filtros
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("PNG files", "*.png"));
+		abrirArquivo.getExtensionFilters().addAll(new ExtensionFilter("JPEG files", "*.jpg"));
+		//abrir a janela e pegar o arquivo selecionado
+		File arquivo = abrirArquivo.showOpenDialog(null);
+		//pegando caminho da pasta
+		String caminho = arquivo.getAbsolutePath();
+		//pegando nome do arquivo
+		String nome = arquivo.getName();
+		//pegando extensao do arquivo
+		String extensao = nome.substring(nome.length()-4);
+		//instanciando objeto da classe do Azure
+		AzureConnection con = new AzureConnection();
+		//Abrindo conexao com o banco
+		Connection conBD =  (Connection) new Conexao().connect();
+		//query de update
+		String sql = "UPDATE empresa SET foto=? WHERE id= "+ Empresa.getId();
 		try {
 			//armazenar imagem na memoriaRAM
 			BufferedImage armazenarMEMO =  ImageIO.read(arquivo);
 			//converter para imagem comum
-			Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+			img= SwingFXUtils.toFXImage(armazenarMEMO, null);
 			//colocar ela no imgview
 			imgFoto.setImage(img);
 		}catch(IOException ex){
@@ -167,6 +273,8 @@ public class PerfilEmpresaController extends Application{
 			}
 			else {//senao
 				//pega nome da propria foto e faz upload e update
+				
+				new File("C:\\Rater\\imagens\\"+Empresa.getFoto()).deleteOnExit();
 				pstmt.setString(1, Empresa.getFoto());
 				con.upload(caminho, Empresa.getFoto());
 				if (extensao.equals(Empresa.getFoto().substring(Empresa.getFoto().length()-4))) {
@@ -187,7 +295,7 @@ public class PerfilEmpresaController extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

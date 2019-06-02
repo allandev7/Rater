@@ -60,7 +60,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML private Button btnCancelar;
 	@FXML private Button btnConfirmar;
 	@FXML private BorderPane pane;
-		
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	private static String nomeFotoCripto;
 	private static String caminho;
@@ -179,31 +179,58 @@ public class EntrevistadoresAdicionarController extends Application{
 		String email = txtEmail.getText();
 		String senha = txtSenha.getText();
 		String Rg = txtRG.getText();
-		String fotoVazia = "null";
+		String fotoVazia = "null";	
 		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
 			//verifica se há algum campo obrigatorio em branco	
-			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") ) {
+			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") || senha.length()> 8) {
 				
-				pop.popUpMensagem("Preencha os campos obrigatorios","");
+				pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
 			
 			}else {
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+	        @Override
+	        protected Void call() throws Exception  {
+		
+		
 				//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
 				if(getNomeFotoCripto() == null) {
 					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, fotoVazia, getCaminho());
 				}else {
 					//cadastra entrevistador com imagem
 					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
+					
 					con.upload(caminho, getNomeFotoCripto());
+					
+					
 				}
 				//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
 				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 				pane.getChildren().removeAll();
 				pane.setCenter(fxml);
-			}
+			
 		
-		}else {
-			pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
-		}
+		
+		return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	          
+	        }
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
+			}}else {
+				pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
+			}
 	}
 	
 	

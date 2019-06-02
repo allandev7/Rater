@@ -1,6 +1,7 @@
 package controller;
 import javafx.scene.paint.Color;
 
+
 import javafx.geometry.Insets;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +13,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
@@ -55,14 +58,19 @@ import model.Entrevistado;
 public class GerenciarEntrevistasController extends Application{
 	
 	//Criando uma JFXListView para armazenar as entrevistas
-	@FXML private JFXListView jfxlvListView;
+	@FXML private JFXListView<HBox> jfxlvListView;
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
+<<<<<<< HEAD
 	@FXML private BorderPane pane;
 	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
 	
+=======
+	@FXML private AnchorPane pane;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;	
+>>>>>>> 6408a8e1231c07ca49e6bfd2c5c68fb649bb27fc
 	private static int idSelecionado;
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;
@@ -92,7 +100,7 @@ public class GerenciarEntrevistasController extends Application{
 		lbl.clear();
 		String nome = txtPesquisarEntrevistas.getText();
 		listaPesquisa.clear();
-		listaPesquisa = entrevista.pesquisar(nome);
+		listaPesquisa = entrevista.pesquisar("");
 		int numEntrevista = listaPesquisa == null ? 0:listaPesquisa.size();
 		lblNumEnt.setText("Número de entrevistas salvas: " + numEntrevista);
 		//Utilizando um for para preencher a JFXListView
@@ -124,23 +132,42 @@ public class GerenciarEntrevistasController extends Application{
 			img.setPreserveRatio(true);
 			img.setFitHeight(200);
 			img.setFitWidth(85);
-			
+			int cont = i;
 			int idsel = listaPesquisa.get(i).getId();
 			String nomeImagem = entrevista.visualizarEntrevista(idsel).getFoto();
 			Entrevistado c = new Entrevistado();
 			//Verificar se há alguma imagem salva no banco e no azure
 			if(nomeImagem != null) {
 				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-				try {
-						c.baixarImgsCandidatos(nomeImagem);
-						img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-						lbl.get(i).setGraphic(img);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (FileNotFoundException e) {
-						System.out.print(e);
-					}
+				javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+			        @Override
+			        protected Void call() throws Exception  {
+			        		//JOptionPane.showMessageDialog(null, nomeImagem);
+			        		c.baixarImgsCandidatos(nomeImagem);
+			        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+			        		return null;
+			        }
+
+			        @Override
+			        protected void succeeded() {
+			            JFXSpinner.setVisible(false);
+			           
+			        }
+
+			        @Override
+			        protected void failed() {
+			            JFXSpinner.setVisible(false);
+			          
+			        }
+
+			    };
+			    Thread thread = new Thread(task, "My Task");
+			    thread.setDaemon(true);
+			    JFXSpinner.setVisible(true);
+			    thread.start();	
+			    lbl.get(i).setGraphic(img);
+						
 			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 			}else {
 					img.setImage(new Image(("imagens/user.png")));
@@ -189,8 +216,6 @@ public class GerenciarEntrevistasController extends Application{
 						    thread.start();	
 						}
 				});
-				
-				cb.add(cbx);
 				
 				Pane pane = new Pane();
 				pane.setPrefWidth(200);

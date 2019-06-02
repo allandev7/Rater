@@ -47,7 +47,6 @@ public class EntrevistadoresVisualizarEntrevistaController extends Application{
 	@FXML private Label lblEndereco;
 	@FXML private Label lblCargo;
 		
-	private int NumCrit = 10;
 	private Entrevista e = new Entrevista();
 		
 	@FXML
@@ -65,6 +64,7 @@ public class EntrevistadoresVisualizarEntrevistaController extends Application{
 	}
 	
 	public void carregarInformacoes() {
+		
 		//Carregando informações do entrevistado
 		Entrevistado infoCandidato =   e.visualizarEntrevista(EntrevistadoresVisualizarEntrevistasController.getIdSelecionado());
 		String nomeImagem = e.visualizarEntrevista(EntrevistadoresVisualizarEntrevistasController.getIdSelecionado()).getFoto();

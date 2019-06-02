@@ -93,6 +93,7 @@ public class ENGerenciarEntrevistasController extends Application{
 		@FXML private Label lblNumEnt;
 		@FXML private TextField txtPesquisarEntrevistas;
 		@FXML private BorderPane pane;
+		@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 		
 		ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
 
@@ -108,6 +109,7 @@ public class ENGerenciarEntrevistasController extends Application{
 		public void initialize() throws Exception {
 			carregarPesquisa();
 			txtPesquisarEntrevistas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
 				@Override
 				public void handle(KeyEvent event) {
 					if (event.getCode() == KeyCode.ENTER) {
@@ -116,6 +118,7 @@ public class ENGerenciarEntrevistasController extends Application{
 				}
 			});
 		}
+			
 		
 		
 		
@@ -165,16 +168,33 @@ public class ENGerenciarEntrevistasController extends Application{
 				//Verificar se há alguma imagem salva no banco e no azure
 				if(nomeImagem != null) {
 					//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-					try {
-							c.baixarImgsCandidatos(nomeImagem);
-							img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-							lbl.get(i).setGraphic(img);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (FileNotFoundException e) {
-							System.out.print(e);
-						}
+						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+					        @Override
+					        protected Void call() throws Exception  {
+					        	c.baixarImgsCandidatos(nomeImagem);
+								img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+					        		return null;
+					        }
+
+					        @Override
+					        protected void succeeded() {
+					            JFXSpinner.setVisible(false);
+					           
+					        }
+
+					        @Override
+					        protected void failed() {
+					            JFXSpinner.setVisible(false);
+					          
+					        }
+
+					    };
+					    Thread thread = new Thread(task, "My Task");
+					    thread.setDaemon(true);
+					    JFXSpinner.setVisible(true);
+					    thread.start();	
+						lbl.get(i).setGraphic(img);
 				//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 				}else {
 						img.setImage(new Image(("imagens/user.png")));
@@ -191,6 +211,9 @@ public class ENGerenciarEntrevistasController extends Application{
 					cbx.setOnAction(new EventHandler<ActionEvent>() {	
 						@Override
 						public void handle(ActionEvent event) {
+							javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+							@Override
+							protected Void call() throws Exception  {
 								if(cbx.getValue().equals("Aprovar")) {
 									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
 									carregarPesquisa();
@@ -199,9 +222,26 @@ public class ENGerenciarEntrevistasController extends Application{
 									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
 									carregarPesquisa();
 									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+								}
+							return null;
 							}
-						}
+								 @Override
+							        protected void succeeded() {
+							            JFXSpinner.setVisible(false);
+							        }
+							        @Override
+							        protected void failed() {
+							            JFXSpinner.setVisible(false);
+							            JFXSpinner.setVisible(false);
+							        }
+							    };
+							    Thread thread = new Thread(task, "My Task");
+							    thread.setDaemon(true);
+							    JFXSpinner.setVisible(true);
+							    thread.start();	
+							}
 					});
+					
 					Pane pane = new Pane();
 					pane.setPrefWidth(200);
 					

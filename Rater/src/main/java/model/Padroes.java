@@ -14,13 +14,7 @@ import javafx.collections.ObservableList;
 import controller.CargosController;
 import controller.NovaEntrevistaController;
 
-public class Padroes {
-	//abrindo conexao com o banco
-	Connection con = new Conexao().connect();
-	
-	
-	
-	
+public class Padroes {	
 	//PARTE DE CARGOS 
 	
 	//cria array para armazenar os nomes dos cargos
@@ -33,6 +27,7 @@ public class Padroes {
 
 	//Metodo de carregar cargos
 	public ArrayList<String> carregarCargos() throws SQLException {
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		nomeCargo.clear();
 		idCargo.clear();
@@ -52,10 +47,17 @@ public class Padroes {
 			listaCargos.add(rs.getString("NOME"));	
 
 		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return nomeCargo;
 	}
 	
 	public void novoCargo(String cargo) throws SQLException{
+		Connection con = new Conexao().connect();
 		//query de inserir os cargos
 		String sql = "INSERT INTO cargo (ID, NOME, ID_EMPRESA) VALUES(NULL,?,?)";
 		// criando statment
@@ -65,9 +67,16 @@ public class Padroes {
 		pstmt.setInt(2, Empresa.getId());
 		//executando a query
 		pstmt.execute();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void alterarCargo(String cargo, int id) throws SQLException{
+		Connection con = new Conexao().connect();
 		//query de alterar os cargos
 		String sql = "UPDATE cargo SET NOME=? WHERE ID=?";
 		// criando statment
@@ -77,9 +86,16 @@ public class Padroes {
 		pstmt.setInt(2, id);
 		//executando a query
 		pstmt.execute();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void deletarCargo(int id) throws SQLException {
+		Connection con = new Conexao().connect();
 		// query de deletar os cargos
 		String sql = "DELETE FROM cargo WHERE ID=?";
 		// criando statment 
@@ -88,6 +104,12 @@ public class Padroes {
 		pstmt.setInt(1, id);
 		//executando query
 		pstmt.execute();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -107,6 +129,7 @@ public class Padroes {
 	
 	//método carregar critérios
 	public ArrayList<String> carregarCriterios (int id) throws SQLException {
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		nomeCriterios.clear();
 		idCriterios.clear();
@@ -127,19 +150,33 @@ public class Padroes {
 			idCriterios.add(rs.getInt("ID"));
 			definicaoCriterio.add(rs.getString("DEFINICAO"));
 		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return nomeCriterios;
 	}
 	
 	//método deletar
 	public void deletarCriterios(int id) throws SQLException {
+		Connection con = new Conexao().connect();
 		String sql = "DELETE FROM criterio WHERE ID=? AND ID_ENTREVISTADOR =?";
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		pstmt.setInt(1, id);
 		pstmt.setInt(2, Empresa.getIdEntrevistadorPadrao());
 		pstmt.execute();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//metodo alterar critérios
 	public void alterarCriterios(String criterio,String definicao, int id) throws SQLException{
+		Connection con = new Conexao().connect();
 		//query de alterar os cargos
 		String sql = "UPDATE criterio SET NOME=?, DEFINICAO=? WHERE ID=? AND ID_ENTREVISTADOR =?";
 		// criando statment
@@ -152,9 +189,16 @@ public class Padroes {
 
 		//executando a query
 		pstmt.execute();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//método novoCritério
 	public void novoCriterio(String criterio,String definicao, int idCargo) throws SQLException{
+		Connection con = new Conexao().connect();
 		//query de inserir os criterios
 		String sql = "INSERT INTO criterio (ID, ID_ENTREVISTADOR , NOME, DEFINICAO, ID_CARGO) VALUES(NULL,?,?,?,?)";
 		// criando statment
@@ -166,9 +210,16 @@ public class Padroes {
 		pstmt.setInt(4, idCargo);
 		//executando a query
 		pstmt.execute();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String getNomeCargo(int idCargo) {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT * FROM cargo WHERE ID=?";
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
@@ -180,7 +231,14 @@ public class Padroes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally{
+			try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 	}
 	
 	
@@ -191,6 +249,7 @@ public class Padroes {
 	public ArrayList<String> nomesCriterioNE2 = new ArrayList<>();
 
 	public ArrayList<String>  listarCriteriosNE2(String cargo) throws SQLException {
+		Connection con = new Conexao().connect();
 		//NovaEntrevistaController nec = new NovaEntrevistaController();
 		//ne2c.setCargoSelecionado(ne2c.cbCargos.getValue().toString());
 		//limpar os arrays
@@ -210,6 +269,11 @@ public class Padroes {
 			//adicionar cargos e ids aos arrays
 			nomesCriterioNE2.add(rs.getString("NOME"));
 			setIdCargoSelecionado(rs.getInt("ID_CARGO"));
+		}try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 			
 		return nomesCriterioNE2;

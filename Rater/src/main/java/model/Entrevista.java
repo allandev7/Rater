@@ -49,10 +49,11 @@ public class Entrevista {
 	private static String relatorio;
 	private String feedback;
 	
-	Connection con = new Conexao().connect();
+	
 	
 	public int inserirEntrevista(int idEntrevistador, int idCandidato, int idCargo) {
 		//PRIMEIRO INSERT (ENTREVISTA)
+		Connection con = new Conexao().connect();
 		setData(new Date(new Date().getTime()));
 		java.sql.Date dateConvert = new java.sql.Date(getData().getTime());
 		try {
@@ -73,11 +74,19 @@ public class Entrevista {
 			e.printStackTrace();
 			new PopUp().popUpErro("Erro no banco", "Não foi encontrada a entrevista");
 			return 0;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public ArrayList<Integer> buscarIDcriterios(int idCargo, int idEntrevistador) {
 		ArrayList<Integer> idCriterios = new ArrayList<>();
+		Connection con = new Conexao().connect();
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("SELECT * FROM criterio WHERE ID_CARGO = ? AND ID_ENTREVISTADOR = ?");
 			pstmt.setInt(1, idCargo);
@@ -90,10 +99,19 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return idCriterios;
 	}
 	
 	public void inserirCriterios(int idEntrevista, int idCriterio, boolean aprovacao, String comentario) {
+		Connection con = new Conexao().connect();
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO criterio_entrevista VALUES(NULL,?,?,?,?)");
 			pstmt.setInt(1, idEntrevista);
@@ -104,6 +122,14 @@ public class Entrevista {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void gerarRelatorio(String nomeDoc,String nomeCandidato, String sexo,int idade, String etnia, String rg, String email, 
@@ -148,6 +174,7 @@ public class Entrevista {
 			e1.printStackTrace();
 		}finally {
 			doc.close();
+			
 		}
 	}
 	public void enviarFeedback(String destinatario, File relatorio) {
@@ -265,6 +292,7 @@ public class Entrevista {
 		
 	}
 	public ArrayList<dados> carregarEntrevistas() {
+		Connection con = new Conexao().connect();
 		ArrayList<dados> dadosLista = new ArrayList<>();
 		String sql ="SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
 				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID FROM `entrevista` " + 
@@ -283,6 +311,13 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -290,6 +325,7 @@ public class Entrevista {
 	
 	//DELETAR ENTREVISTAS
 	public void deletarEntrevista(int id) {
+		Connection con = new Conexao().connect();
 		String sql = "DELETE FROM `entrevista` WHERE ID = ?";
 		
 		try {
@@ -299,6 +335,13 @@ public class Entrevista {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -389,12 +432,14 @@ public class Entrevista {
 		
 	}
 	public Entrevistado visualizarEntrevista(int id) {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT candidato.nome, candidato.SEXO, candidato.IDADE, candidato.ETNIA, candidato.CPF, candidato.EMAIL,"
 				+ " candidato.TELEFONE, candidato.ENDERECO, cargo.NOME, candidato.FOTO  FROM `entrevista` " + 
 				"INNER JOIN candidato ON candidato.id = ID_CANDIDATO " + 
 				"INNER JOIN cargo ON cargo.id = ID_CARGO " + 
 				"WHERE entrevista.ID = ?";
 		try {
+			
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
@@ -408,6 +453,13 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -446,6 +498,7 @@ public class Entrevista {
 		}
 	}
 	public ArrayList<dadosCriterios> carregarCriteriosEntrevista(int id){
+		Connection con = new Conexao().connect();
 		ArrayList<dadosCriterios> dados = new ArrayList<>();
 		String sql = "SELECT criterio.NOME, COMENTARIO, APROVACAO FROM criterio_entrevista " + 
 				"INNER JOIN criterio ON criterio.ID = ID_CRITERIO " + 
@@ -462,6 +515,13 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -471,6 +531,7 @@ public class Entrevista {
 	//PESQUISAR ENTREVISTA 
 	ArrayList<dados> dadosList = new ArrayList<>();
 	public ArrayList<dados> pesquisar(String nome) {
+		Connection con = new Conexao().connect();
 		dadosList.clear();
 		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
 				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID, candidato.EMAIL FROM `entrevista` " + 
@@ -491,12 +552,20 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	
 	ArrayList<dados> ENdadosList = new ArrayList<>();
 	public ArrayList<dados> ENpesquisar(String nome) {
+		Connection con = new Conexao().connect();
 		dadosList.clear();
 		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
 				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID, candidato.Email FROM `entrevista` " + 
@@ -519,12 +588,20 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	ArrayList<dados> ENdadosList2 = new ArrayList<>();
 	public ArrayList<dados> ENpesquisar2(String nome, int idEntrevistador) {
 		dadosList.clear();
+		Connection con = new Conexao().connect();
 		String sql = "SELECT entrevistador.NOME AS NomeEntrevistador, candidato.NOME AS NomeCandidato,"
 				+ " DATA_ENTREVISTA, RESULTADO, FEEDBACK, entrevista.ID, candidato.EMAIL FROM `entrevista` " + 
 				"INNER JOIN entrevistador ON entrevistador.ID = entrevista.ID_ENTREVISTADOR " + 
@@ -546,12 +623,20 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	
 	//VERIFICAÇÃO DO EM ESPERA
 	public int verificarEmEspera() {
+		Connection con = new Conexao().connect();
 		String sql= "SELECT COUNT(RESULTADO) FROM entrevista WHERE ID_ENTREVISTADOR = ? AND RESULTADO = 2";
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
@@ -565,6 +650,13 @@ public class Entrevista {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -610,6 +702,7 @@ public class Entrevista {
 	
 	//ATUALIZAR ENTREVISTA
 	public void atualizarEmEspera(int resul, int idEntrevista) {
+		Connection con = new Conexao().connect();
 		String sql = "UPDATE entrevista SET RESULTADO = ? WHERE ID = ?";
 		try {
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
@@ -619,6 +712,13 @@ public class Entrevista {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	//GETTERS E SETTERS

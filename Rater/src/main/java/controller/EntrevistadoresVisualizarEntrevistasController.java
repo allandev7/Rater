@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXSpinner;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,7 +47,8 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private BorderPane pane;
-		
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;	
+
 	Parent fxml;
 	
 	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
@@ -92,6 +95,7 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 			String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
+			String emailCandidato = listaPesquisa.get(i).getEmail();
 			String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
 			String resultado;
 			if(listaPesquisa.get(i).getResultado() == 1)
@@ -103,8 +107,8 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 			
 			//Inserindo dados da entrevista em uma Label
 			lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
-									dataEntrevista + "\n\nNome do Entrevistador: " + nomeEntrevistador +
-									"\n\nResultado: " + resultado + "\n"));
+					dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato + "\n\nNome do Entrevistador: " + nomeEntrevistador +
+					"\n\nResultado: " + resultado + "\n"));
 			lbl.get(i).setMaxHeight(110);
 			lbl.get(i).setMinHeight(110);
 			//Inserindo imagem na label lbl1
@@ -136,33 +140,59 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 			}
 			
 			HBox hbox = new HBox(lbl.get(i));
-			
+			int ih = i;
+
 			if(resultado.equals("Em espera")) {
 				
 				JFXComboBox<String> cbx = new JFXComboBox<String>();
 				cbx.setPromptText("Finalizar entrevista");
 				cbx.getItems().addAll("Aprovar", "Reprovar");
 				cbx.setId(Integer.toString(i));
-				
+
 				cbx.setOnAction(new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent event) {
-						 System.out.println(nomeEntrevistado);
+						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+							@Override
+							protected Void call() throws Exception  {
+								if(cbx.getValue().equals("Aprovar")) {
+									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+								} else if(cbx.getValue().equals("Reprovar")){
+									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+								}
+							return null;
+							}
+							@Override
+					        protected void succeeded() {
+					            JFXSpinner.setVisible(false);
+					        }
+					        @Override
+					        protected void failed() {
+					            JFXSpinner.setVisible(false);
+					            JFXSpinner.setVisible(false);
+					        }
+					    };
+					    Thread thread = new Thread(task, "My Task");
+					    thread.setDaemon(true);
+					    JFXSpinner.setVisible(true);
+					    thread.start();	
 					}
-				});
-				
-				cb.add(cbx);
-				
-				Pane pane = new Pane();
-				pane.setPrefWidth(200);
-				
-				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
-				hbox.getChildren().addAll(pane, cb.get(i));
-			}
+			});
 			
-			//Adicionando a Label lbl1 na JFXListView
-			jfxlvListView.getItems().add(hbox);
+			Pane pane = new Pane();
+			pane.setPrefWidth(200);
+			
+			hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
+			hbox.getChildren().addAll(pane, cbx);
+		}
+		
+		//Adicionando a Label lbl1 na JFXListView
+		jfxlvListView.getItems().add(hbox);
 				
 		}
 			

@@ -22,15 +22,6 @@ public class Entrevistador extends Usuarios{
 	private static int EmEspera;
 	private static int EntrevistasRealizadas;
 	private static int idEmpresa;
-
-
-
-	
-
-	
-	Connection con = new Conexao().connect();
-	private Conexao connn = new Conexao();
-
 	Empresa e = new Empresa();
 	
 	
@@ -40,9 +31,9 @@ public class Entrevistador extends Usuarios{
 		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ? AND SENHA = md5(?)";
 		int valido = 0;
-		try(Connection conn = connn.connect();
-			PreparedStatement pstmt  = conn.prepareStatement(sql)){
-			
+		Connection con = new Conexao().connect();
+		try{
+			PreparedStatement pstmt  = con.prepareStatement(sql);
 			pstmt.setString(1, emailTxt);
 			pstmt.setString(2, senhaTxt);
 			
@@ -79,6 +70,13 @@ public class Entrevistador extends Usuarios{
 		}catch(SQLException e) {
 			System.out.println(e);
 
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return valido;
@@ -89,7 +87,7 @@ public class Entrevistador extends Usuarios{
 	
 	//Metodo de carregar entrevistadores
 	public ArrayList<String> carregarEntrevistadores(String nome) throws SQLException{
-			
+			Connection con = new Conexao().connect();
 			nomeEntrevistador.clear();
 			idEntrevistador.clear();
 			//selecionar na tabela
@@ -108,6 +106,13 @@ public class Entrevistador extends Usuarios{
 				idEntrevistador.add(rs.getInt("ID"));
 				
 			}
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 	
 		
 		return nomeEntrevistador;
@@ -125,6 +130,7 @@ public class Entrevistador extends Usuarios{
 	private ArrayList<Integer> numEntrevistaMes = new ArrayList<Integer>();
 	
 	public ArrayList<Integer>carregarNumEntrevistaMesEN() throws SQLException{
+		Connection con = new Conexao().connect();
 		numEntrevistaMes.clear();
 		
 		Calendar cal = Calendar.getInstance();
@@ -141,7 +147,12 @@ public class Entrevistador extends Usuarios{
 				numEntrevistaMes.add(rs.getInt("numMes"));
 			}
 		}
-		
+		try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		return numEntrevistaMes;
 	}
 	
@@ -150,30 +161,67 @@ public class Entrevistador extends Usuarios{
 	//graficos de entrevista aceitas recusadas e em espera feitas pelo entrevistador
 	
 	public int carregarEntrevistaAce() throws SQLException {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 1";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {	setAdmissoes(rs.getInt("numEn"));}
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		return getAdmissoes();
 	}
 	public int carregarEntrevistaRec() throws SQLException {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 0";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {	setRecusados(rs.getInt("numEn")); }
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return getRecusados();
 	}	
 	public int carregarEntrevistaEsp() throws SQLException {
+		Connection con = new Conexao().connect();
 		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? AND RESULTADO = 2";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {	setEmEspera(rs.getInt("numEn"));;}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return getEmEspera();
 	}	
-
+	
+	public int carregarEntrevistaRea() throws SQLException {
+		Connection con = new Conexao().connect();
+		String sql = "SELECT COUNT(*) AS numEn FROM entrevista WHERE ID_ENTREVISTADOR =? ";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());		
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {	setEntrevistasRealizadas(rs.getInt("numEn"));;}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getEntrevistasRealizadas();
+	}	
+	
 
 
 	//graficos de entrevistas realizadas por  cargo
@@ -182,6 +230,7 @@ public class Entrevistador extends Usuarios{
 	
 	//pega o id do cargo
 	public ArrayList<Integer> carregarCargos() throws SQLException {
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		
 		idCargos.clear();
@@ -200,12 +249,19 @@ public class Entrevistador extends Usuarios{
 				
 
 		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		return idCargos;
 	}
 	
 	//pega o numeros de entrevistas realizadas de acordo com cada cargo
 	public ArrayList<Integer> carregarNumEntrevistaCargo() throws SQLException{
+		Connection con = new Conexao().connect();
 		//limpar os arrays
 		numEntrevistaCargo.clear();
 
@@ -227,7 +283,12 @@ public class Entrevistador extends Usuarios{
 					
 				}
 			}
-	
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		return numEntrevistaCargo;
 	}

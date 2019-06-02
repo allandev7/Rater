@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
+import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXSpinner;
 import com.sun.glass.events.MouseEvent;
 
 import javafx.application.Application;
@@ -50,6 +52,7 @@ public class EntrevistadoresController extends Application{
 	@FXML private BorderPane pane;
 	@FXML private Button btnVisualizarPerfil;
 	@FXML private Button btnDeletarEntrevistador;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	private static int idEntrevistadorSel;
 	
 	Parent fxml;
@@ -97,13 +100,34 @@ public class EntrevistadoresController extends Application{
 			//Verificar se há alguma imagem salva no banco e no azure
 			if(!nomeImagem.equals("null")) {
 				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-				try {
-					e.baixarImgsEntrevistadores(nomeImagem);
-					img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+					javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+				        @Override
+				        protected Void call() throws Exception  {
+				        		//JOptionPane.showMessageDialog(null, nomeImagem);
+				        		e.baixarImgsEntrevistadores(nomeImagem);
+				        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+				        		return null;
+				        }
+
+				        @Override
+				        protected void succeeded() {
+				            JFXSpinner.setVisible(false);
+				           
+				        }
+
+				        @Override
+				        protected void failed() {
+				            JFXSpinner.setVisible(false);
+				          
+				        }
+
+				    };
+				    Thread thread = new Thread(task, "My Task");
+				    thread.setDaemon(true);
+				    JFXSpinner.setVisible(true);
+				    thread.start();	
 					lbl1.setGraphic(img);
-				} catch (FileNotFoundException e) {
-					System.out.print(e);
-				}
 			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
 			}else {
 					img.setImage(new Image(("imagens/user.png")));
@@ -154,6 +178,7 @@ public class EntrevistadoresController extends Application{
 	
 	@FXML
 	public void deletarEntrevistador(ActionEvent event) throws SQLException {
+<<<<<<< HEAD
 		PopUp aeiou = new PopUp();
 		int eee = aeiou.popUpEscolha("Deseja mesmo excluir o entrevistador?", "Sim", "Não");
 	 	if(eee == 1) {
@@ -171,6 +196,23 @@ public class EntrevistadoresController extends Application{
 						carregarEntrevistadores();
 					}
 	 	}
+=======
+		
+		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
+		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
+			
+			//pegando o id do entrevistador ""escondido"" na label
+			String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
+					
+			//colocando o Id do entrevistador em uma variavel ID Selecionado 
+			int ide = Integer.parseInt(idE[1]);
+					
+					//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
+			e.deletarEntrevistador(ide);
+			carregarEntrevistadores();
+		}
+					
+>>>>>>> 6408a8e1231c07ca49e6bfd2c5c68fb649bb27fc
 	}
 	
 	@FXML 

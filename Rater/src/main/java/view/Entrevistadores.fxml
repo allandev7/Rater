@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,6 +24,7 @@
                   <TextField fx:id="txtPesquisarEntrevistadores" layoutX="393.0" layoutY="13.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevistador..." AnchorPane.rightAnchor="14.0" />
                   <JFXButton fx:id="btnDeletarEntrevistador" onAction="#deletarEntrevistador" prefHeight="41.0" prefWidth="161.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Deletar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0" />
                   <JFXButton fx:id="btnAdicionarEntrevistador" onAction="#novoEntrevistador" prefHeight="41.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Novo entrevistador" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0" />
+                  <JFXSpinner fx:id="JFXSpinner" layoutX="489.0" layoutY="476.0" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="183.0" />
                </children>
             </AnchorPane>
          </center>

@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
 import com.github.sarxos.webcam.Webcam;
 import com.itextpdf.awt.geom.misc.RenderingHints.Key;
 import com.sun.javafx.scene.CameraHelper.CameraAccessor;
+
+import controllerEntrevistador.ENMenuController;
+
 import com.sun.javafx.scene.EnteredExitedHandler;
 
 import javafx.application.Application;
@@ -82,6 +85,7 @@ public class NovaEntrevistaController extends Application{
 	@FXML private Button btnCancelar;
 	@FXML private Button btnConfirmar;
 	@FXML private BorderPane pane;
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	
 	//Variáveis para guardar os valores
@@ -124,6 +128,7 @@ public class NovaEntrevistaController extends Application{
 	
 	//O método initialize e chamado automáticamente com o carregamento do FXML
 	public void initialize() throws SQLException {
+		//JFXSpinner.setVisible(true);
 		//Método para deixar só numeros no TextField
 		txtTelefone.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
@@ -131,15 +136,6 @@ public class NovaEntrevistaController extends Application{
 		        String newValue) {
 		        if (!newValue.matches("\\d*")) {
 		            txtTelefone.setText(newValue.replaceAll("[^\\d]", ""));
-		        }
-		    }
-		});
-		txtRG.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
-		        String newValue) {
-		        if (!newValue.matches("\\d*")) {
-		            txtRG.setText(newValue.replaceAll("[^\\d]", ""));
 		        }
 		    }
 		});
@@ -344,6 +340,7 @@ public class NovaEntrevistaController extends Application{
 	//CLIQUE 
 	
 	public void iniciarEntrevista(ActionEvent event) throws Exception {
+		
 		//SALVANDO CANDIDATO NO BANCO
 
  
@@ -361,25 +358,62 @@ public class NovaEntrevistaController extends Application{
 		if(new Entrevista().verificarEmEspera() < 3) {
 			if (!nome.equals("") && !email.equals("") && getCargoSelecionado()!=null) {
 				if(email.indexOf("@")>0 && email.indexOf(".")>0) {
-				new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade,endereco);
-			
-					//INICIAR OUTRA TELA
-				
-					//Pegando fxml como parametro
-					fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
-					//Limpando o coteúdo do Pane "pane"
-					pane.getChildren().removeAll();
-					//Colocando o documento fxml como conteúdo do pane
-					pane.setCenter(fxml);
+					int numCri = p.listarCriteriosNE2(getCargoSelecionado()).size();
+					if(numCri!=0) {
+						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+							@Override
+							protected Void call() throws Exception  {
+								new Entrevistado().inserirInfo(email, nome, telefone, sexo, cpf, foto, etnia, idade,endereco);
+								if(getNomeFotoCripto()!=null) {
+									
+									new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
+							}
+								
+								return null;
+					        }
+
+					        @Override
+					        protected void succeeded() {
+					            JFXSpinner.setVisible(false);
+					            try {
+					            fxml = FXMLLoader.load(getClass().getResource("/view/NovaEntrevista2.fxml"));
+								//Limpando o coteúdo do Pane "pane"
+					            pane.getChildren().removeAll();
+					            //Colocando o documento fxml como conteúdo do pane
+					            pane.setCenter(fxml);
+					        } catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					        }
+
+					        @Override
+					        protected void failed() {
+					            JFXSpinner.setVisible(false);
+					           
+					        }
+					      
+					    };
+					        Thread thread = new Thread(task, "My Task");
+						    thread.setDaemon(true);
+						    JFXSpinner.setVisible(true);
+						    thread.start();	
+							
+						
+						//INICIAR OUTRA TELA
+						//Pegando fxml como parametro
+						
+					}else {
+						new PopUp().popUpErro("Não há critérios", "Insira os critérios do cargo selecionado");
+					}
 				}else {
 					new PopUp().popUpErro("Email inválido", "Digite um email válido");
 				}
 			}else {
 				new PopUp().popUpMensagem("Preencha os campos", "Ao menos os campos email, nome e cargo devem ser preenchidos");
 			}
-			if(getNomeFotoCripto()!=null) {
-				new AzureConnection().upload(getCaminho(), getNomeFotoCripto());
-			}
+			
+		        
 		}else 
 			new PopUp().popUpMensagem("Limite de espera atingido", "Responda os candidatos em espera, para fazer uma nova entrevista");
 	}	

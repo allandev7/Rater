@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,8 +21,11 @@
                         <Font name="Tahoma" size="17.0" />
                      </font>
                   </Label>
+                      
                   <TextField fx:id="txtPesquisarEntrevistas" layoutX="390.0" layoutY="12.0" prefHeight="25.0" prefWidth="320.0" promptText="Pesquisar entrevista..." AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0" />
                   <JFXButton fx:id="btnVoltar" onAction="#voltar" prefHeight="42.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="12.0" />
+                  <JFXSpinner fx:id="JFXSpinner" layoutX="557.0" layoutY="480.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="115.0" />
+               
                </children>
             </AnchorPane>
          </center>

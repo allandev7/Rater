@@ -331,6 +331,7 @@ public class NovaEntrevista2Controller extends Application{
 		limpar();
 	}
 	public void insereEntrevista() throws IOException {
+		btnContinuar.setDisable(true);
 		Entrevista entrevista = new Entrevista();
 		String conclusaoADD = null;
 		Entrevistado candidato = new Entrevistado();
@@ -347,8 +348,7 @@ public class NovaEntrevista2Controller extends Application{
 			conclusaoADD = "Em espera, ";
 		}
 		entrevista.setFeedback(txtConclusao2.getText());
-		//ESQUELETO PARA QUANDO HOUVER RELATORIO
-		entrevista.setRelatorio("relatorio.docx");
+		
 		int idEntrevista = entrevista.inserirEntrevista(Empresa.getIdEntrevistadorPadrao(), 
 															Entrevistado.getId(),p.getIdCargoSelecionado());
 		
@@ -363,6 +363,8 @@ public class NovaEntrevista2Controller extends Application{
 
 		
 		String nomeDoc= Empresa.getId()+candidato.getNome()+candidato.getId()+new Date().getTime()+".pdf";
+		//ESQUELETO PARA QUANDO HOUVER RELATORIO
+		entrevista.setRelatorio(nomeDoc);
 		entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
 				candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
 				candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
