@@ -61,16 +61,11 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML private JFXListView<HBox> jfxlvListView;
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
-<<<<<<< HEAD
 	@FXML private BorderPane pane;
 	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
 	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
-	
-=======
-	@FXML private AnchorPane pane;
-	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;	
->>>>>>> 6408a8e1231c07ca49e6bfd2c5c68fb649bb27fc
+
 	private static int idSelecionado;
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;

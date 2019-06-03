@@ -178,7 +178,6 @@ public class EntrevistadoresController extends Application{
 	
 	@FXML
 	public void deletarEntrevistador(ActionEvent event) throws SQLException {
-<<<<<<< HEAD
 		PopUp aeiou = new PopUp();
 		int eee = aeiou.popUpEscolha("Deseja mesmo excluir o entrevistador?", "Sim", "Não");
 	 	if(eee == 1) {
@@ -195,9 +194,8 @@ public class EntrevistadoresController extends Application{
 						e.deletarEntrevistador(ide);
 						carregarEntrevistadores();
 					}
-	 	}
-=======
-		
+	 	}	
+	 	
 		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
 		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
 			
@@ -210,9 +208,7 @@ public class EntrevistadoresController extends Application{
 					//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
 			e.deletarEntrevistador(ide);
 			carregarEntrevistadores();
-		}
-					
->>>>>>> 6408a8e1231c07ca49e6bfd2c5c68fb649bb27fc
+		}			
 	}
 	
 	@FXML 
