@@ -111,7 +111,7 @@
                               </GridPane>
                            </children>
                         </Pane>
-                        <Label layoutX="12.0" layoutY="292.0" prefHeight="27.0" prefWidth="346.0" styleClass="labeljoe" text="Critérios:" textFill="#32447c" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="292.0">
+                        <Label layoutX="12.0" layoutY="292.0" prefHeight="24.0" prefWidth="346.0" styleClass="labeljoe" text="Critérios:" textFill="#32447c" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="292.0">
                            <font>
                               <Font size="19.0" />
                            </font>

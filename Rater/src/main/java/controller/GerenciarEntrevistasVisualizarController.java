@@ -57,8 +57,6 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 	}
 	
 	public void initialize() throws Exception {
-		jfxlvListView.setFocusTraversable(false);
-		jfxlvListView.setMouseTransparent(true);
 		
 		carregarInformacoes();
 		carregarCriterios();
