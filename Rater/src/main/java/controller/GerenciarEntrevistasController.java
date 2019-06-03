@@ -95,7 +95,7 @@ public class GerenciarEntrevistasController extends Application{
 		lbl.clear();
 		String nome = txtPesquisarEntrevistas.getText();
 		listaPesquisa.clear();
-		listaPesquisa = entrevista.pesquisar("");
+		listaPesquisa = entrevista.pesquisar(nome);
 		int numEntrevista = listaPesquisa == null ? 0:listaPesquisa.size();
 		lblNumEnt.setText("Número de entrevistas salvas: " + numEntrevista);
 		//Utilizando um for para preencher a JFXListView
