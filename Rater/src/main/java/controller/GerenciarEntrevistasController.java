@@ -62,7 +62,10 @@ public class GerenciarEntrevistasController extends Application{
 	@FXML private Label lblNumEnt;
 	@FXML private TextField txtPesquisarEntrevistas;
 	@FXML private BorderPane pane;
-	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;	
+	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
+	
+	ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
+
 	private static int idSelecionado;
 	private Entrevista entrevista= new Entrevista();
 	Parent fxml;
@@ -235,7 +238,8 @@ public class GerenciarEntrevistasController extends Application{
 			//Limpando o coteúdo do AnchorPane "pane"
         	pane.getChildren().removeAll();
         	//Colocando o documento fxml como conteúdo do pane
-        	pane.getChildren().setAll(fxml);
+        	pane.setCenter(fxml);
+        	
 		}
 	}
 	
@@ -257,11 +261,15 @@ public class GerenciarEntrevistasController extends Application{
 	public void deletarEntrevista(ActionEvent event) throws IOException {
 		int i = jfxlvListView.getSelectionModel().getSelectedIndex();
 		if(listaPesquisa.get(i).getResultado() != 2) {
-			entrevista.deletarEntrevista(listaPesquisa.get(i).getId());
-			txtPesquisarEntrevistas.clear();
-			carregarPesquisa();	
+			PopUp aeiou = new PopUp();
+			int eee = aeiou.popUpEscolha("Deseja mesmo excluir a entrevista?", "Sim", "Não");
+		 	if(eee == 1) {
+		 		entrevista.deletarEntrevista(listaPesquisa.get(i).getId());
+		 		txtPesquisarEntrevistas.clear();
+		 		carregarPesquisa();
+		 	}
 		}else {
-			new PopUp().popUpErro("Não é possível deletar entrevistas em espera", "Você deve dar o resultado da entrevista antes");
+			new PopUp().popUpErro("Não é possível excluir entrevistas em espera!", "Você deve finalizá-la antes.");
 		}
 	}
 	public static int getIdSelecionado() {
