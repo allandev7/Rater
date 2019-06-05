@@ -154,7 +154,7 @@ public class EntrevistadoresPerfil extends Application{
         if(NomeUsuario.equals(Empresa.getEmail())) {
 			txtNomeUsuario.setDisable(true);
 			txtSenha.setDisable(true);
-			txtSenha.setText("********");
+			txtConfirmarSenha.setDisable(true);
 		}
         lblNumEnt.setText("Entrevistas Realizadas: " + NumEntrevistas + "\nAprovados: " + Aprovados + "\nReprovados: " + Reprovados + "\nEm espera: " + EmEspera);
         try {

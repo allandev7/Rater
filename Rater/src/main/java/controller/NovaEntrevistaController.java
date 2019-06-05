@@ -170,7 +170,7 @@ public class NovaEntrevistaController extends Application{
 		        if(txtEmail.getText().length() > maxCharacters) event.consume();
 		    });
 	       txtRG.setOnKeyTyped(event ->{
-		        int maxCharacters = 15;
+		        int maxCharacters = 8;
 		        if(txtRG.getText().length() > maxCharacters) event.consume();
 		    });
 	       txtEndereco.setOnKeyTyped(event ->{
