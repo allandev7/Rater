@@ -7,6 +7,7 @@ import model.Usuarios;
 import view.PopUp;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -180,11 +181,15 @@ public class EntrevistadoresPerfil extends Application{
 			        protected Void call() throws Exception  {
 			        	
 			        	if(!txtSenha.getText().equals("") ) {
-			        		if(txtSenha.getText().equals(txtConfirmarSenha.getText()) || txtSenha.getText().length() > 8) {
+			        		
+			        		String senha =txtSenha.getText();
+							String Csenha = txtConfirmarSenha.getText();
+							
+				        	if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
 			        			e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
 			        			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
 			        		}else {
-			        			pop.popUpMensagem("As senhas digitadas não correspondem","");
+			        			pop.popUpMensagem("As senhas digitadas não correspondem","ou são muito curtas");
 			        		}
 			        	}else {
 		        			e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
@@ -219,25 +224,37 @@ public class EntrevistadoresPerfil extends Application{
 			    JFXSpinner.setVisible(true);
 			    thread.start();	
 				
+			    
 			}else if(!txtSenha.getText().equals("") ){
 				String senha =txtSenha.getText();
 				String Csenha = txtConfirmarSenha.getText();
-				
-	        	if(senha.equals(Csenha) || txtSenha.getText().length() > 8) {
+
+
+	        	if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
+	
+
 	    			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+	    		    //Pegando fxml como parametro
+					Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+					//Limpando o coteúdo do Pane "pane"
+			        pane.getChildren().removeAll();
+			        //Colocando o documento fxml como conteúdo do pane
+			        pane.setCenter(fxml);
 	        	}else {
-	        			pop.popUpMensagem("As senhas digitadas não correspondem","");
+	        			pop.popUpMensagem("As senhas digitadas não correspondem","ou são muito curtas");
 	        	}
 	        }else {
+
         			e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+        		    //Pegando fxml como parametro
+					Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+					//Limpando o coteúdo do Pane "pane"
+			        pane.getChildren().removeAll();
+			        //Colocando o documento fxml como conteúdo do pane
+			        pane.setCenter(fxml);
 	        }
 				
-		        //Pegando fxml como parametro
-				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-				//Limpando o coteúdo do Pane "pane"
-		        pane.getChildren().removeAll();
-		        //Colocando o documento fxml como conteúdo do pane
-		        pane.setCenter(fxml);
+		    
 		}
 		
 	}
@@ -262,6 +279,31 @@ public class EntrevistadoresPerfil extends Application{
 	
 	@FXML
 	public void uparFoto(MouseEvent event)  {
+		String nome="", extensao="", caminho = "";
+
+		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
+		if(escolha == 1) {
+			caminho = "C:\\Rater/imagens/fotoTEMP.png";
+			final File arquivo = new File(caminho);
+			//if(arquivo.exists()) arquivo.delete();
+			final WebcamTela camera = new WebcamTela();
+			nome = "fotoTEMP";
+			extensao = ".png";
+			camera.capturar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+						//armazenar imagem na memoriaRAM
+						BufferedImage armazenarMEMO =  camera.camera.getImage();
+						//converter para imagem comum
+						Image img= SwingFXUtils.toFXImage(armazenarMEMO, null);
+						//colocar ela no imgview
+						imgFoto.setImage(img);
+					}
+				}
+			);
+					
+		}else if (escolha==2) {
 		//declarando o filechooser
 		FileChooser abrirArquivo = new FileChooser();
 		//defininfo os filtros
@@ -286,6 +328,9 @@ public class EntrevistadoresPerfil extends Application{
 			imgFoto.setImage(img);
 		}catch(IOException ex){
 			Logger.getLogger(EntrevistadoresPerfil.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		
 		}
 		trocouImgEN =1;
 		

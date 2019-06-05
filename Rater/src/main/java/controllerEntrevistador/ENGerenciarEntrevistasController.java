@@ -62,6 +62,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -93,6 +94,8 @@ public class ENGerenciarEntrevistasController extends Application{
 		@FXML private Label lblNumEnt;
 		@FXML private TextField txtPesquisarEntrevistas;
 		@FXML private BorderPane pane;
+		@FXML private Button btnDeletar;
+
 		@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 		
 		ArrayList<JFXComboBox> cb = new ArrayList<JFXComboBox>();
@@ -279,8 +282,10 @@ public class ENGerenciarEntrevistasController extends Application{
 				}
 			}
 		}
+		
+		
 		@FXML
-		public void deletarEntrevista(ActionEvent event) throws IOException {
+		public void btnDeletar(ActionEvent event) throws IOException {
 			int i = jfxlvListView.getSelectionModel().getSelectedIndex();
 			if(listaPesquisa.get(i).getResultado() != 2) {
 				PopUp aeiou = new PopUp();
@@ -294,6 +299,9 @@ public class ENGerenciarEntrevistasController extends Application{
 				new PopUp().popUpErro("Não é possível excluir entrevistas em espera!", "Você deve finalizá-la antes.");
 			}
 		}
+		
+		
+		
 		public static int getIdSelecionado() {
 			return idSelecionado;
 		}
