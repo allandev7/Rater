@@ -185,7 +185,7 @@ public class EntrevistadoresVisualizarEntrevistasController extends Application{
 			});
 			
 			Pane pane = new Pane();
-			pane.setPrefWidth(200);
+			pane.setPrefWidth(10);
 			
 			hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
 			hbox.getChildren().addAll(pane, cbx);
