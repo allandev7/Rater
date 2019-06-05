@@ -48,7 +48,6 @@ public class PerfilEntrevistadorController extends Application{
 	@FXML private Label lblRG;
 	@FXML private Label lblEntrevistas;
 	@FXML private ImageView imgFoto;
-	@FXML private Label lblAlterarFoto;
 	
 	Entrevistador EN = new Entrevistador();
 	

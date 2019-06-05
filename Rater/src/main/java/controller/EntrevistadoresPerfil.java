@@ -38,6 +38,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -56,7 +57,8 @@ public class EntrevistadoresPerfil extends Application{
 	@FXML private TextField txtNomeEntrevistador;
 	@FXML private TextField txtEmailEntrevistador;
 	@FXML private TextField txtRG;
-	@FXML private TextField txtSenha;
+	@FXML private PasswordField txtSenha;
+	@FXML private PasswordField txtConfirmarSenha;
 	@FXML private Button btnAlterarInformacoes;
 	@FXML private ImageView imgFoto;
 	@FXML private BorderPane pane;
@@ -122,6 +124,10 @@ public class EntrevistadoresPerfil extends Application{
 	        int maxCharacters = 29;
 	        if(txtSenha.getText().length() > maxCharacters) event.consume();
 	    });
+		txtConfirmarSenha.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtSenha.getText().length() > maxCharacters) event.consume();
+	    });
 		//executando o metodo que carrega os dados de um perfil individual do banco
 		e.carregarPerfilEntrevistador(EnC.getIdEntrevistadorSel());
 		int idEn = EnC.getIdEntrevistadorSel();
@@ -166,7 +172,7 @@ public class EntrevistadoresPerfil extends Application{
 	public void alterarInfos(ActionEvent event)  throws IOException {
 		if(txtNomeEntrevistador.getText().equals("") || txtSenha.getText().equals("")|| txtNomeUsuario.getText().equals("") || txtSenha.getText().length()< 8) {
 			
-			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
+			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha!","");
 		
 		}else {
 			if(trocouImgEN == 1) {

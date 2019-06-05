@@ -55,6 +55,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML private TextField txtEmail;
 	@FXML private TextField txtRG;
 	@FXML private PasswordField txtSenha;
+	@FXML private PasswordField txtConfirmarSenha;
 	@FXML private ImageView imgFoto;
 	@FXML private Label lblCarregarFoto;
 	@FXML private Button btnCancelar;
@@ -94,6 +95,10 @@ public class EntrevistadoresAdicionarController extends Application{
 	        if(txtEmail.getText().length() > maxCharacters) event.consume();
 	    });
 		txtSenha.setOnKeyTyped(event ->{
+	        int maxCharacters = 29;
+	        if(txtSenha.getText().length() > maxCharacters) event.consume();
+	    });
+		txtConfirmarSenha.setOnKeyTyped(event ->{
 	        int maxCharacters = 29;
 	        if(txtSenha.getText().length() > maxCharacters) event.consume();
 	    });
@@ -178,13 +183,14 @@ public class EntrevistadoresAdicionarController extends Application{
 		String nome = txtNome.getText();
 		String email = txtEmail.getText();
 		String senha = txtSenha.getText();
+		String senhaConfirmar = txtConfirmarSenha.getText();
 		String Rg = txtRG.getText();
 		String fotoVazia = "null";	
 		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
 			//verifica se há algum campo obrigatorio em branco	
-			if(nome.equals("") || senha.equals("")|| nomeUsuario.equals("") || senha.length()> 8) {
+			if(nome.equals("") || senha.equals("")|| senhaConfirmar.equals("")|| nomeUsuario.equals("") || senha.length()> 8 || !senhaConfirmar.equals(senha)) {
 				
-				pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha","");
+				pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha!","");
 			
 			}else {
 		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
