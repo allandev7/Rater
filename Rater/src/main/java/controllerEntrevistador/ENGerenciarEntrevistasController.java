@@ -279,7 +279,21 @@ public class ENGerenciarEntrevistasController extends Application{
 				}
 			}
 		}
-
+		@FXML
+		public void deletarEntrevista(ActionEvent event) throws IOException {
+			int i = jfxlvListView.getSelectionModel().getSelectedIndex();
+			if(listaPesquisa.get(i).getResultado() != 2) {
+				PopUp aeiou = new PopUp();
+				int eee = aeiou.popUpEscolha("Deseja mesmo excluir a entrevista?", "Sim", "Não");
+			 	if(eee == 1) {
+			 		entrevista.deletarEntrevista(listaPesquisa.get(i).getId());
+			 		txtPesquisarEntrevistas.clear();
+			 		carregarPesquisa();
+			 	}
+			}else {
+				new PopUp().popUpErro("Não é possível excluir entrevistas em espera!", "Você deve finalizá-la antes.");
+			}
+		}
 		public static int getIdSelecionado() {
 			return idSelecionado;
 		}

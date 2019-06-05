@@ -60,8 +60,8 @@ public class Entrevistador extends Usuarios{
 				File file = new File("C:\\Rater/imagens/"+getFoto());
 				if(!file.exists()) {
 					// se nao existe, baixar
-					//AzureConnection con = new AzureConnection();
-				//	con.down(getFoto());
+					AzureConnection cona = new AzureConnection();
+					cona.down(getFoto());
 				}
 				
 			}

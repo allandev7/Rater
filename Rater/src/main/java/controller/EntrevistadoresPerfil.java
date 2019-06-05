@@ -137,7 +137,6 @@ public class EntrevistadoresPerfil extends Application{
 		NomeEntrevistador = En.getNomeEntrevistador();
 		EmailEntrevistador = En.getEmailEntrevistador();
 		RG = En.getRgEntrevistador();
-		Senha = En.getSenhaEntrevistador();
 		NumEntrevistas = En.getEntrevistasRealizadas();
 		Aprovados = En.getAdmissoes();
 		Reprovados = e.carregarEntrevistaRec(idEn);
@@ -151,7 +150,7 @@ public class EntrevistadoresPerfil extends Application{
 		txtNomeEntrevistador.setText(NomeEntrevistador);
         txtEmailEntrevistador.setText(EmailEntrevistador);
         txtRG.setText(RG);
-        txtSenha.setText(Senha);
+        txtSenha.setText("");
         if(NomeUsuario.equals(Empresa.getEmail())) {
 			txtNomeUsuario.setDisable(true);
 			txtSenha.setDisable(true);
@@ -170,7 +169,7 @@ public class EntrevistadoresPerfil extends Application{
 	
 	@FXML
 	public void alterarInfos(ActionEvent event)  throws IOException {
-		if(txtNomeEntrevistador.getText().equals("") || txtSenha.getText().equals("")|| txtNomeUsuario.getText().equals("") || txtSenha.getText().length()< 8) {
+		if(txtNomeEntrevistador.getText().equals("") || txtNomeUsuario.getText().equals("") ) {
 			
 			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha!","");
 		
@@ -179,8 +178,18 @@ public class EntrevistadoresPerfil extends Application{
 				javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
 			        @Override
 			        protected Void call() throws Exception  {
-			        	e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
-			        	e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+			        	
+			        	if(!txtSenha.getText().equals("") ) {
+			        		if(txtSenha.getText().equals(txtConfirmarSenha.getText()) || txtSenha.getText().length() > 8) {
+			        			e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
+			        			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+			        		}else {
+			        			pop.popUpMensagem("As senhas digitadas não correspondem","");
+			        		}
+			        	}else {
+		        			e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
+		        			e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+			        	}
 			        	return null;
 			        }
 
@@ -210,18 +219,29 @@ public class EntrevistadoresPerfil extends Application{
 			    JFXSpinner.setVisible(true);
 			    thread.start();	
 				
-			}else {
-				e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+			}else if(!txtSenha.getText().equals("") ){
+				String senha =txtSenha.getText();
+				String Csenha = txtConfirmarSenha.getText();
+				
+	        	if(senha.equals(Csenha) || txtSenha.getText().length() > 8) {
+	    			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+	        	}else {
+	        			pop.popUpMensagem("As senhas digitadas não correspondem","");
+	        	}
+	        }else {
+        			e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+	        }
+				
 		        //Pegando fxml como parametro
 				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
 				//Limpando o coteúdo do Pane "pane"
 		        pane.getChildren().removeAll();
 		        //Colocando o documento fxml como conteúdo do pane
 		        pane.setCenter(fxml);
-			}
-		
 		}
+		
 	}
+	
 	
 	
 	//Método para realizar ação quando tecla for pressionada

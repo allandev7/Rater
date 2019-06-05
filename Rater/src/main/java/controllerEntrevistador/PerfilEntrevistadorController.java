@@ -72,6 +72,7 @@ public class PerfilEntrevistadorController extends Application{
         lblRG.setText("RG do entrevistador: " + RG);
         lblEntrevistas.setText("Número de entrevistas: " + EN.carregarEntrevistaRea() + "\nAprovados: " + EN.carregarEntrevistaAce() 
         						+ "\nReprovados: " + EN.carregarEntrevistaRec() + "\nEm espera: " + EN.carregarEntrevistaEsp());
+        
         try {
 			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
 

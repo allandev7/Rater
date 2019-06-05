@@ -63,7 +63,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	@FXML private BorderPane pane;
 	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
 	
-	private static String nomeFotoCripto;
+	private  String nomeFotoCripto;
 	private static String caminho;
 
 	
@@ -106,9 +106,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	//metodo para pegar o nome da imagem criptografada
 	public void uparFoto(MouseEvent event)  {
 		String nome="", extensao="", caminho = "";
-		
-		
-		
+
 		int escolha = new PopUp().popUpEscolha("Adicionar foto", "Camera", "Arquivos");
 		if(escolha == 1) {
 			caminho = "C:\\Rater/imagens/fotoTEMP.png";
@@ -268,11 +266,12 @@ public class EntrevistadoresAdicionarController extends Application{
 	
 	
 	
-	public static String getNomeFotoCripto() {
+
+	public String getNomeFotoCripto() {
 		return nomeFotoCripto;
 	}
-	public static void setNomeFotoCripto(String nomeFotoCripto) {
-		EntrevistadoresAdicionarController.nomeFotoCripto = nomeFotoCripto;
+	public void setNomeFotoCripto(String nomeFotoCripto) {
+		this.nomeFotoCripto = nomeFotoCripto;
 	}
 	public static String getCaminho() {
 		return caminho;

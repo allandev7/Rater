@@ -295,6 +295,34 @@ public class Empresa extends Usuarios {
 		}
 			
 	}
+	public void alterarDadosEntrevistadorSAS(int id, String nomeDeUsuario, String Email, String Nome, String Rg) {
+		Connection con = new Conexao().connect();
+		try{
+			String sql = "UPDATE entrevistador SET NOMEDEUSUARIO = ?, EMAIL = ?, NOME = ?, RG = ? WHERE ID = ? AND ID_EMPRESA = ?";
+			
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, nomeDeUsuario);
+			pstmt.setString(2, Email);
+			pstmt.setString(3, Nome);
+			pstmt.setString(4, Rg);
+			pstmt.setInt(5, id);
+			pstmt.setInt(6, Empresa.getId());
+			
+			pstmt.execute();
+			
+		}catch(SQLException e) {
+			System.out.print(e);
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+	}
 
 	public void deletarEntrevistador(int id) {
 		Connection con = new Conexao().connect();
