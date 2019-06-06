@@ -176,63 +176,54 @@ public class EntrevistadoresPerfil extends Application{
 		
 		}else {
 			if(trocouImgEN == 1) {
-				javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-			        @Override
-			        protected Void call() throws Exception  {
-			        	
-			        	if(!txtSenha.getText().equals("") ) {
-			        		
-			        		String senha =txtSenha.getText();
-							String Csenha = txtConfirmarSenha.getText();
-							
-				        	if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
-			        			e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
-			        			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
-			        		}else {
-			        			pop.popUpMensagem("As senhas digitadas não correspondem","ou são muito curtas");
-			        		}
-			        	}else {
-		        			e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
-		        			e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
-			        	}
-			        	return null;
-			        }
+				if(!txtSenha.getText().equals("") ) {
+					String senha =txtSenha.getText();
+					String Csenha = txtConfirmarSenha.getText();	
+					if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
+						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+					        @Override
+					        protected Void call() throws Exception  {
+					        	e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
+					        	return null;
+					        }
 
-			        @Override
-			        protected void succeeded() {
-			            JFXSpinner.setVisible(false);
-			            try {
-			          //Pegando fxml como parametro
-						Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-						//Limpando o coteúdo do Pane "pane"
-				        pane.getChildren().removeAll();
-				        //Colocando o documento fxml como conteúdo do pane
-				        pane.setCenter(fxml);
-			            } catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					        @Override
+					        protected void succeeded() {
+					            JFXSpinner.setVisible(false);
+					            try {
+					          //Pegando fxml como parametro
+								Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+								//Limpando o coteúdo do Pane "pane"
+						        pane.getChildren().removeAll();
+						        //Colocando o documento fxml como conteúdo do pane
+						        pane.setCenter(fxml);
+					            } catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+					        }
+					        @Override
+					        protected void failed() {
+					            JFXSpinner.setVisible(false);
+					           
+					        }
+					    };
+					    Thread thread = new Thread(task, "My Task");
+					    thread.setDaemon(true);
+					    JFXSpinner.setVisible(true);
+					    thread.start();	
+						e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
+					}else {
+						pop.popUpMensagem("As senhas digitadas não correspondem","ou são muito curtas");
+					}
+				}else {
+					e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
+		        	e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
 			        }
-			        @Override
-			        protected void failed() {
-			            JFXSpinner.setVisible(false);
-			           
-			        }
-			    };
-			    Thread thread = new Thread(task, "My Task");
-			    thread.setDaemon(true);
-			    JFXSpinner.setVisible(true);
-			    thread.start();	
-				
-			    
 			}else if(!txtSenha.getText().equals("") ){
 				String senha =txtSenha.getText();
 				String Csenha = txtConfirmarSenha.getText();
-
-
 	        	if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
-	
-
 	    			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
 	    		    //Pegando fxml como parametro
 					Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
@@ -300,8 +291,17 @@ public class EntrevistadoresPerfil extends Application{
 						//colocar ela no imgview
 						imgFoto.setImage(img);
 					}
+			
+					
+					
 				}
+			
 			);
+			setCaminho(arquivo.getAbsolutePath());
+			//pegando nome do arquivo
+			setNome(arquivo.getName());
+			//pegando extensao do arquivo
+			setExtensao(getNome().substring(getNome().length()-4));
 					
 		}else if (escolha==2) {
 		//declarando o filechooser
