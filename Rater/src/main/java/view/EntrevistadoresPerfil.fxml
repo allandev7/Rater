@@ -82,6 +82,8 @@
                   <TextField fx:id="txtNomeEntrevistador" layoutX="340.0" layoutY="126.0" prefHeight="27.0" prefWidth="370.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="12.0" />
                   <TextField fx:id="txtEmailEntrevistador" layoutX="338.0" layoutY="191.0" prefHeight="27.0" prefWidth="370.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="12.0" />
                   <TextField fx:id="txtRG" layoutX="338.0" layoutY="253.0" prefHeight="27.0" prefWidth="229.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="12.0" />
+                  <PasswordField fx:id="txtSenha" layoutX="376.0" layoutY="313.0" prefHeight="27.0" prefWidth="334.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="313.0" />
+                  <PasswordField fx:id="txtConfirmarSenha" layoutX="413.0" layoutY="366.0" prefHeight="27.0" prefWidth="297.0" AnchorPane.leftAnchor="413.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="366.0" />
                   <Button fx:id="btnAlterarInformacoes" mnemonicParsing="false" onAction="#alterarInfos" prefHeight="41.0" prefWidth="152.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Alterar Informações" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -118,7 +120,6 @@
                      </children>
                   </AnchorPane>
                   <JFXSpinner fx:id="JFXSpinner" layoutX="496.0" layoutY="481.0" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="176.0" />
-                  <PasswordField fx:id="txtSenha" layoutX="376.0" layoutY="313.0" prefHeight="27.0" prefWidth="334.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="313.0" />
                   <Label layoutX="265.0" layoutY="366.0" text="Confirmar senha:" textFill="#32447c">
                      <font>
                         <Font size="19.0" />
@@ -127,7 +128,6 @@
                         <DropShadow color="TRANSPARENT" />
                      </effect>
                   </Label>
-                  <PasswordField fx:id="txtConfirmarSenha" layoutX="413.0" layoutY="366.0" prefHeight="27.0" prefWidth="297.0" AnchorPane.leftAnchor="413.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="366.0" />
                </children>
             </AnchorPane>
          </center>

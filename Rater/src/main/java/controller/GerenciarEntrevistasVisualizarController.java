@@ -97,7 +97,6 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 	public void carregarCriterios(){
 		int idsel =GerenciarEntrevistasController.getIdSelecionado();
 		for (int i = 0; i < e.carregarCriteriosEntrevista(idsel).size(); i++) {
-			
 			//Pegando informações do critério
 			String Nome = e.carregarCriteriosEntrevista(idsel).get(i).getNomeCriterio();
 			String Observacoes = e.carregarCriteriosEntrevista(idsel).get(i).getDescricaoCriterio() ;
@@ -135,14 +134,6 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 			//Adicionando vbox na JFXListView
 			jfxlvListView.getItems().add(vbox);
 		}
-		
-		/*O pane2 é um anchorpane presente dentro do scrollpane que possui seu conteúdo
-		Colocando o tamanho do pane 2 como o tamanho de todos os itens da listview + 550pixels
-		pane2.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 600);
-		/*Fazendo com que a listview aumente de tamanho baseado no tamanho de seus itens ao invés de
-		aparecer uma scrollbar
-		jfxlvListView.setPrefHeight(jfxlvListView.getItems().size() * jfxlvListView.getFixedCellSize() + 2);
-		*/
 	}
 	
 	public void voltar(ActionEvent event) throws IOException {

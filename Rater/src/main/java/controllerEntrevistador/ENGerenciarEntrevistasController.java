@@ -157,8 +157,8 @@ public class ENGerenciarEntrevistasController extends Application{
 				lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
 										dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato +"\n\nNome do Entrevistador: " + nomeEntrevistador +
 										"\n\nResultado: " + resultado + "\n"));
-				lbl.get(i).setMaxHeight(110);
-				lbl.get(i).setMinHeight(110);
+				lbl.get(i).setMaxHeight(150);
+				lbl.get(i).setMinHeight(150);
 				//Inserindo imagem na label lbl1
 				ImageView img = new ImageView(new Image("imagens/user.png"));
 				img.setPreserveRatio(true);

@@ -120,8 +120,8 @@ public class GerenciarEntrevistasController extends Application{
 			lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
 									dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato + "\n\nNome do Entrevistador: " + nomeEntrevistador +
 									"\n\nResultado: " + resultado + "\n"));
-			lbl.get(i).setMaxHeight(110);
-			lbl.get(i).setMinHeight(110);
+			lbl.get(i).setMaxHeight(150);
+			lbl.get(i).setMinHeight(150);
 			//Inserindo imagem na label lbl1
 			ImageView img = new ImageView(new Image("imagens/user.png"));
 			img.setPreserveRatio(true);
@@ -184,15 +184,16 @@ public class GerenciarEntrevistasController extends Application{
 						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
 						@Override
 						protected Void call() throws Exception  {
-							if(cbx.getValue().equals("Aprovar")) {
-								entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
-								carregarPesquisa();
-								new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
-							} else if(cbx.getValue().equals("Reprovar")){
-								entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
-								carregarPesquisa();
-								new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
-							}
+							
+								if(cbx.getValue().equals("Aprovar")) {
+									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+								} else if(cbx.getValue().equals("Reprovar")){
+									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+									carregarPesquisa();
+									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+								}
 						return null;
 						}
 							 @Override
@@ -208,9 +209,10 @@ public class GerenciarEntrevistasController extends Application{
 						    Thread thread = new Thread(task, "My Task");
 						    thread.setDaemon(true);
 						    JFXSpinner.setVisible(true);
-						    thread.start();	
+						    thread.start();
 						}
-				});
+					
+			});
 				
 				hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
 				hbox.getChildren().add(cbx);
