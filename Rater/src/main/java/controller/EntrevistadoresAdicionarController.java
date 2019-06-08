@@ -207,10 +207,7 @@ public class EntrevistadoresAdicionarController extends Application{
 					
 					
 				}
-				//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
-				Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-				pane.getChildren().removeAll();
-				pane.setCenter(fxml);
+				
 			
 		
 		
@@ -220,6 +217,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	        @Override
 	        protected void succeeded() {
 	            JFXSpinner.setVisible(false);
+	            
 	          
 	        }
 	        @Override
@@ -232,6 +230,11 @@ public class EntrevistadoresAdicionarController extends Application{
 	    thread.setDaemon(true);
 	    JFXSpinner.setVisible(true);
 	    thread.start();	
+	  //se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
+	    new PopUp().popUpMensagem("Entrevistador cadastrado com sucesso", "");
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+		pane.getChildren().removeAll();
+		pane.setCenter(fxml);
 			}}else {
 				pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
 			}
@@ -262,8 +265,6 @@ public class EntrevistadoresAdicionarController extends Application{
 		//Colocando o documento fxml como conteúdo do pane
 		pane.setCenter(fxml);
 	}
-	
-	
 	
 	
 

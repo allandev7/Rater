@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -11,6 +12,8 @@ import com.mysql.jdbc.PreparedStatement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Popup;
+import view.PopUp;
 import controller.CargosController;
 import controller.NovaEntrevistaController;
 
@@ -58,6 +61,11 @@ public class Padroes {
 	
 	public void novoCargo(String cargo) throws SQLException{
 		Connection con = new Conexao().connect();
+		PreparedStatement pstmt2 = (PreparedStatement) con.prepareStatement("SELECT id FROM cargo WHERE NOME = ? AND ID_EMPRESA = ?");
+		pstmt2.setString(1, cargo);
+		pstmt2.setInt(2, Empresa.getId());
+		ResultSet rs = pstmt2.executeQuery();
+		if(!rs.next()) {
 		//query de inserir os cargos
 		String sql = "INSERT INTO cargo (ID, NOME, ID_EMPRESA) VALUES(NULL,?,?)";
 		// criando statment
@@ -72,6 +80,9 @@ public class Padroes {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		}else {
+			new PopUp().popUpErro("Cargo duplicado", "Este cargo já existe na empresa	");
 		}
 	}
 	
@@ -256,11 +267,11 @@ public class Padroes {
 		nomesCriterioNE2.clear();
 		
 		//selecionar na tabela
-		String sql = "SELECT * FROM criterio WHERE ID_CARGO = (SELECT id FROM cargo WHERE NOME ='"+cargo+"' AND ID_ENTREVISTADOR=?);";
+		String sql = "SELECT * FROM criterio WHERE ID_CARGO = (SELECT id FROM cargo WHERE NOME ='"+cargo+"' AND ID_EMPRESA=?);";
 		
 		// criando statment
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
-		pstmt.setInt(1, Empresa.getIdEntrevistadorPadrao());	
+		pstmt.setInt(1, Empresa.getId());
 		//executando o query para obter o resultado
 		ResultSet rs = pstmt.executeQuery();
 		//enquanto houver linhas
