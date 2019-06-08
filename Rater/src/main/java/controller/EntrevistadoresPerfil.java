@@ -170,6 +170,9 @@ public class EntrevistadoresPerfil extends Application{
 	
 	@FXML
 	public void alterarInfos(ActionEvent event)  throws IOException {
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+	        @Override
+	        protected Void call() throws Exception  {
 		if(txtNomeEntrevistador.getText().equals("") || txtNomeUsuario.getText().equals("") ) {
 			
 			pop.popUpMensagem("Preencha os campos obrigatorios ou aumente a senha!","");
@@ -179,43 +182,16 @@ public class EntrevistadoresPerfil extends Application{
 				if(!txtSenha.getText().equals("") ) {
 					String senha =txtSenha.getText();
 					String Csenha = txtConfirmarSenha.getText();	
-					if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
-						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-					        @Override
-					        protected Void call() throws Exception  {
+					
+						
 					        	e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
-					        	return null;
-					        }
-
-					        @Override
-					        protected void succeeded() {
-					            JFXSpinner.setVisible(false);
-					            try {
-					          //Pegando fxml como parametro
-								Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-								//Limpando o coteúdo do Pane "pane"
-						        pane.getChildren().removeAll();
-						        //Colocando o documento fxml como conteúdo do pane
-						        pane.setCenter(fxml);
-					            } catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-					        }
-					        @Override
-					        protected void failed() {
-					            JFXSpinner.setVisible(false);
-					           
-					        }
-					    };
-					    Thread thread = new Thread(task, "My Task");
-					    thread.setDaemon(true);
-					    JFXSpinner.setVisible(true);
-					    thread.start();	
+					        	
 						e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
-					}else {
-						pop.popUpMensagem("As senhas digitadas não correspondem","ou são muito curtas");
-					}
+						 new PopUp().popUpMensagem("Entrevistador alterado com sucesso", "");
+							Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+							pane.getChildren().removeAll();
+							pane.setCenter(fxml);
+					
 				}else {
 					e.alterarImgEN(getNome(), getCaminho(), getExtensao(), getIdSel());
 		        	e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
@@ -225,29 +201,43 @@ public class EntrevistadoresPerfil extends Application{
 				String Csenha = txtConfirmarSenha.getText();
 	        	if(senha.equals(Csenha) && txtSenha.getText().length() >= 8) {
 	    			e.alterarDadosEntrevistador(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtSenha.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
-	    		    //Pegando fxml como parametro
-					Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-					//Limpando o coteúdo do Pane "pane"
-			        pane.getChildren().removeAll();
-			        //Colocando o documento fxml como conteúdo do pane
-			        pane.setCenter(fxml);
+	    		   
 	        	}else {
 	        			pop.popUpMensagem("As senhas digitadas não correspondem","ou são muito curtas");
 	        	}
 	        }else {
 
         			e.alterarDadosEntrevistadorSAS(getIdSel(), txtNomeUsuario.getText(), txtEmailEntrevistador.getText(), txtNomeEntrevistador.getText(), txtRG.getText());
-        		    //Pegando fxml como parametro
-					Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-					//Limpando o coteúdo do Pane "pane"
-			        pane.getChildren().removeAll();
-			        //Colocando o documento fxml como conteúdo do pane
-			        pane.setCenter(fxml);
+        		   
 	        }
 				
 		    
 		}
-		
+		return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
+	    new PopUp().popUpMensagem("Informações alteradas com sucesso", "");
+	    //Pegando fxml como parametro
+		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
+		//Limpando o coteúdo do Pane "pane"
+        pane.getChildren().removeAll();
+        //Colocando o documento fxml como conteúdo do pane
+        pane.setCenter(fxml);
 	}
 	
 	
