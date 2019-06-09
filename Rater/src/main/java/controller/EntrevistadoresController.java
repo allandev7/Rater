@@ -188,10 +188,13 @@ public class EntrevistadoresController extends Application{
 					
 						//colocando o Id do entrevistador em uma variavel ID Selecionado 
 						int ide = Integer.parseInt(idE[1]);
-					
-						//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
-						e.deletarEntrevistador(ide);
-						carregarEntrevistadores();
+						if(ide == Empresa.getIdEntrevistadorPadrao()) {
+							new PopUp().popUpErro("Entrevistador padrão", "Este entrevistador não pode ser deletado");
+						}else {
+							//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
+							e.deletarEntrevistador(ide);
+							carregarEntrevistadores();
+						}
 					}
 	 	}			
 	}
