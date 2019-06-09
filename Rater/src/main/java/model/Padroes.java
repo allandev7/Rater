@@ -267,11 +267,13 @@ public class Padroes {
 		nomesCriterioNE2.clear();
 		
 		//selecionar na tabela
-		String sql = "SELECT * FROM criterio WHERE ID_CARGO = (SELECT id FROM cargo WHERE NOME ='"+cargo+"' AND ID_EMPRESA=?);";
+		String sql = "SELECT * FROM criterio WHERE ID_CARGO = (SELECT id FROM cargo WHERE NOME ='"+cargo+"' AND ID_EMPRESA=?)"
+				+ "AND ID_ENTREVISTADOR = ?;";
 		
 		// criando statment
 		PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(sql);
 		pstmt.setInt(1, Empresa.getId());
+		pstmt.setInt(2, Empresa.getIdEntrevistadorPadrao());
 		//executando o query para obter o resultado
 		ResultSet rs = pstmt.executeQuery();
 		//enquanto houver linhas
