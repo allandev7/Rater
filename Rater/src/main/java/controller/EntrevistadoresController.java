@@ -74,69 +74,68 @@ public class EntrevistadoresController extends Application{
 		int numEntrevistadores = En.carregarEntrevistadores(txtPesquisarEntrevistadores.getText()).size();		
 		lblNumEnt.setText("Número de entrevistadores: " + numEntrevistadores);
 	
-	
+		javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+
+	        @Override
+	        protected Void call() throws Exception  {
+	        	//Utilizando um for para preencher a JFXListView
+	    		for (int i = 0; i < numEntrevistadores; i++) {
+	    			
+	    			//Variáveis que pegam os dads do entrevistador, deverão ser substituídas por colsulta ao banco de dados
+	    			String nomeEntrevistador = En.carregarEntrevistadores(txtPesquisarEntrevistadores.getText()).get(i);
+	    			
+	    			//Inserindo dados do entrevistador em uma Label
+	    			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
+	    					+ "                                                                      -"+En.getIdEntrevistador(i)+"-");	
+	    			lbl1.setMaxHeight(110);
+	    			lbl1.setMinHeight(110);
+	    			lbl1.setMaxSize(500, 80);
+	    			lbl1.setMinSize(500, 80);
+
+	    			String nomeImagem =  e.carregarNomesImgEntrevistadores(En.getIdEntrevistador(i));
+	    			
+	    			//Criando imageview para colocar a foto do entrevistador e definindo seu tamanho
+	    			ImageView img = new ImageView();
+	    			img.setFitWidth(80);
+	    			img.setFitHeight(80);
+	    			
+	    			//Verificar se há alguma imagem salva no banco e no azure
+	    			if(!nomeImagem.equals("null")) {
+	    				        		e.baixarImgsEntrevistadores(nomeImagem);
+	    				        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+	    				        		lbl1.setGraphic(img);
+	    			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+	    			}else {
+	    					img.setImage(new Image(("imagens/user.png")));
+	    					lbl1.setGraphic(img);
+	    			}
+	    			
+	    			//Adicionando a Label lbl1 na JFXListView
+	    			jfxlvListView.getItems().add(lbl1);
+	    		}
+	        		return null;
+	        }
+
+	        @Override
+	        protected void succeeded() {
+	            JFXSpinner.setVisible(false);
+	           
+	        }
+
+	        @Override
+	        protected void failed() {
+	            JFXSpinner.setVisible(false);
+	          
+	        }
+
+	    };
+	    Thread thread = new Thread(task, "My Task");
+	    thread.setDaemon(true);
+	    JFXSpinner.setVisible(true);
+	    thread.start();	
 		
-		//Utilizando um for para preencher a JFXListView
-		for (int i = 0; i < numEntrevistadores; i++) {
-			
-			//Variáveis que pegam os dads do entrevistador, deverão ser substituídas por colsulta ao banco de dados
-			String nomeEntrevistador = En.carregarEntrevistadores(txtPesquisarEntrevistadores.getText()).get(i);
-			
-			//Inserindo dados do entrevistador em uma Label
-			Label lbl1 = new Label(" Nome do Entrevistador: " + nomeEntrevistador+"                                      "
-					+ "                                                                      -"+En.getIdEntrevistador(i)+"-");	
-			lbl1.setMaxHeight(110);
-			lbl1.setMinHeight(110);
-			lbl1.setMaxSize(500, 80);
-			lbl1.setMinSize(500, 80);
-
-			String nomeImagem =  e.carregarNomesImgEntrevistadores(En.getIdEntrevistador(i));
-			
-			//Criando imageview para colocar a foto do entrevistador e definindo seu tamanho
-			ImageView img = new ImageView();
-			img.setFitWidth(80);
-			img.setFitHeight(80);
-			
-			//Verificar se há alguma imagem salva no banco e no azure
-			if(!nomeImagem.equals("null")) {
-				//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-					javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-
-				        @Override
-				        protected Void call() throws Exception  {
-				        		//JOptionPane.showMessageDialog(null, nomeImagem);
-				        		e.baixarImgsEntrevistadores(nomeImagem);
-				        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-				        		return null;
-				        }
-
-				        @Override
-				        protected void succeeded() {
-				            JFXSpinner.setVisible(false);
-				           
-				        }
-
-				        @Override
-				        protected void failed() {
-				            JFXSpinner.setVisible(false);
-				          
-				        }
-
-				    };
-				    Thread thread = new Thread(task, "My Task");
-				    thread.setDaemon(true);
-				    JFXSpinner.setVisible(true);
-				    thread.start();	
-					lbl1.setGraphic(img);
-			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
-			}else {
-					img.setImage(new Image(("imagens/user.png")));
-					lbl1.setGraphic(img);
-			}
-			
-			//Adicionando a Label lbl1 na JFXListView
-			jfxlvListView.getItems().add(lbl1);
-		}
+		
+		
 		
 	}
 	

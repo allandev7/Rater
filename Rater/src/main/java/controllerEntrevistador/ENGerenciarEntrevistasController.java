@@ -135,123 +135,119 @@ public class ENGerenciarEntrevistasController extends Application{
 			listaPesquisa = entrevista.ENpesquisar(nome);
 			int numEntrevista = listaPesquisa == null ? 0:listaPesquisa.size();
 			lblNumEnt.setText("Número de entrevistas salvas: " + numEntrevista);
-			//Utilizando um for para preencher a JFXListView
-			int i = 0;
-			for ( i = 0; i < numEntrevista; i++) {
-				
-				//Variáveis que pegam os dados da entrevista
-				String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
-				String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
-				String emailCandidato = listaPesquisa.get(i).getEmail();
-				String resultado;
-				if(listaPesquisa.get(i).getResultado() == 1)
-					resultado = "Aprovado";
-				else if(listaPesquisa.get(i).getResultado() == 0)
-					resultado = "Reprovado";
-				else
-					resultado = "Em espera";
-				
-				//Inserindo dados da entrevista em uma Label
-				lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
-										dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato +"\n\nNome do Entrevistador: " + nomeEntrevistador +
-										"\n\nResultado: " + resultado + "\n"));
-				lbl.get(i).setMaxHeight(150);
-				lbl.get(i).setMinHeight(150);
-				//Inserindo imagem na label lbl1
-				ImageView img = new ImageView(new Image("imagens/user.png"));
-				img.setPreserveRatio(true);
-				img.setFitHeight(200);
-				img.setFitWidth(85);
-				
-				int idsel = listaPesquisa.get(i).getId();
-				String nomeImagem = entrevista.visualizarEntrevista(idsel).getFoto();
-				Entrevistado c = new Entrevistado();
-				//Verificar se há alguma imagem salva no banco e no azure
-				if(nomeImagem != null) {
-					//caso nao esteja vazia e nao esteja baixada, tentar usar o meotodo de baixar imagem que esta na classe entrevistador
-						javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-
-					        @Override
-					        protected Void call() throws Exception  {
-					        	c.baixarImgsCandidatos(nomeImagem);
-								img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-					        		return null;
-					        }
-
-					        @Override
-					        protected void succeeded() {
-					            JFXSpinner.setVisible(false);
-					           
-					        }
-
-					        @Override
-					        protected void failed() {
-					            JFXSpinner.setVisible(false);
-					          
-					        }
-
-					    };
-					    Thread thread = new Thread(task, "My Task");
-					    thread.setDaemon(true);
-					    JFXSpinner.setVisible(true);
-					    thread.start();	
-						lbl.get(i).setGraphic(img);
-				//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
-				}else {
-						img.setImage(new Image(("imagens/user.png")));
-						lbl.get(i).setGraphic(img);
+			
+			javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+				@Override
+				protected Void call() throws Exception  {
+					//Utilizando um for para preencher a JFXListView
+					int i = 0;
+					for ( i = 0; i < numEntrevista; i++) {
+						
+						//Variáveis que pegam os dados da entrevista
+						String nomeEntrevistado = listaPesquisa.get(i).getNomeCandidato();
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+						String dataEntrevista = sdf.format(listaPesquisa.get(i).getData());
+						String nomeEntrevistador = listaPesquisa.get(i).getNomeEntrevistador();
+						String emailCandidato = listaPesquisa.get(i).getEmail();
+						String resultado;
+						if(listaPesquisa.get(i).getResultado() == 1)
+							resultado = "Aprovado";
+						else if(listaPesquisa.get(i).getResultado() == 0)
+							resultado = "Reprovado";
+						else
+							resultado = "Em espera";
+						
+						//Inserindo dados da entrevista em uma Label
+						lbl.add(new Label("Nome do Entrevistado: " + nomeEntrevistado + "\n\n" + "Data da Entrevista: " +
+												dataEntrevista + "\n\nE-mail do Entrevistado: " + emailCandidato +"\n\nNome do Entrevistador: " + nomeEntrevistador +
+												"\n\nResultado: " + resultado + "\n"));
+						lbl.get(i).setMaxHeight(150);
+						lbl.get(i).setMinHeight(150);
+						//Inserindo imagem na label lbl1
+						ImageView img = new ImageView(new Image("imagens/user.png"));
+						img.setPreserveRatio(true);
+						img.setFitHeight(200);
+						img.setFitWidth(85);
+						
+						int idsel = listaPesquisa.get(i).getId();
+						String nomeImagem = entrevista.visualizarEntrevista(idsel).getFoto();
+						Entrevistado c = new Entrevistado();
+						//Verificar se há alguma imagem salva no banco e no azure
+						if(nomeImagem != null) {
+							    c.baixarImgsCandidatos(nomeImagem);
+							    img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+								lbl.get(i).setGraphic(img);
+						//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+						}else {
+								img.setImage(new Image(("imagens/user.png")));
+								lbl.get(i).setGraphic(img);
+						}
+						
+						HBox hbox = new HBox(lbl.get(i));
+						int ih = i;
+						if(resultado.equals("Em espera")) {
+							JFXComboBox<String> cbx = new JFXComboBox<String>();
+							cbx.setPromptText("Finalizar entrevista");
+							cbx.getItems().addAll("Aprovar", "Reprovar");
+							
+							cbx.setOnAction(new EventHandler<ActionEvent>() {	
+								@Override
+								public void handle(ActionEvent event) {
+									javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
+									@Override
+									protected Void call() throws Exception  {
+										if(cbx.getValue().equals("Aprovar")) {
+											entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
+											carregarPesquisa();
+											new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
+										} else if(cbx.getValue().equals("Reprovar")){
+											entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
+											carregarPesquisa();
+											new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
+										}
+									return null;
+									}
+										 @Override
+									        protected void succeeded() {
+									            JFXSpinner.setVisible(false);
+									        }
+									        @Override
+									        protected void failed() {
+									            JFXSpinner.setVisible(false);
+									            JFXSpinner.setVisible(false);
+									        }
+									    };
+									    Thread thread = new Thread(task, "My Task");
+									    thread.setDaemon(true);
+									    JFXSpinner.setVisible(true);
+									    thread.start();	
+									}
+							});
+							
+							hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
+							hbox.getChildren().addAll(cbx);
+						}
+						
+						//Adicionando a Label lbl1 na JFXListView
+						jfxlvListView.getItems().add(hbox);
+					}
+				return null;
 				}
-				
-				HBox hbox = new HBox(lbl.get(i));
-				int ih = i;
-				if(resultado.equals("Em espera")) {
-					JFXComboBox<String> cbx = new JFXComboBox<String>();
-					cbx.setPromptText("Finalizar entrevista");
-					cbx.getItems().addAll("Aprovar", "Reprovar");
-					
-					cbx.setOnAction(new EventHandler<ActionEvent>() {	
-						@Override
-						public void handle(ActionEvent event) {
-							javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<Void>() {
-							@Override
-							protected Void call() throws Exception  {
-								if(cbx.getValue().equals("Aprovar")) {
-									entrevista.atualizarEmEspera(1, listaPesquisa.get(ih).getId());
-									carregarPesquisa();
-									new Entrevista().enviarEmailEmEspera(emailCandidato, "Aprovado");
-								} else if(cbx.getValue().equals("Reprovar")){
-									entrevista.atualizarEmEspera(0, listaPesquisa.get(ih).getId());
-									carregarPesquisa();
-									new Entrevista().enviarEmailEmEspera(emailCandidato, "Reprovado");
-								}
-							return null;
-							}
-								 @Override
-							        protected void succeeded() {
-							            JFXSpinner.setVisible(false);
-							        }
-							        @Override
-							        protected void failed() {
-							            JFXSpinner.setVisible(false);
-							            JFXSpinner.setVisible(false);
-							        }
-							    };
-							    Thread thread = new Thread(task, "My Task");
-							    thread.setDaemon(true);
-							    JFXSpinner.setVisible(true);
-							    thread.start();	
-							}
-					});
-					
-					hbox.setBackground(new Background(new BackgroundFill(Color.rgb(255, 222, 216), CornerRadii.EMPTY, Insets.EMPTY)));
-					hbox.getChildren().addAll(cbx);
-				}
-				
-				//Adicionando a Label lbl1 na JFXListView
-				jfxlvListView.getItems().add(hbox);
-			}
+					 @Override
+				        protected void succeeded() {
+				            JFXSpinner.setVisible(false);
+				        }
+				        @Override
+				        protected void failed() {
+				            JFXSpinner.setVisible(false);
+				            JFXSpinner.setVisible(false);
+				        }
+				    };
+				    Thread thread = new Thread(task, "My Task");
+				    thread.setDaemon(true);
+				    JFXSpinner.setVisible(true);
+				    thread.start();
+			
 				
 		}
 
