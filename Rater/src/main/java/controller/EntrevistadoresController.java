@@ -193,21 +193,7 @@ public class EntrevistadoresController extends Application{
 						e.deletarEntrevistador(ide);
 						carregarEntrevistadores();
 					}
-	 	}	
-	 	
-		//Checando se existe algum item selecionado, caso não exista não acontecerá nada
-		if (jfxlvListView.getSelectionModel().getSelectedItem() != null) {
-			
-			//pegando o id do entrevistador ""escondido"" na label
-			String[] idE = jfxlvListView.getSelectionModel().getSelectedItem().getText().split("-");
-					
-			//colocando o Id do entrevistador em uma variavel ID Selecionado 
-			int ide = Integer.parseInt(idE[1]);
-					
-					//usando o metodo de deletar entrevistador e logo em seguida de atualizar o JListView
-			e.deletarEntrevistador(ide);
-			carregarEntrevistadores();
-		}			
+	 	}			
 	}
 	
 	@FXML 
