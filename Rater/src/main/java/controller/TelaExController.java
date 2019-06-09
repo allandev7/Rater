@@ -199,10 +199,6 @@ public class TelaExController extends Application{
 		popup.setResizable(false);
 		//Exibindo a janela
 		popup.show();
-		
-		//Agora tem que apertar o botão de esqueci minha senha pra preencher os campos automáticamente, não pergunte o pq.
-		txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("rater123");
 	}
 	
 	public void confirmar() throws IOException {
