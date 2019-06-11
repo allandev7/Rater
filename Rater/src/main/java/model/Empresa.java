@@ -763,10 +763,11 @@ public class Empresa extends Usuarios {
 		
 		 MessageDigest m;
 		try {
-			m = MessageDigest.getInstance("MD5");
-			 m.update(idMD5.getBytes(), 0, idMD5.length());
-			 idMD5 = new BigInteger(1, m.digest()).toString(16);
-
+			if(idEmpresa !=0) {
+				m = MessageDigest.getInstance("MD5");
+				m.update(idMD5.getBytes(), 0, idMD5.length());
+				idMD5 = new BigInteger(1, m.digest()).toString(16);
+			}
 		} catch (NoSuchAlgorithmException e) {
 
 			e.printStackTrace();

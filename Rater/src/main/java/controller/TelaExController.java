@@ -206,12 +206,12 @@ public class TelaExController extends Application{
 
 	 @Override
 	 protected Void call() throws Exception  {
-		//Verificando se o campo de E-mail está preenchido
-		if (!txtEmailEmpresa.getText().equals("")) {
-			//Pegando o e-mail digitado
+		//Pegando o e-mail digitado
 			email = txtEmailEmpresa.getText();
-			
-			empresa.enviarEmailConfirmacao(email, empresa.criptografarId(empresa.pegarIdEmpresa(email)) );
+		//Verificando se o campo de E-mail está preenchido
+		 String id = empresa.criptografarId(empresa.pegarIdEmpresa(email));
+		if (!txtEmailEmpresa.getText().equals("") && !id.equals("0")) {
+			empresa.enviarEmailConfirmacao(email, id);
 			//Pegando a janela onde está o btnCancelar
 			Stage stage = (Stage) btnCancelar.getScene().getWindow();
 			//Pegando o fxml como parâmetro 
@@ -222,7 +222,8 @@ public class TelaExController extends Application{
 			stage.setScene(scene);	
 		}else {
 			//Caso o E-mail não esteja preenchido exibe uma mensagem de aviso no txtEmailEmpresa
-			txtEmailEmpresa.setPromptText("Digite um E-mail válido!");
+			txtEmailEmpresa.setText("");
+			txtEmailEmpresa.setPromptText("Email inválido");
 		}
 	      return null;
 	 }
