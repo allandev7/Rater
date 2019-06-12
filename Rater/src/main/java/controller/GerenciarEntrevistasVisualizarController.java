@@ -134,6 +134,34 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 			//Adicionando vbox na JFXListView
 			jfxlvListView.getItems().add(vbox);
 		}
+		
+		String result =  "adilson";//e.getFeedback();
+		
+		//Pegando nome e status do critério e adicionando na lbl1
+		Label lbl1 = new Label("Conclusão");
+		//Definindo cor do texto da label
+		lbl1.setTextFill(Color.rgb(48,65,101));
+		
+		//Label desnecessária
+		Label lbl2 = new Label();
+		
+		//Pegando observações sobre o critério e adicionando em uma textarea
+		TextArea observacoes = new TextArea(result);
+		//Fazendo com que a textarea não possa ser editada
+		observacoes.setEditable(false);
+		//Fazendo com que o texto não passe da borda da textarea
+		observacoes.setWrapText(true);
+		//Definindo tamanho da textarea
+		observacoes.setMaxHeight(100);
+		observacoes.setMinHeight(100);
+		//Definindo cor do texto da textarea
+		observacoes.setStyle("-fx-text-fill: rgb(48,65,101);");
+		
+		//Criando vbox para posicionar os items
+		VBox vbox = new VBox(lbl1, lbl2, observacoes);
+		
+		//Adicionando vbox na JFXListView
+		jfxlvListView.getItems().add(vbox);
 	}
 	
 	public void voltar(ActionEvent event) throws IOException {

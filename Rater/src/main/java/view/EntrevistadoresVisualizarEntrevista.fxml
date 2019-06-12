@@ -45,7 +45,7 @@
                                   <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="lblNome" prefHeight="24.0" prefWidth="423.0" styleClass="labeljoe" stylesheets="@MenuCSS.css" text="Nome:" textFill="#32447c">
+                                    <Label fx:id="lblNome" prefHeight="24.0" prefWidth="423.0" style="-fx-font-size: 10;" styleClass="labeljoe" stylesheets="@MenuCSS.css" text="Nome:" textFill="#32447c">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -53,7 +53,7 @@
                                           <DropShadow color="TRANSPARENT" />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="lblSexo" prefHeight="24.0" prefWidth="281.0" styleClass="labeljoe" text="Sexo:" textFill="#32447c" GridPane.rowIndex="1">
+                                    <Label fx:id="lblSexo" prefHeight="24.0" prefWidth="281.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="Sexo:" textFill="#32447c" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -75,7 +75,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label fx:id="lblEmail" prefHeight="28.0" prefWidth="416.0" styleClass="labeljoe" text="E-mail:" textFill="#32447c" GridPane.rowIndex="3">
+                                    <Label fx:id="lblEmail" prefHeight="28.0" prefWidth="416.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="E-mail:" textFill="#32447c" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -83,7 +83,7 @@
                                           <DropShadow color="TRANSPARENT" />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="lblRG" prefHeight="28.0" prefWidth="420.0" styleClass="labeljoe" text="RG:" textFill="#32447c" GridPane.rowIndex="2">
+                                    <Label fx:id="lblRG" prefHeight="28.0" prefWidth="420.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="RG:" textFill="#32447c" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -91,7 +91,7 @@
                                           <DropShadow color="TRANSPARENT" />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="lblEtnia" prefHeight="24.0" prefWidth="418.0" styleClass="labeljoe" text="Etnia:" textFill="#32447c" GridPane.rowIndex="1">
+                                    <Label fx:id="lblEtnia" prefHeight="24.0" prefWidth="418.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="Etnia:" textFill="#32447c" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -99,7 +99,7 @@
                                           <DropShadow color="TRANSPARENT" />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="lblIdade" prefHeight="24.0" prefWidth="417.0" styleClass="labeljoe" text="Idade:" textFill="#32447c">
+                                    <Label fx:id="lblIdade" prefHeight="24.0" prefWidth="417.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="Idade:" textFill="#32447c">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -122,7 +122,7 @@
                         <JFXListView fx:id="jfxlvListView" editable="true" fixedCellSize="150.0" layoutX="13.0" layoutY="320.0" prefHeight="209.0" prefWidth="688.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="320.0" />
                         <JFXButton fx:id="btnVoltar" layoutX="12.0" layoutY="10.0" onAction="#voltar" prefHeight="35.0" prefWidth="147.0" styleClass="btnLogin" stylesheets="@MenuCSS.css" text="Voltar" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="10.0" />
                         <Separator layoutX="12.0" layoutY="48.0" prefHeight="12.0" prefWidth="695.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
-                        <GridPane layoutX="492.0" layoutY="72.0" prefHeight="101.0" prefWidth="219.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="72.0">
+                        <GridPane layoutX="492.0" layoutY="72.0" prefHeight="101.0" prefWidth="219.0" AnchorPane.leftAnchor="492.0" AnchorPane.topAnchor="72.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="693.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="0.0" prefWidth="0.0" />
@@ -133,7 +133,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="lblTelefone" prefHeight="24.0" prefWidth="695.0" styleClass="labeljoe" text="Telefone:" textFill="#32447c">
+                              <Label fx:id="lblTelefone" prefHeight="24.0" prefWidth="695.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="Telefone:" textFill="#32447c">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
@@ -144,7 +144,7 @@
                                     <DropShadow color="TRANSPARENT" />
                                  </effect>
                               </Label>
-                              <Label fx:id="lblEndereco" prefHeight="24.0" prefWidth="693.0" styleClass="labeljoe" text="Endereço:" textFill="#32447c" GridPane.rowIndex="1">
+                              <Label fx:id="lblEndereco" prefHeight="24.0" prefWidth="693.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="Endereço:" textFill="#32447c" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
@@ -155,7 +155,7 @@
                                     <DropShadow color="TRANSPARENT" />
                                  </effect>
                               </Label>
-                              <Label fx:id="lblCargo" prefHeight="24.0" prefWidth="695.0" styleClass="labeljoe" text="Cargo de interesse:" textFill="#32447c" GridPane.rowIndex="2">
+                              <Label fx:id="lblCargo" prefHeight="24.0" prefWidth="695.0" style="-fx-font-size: 10;" styleClass="labeljoe" text="Cargo de interesse:" textFill="#32447c" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
