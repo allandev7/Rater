@@ -61,10 +61,10 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 		carregarInformacoes();
 		carregarCriterios();
 	}
-	
+	//Carregando informações do entrevistado
+	Entrevistado infoCandidato =   e.visualizarEntrevista(GerenciarEntrevistasController.getIdSelecionado());
 	public void carregarInformacoes() {
-		//Carregando informações do entrevistado
-		Entrevistado infoCandidato =   e.visualizarEntrevista(GerenciarEntrevistasController.getIdSelecionado());
+		
 		String nomeImagem = e.visualizarEntrevista(GerenciarEntrevistasController.getIdSelecionado()).getFoto();
 		Entrevistado c = new Entrevistado();
 		//Verificar se há alguma imagem salva no banco e no azure
@@ -92,6 +92,7 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 		lblTelefone.setText("Telefone: " + infoCandidato.getTelefone());
 		lblEndereco.setText("Endereço: " + infoCandidato.getEndereco());
 		lblCargo.setText("Cargo de Interesse: " + infoCandidato.getCargo());
+		
 	}
 	
 	public void carregarCriterios(){
@@ -134,9 +135,8 @@ public class GerenciarEntrevistasVisualizarController extends Application{
 			//Adicionando vbox na JFXListView
 			jfxlvListView.getItems().add(vbox);
 		}
-		
-		String result =  "adilson";//e.getFeedback();
-		
+	
+		String result =  infoCandidato.getFeedback();
 		//Pegando nome e status do critério e adicionando na lbl1
 		Label lbl1 = new Label("Conclusão");
 		//Definindo cor do texto da label

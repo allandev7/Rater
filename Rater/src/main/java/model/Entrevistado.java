@@ -21,11 +21,12 @@ public class Entrevistado {
 	private static int idade;
 	private static String cargo;
 	private static String endereco;
+	private static String feedback;
 	public Entrevistado() {
 		
 	}
 	public Entrevistado(String nome, String sexo,String etnia, String rg, String email, String telefone,String endereco,
-		String cargo, int idade, String foto) {
+		String cargo, int idade, String foto, String feedback) {
 		this.setNome(nome);
 		this.setSexo(sexo);
 		this.setEmail(email);
@@ -36,6 +37,7 @@ public class Entrevistado {
 		this.setCargo(cargo);
 		this.setIdade(idade);
 		this.setFoto(foto);
+		this.setFeedback(feedback);
 	}
 	
 	//MÉTODO INSERIR
@@ -177,6 +179,12 @@ public class Entrevistado {
 	 */
 	public static void setCargo(String cargo) {
 		Entrevistado.cargo = cargo;
+	}
+	public static String getFeedback() {
+		return feedback;
+	}
+	public static void setFeedback(String feedback) {
+		Entrevistado.feedback = feedback;
 	}
 	
 	

@@ -434,7 +434,7 @@ public class Entrevista {
 	public Entrevistado visualizarEntrevista(int id) {
 		Connection con = new Conexao().connect();
 		String sql = "SELECT candidato.nome, candidato.SEXO, candidato.IDADE, candidato.ETNIA, candidato.CPF, candidato.EMAIL,"
-				+ " candidato.TELEFONE, candidato.ENDERECO, cargo.NOME, candidato.FOTO  FROM `entrevista` " + 
+				+ " candidato.TELEFONE, candidato.ENDERECO, cargo.NOME, candidato.FOTO, entrevista.FEEDBACK  FROM `entrevista` " + 
 				"INNER JOIN candidato ON candidato.id = ID_CANDIDATO " + 
 				"INNER JOIN cargo ON cargo.id = ID_CARGO " + 
 				"WHERE entrevista.ID = ?";
@@ -445,7 +445,7 @@ public class Entrevista {
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				return new Entrevistado(rs.getString(1), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(3), rs.getString(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(3), rs.getString(10), rs.getString(11));
 			}else {
 				return null;
 			}
