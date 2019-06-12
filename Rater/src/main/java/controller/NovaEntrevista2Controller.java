@@ -61,6 +61,7 @@ public class NovaEntrevista2Controller extends Application{
 	@FXML private Button btnContinuar;
 	@FXML private Button btnCancelar;
 	@FXML private com.jfoenix.controls.JFXSpinner JFXSpinner;
+	@FXML private JFXCheckBox jfxcbxEnviarResult;
 	JFXRadioButton aprovado;
 	JFXRadioButton reprovado;
 	JFXRadioButton espera;
@@ -75,6 +76,7 @@ public class NovaEntrevista2Controller extends Application{
 	static String obs = " ";
 	static int robs = 0;
 	public int gambit = 0; 
+	boolean checked = false;
 	
 	int numCri = 0;
 	

@@ -199,6 +199,9 @@ public class TelaExController extends Application{
 		popup.setResizable(false);
 		//Exibindo a janela
 		popup.show();
+		
+		//txtEmail.setText("raterptcc@gmail.com");
+		//txtSenha.setText("rater123");
 	}
 	
 	public void confirmar() throws IOException {
