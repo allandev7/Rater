@@ -162,7 +162,7 @@ public class NovaEntrevista2Controller extends Application{
 		txtConclusao2.setMinSize(500, 80);
 		
 		//Definindo o prompt text da textarea
-		txtConclusao2.setPromptText("Observações..");
+		txtConclusao2.setPromptText("Digite um feedback que será enviado ao candidato, e a data que a empresa retornará");
 		
 		txtConclusao2.setText(obs);
 		if(obs.equals(" ")) txtConclusao2.clear();
@@ -341,13 +341,13 @@ public class NovaEntrevista2Controller extends Application{
 		
 		if(aprovado.isSelected()) {
 			entrevista.setAprovado(1);
-			conclusaoADD = "Aprovado, ";
+			conclusaoADD = "Aprovado. ";
 		}else if(reprovado.isSelected()) {
 			entrevista.setAprovado(0);
-			conclusaoADD = "Reprovado, ";
+			conclusaoADD = "Reprovado. ";
 		}else if(espera.isSelected()) {
 			entrevista.setAprovado(2);
-			conclusaoADD = "Em espera, ";
+			conclusaoADD = "Em espera. ";
 		}
 		entrevista.setFeedback(txtConclusao2.getText());
 		
@@ -365,14 +365,17 @@ public class NovaEntrevista2Controller extends Application{
 
 		
 		String nomeDoc= Empresa.getId()+candidato.getNome()+candidato.getId()+new Date().getTime()+".pdf";
-		//ESQUELETO PARA QUANDO HOUVER RELATORIO
-		entrevista.setRelatorio(nomeDoc);
-		entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
+		// PARA QUANDO HOUVER RELATORIO
+		if(jfxcbxEnviarResult.isSelected()) {
+			entrevista.setRelatorio(nomeDoc);
+			entrevista.gerarRelatorio(nomeDoc,candidato.getNome(), candidato.getSexo(), candidato.getIdade(), 
 				candidato.getEtnia(), candidato.getCpf(), candidato.getEmail(), candidato.getTelefone(),
 				candidato.getEndereco(), p.getNomeCargo(p.getIdCargoSelecionado()) , criterios, txt, cbx, lbl, 
 				conclusaoADD+txtConclusao2.getText());
-		
 		entrevista.enviarFeedback(candidato.getEmail(), new File("C:\\Rater\\"+entrevista.getRelatorio()));
+		}else {
+			entrevista.enviarFeedbackSemRelatorio(candidato.getEmail(), conclusaoADD, txtConclusao2.getText());
+		}
 		new PopUp().popUpMensagem("Sucesso", "Entrevista armazenada com sucesso, foi enviado o desempenho ao candidato,"
 				+ " e salvo o relatorio em C:/Rater");
 		//Pegando fxml como parametro
