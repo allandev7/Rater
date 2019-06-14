@@ -122,6 +122,7 @@ public class MenuController extends Application{
 			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			imgFotoPerfil.setImage(new Image("imagens/Logo.png"));
 		}
 		 //Pegando fxml como parametro

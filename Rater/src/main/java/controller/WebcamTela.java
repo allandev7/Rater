@@ -32,7 +32,7 @@ public class WebcamTela extends JFrame{
 				dispose();
 			}
 		});
-		setIconImage(new ImageIcon(getClass().getResource("../imagens/icon.png")).getImage());
+		//setIconImage(new ImageIcon(getClass().getResource("../imagens/icon.png")).getImage());
 		camera.setViewSize(new Dimension(320, 240));
 		WebcamPanel painelCamera = new WebcamPanel(camera);
 		//CONFIGURAÇÕES DA TELA

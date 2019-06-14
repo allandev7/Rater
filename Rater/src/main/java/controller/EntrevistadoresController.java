@@ -101,7 +101,7 @@ public class EntrevistadoresController extends Application{
 	    			
 	    			if(En.getIdEntrevistador(i)!= Empresa.getIdEntrevistadorPadrao()) {
 	    				//Verificar se há alguma imagem salva no banco e no azure
-	    				if(nomeImagem.equals("")) {
+	    				if(!nomeImagem.equals("")) {
 	    				        			e.baixarImgsEntrevistadores(nomeImagem);
 	    				        			img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
 	    				        			lbl1.setGraphic(img);
