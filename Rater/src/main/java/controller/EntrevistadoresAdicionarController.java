@@ -216,6 +216,15 @@ public class EntrevistadoresAdicionarController extends Application{
 
 	        @Override
 	        protected void succeeded() {
+	        	//se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
+	    	    new PopUp().popUpMensagem("Entrevistador cadastrado com sucesso", "");
+	    		txtNomeUsuario.clear();
+	    		txtEmail.clear();
+	    		txtNome.clear();
+	    		txtRG.clear();
+	    		txtConfirmarSenha.clear();
+	    		txtSenha.clear();
+	    		imgFoto.setImage(new Image("imagens/placeholderImgView.png"));
 	            JFXSpinner.setVisible(false);
 	            
 	          
@@ -230,11 +239,7 @@ public class EntrevistadoresAdicionarController extends Application{
 	    thread.setDaemon(true);
 	    JFXSpinner.setVisible(true);
 	    thread.start();	
-	  //se os campos foram preenchidos corretamente volta para a tela de entrevistadores 
-	    new PopUp().popUpMensagem("Entrevistador cadastrado com sucesso", "");
-		Parent fxml = FXMLLoader.load(getClass().getResource("/view/Entrevistadores.fxml"));
-		pane.getChildren().removeAll();
-		pane.setCenter(fxml);
+	  
 			}}else {
 				pop.popUpErro("Nome de usuario ja cadastrado.", "Digite algum nome ainda não cadastrado para continuar.");
 			}

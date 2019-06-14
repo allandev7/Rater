@@ -46,9 +46,9 @@ public class Empresa extends Usuarios {
 	private static int id;
 	private static int idEntrevistadorPadrao;
 	private static String imgEntrevistadores;
-	
 	private static int EntrevistasRec;
 	private static int EntrevistasEmEs;
+	private static String fotoEmpresa;
 	
 	public Empresa() {
 		// TODO Auto-generated constructor stub
@@ -85,18 +85,18 @@ public class Empresa extends Usuarios {
 				setEmail(rs.getString("EMAIL"));
 				setNome(rs.getString("NOME"));
 				setSenha(rs.getString("SENHA")); 
-				setFoto(rs.getString("FOTO"));
+				setFotoEmpresa(rs.getString("FOTO"));
 				setCnpj(rs.getString("CNPJ"));
 				
 				if(status == 0) { //verificando email valido
 					valido = 2;
 				}
 				//verificando se existe a imagem
-				File file = new File("C:\\Rater/imagens/"+getFoto());
+				File file = new File("C:\\Rater/imagens/"+getFotoEmpresa());
 				file.delete();
 				if(!file.exists()) {
 					AzureConnection cona = new AzureConnection();
-					cona.down(getFoto());
+					cona.down(getFotoEmpresa());
 				}
 
 			}else {
@@ -864,5 +864,19 @@ public static int getEntrevistasEmEs() {
 
 public static void setEntrevistasEmEs(int entrevistasEmES) {
 	EntrevistasEmEs = entrevistasEmES;
+}
+
+/**
+ * @return the fotoEmpresa
+ */
+public static String getFotoEmpresa() {
+	return fotoEmpresa;
+}
+
+/**
+ * @param fotoEmpresa the fotoEmpresa to set
+ */
+public static void setFotoEmpresa(String fotoEmpresa) {
+	Empresa.fotoEmpresa = fotoEmpresa;
 }
 }

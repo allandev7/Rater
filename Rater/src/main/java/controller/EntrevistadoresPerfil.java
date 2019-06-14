@@ -162,7 +162,7 @@ public class EntrevistadoresPerfil extends Application{
 			imgFoto.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+En.getNomeImagem())));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			imgFoto.setImage(new Image("imagens/Logo.png"));
+			imgFoto.setImage(new Image("imagens/user.png"));
 		}
     }
 	

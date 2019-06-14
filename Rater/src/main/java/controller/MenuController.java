@@ -116,10 +116,9 @@ public class MenuController extends Application{
 	}
 	
 	public void initialize() throws IOException {
-		
 		lblNomeUsuario.setText(Empresa.getNome());
 		try {
-			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
+			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFotoEmpresa())));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

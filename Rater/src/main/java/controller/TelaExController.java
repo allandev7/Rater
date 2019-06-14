@@ -83,8 +83,6 @@ public class TelaExController extends Application{
 	public void initialize() {
 		File file = new File("C:/Rater/imagens");
 		file.mkdirs();
-		txtEmail.setText("raterptcc@gmail.com");
-		txtSenha.setText("rater123");
 	}
 
 	// Event Listener on Button.onMouseClicked
