@@ -54,7 +54,7 @@ public class PerfilEntrevistadorController extends Application{
 	
 	/*Variáveis para pegar informações do entrevistador do banco de dados*/
 	private String NomeUsuario = Entrevistador.getNomeUsuario();
-	private String Nome = Entrevistador.getNome();
+	private String Nome = Entrevistador.getNomeEntrevistador();
 	private String Email = Entrevistador.getEmail();
 	private String RG = Entrevistador.getRgEntrevistador();
 	

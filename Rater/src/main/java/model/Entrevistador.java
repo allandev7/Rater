@@ -29,7 +29,9 @@ public class Entrevistador extends Usuarios{
 	@Override
 	public int login(String emailTxt, String senhaTxt) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM entrevistador WHERE NOMEDEUSUARIO = ? AND SENHA = md5(?)";
+		String sql = "SELECT entrevistador.*, empresa.NOME AS NOMEEMPRESA FROM entrevistador " + 
+				"INNER JOIN empresa ON entrevistador.ID_EMPRESA = empresa.ID " + 
+				"WHERE NOMEDEUSUARIO = ? AND entrevistador.SENHA = md5(?)";
 		int valido = 0;
 		Connection con = new Conexao().connect();
 		try{
@@ -45,25 +47,27 @@ public class Entrevistador extends Usuarios{
 			if(rs.next()) {
 				setEmail(rs.getString("EMAIL"));
 				setSenha(rs.getString("SENHA")); 
-				setNome(rs.getString("NOME"));
+				setNomeEntrevistador(rs.getString("NOME"));
 				setFoto(rs.getString("FOTO"));
 				setRgEntrevistador(rs.getString("RG"));
 				e.setIdEntrevistadorPadrao(rs.getInt("ID"));
 				e.setId(rs.getInt("ID_EMPRESA"));
 				setAdmissoes(rs.getInt("ADMISSOES"));
+				setNome(rs.getString("NOMEEMPRESA"));
 				setEntrevistasRealizadas(rs.getInt("ENTREVISTAS_REALIZADAS"));
 				setNomeUsuario(rs.getString("NOMEDEUSUARIO"));
 
 				valido = 1;
 				
 				//verificando se existe a imagem
-				File file = new File("C:\\Rater/imagens/"+getFoto());
-				if(!file.exists()) {
-					// se nao existe, baixar
-					AzureConnection cona = new AzureConnection();
-					cona.down(getFoto());
+				if(!getFoto().equals("")) {
+					File file = new File("C:\\Rater/imagens/"+getFoto());
+					if(!file.exists()) {
+						// se nao existe, baixar
+						AzureConnection cona = new AzureConnection();
+						cona.down(getFoto());
+					}
 				}
-				
 			}
 			
 			

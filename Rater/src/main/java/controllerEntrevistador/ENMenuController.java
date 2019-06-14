@@ -22,6 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Empresa;
+import model.Entrevistador;
 import view.PopUp;
 import javafx.scene.Node;
 
@@ -99,7 +100,7 @@ public class ENMenuController extends Application{
 	}
 	
 	public void initialize() throws IOException {
-		lblNomeUsuario.setText(Empresa.getNome());
+		lblNomeUsuario.setText(Entrevistador.getNomeEntrevistador());
 		try {
 			imgFotoPerfil.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ Empresa.getFoto())));
 		} catch (FileNotFoundException e) {

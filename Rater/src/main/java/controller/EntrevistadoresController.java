@@ -99,17 +99,18 @@ public class EntrevistadoresController extends Application{
 	    			img.setFitWidth(80);
 	    			img.setFitHeight(80);
 	    			
-	    			//Verificar se há alguma imagem salva no banco e no azure
-	    			if(!nomeImagem.equals("null")) {
-	    				        		e.baixarImgsEntrevistadores(nomeImagem);
-	    				        		img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
-	    				        		lbl1.setGraphic(img);
-	    			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
-	    			}else {
-	    					img.setImage(new Image(("imagens/user.png")));
-	    					lbl1.setGraphic(img);
+	    			if(En.getIdEntrevistador(i)!= Empresa.getIdEntrevistadorPadrao()) {
+	    				//Verificar se há alguma imagem salva no banco e no azure
+	    				if(nomeImagem.equals("")) {
+	    				        			e.baixarImgsEntrevistadores(nomeImagem);
+	    				        			img.setImage(new Image(new FileInputStream("C:\\Rater/imagens/"+ nomeImagem)));
+	    				        			lbl1.setGraphic(img);
+	    				        			//se nao ouver nenhuma imagem cadastrada usar uma imagem de usuario	
+	    				}else {
+	    						img.setImage(new Image(("imagens/user.png")));
+	    						lbl1.setGraphic(img);
+	    				}
 	    			}
-	    			
 	    			//Adicionando a Label lbl1 na JFXListView
 	    			jfxlvListView.getItems().add(lbl1);
 	    		}

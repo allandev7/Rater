@@ -183,7 +183,7 @@ public class EntrevistadoresAdicionarController extends Application{
 		String senha = txtSenha.getText();
 		String senhaConfirmar = txtConfirmarSenha.getText();
 		String Rg = txtRG.getText();
-		String fotoVazia = "null";	
+			
 		if(e.verificarNomeUsuario(nomeUsuario) == 1) {
 			//verifica se há algum campo obrigatorio em branco	
 			if(nome.equals("") || senha.equals("")|| senhaConfirmar.equals("")|| nomeUsuario.equals("") || senha.length()> 8 || !senhaConfirmar.equals(senha)) {
@@ -198,7 +198,7 @@ public class EntrevistadoresAdicionarController extends Application{
 		
 				//se todos os campos obrigatorios foram preenchidos e se o usuario nao inseriu imagem do entrevistador cadastra p entrevistador sem foto
 				if(getNomeFotoCripto() == null) {
-					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, fotoVazia, getCaminho());
+					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, "", getCaminho());
 				}else {
 					//cadastra entrevistador com imagem
 					e.cadastrarEntrevistador(nome, nomeUsuario, email, senha, Rg, getNomeFotoCripto(), getCaminho());
