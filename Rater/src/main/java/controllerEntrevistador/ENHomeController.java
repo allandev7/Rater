@@ -64,9 +64,9 @@ public class ENHomeController {
 		
 		//list.add(new PieChart.Data(p.carregarCargos().get(i)+ ": "+ e.carregarNumEntrevistaCargo().get(i) , e.carregarNumEntrevistaCargo().get(i)));
 		
-		pieChartData.add(new PieChart.Data("Contratados", EN.carregarEntrevistaAce()));
-		pieChartData.add(new PieChart.Data("Recusados", EN.carregarEntrevistaRec()));
-		pieChartData.add(new PieChart.Data("Em espera", EN.carregarEntrevistaEsp()));
+		pieChartData.add(new PieChart.Data("Contratados: "+ EN.carregarEntrevistaAce(), EN.carregarEntrevistaAce()));
+		pieChartData.add(new PieChart.Data("Recusados: "+EN.carregarEntrevistaRec(), EN.carregarEntrevistaRec()));
+		pieChartData.add(new PieChart.Data("Em espera: "+EN.carregarEntrevistaEsp(), EN.carregarEntrevistaEsp()));
 
 		
 		pieChartRight.setData(list);

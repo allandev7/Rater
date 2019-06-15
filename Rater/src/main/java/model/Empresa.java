@@ -376,7 +376,7 @@ public class Empresa extends Usuarios {
 			//definindo parametros da query
 			pstmt.setString(7, FotoCripto);
 			//upload da foto no azure
-			if(!FotoCripto.equals("null")) {
+			if(!FotoCripto.equals("")) {
 				AzureConnection cona = new AzureConnection();
 				
 				MessageDigest m = null;
