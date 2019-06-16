@@ -213,6 +213,8 @@ public class TelaExController extends Application{
 		 String id = empresa.criptografarId(empresa.pegarIdEmpresa(email));
 		if (!txtEmailEmpresa.getText().equals("") && !id.equals("0")) {
 			empresa.enviarEmailConfirmacao(email, id);
+			txtEmailEmpresa.setText("");
+			txtEmailEmpresa.setPromptText("Verifique a caixa de entrada :D");
 			//Pegando a janela onde está o btnCancelar
 			Stage stage = (Stage) btnCancelar.getScene().getWindow();
 			//Pegando o fxml como parâmetro 
